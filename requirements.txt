@@ -2,3 +2,7 @@ pandas>=2.0.0
 openpyxl>=3.1.0
 python-dotenv>=1.0.0
 pytrends>=4.9.2
+requests>=2.32.0
+beautifulsoup4>=4.12.3
+# valfritt men snabbare/robustare HTML-parser:
+lxml>=5.2.0
