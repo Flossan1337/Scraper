@@ -1,15 +1,12 @@
 name: Scrape
 
 on:
-  workflow_dispatch: {}
-  push:
-    branches: [ main, master ]
-    paths:
-      - 'scripts/**'
-      - 'requirements.txt'
-      - '.github/workflows/scrape.yml'
+  workflow_dispatch: {}          # Manuell "Run workflow"-knapp
   schedule:
-    - cron: '15 6 * * *'  # dagligen 06:15 UTC
+    - cron: '15 6 * * *'         # Dagligen 06:15 UTC (ta bort om du inte vill ha schema)
+
+permissions:
+  contents: write                # krävs för git push med GITHUB_TOKEN
 
 jobs:
   run-scripts:
@@ -17,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0         # underlättar rebase innan push
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -38,10 +37,37 @@ jobs:
       - name: Run scripts
         run: |
           python ./scripts/fetch_kpi.py
+          # lägg fler scripts här vid behov
+          # python ./scripts/fetch_fractal_trends.py
+          # python ./scripts/fetch_nelly_trends_v3.py
+          # python ./scripts/fetch_rugvista_trends_v2.py
+
+      - name: Commit & push generated data (if any)
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="${{ github.ref_name }}"
+
+          # Lägg till båda tänkbara datamapparna (beroende på hur dina scripts sparar)
+          git add -A data Scripts/data || true
+
+          # Commit bara om något faktiskt ändrats
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore(data): update scraped XLSX files [skip ci]"
+          # Rebase ifall nya commits landat på remote under körningen
+          git pull --rebase origin "$BRANCH" || true
+          git push origin "$BRANCH"
 
       - name: Upload data artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: data-outputs
-          path: data/**
+          path: |
+            data/**
+            Scripts/data/**
