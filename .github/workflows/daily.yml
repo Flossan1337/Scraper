@@ -49,19 +49,18 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           BRANCH="${{ github.ref_name }}"
 
-          # Lägg till båda tänkbara datamapparna (beroende på hur dina scripts sparar)
-          git add -A data Scraper/data || true
+          # Lägg bara till data-katalogen i repo-roten
+          git add -A data || true
 
-          # Commit bara om något faktiskt ändrats
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
 
-          git commit -m "chore(data): update scraped XLSX files [skip ci]"
-          # Rebase ifall nya commits landat på remote under körningen
+          git commit -m "chore(data): update scraped XLSX [skip ci]"
           git pull --rebase origin "$BRANCH" || true
           git push origin "$BRANCH"
+
 
       - name: Upload data artifacts
         if: always()
