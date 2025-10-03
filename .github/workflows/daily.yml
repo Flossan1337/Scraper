@@ -50,7 +50,7 @@ jobs:
           BRANCH="${{ github.ref_name }}"
 
           # Lägg till båda tänkbara datamapparna (beroende på hur dina scripts sparar)
-          git add -A data Scripts/data || true
+          git add -A data Scraper/data || true
 
           # Commit bara om något faktiskt ändrats
           if git diff --cached --quiet; then
