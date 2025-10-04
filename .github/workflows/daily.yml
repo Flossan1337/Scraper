@@ -3,7 +3,7 @@ name: Scrape
 on:
   workflow_dispatch: {}          # Manuell "Run workflow"-knapp
   schedule:
-    - cron: '15 6 * * *'         # Dagligen 06:15 UTC (ta bort om du inte vill ha schema)
+    - cron: '0 3 * * *'         # Dagligen 05:00 CEST (03:00 UTC)
 
 permissions:
   contents: write                # krävs för git push med GITHUB_TOKEN
