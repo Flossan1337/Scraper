@@ -90,7 +90,6 @@ jobs:
           git pull --rebase origin "$BRANCH" || true
           git push origin "$BRANCH"
 
-
       - name: Upload data artifacts
         if: always()
         uses: actions/upload-artifact@v4
