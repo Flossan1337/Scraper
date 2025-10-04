@@ -6,3 +6,8 @@ requests>=2.32.0
 beautifulsoup4>=4.12.3
 # valfritt men snabbare/robustare HTML-parser:
 lxml>=5.2.0
+
+# Krävs för Playwright- och Selenium-scripts
+playwright>=1.44.0
+selenium>=4.12.0
+webdriver-manager>=4.0.0
