@@ -83,6 +83,7 @@ jobs:
 
           # Lägg bara till data-katalogen i repo-roten
           git add -A data || true
+          git add -A scripts/html_dumps || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
