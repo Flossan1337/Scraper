@@ -9,11 +9,11 @@ from excel_utils import append_row  # <-- skriver till Excel
 SCRIPT_DIR = Path(__file__).resolve().parent
 DATA_DIR = (SCRIPT_DIR / ".." / "data").resolve()
 DATA_DIR.mkdir(parents=True, exist_ok=True)
+HTML_DUMPS_DIR = (SCRIPT_DIR / "html_dumps").resolve()
+HTML_DUMPS_DIR.mkdir(parents=True, exist_ok=True)
 XLSX_PATH = str((DATA_DIR / "scape_bought_by_country.xlsx").resolve())  # <-- rätt data-mapp
 SHEET_NAME = "scape_bought_by_country"
 # ───────────────────────────────────────────────────────────────────────────
-
-DUMP_DIR = Path("html_dumps"); DUMP_DIR.mkdir(exist_ok=True)
 
 # Products (ASINs)
 PRODUCTS = [
@@ -65,6 +65,8 @@ async def get_bought_count(context, domain: str, gl: str, asin: str, code: str) 
                 continue
 
         value = parse_number(found_text) if found_text else 0
+
+        print(f"Value: {value}")
 
         if value == 0:
             dump = DUMP_DIR / f"{code}_{asin}.html"
