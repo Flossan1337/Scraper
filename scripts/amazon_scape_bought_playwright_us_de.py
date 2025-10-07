@@ -69,7 +69,7 @@ async def get_bought_count(context, domain: str, gl: str, asin: str, code: str) 
         print(f"Value: {value}")
 
         if value == 0:
-            dump = DUMP_DIR / f"{code}_{asin}.html"
+            dump = HTML_DUMPS_DIR / f"{code}_{asin}.html"
             dump.write_text(await page.content(), encoding="utf-8", errors="ignore")
 
         return value
