@@ -90,7 +90,11 @@ jobs:
           fi
 
           git commit -m "chore(data): update scraped XLSX [skip ci]"
+
+          git stash --include-untracked --keep-index
           git pull --rebase origin "$BRANCH" || true
+          git stash pop || true
+
           git push origin "$BRANCH"
 
       - name: Upload data artifacts
