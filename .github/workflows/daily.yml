@@ -3,8 +3,7 @@ name: Scrape
 on:
   workflow_dispatch: {} # Manuell "Run workflow"-knapp
   schedule:
-    - cron: '0 3 * * *'         # Dagligen 05:00 CEST (03:00 UTC)
-    - cron: "15 5 * * *" # Dagligen 06:15 UTC (ta bort om du inte vill ha schema)
+    - cron: '0 3 * * *' # Dagligen 03:00 CEST (03:00 UTC)
 
 permissions:
   contents: write # krävs för git push med GITHUB_TOKEN
@@ -21,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Cache pip
         uses: actions/cache@v4
