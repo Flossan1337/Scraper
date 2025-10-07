@@ -1,12 +1,13 @@
 name: Scrape
 
 on:
-  workflow_dispatch: {}          # Manuell "Run workflow"-knapp
+  workflow_dispatch: {} # Manuell "Run workflow"-knapp
   schedule:
     - cron: '0 3 * * *'         # Dagligen 05:00 CEST (03:00 UTC)
+    - cron: "15 5 * * *" # Dagligen 06:15 UTC (ta bort om du inte vill ha schema)
 
 permissions:
-  contents: write                # krävs för git push med GITHUB_TOKEN
+  contents: write # krävs för git push med GITHUB_TOKEN
 
 jobs:
   run-scripts:
@@ -15,12 +16,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0         # underlättar rebase innan push
+          fetch-depth: 0 # underlättar rebase innan push
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Cache pip
         uses: actions/cache@v4
@@ -81,8 +82,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           BRANCH="${{ github.ref_name }}"
 
-          # Lägg bara till data-katalogen i repo-roten
-          git add -A data || true
+          # Lägg bara till data-katalogen och scripts/html_dumps i repo-roten
+          git add -A data scripts/html_dumps || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
@@ -92,7 +93,6 @@ jobs:
           git commit -m "chore(data): update scraped XLSX [skip ci]"
           git pull --rebase origin "$BRANCH" || true
           git push origin "$BRANCH"
-
 
       - name: Upload data artifacts
         if: always()
