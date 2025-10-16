@@ -68,21 +68,6 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
 
-      - name: Run fetch_fractal_trends.py
-        run: python ./scripts/fetch_fractal_trends.py
-        timeout-minutes: 10
-        continue-on-error: true
-
-      - name: Run fetch_nelly_trends_v3.py
-        run: python ./scripts/fetch_nelly_trends_v3.py
-        timeout-minutes: 10
-        continue-on-error: true
-
-      - name: Run fetch_rugvista_trends_v2.py
-        run: python ./scripts/fetch_rugvista_trends_v2.py
-        timeout-minutes: 10
-        continue-on-error: true
-
       - name: Commit & push generated data (if any)
         shell: bash
         run: |
