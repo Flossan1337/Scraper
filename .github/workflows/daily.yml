@@ -86,6 +86,7 @@ jobs:
           git commit -m "chore(data): update scraped XLSX [skip ci]"
 
           git pull --rebase origin "$BRANCH" || true
+          
 
           git push origin "$BRANCH"
 
