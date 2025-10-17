@@ -102,3 +102,21 @@ jobs:
           path: |
             data/**
             Scripts/data/**
+
+      - name: Generate job summary table
+        if: always()
+        run: |
+          echo "## 📊 Daily Scraper Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Script | Description | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|:--|:--|:--|" >> $GITHUB_STEP_SUMMARY
+          echo "| 🧮 fetch_kpi.py | Fetches Adtraction EPC and KPI data | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🛒 amazon_scape_bought_playwright_us_de.py | Tracks Amazon 'bought together' for Scape | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
+          echo "| 💰 track_combined_prices.py | Combines Inet & Amazon price data | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🖥️ track_fractal_rankings_playwright.py | Fetches Fractal product rankings | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
+          echo "| 👗 track_nelly_aov.py | Fetches Nelly AOV & top list data | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🏆 track_rugvista_bestsellers.py | Fetches Rugvista top list rankings | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🏠 track_rugvista_daily_sales.py | Tracks Rugvista daily sales delta | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🕒 Run finished at $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+
