@@ -103,20 +103,53 @@ jobs:
             data/**
             Scripts/data/**
 
+      - name: Install jq
+        if: always()
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Generate job summary table
         if: always()
         run: |
-          echo "## 📊 Daily Scraper Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Script | Description | Status |" >> $GITHUB_STEP_SUMMARY
-          echo "|:--|:--|:--|" >> $GITHUB_STEP_SUMMARY
-          echo "| 🧮 fetch_kpi.py | Fetches Adtraction EPC and KPI data | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🛒 amazon_scape_bought_playwright_us_de.py | Tracks Amazon 'bought together' for Scape | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
-          echo "| 💰 track_combined_prices.py | Combines Inet & Amazon price data | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🖥️ track_fractal_rankings_playwright.py | Fetches Fractal product rankings | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
-          echo "| 👗 track_nelly_aov.py | Fetches Nelly AOV & top list data | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🏆 track_rugvista_bestsellers.py | Fetches Rugvista top list rankings | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🏠 track_rugvista_daily_sales.py | Tracks Rugvista daily sales delta | ✅ Completed |" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "🕒 Run finished at $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          set -euo pipefail
+          SUMMARY="$GITHUB_STEP_SUMMARY"
+          echo "## 📊 Daily Scraper Summary" >> "$SUMMARY"
+          echo "" >> "$SUMMARY"
+          echo "| Script | Description | Status | Metrics |" >> "$SUMMARY"
+          echo "|:--|:--|:--|:--|" >> "$SUMMARY"
+
+          # List of scripts and descriptions (update if you add/remove scripts)
+          declare -A DESCR
+          DESCR[fetch_kpi.py]="Fetches Adtraction EPC and KPI data"
+          DESCR[amazon_scape_bought_playwright_us_de.py]="Tracks Amazon 'bought together' for Scape"
+          DESCR[track_combined_prices.py]="Combines Inet & Amazon price data"
+          DESCR[track_fractal_rankings_playwright.py]="Fetches Fractal product rankings"
+          DESCR[track_nelly_aov.py]="Fetches Nelly AOV & top list data"
+          DESCR[track_rugvista_bestsellers.py]="Fetches Rugvista top list rankings"
+          DESCR[track_rugvista_daily_sales.py]="Tracks Rugvista daily sales delta"
+
+          METRICS_DIR="scripts/metrics"
+          mkdir -p "$METRICS_DIR"
+
+          for script in "fetch_kpi.py" "amazon_scape_bought_playwright_us_de.py" "track_combined_prices.py" \
+                        "track_fractal_rankings_playwright.py" "track_nelly_aov.py" "track_rugvista_bestsellers.py" "track_rugvista_daily_sales.py"; do
+            desc="${DESCR[$script]:-}" || true
+            base=$(basename "$script")
+            jsonfile="$METRICS_DIR/${base}.json"
+
+            status="✅ Completed"
+            metrics_str="-"
+
+            if [ -f "$jsonfile" ]; then
+              # Read JSON and convert to key=value pairs for display
+              # Expecting simple flat JSON like {"rows": 123, "median": 456.7}
+              metrics_str=$(jq -r 'to_entries | map("\(.key)=\(.value)") | join(", ")' "$jsonfile" 2>/dev/null || echo "invalid json")
+            else
+              metrics_str="No metrics"
+            fi
+
+            printf "| %s | %s | %s | %s |\n" "$base" "$desc" "$status" "$metrics_str" >> "$SUMMARY"
+          done
+
+          echo "" >> "$SUMMARY"
+          echo "🕒 Run finished at $(date -u '+%Y-%m-%d %H:%M UTC')" >> "$SUMMARY"
 
