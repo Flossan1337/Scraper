@@ -170,8 +170,99 @@ def discover_pagination_urls(page, cid: str):
         return int(m.group(1)) if m else 1
     return sorted(urls, key=page_key)
 
+# ---------- Login helpers (NEW) ----------
+def looks_like_login(page):
+    url = page.url.lower()
+    if "login" in url or "signin" in url: return True
+    if page.locator('input[type="password"]').count() > 0: return True
+    if page.locator('text=/logga in|sign in|log in/i').count() > 0: return True
+    return False
+
+def auto_login_and_save_state(p, email: str, password: str, headless: bool = True):
+    """Attempt email+password login; save storage state to STATE_PATH."""
+    browser = p.chromium.launch(headless=headless)
+    context = browser.new_context(
+        user_agent=("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+    )
+    page = context.new_page()
+    page.goto(f"{BASE}/programs.htm?asonly=false", wait_until="domcontentloaded")
+
+    if not looks_like_login(page):
+        context.storage_state(path=STATE_PATH)
+        context.close(); browser.close()
+        return True
+
+    def fill_if_exists(selector, value):
+        loc = page.locator(selector)
+        if loc.count():
+            loc.first.fill(value)
+            return True
+        return False
+
+    # Try obvious login route
+    try:
+        page.locator('a:has-text("Partner")').first.click(timeout=2000)
+    except Exception:
+        pass
+
+    email_filled = (
+        fill_if_exists('input[type="email"]', email) or
+        fill_if_exists('input[name="email"]', email) or
+        fill_if_exists('input#email', email) or
+        fill_if_exists('input[id*="email" i]', email) or
+        fill_if_exists('input[name*="user" i]', email)
+    )
+    pwd_filled = (
+        fill_if_exists('input[type="password"]', password) or
+        fill_if_exists('input[name="password"]', password) or
+        fill_if_exists('input#password', password) or
+        fill_if_exists('input[id*="pass" i]', password)
+    )
+    if not (email_filled and pwd_filled):
+        page.goto(f"{BASE}/login.htm", wait_until="domcontentloaded")
+        email_filled = (
+            fill_if_exists('input[type="email"]', email) or
+            fill_if_exists('input[name="email"]', email) or
+            fill_if_exists('input#email', email) or
+            fill_if_exists('input[id*="email" i]', email) or
+            fill_if_exists('input[name*="user" i]', email)
+        )
+        pwd_filled = (
+            fill_if_exists('input[type="password"]', password) or
+            fill_if_exists('input[name="password"]', password) or
+            fill_if_exists('input#password', password) or
+            fill_if_exists('input[id*="pass" i]', password)
+        )
+
+    submitted = False
+    for sel in ['button[type="submit"]','input[type="submit"]',
+                'button:has-text("Logga in")','button:has-text("Sign in")',
+                'text=Logga in','text=Sign in']:
+        try:
+            page.locator(sel).first.click(timeout=1500)
+            submitted = True
+            break
+        except Exception:
+            continue
+    if not submitted:
+        try: page.keyboard.press("Enter")
+        except Exception: pass
+
+    try:
+        page.wait_for_load_state("networkidle", timeout=10000)
+    except PWTimeout:
+        pass
+
+    page.goto(f"{BASE}/programs.htm?asonly=false", wait_until="domcontentloaded")
+    ok = not looks_like_login(page)
+    if ok:
+        context.storage_state(path=STATE_PATH)
+    context.close(); browser.close()
+    return ok
+
 def interactive_login_and_save_state(p):
-    print("\nNo saved login. Opening a visible browser for one-time login…")
+    print("\nOpening a visible browser for one-time login…")
     browser = p.chromium.launch(headless=False, slow_mo=250)
     context = browser.new_context()
     page = context.new_page()
@@ -179,6 +270,7 @@ def interactive_login_and_save_state(p):
     input("Log in in the browser, then press ENTER here… ")
     context.storage_state(path=STATE_PATH)
     context.close(); browser.close()
+# ----------------------------------------
 
 def fetch_fx_local_to_sek(currencies):
     need = sorted({c for c in currencies if c and c != "SEK"})
@@ -248,7 +340,29 @@ def main():
     cache = load_cache()
 
     with sync_playwright() as p:
-        if not os.path.exists(STATE_PATH): interactive_login_and_save_state(p)
+        # ---- NEW: try existing state; else auto-login via env; else interactive once ----
+        need_login = not os.path.exists(STATE_PATH)
+        if not need_login:
+            tmp_b = p.chromium.launch(headless=True)
+            tmp_ctx = tmp_b.new_context(storage_state=STATE_PATH)
+            tmp_page = tmp_ctx.new_page()
+            tmp_page.goto(f"{BASE}/programs.htm?asonly=false", wait_until="domcontentloaded")
+            need_login = looks_like_login(tmp_page)
+            tmp_ctx.close(); tmp_b.close()
+
+        if need_login:
+            email = os.environ.get("ADTRACTION_EMAIL", "")
+            password = os.environ.get("ADTRACTION_PASSWORD", "")
+            if email and password:
+                ok = auto_login_and_save_state(p, email, password, headless=True)
+                if not ok:
+                    print("Auto-login misslyckades – faller tillbaka till manuell inloggning.")
+                    interactive_login_and_save_state(p)
+            else:
+                print("ADTRACTION_EMAIL/ADTRACTION_PASSWORD saknas – använder manuell engångsinloggning.")
+                interactive_login_and_save_state(p)
+        # -------------------------------------------------------------------------------
+
         browser = p.chromium.launch(headless=not args.headful, slow_mo=150 if args.headful else 0)
         context = browser.new_context(storage_state=STATE_PATH, viewport={"width":1440,"height":900} if args.headful else None)
         page = context.new_page()

@@ -1,16 +1,18 @@
+# scripts/adtraction_epc_by_country_sek.py
+
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
 from statistics import median
 from datetime import date
 import os, re, sys, requests, json, time, argparse
 
-from excel_utils import append_row  # <-- NYTT: skriv till Excel
+from excel_utils import append_row  # <-- skriver till Excel (oförändrat)
 
 # ------------ Config ------------
 BASE_ROOT = "https://secure.adtraction.com"
 BASE = f"{BASE_ROOT}/partner"
 STATE_PATH = "adtraction_state.json"
 
-# --- NYTT: skriv till xlsx i ./data ---
+# --- XLSX i ./data (oförändrat) ---
 XLSX_PATH = "data/finance_median_epc_SEK_wide_v3.xlsx"
 SHEET_NAME = "finance_median_epc_SEK_wide_v3"
 
@@ -132,6 +134,112 @@ def looks_like_login(page):
     if page.locator('text=/logga in|sign in|log in/i').count() > 0: return True
     return False
 
+# --------- NYTT: Automatisk login med e-post/lösen ---------
+def auto_login_and_save_state(p, email: str, password: str, headless: bool = True):
+    """Försök logga in mot Adtraction och spara STATE_PATH."""
+    browser = p.chromium.launch(headless=headless)
+    context = browser.new_context(
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                   "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    )
+    page = context.new_page()
+
+    # Gå till en sida som normalt kräver inlogg
+    page.goto(f"{BASE}/programs.htm?asonly=false", wait_until="domcontentloaded")
+
+    # Om vi redan är inne – spara state direkt
+    if not looks_like_login(page):
+        context.storage_state(path=STATE_PATH)
+        context.close(); browser.close()
+        return True
+
+    # Leta upp email + password-fält robust
+    def fill_if_exists(selector, value):
+        loc = page.locator(selector)
+        if loc.count():
+            loc.first.fill(value)
+            return True
+        return False
+
+    # Nån login-sida har ibland länk till "Partner" – testa att klicka om finns
+    try:
+        page.locator('a:has-text("Partner")').first.click(timeout=2000)
+    except Exception:
+        pass
+
+    # Försök hitta emailfält
+    email_filled = (
+        fill_if_exists('input[type="email"]', email) or
+        fill_if_exists('input[name="email"]', email) or
+        fill_if_exists('input#email', email) or
+        fill_if_exists('input[id*="email" i]', email) or
+        fill_if_exists('input[name*="user" i]', email)
+    )
+
+    # Försök hitta lösenfält
+    pwd_filled = (
+        fill_if_exists('input[type="password"]', password) or
+        fill_if_exists('input[name="password"]', password) or
+        fill_if_exists('input#password', password) or
+        fill_if_exists('input[id*="pass" i]', password)
+    )
+
+    # Om fälten inte fanns direkt, prova navigera till en trolig login-URL
+    if not (email_filled and pwd_filled):
+        page.goto(f"{BASE}/login.htm", wait_until="domcontentloaded")
+        email_filled = (
+            fill_if_exists('input[type="email"]', email) or
+            fill_if_exists('input[name="email"]', email) or
+            fill_if_exists('input#email', email) or
+            fill_if_exists('input[id*="email" i]', email) or
+            fill_if_exists('input[name*="user" i]', email)
+        )
+        pwd_filled = (
+            fill_if_exists('input[type="password"]', password) or
+            fill_if_exists('input[name="password"]', password) or
+            fill_if_exists('input#password', password) or
+            fill_if_exists('input[id*="pass" i]', password)
+        )
+
+    # Klicka på submit
+    submitted = False
+    for sel in ['button[type="submit"]',
+                'input[type="submit"]',
+                'button:has-text("Logga in")',
+                'button:has-text("Sign in")',
+                'text=Logga in',
+                'text=Sign in']:
+        try:
+            page.locator(sel).first.click(timeout=1500)
+            submitted = True
+            break
+        except Exception:
+            continue
+
+    if not submitted:
+        # Sista utväg: ENTER i lösenfältet
+        try:
+            page.keyboard.press("Enter")
+        except Exception:
+            pass
+
+    # Vänta på att vi lämnar loginvyn / laddar partner-sidan
+    try:
+        page.wait_for_load_state("networkidle", timeout=10000)
+    except PWTimeout:
+        pass
+
+    # Navigera till en autentiserad sida för att verifiera
+    page.goto(f"{BASE}/programs.htm?asonly=false", wait_until="domcontentloaded")
+    ok = not looks_like_login(page)
+
+    if ok:
+        context.storage_state(path=STATE_PATH)
+
+    context.close(); browser.close()
+    return ok
+# -----------------------------------------------------------
+
 def interactive_login_and_save_state(p):
     print("\nOpening a visible browser for one-time login…")
     browser = p.chromium.launch(headless=False, slow_mo=250)
@@ -237,7 +345,7 @@ def fetch_fx_local_to_sek(currencies):
     print("\nFX (exchangerate.host):"); [print(f"  {c} → SEK = {out[c]:.4f}") for c in need]
     return out
 
-# --- ÄNDRAT: Excel-append istället för CSV ---
+# --- Excel-append (oförändrat) ---
 def append_wide_row(xlsx_path, sheet_name, dt, all_median_sek, per_country_values):
     header = ["date", "All (SEK)"] + [f"{c} (SEK)" for c in COUNTRY_ORDER]
     row = [dt, (f"{all_median_sek:.2f}" if all_median_sek is not None else "")]
@@ -245,7 +353,6 @@ def append_wide_row(xlsx_path, sheet_name, dt, all_median_sek, per_country_value
         (f"{per_country_values.get(c):.2f}" if per_country_values.get(c) is not None else "")
         for c in COUNTRY_ORDER
     ]
-    # Mappa till dict enligt header → excel_utils skapar fil/flik/append enligt behov
     append_row(xlsx_path, sheet_name, dict(zip(header, row)))
 
 def main():
@@ -268,6 +375,7 @@ def main():
     fx = fetch_fx_local_to_sek({COUNTRY_CCY[c] for c in countries})
 
     with sync_playwright() as p:
+        # 1) Testa befintligt state
         need_login = not os.path.exists(STATE_PATH)
         if not need_login:
             tmp_b = p.chromium.launch(headless=True)
@@ -276,8 +384,19 @@ def main():
             tmp_page.goto(f"{BASE}/programs.htm?asonly=false", wait_until="domcontentloaded")
             need_login = looks_like_login(tmp_page)
             tmp_ctx.close(); tmp_b.close()
+
+        # 2) Om state saknas/ogiltigt -> försök autologin
         if need_login:
-            interactive_login_and_save_state(p)
+            email = os.environ.get("ADTRACTION_EMAIL", "")
+            password = os.environ.get("ADTRACTION_PASSWORD", "")
+            if email and password:
+                ok = auto_login_and_save_state(p, email, password, headless=True)
+                if not ok:
+                    print("Auto-login misslyckades – faller tillbaka till manuell inloggning.")
+                    interactive_login_and_save_state(p)
+            else:
+                print("ADTRACTION_EMAIL/ADTRACTION_PASSWORD saknas – använder manuell engångsinloggning.")
+                interactive_login_and_save_state(p)
 
         browser = p.chromium.launch(headless=not args.headful, slow_mo=150 if args.headful else 0)
         context = browser.new_context(storage_state=STATE_PATH, viewport={"width":1440,"height":900} if args.headful else None)
@@ -295,16 +414,12 @@ def main():
                 except PWTimeout: pass
                 print(f"[{country}] Country context set.")
 
-                finance_cid = FINANCE_FALLBACK_CID
-                if args.refresh_cache:
+                cache = load_cache()
+                entry = cache.get(country)
+                if args.refresh_cache or not (entry and is_entry_fresh(entry) and entry.get("finance_id")):
                     finance_cid = get_finance_cid_for_country(page, country)
                 else:
-                    cache = load_cache()
-                    entry = cache.get(country)
-                    if entry and is_entry_fresh(entry) and entry.get("finance_id"):
-                        finance_cid = str(entry["finance_id"])
-                    else:
-                        finance_cid = get_finance_cid_for_country(page, country)
+                    finance_cid = str(entry["finance_id"])
 
                 list_url = f"{BASE}/listadvertprograms.htm?cId={finance_cid}&asonly=false"
                 page.goto(list_url, wait_until="domcontentloaded")
@@ -347,7 +462,6 @@ def main():
         else:
             print("\n[ALL COUNTRIES] No values.")
 
-        # --- NYTT: skriv en rad till Excel i ./data ---
         append_wide_row(XLSX_PATH, SHEET_NAME, today, all_median_sek, results_country_sek)
         print(f"\nAppended row for {today} to {XLSX_PATH} [{SHEET_NAME}]")
 

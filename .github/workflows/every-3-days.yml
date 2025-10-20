@@ -1,0 +1,128 @@
+name: Scrape every 3 days
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 2 */3 * *'   # var tredje dag kl 02:00 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies (pip + Playwright)
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install chromium
+          python -m playwright install-deps
+
+      # ---------------- Köra skripten + logga output ----------------
+      - name: Run Adtraction EPC (finance)
+        env:
+          ADTRACTION_EMAIL: ${{ secrets.ADTRACTION_EMAIL }}
+          ADTRACTION_PASSWORD: ${{ secrets.ADTRACTION_PASSWORD }}
+        run: |
+          set -o pipefail
+          python scripts/adtraction_epc_by_country_sek.py | tee finance.log
+
+      - name: Run Adtraction EPC (non-finance)
+        env:
+          ADTRACTION_EMAIL: ${{ secrets.ADTRACTION_EMAIL }}
+          ADTRACTION_PASSWORD: ${{ secrets.ADTRACTION_PASSWORD }}
+        run: |
+          set -o pipefail
+          python scripts/adtraction_epc_nonfinance_by_country_sek.py | tee nonfinance.log
+
+      # ---------------- Bygg Step Summary (Markdown) ----------------
+      - name: Build Step Summary
+        shell: bash
+        run: |
+          COUNTRIES=("Sweden" "Denmark" "Finland" "Norway" "France" "Germany" "Italy" "Spain" "Netherlands" "Poland" "Switzerland")
+
+          echo "## Adtraction EPC – Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          # ------- Finance -------
+          echo "### Finance EPC" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Country | n | Median (SEK) | Status |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---:|---:|---|" >> "$GITHUB_STEP_SUMMARY"
+          for C in "${COUNTRIES[@]}"; do
+            # Matcha rad som: [Country] n=123  median=45.67 SEK
+            LINE="$(grep -E "^\[${C}\] .*n=[0-9]+" -m 1 finance.log || true)"
+            if [[ -n "$LINE" ]]; then
+              N="$(sed -E 's/.*n=([0-9]+).*/\1/' <<< "$LINE")"
+              if grep -qE "^\[${C}\] .*median=" <<< "$LINE"; then
+                MED="$(sed -E 's/.*median=([0-9.]+) SEK.*/\1/' <<< "$LINE")"
+                STATUS="OK"
+              elif grep -qE "^\[${C}\] No .*" finance.log; then
+                MED="-"
+                STATUS="Fail"
+              elif grep -qE "^\[${C}\] Error:" finance.log; then
+                MED="-"
+                STATUS="Fail"
+              else
+                MED="-"
+                STATUS="No data"
+              fi
+            else
+              # Ingen rad hittad för landet
+              N="-"; MED="-"; STATUS="No data"
+              # Om explicit felrad fanns, flagga Fail
+              if grep -qE "^\[${C}\] Error:" finance.log; then STATUS="Fail"; fi
+              if grep -qE "^\[${C}\] No .*" finance.log; then STATUS="Fail"; fi
+            fi
+            echo "| ${C} | ${N} | ${MED} | ${STATUS} |" >> "$GITHUB_STEP_SUMMARY"
+          done
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          # ------- Non-Finance -------
+          echo "### Non-Finance EPC" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Country | n | Median (SEK) | Status |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---:|---:|---|" >> "$GITHUB_STEP_SUMMARY"
+          for C in "${COUNTRIES[@]}"; do
+            # Matcha rad som: [Country] n=123 median_ex_fin=45.67 SEK
+            LINE="$(grep -E "^\[${C}\] .*n=[0-9]+" -m 1 nonfinance.log || true)"
+            if [[ -n "$LINE" ]]; then
+              N="$(sed -E 's/.*n=([0-9]+).*/\1/' <<< "$LINE")"
+              if grep -qE "^\[${C}\] .*median_ex_fin=" <<< "$LINE"; then
+                MED="$(sed -E 's/.*median_ex_fin=([0-9.]+) SEK.*/\1/' <<< "$LINE")"
+                STATUS="OK"
+              elif grep -qE "^\[${C}\] No .*" nonfinance.log; then
+                MED="-"
+                STATUS="Fail"
+              elif grep -qE "^\[${C}\] Error:" nonfinance.log; then
+                MED="-"
+                STATUS="Fail"
+              else
+                MED="-"
+                STATUS="No data"
+              fi
+            else
+              N="-"; MED="-"; STATUS="No data"
+              if grep -qE "^\[${C}\] Error:" nonfinance.log; then STATUS="Fail"; fi
+              if grep -qE "^\[${C}\] No .*" nonfinance.log; then STATUS="Fail"; fi
+            fi
+            echo "| ${C} | ${N} | ${MED} | ${STATUS} |" >> "$GITHUB_STEP_SUMMARY"
+          done
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+      # ---------------- Commit updated Excel files ----------------
+      - name: Commit updated data files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/*.xlsx
+          git commit -m "Update EPC data (every-3-days workflow)" || echo "No changes to commit"
+          git push
