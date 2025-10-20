@@ -1,4 +1,4 @@
-name: Scrape every 3 days
+name: Scrape every 3 days (combined)
 
 on:
   workflow_dispatch: {}
@@ -26,24 +26,16 @@ jobs:
           python -m playwright install chromium
           python -m playwright install-deps
 
-      # ---------------- Köra skripten + logga output ----------------
-      - name: Run Adtraction EPC (finance)
+      # ---------- Kör ENDA skriptet och logga allt ----------
+      - name: Run Adtraction EPC (combined)
         env:
           ADTRACTION_EMAIL: ${{ secrets.ADTRACTION_EMAIL }}
           ADTRACTION_PASSWORD: ${{ secrets.ADTRACTION_PASSWORD }}
         run: |
           set -o pipefail
-          python scripts/adtraction_epc_by_country_sek.py | tee finance.log
+          python scripts/adtraction_epc_combined.py | tee combined.log
 
-      - name: Run Adtraction EPC (non-finance)
-        env:
-          ADTRACTION_EMAIL: ${{ secrets.ADTRACTION_EMAIL }}
-          ADTRACTION_PASSWORD: ${{ secrets.ADTRACTION_PASSWORD }}
-        run: |
-          set -o pipefail
-          python scripts/adtraction_epc_nonfinance_by_country_sek.py | tee nonfinance.log
-
-      # ---------------- Bygg Step Summary (Markdown) ----------------
+      # ---------- Bygg Step Summary (från combined.log) ----------
       - name: Build Step Summary
         shell: bash
         run: |
@@ -58,29 +50,18 @@ jobs:
           echo "| Country | n | Median (SEK) | Status |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---|---:|---:|---|" >> "$GITHUB_STEP_SUMMARY"
           for C in "${COUNTRIES[@]}"; do
-            # Matcha rad som: [Country] n=123  median=45.67 SEK
-            LINE="$(grep -E "^\[${C}\] .*n=[0-9]+" -m 1 finance.log || true)"
+            LINE="$(grep -E "^\[${C}\] .*n=[0-9]+.*median=[0-9.]+ SEK" -m 1 combined.log || true)"
             if [[ -n "$LINE" ]]; then
               N="$(sed -E 's/.*n=([0-9]+).*/\1/' <<< "$LINE")"
-              if grep -qE "^\[${C}\] .*median=" <<< "$LINE"; then
-                MED="$(sed -E 's/.*median=([0-9.]+) SEK.*/\1/' <<< "$LINE")"
-                STATUS="OK"
-              elif grep -qE "^\[${C}\] No .*" finance.log; then
-                MED="-"
-                STATUS="Fail"
-              elif grep -qE "^\[${C}\] Error:" finance.log; then
-                MED="-"
-                STATUS="Fail"
-              else
-                MED="-"
-                STATUS="No data"
-              fi
+              MED="$(sed -E 's/.*median=([0-9.]+) SEK.*/\1/' <<< "$LINE")"
+              STATUS="OK"
             else
-              # Ingen rad hittad för landet
-              N="-"; MED="-"; STATUS="No data"
-              # Om explicit felrad fanns, flagga Fail
-              if grep -qE "^\[${C}\] Error:" finance.log; then STATUS="Fail"; fi
-              if grep -qE "^\[${C}\] No .*" finance.log; then STATUS="Fail"; fi
+              # leta efter explicit "No EPC values found (Finance)." eller Error
+              if grep -qE "^\[${C}\] No EPC values found \(Finance\)\.|^\[${C}\] Error:" combined.log; then
+                N="0"; MED="-"; STATUS="Fail"
+              else
+                N="-"; MED="-"; STATUS="No data"
+              fi
             fi
             echo "| ${C} | ${N} | ${MED} | ${STATUS} |" >> "$GITHUB_STEP_SUMMARY"
           done
@@ -92,37 +73,34 @@ jobs:
           echo "| Country | n | Median (SEK) | Status |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---|---:|---:|---|" >> "$GITHUB_STEP_SUMMARY"
           for C in "${COUNTRIES[@]}"; do
-            # Matcha rad som: [Country] n=123 median_ex_fin=45.67 SEK
-            LINE="$(grep -E "^\[${C}\] .*n=[0-9]+" -m 1 nonfinance.log || true)"
+            LINE="$(grep -E "^\[${C}\] .*n=[0-9]+.*median_ex_fin=[0-9.]+ SEK" -m 1 combined.log || true)"
             if [[ -n "$LINE" ]]; then
               N="$(sed -E 's/.*n=([0-9]+).*/\1/' <<< "$LINE")"
-              if grep -qE "^\[${C}\] .*median_ex_fin=" <<< "$LINE"; then
-                MED="$(sed -E 's/.*median_ex_fin=([0-9.]+) SEK.*/\1/' <<< "$LINE")"
-                STATUS="OK"
-              elif grep -qE "^\[${C}\] No .*" nonfinance.log; then
-                MED="-"
-                STATUS="Fail"
-              elif grep -qE "^\[${C}\] Error:" nonfinance.log; then
-                MED="-"
-                STATUS="Fail"
-              else
-                MED="-"
-                STATUS="No data"
-              fi
+              MED="$(sed -E 's/.*median_ex_fin=([0-9.]+) SEK.*/\1/' <<< "$LINE")"
+              STATUS="OK"
             else
-              N="-"; MED="-"; STATUS="No data"
-              if grep -qE "^\[${C}\] Error:" nonfinance.log; then STATUS="Fail"; fi
-              if grep -qE "^\[${C}\] No .*" nonfinance.log; then STATUS="Fail"; fi
+              if grep -qE "^\[${C}\] No EPC values found \(Non-Finance\)\.|^\[${C}\] Error:" combined.log; then
+                N="0"; MED="-"; STATUS="Fail"
+              else
+                N="-"; MED="-"; STATUS="No data"
+              fi
             fi
             echo "| ${C} | ${N} | ${MED} | ${STATUS} |" >> "$GITHUB_STEP_SUMMARY"
           done
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
-      # ---------------- Commit updated Excel files ----------------
+      # ---------- Commit uppdaterade Excel-filer ----------
       - name: Commit updated data files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/*.xlsx
-          git commit -m "Update EPC data (every-3-days workflow)" || echo "No changes to commit"
+          git commit -m "Update EPC data (combined, every-3-days)" || echo "No changes to commit"
           git push
+
+      # (valfritt) ladda upp loggen som artifact för enkel felsökning
+      - name: Upload combined.log
+        uses: actions/upload-artifact@v4
+        with:
+          name: combined-log
+          path: combined.log
