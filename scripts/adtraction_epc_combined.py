@@ -1,5 +1,6 @@
 # scripts/adtraction_epc_combined.py
-# Kombinerar Finance + Non-Finance. Robust kategorifångst (onclick/category-id ELLER direkta länkar).
+# Kombinerar Finance + Non-Finance. Robust kategorifångst (onclick/category-id ELLER direkta länkar),
+# robust paginering och felsökningsdump (PNG + HTML) när Non-Finance saknar tabell/EPC.
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
 from statistics import median
 from datetime import date
@@ -111,7 +112,6 @@ def extract_category_items(page):
     """
     items = []
 
-    # 1) Plocka onclick/category-id, href med category(id), och data-attributes
     data = page.evaluate("""
 (() => {
   const out = [];
@@ -140,10 +140,9 @@ def extract_category_items(page):
 })()
 """) or []
 
-    # 2) Normalisera: absolut URL, label lower-case
     for d in data:
         label = (d.get("text") or "").strip().lower()
-        cid   = d.get("cid"); 
+        cid   = d.get("cid")
         url   = d.get("url")
         if url:
             if url.startswith("/"): url = BASE_ROOT + url
@@ -151,7 +150,6 @@ def extract_category_items(page):
         if cid or url:
             items.append({"label": label, "cid": (str(cid) if cid is not None else None), "url": url})
 
-    # 3) Deduplicera på (cid,url)
     seen = set(); uniq=[]
     for it in items:
         key = (it["cid"], it["url"])
@@ -159,15 +157,15 @@ def extract_category_items(page):
         seen.add(key); uniq.append(it)
     return uniq
 
+FINANCE_LABELS = ["finans", "finance", "finanzen", "finanza", "finanze", "financiën", "finanse", "finanzas", "rahoitus"]
+
 def pick_finance(items):
-    """Välj finance-post via label. Returnerar ett dict från items eller None."""
     for it in items:
         if any(tok in (it["label"] or "") for tok in FINANCE_LABELS):
             return it
     return None
 
 def make_list_url_from_cid(cid):
-    # standardiserad list-URL om vi bara har ett category-id
     return f"{BASE}/listadvertprograms.htm?cId={cid}&asonly=false"
 
 # ---------- Paginering ----------
@@ -191,10 +189,8 @@ def discover_pagination_urls(page, any_list_url):
         if not u or "listadvertprograms.htm" not in u.lower(): 
             continue
         pq = _url.parse_qs(_url.urlparse(u).query)
-        # samma kategori?
         if cid_key and pq.get(cid_key, [""])[0] != cid_val:
             continue
-        # någon sidparameter?
         if "page" in pq or "p" in pq:
             urls.add(u)
 
@@ -271,6 +267,11 @@ def auto_login_and_save_state(p, email: str, password: str, headless: bool = Tru
 
     page.goto(f"{BASE}/programs.htm?asonly=false", wait_until="domcontentloaded")
     ok = not looks_like_login(page)
+    if not ok:
+        try:
+            page.screenshot(path="login_fail.png", full_page=True)
+        except Exception:
+            pass
     if ok: context.storage_state(path=STATE_PATH)
     context.close(); browser.close()
     return ok
@@ -328,6 +329,7 @@ def append_row(path, sheet_name, dt, all_median, per_country):
         row.append(None if v is None else round(v,2))
     ws.append(row); wb.save(path)
 
+# ---------- Felsökningsdump ----------
 def debug_dump(page, prefix):
     """Spara PNG + HTML för felsökning."""
     os.makedirs("pages", exist_ok=True)
@@ -340,7 +342,7 @@ def debug_dump(page, prefix):
         with open(f"pages/{prefix}.html", "w", encoding="utf-8") as f:
             f.write(html)
     except Exception:
-        pass    
+        pass
 
 # ---------- Core per-land ----------
 def run_for_country(page, country, fx):
@@ -353,9 +355,7 @@ def run_for_country(page, country, fx):
     except PWTimeout: pass
 
     items = extract_category_items(page)
-    # välj finance
     fin_item = pick_finance(items)
-    # skapa finance-url om bara cid fanns
     fin_url = None
     if fin_item:
         fin_url = fin_item["url"] or (make_list_url_from_cid(fin_item["cid"]) if fin_item["cid"] else None)
@@ -364,11 +364,11 @@ def run_for_country(page, country, fx):
     if fin_url:
         values_local = []
         page.goto(fin_url, wait_until="domcontentloaded")
-        try: page.wait_for_selector("table", timeout=8000)
+        try: page.wait_for_selector("table", timeout=15000)
         except PWTimeout: pass
         for u in discover_pagination_urls(page, fin_url):
             page.goto(u, wait_until="domcontentloaded")
-            try: page.wait_for_selector("table", timeout=8000)
+            try: page.wait_for_selector("table", timeout=15000)
             except PWTimeout: continue
             values_local.extend(scrape_epc_values_from_table(page, country))
 
@@ -392,31 +392,30 @@ def run_for_country(page, country, fx):
         if url:
             non_links.append(url)
 
-    # deduplicera & logga vad vi faktiskt tänker besöka
     non_links = sorted(set(non_links))
     print(f"[{country}] Non-Finance categories detected: {len(non_links)}")
     for i, lk in enumerate(non_links[:10], 1):
         print(f"   NF link {i}: {lk}")
     if len(non_links) > 10:
         print(f"   ... +{len(non_links)-10} more")
+    if len(non_links) == 0:
+        # Inga NF-länkar hittades — dumpa landningssidan för felsökning
+        debug_dump(page, f"{country}_nf_0_links_country_landing")
 
     for idx, link in enumerate(non_links, 1):
         page.goto(link, wait_until="domcontentloaded")
         try:
             page.wait_for_selector("table", timeout=15000)
         except PWTimeout:
-            # om ingen tabell dök upp—dumpa för att se sidan
             debug_dump(page, f"{country}_nf_{idx}_no_table")
             continue
 
-        # samla alla pagineringssidor
         page_urls = discover_pagination_urls(page, link)
         if len(page_urls) == 1:
             print(f"   {country} NF page has no pagination: {link}")
         else:
             print(f"   {country} NF pagination pages: {len(page_urls)}")
 
-        found_any = False
         for pidx, u in enumerate(page_urls, 1):
             page.goto(u, wait_until="domcontentloaded")
             try:
@@ -428,10 +427,8 @@ def run_for_country(page, country, fx):
             vals_before = len(values_local_nf)
             values_local_nf.extend(scrape_epc_values_from_table(page, country))
             if len(values_local_nf) == vals_before:
-                # ingen EPC hittad på just denna sida—dumpa för att se kolumnrubriker etc.
+                # Tabell fanns men inga EPC-kolumner/values hittades
                 debug_dump(page, f"{country}_nf_{idx}_p{pidx}_no_epc")
-            else:
-                found_any = True
 
     if values_local_nf:
         values_sek_nf = [val * fx.get((ccy or ccy_expected).upper(), 1.0) for val, ccy in values_local_nf]
