@@ -1,6 +1,5 @@
 # scripts/adtraction_epc_combined.py
-# Samkör Finans + Non-Finance med robust kategorifångst och paginering.
-# Kräver env: ADTRACTION_EMAIL, ADTRACTION_PASSWORD
+# Kombinerar Finance + Non-Finance. Robust kategorifångst (onclick/category-id ELLER direkta länkar).
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
 from statistics import median
 from datetime import date
@@ -42,13 +41,15 @@ COUNTRY_ORDER = [
     "Netherlands","Poland","Switzerland"
 ]
 
-# --- parsning av tal/valutor ---
+# ---------- Parsning ----------
 NUMBER_RE   = re.compile(r"(\d[\d\s\u00A0]*[.,]\d+|\d[\d\s\u00A0]*)")
 CURR_CODE_RE = re.compile(r"\b(SEK|EUR|DKK|NOK|PLN|CHF)\b", re.IGNORECASE)
 HAS_EUR_SYM  = re.compile(r"€")
 HAS_PLN_SYM  = re.compile(r"zł", re.IGNORECASE)
 HAS_CHF_SYM  = re.compile(r"\bCHF\b|(?<!\w)Fr(?!\w)")
 HAS_KR_SYM   = re.compile(r"\bkr\.?\b", re.IGNORECASE)
+
+FINANCE_LABELS = ["finans", "finance", "finanzen", "finanza", "finanze", "financiën", "finanse", "finanzas", "rahoitus"]
 
 def parse_number(text: str):
     if not text: return None
@@ -57,7 +58,7 @@ def parse_number(text: str):
     m = NUMBER_RE.search(t)
     if not m: return None
     raw = m.group(1).replace("\u00A0"," ").replace(" ","")
-    if "," in raw and "." in raw: raw = raw.replace(".","")  # 1.234,56
+    if "," in raw and "." in raw: raw = raw.replace(".","")
     try: val = float(raw.replace(",", "."))
     except ValueError: return None
     return val if abs(val) >= 1e-12 else None
@@ -79,7 +80,6 @@ def detect_currency(cell_text: str, country_name: str):
     return None
 
 def scrape_epc_values_from_table(page, country_name: str):
-    """Returnerar lista [(värde, CCY), ...] från tabeller som innehåller en 'EPC'-kolumn."""
     out = []
     tables = page.locator("table")
     for i in range(tables.count()):
@@ -102,45 +102,81 @@ def scrape_epc_values_from_table(page, country_name: str):
             out.append((val, ccy))
     return out
 
-# --- kategorier från tiles ---
-FINANCE_LABELS = ["finans", "finance", "finanzen", "finanza", "finanze", "financiën", "finanse", "finanzas", "rahoitus"]
+# ---------- Kategorier ----------
+def extract_category_items(page):
+    """
+    Returnerar en lista med dicts:
+      {"label": <text_lower>, "cid": <id_str> or None, "url": <abs_url> or None}
+    Täcker både onclick('category(id)') OCH direkta länkar till listadvertprograms.htm.
+    """
+    items = []
 
-def extract_categories_via_dom(page):
-    """Returnerar [(label_lower, abs_url), ...] från kategorikorten (tiles)."""
+    # 1) Plocka onclick/category-id, href med category(id), och data-attributes
     data = page.evaluate("""
 (() => {
   const out = [];
-  document.querySelectorAll('a[href]').forEach(a => {
-    const href = a.getAttribute('href') || '';
-    const text = (a.textContent || '').trim().replace(/\\s+/g, ' ');
-    if (/listadvertprograms\\.htm/i.test(href)) out.push({text, href});
+  const rx = /category\\(\\s*['"]?(-?\\d+)['"]?\\s*\\)/i;
+  document.querySelectorAll('*').forEach(el => {
+    const text = (el.textContent || '').trim().replace(/\\s+/g, ' ');
+    let cid = null, url = null;
+
+    const oc = el.getAttribute && el.getAttribute('onclick');
+    if (oc && rx.test(oc)) cid = rx.exec(oc)[1];
+
+    const href = el.getAttribute && el.getAttribute('href');
+    if (href) {
+      if (rx.test(href)) cid = rx.exec(href)[1];
+      if (/listadvertprograms\\.htm/i.test(href)) url = href;
+    }
+
+    const ds = el.dataset || {};
+    for (const k of ['category','categoryId','cid','cat','cId']) {
+      if (ds[k] && !cid) cid = String(ds[k]);
+    }
+
+    if (cid || url) out.push({text, cid, url});
   });
   return out;
 })()
 """) or []
-    items = []
+
+    # 2) Normalisera: absolut URL, label lower-case
     for d in data:
         label = (d.get("text") or "").strip().lower()
-        href  = (d.get("href") or "").strip()
-        if not href: continue
-        if href.startswith("/"): href = BASE_ROOT + href
-        elif not href.startswith("http"): href = BASE_ROOT + "/" + href.lstrip("./")
-        items.append((label, href))
-    return items
+        cid   = d.get("cid"); 
+        url   = d.get("url")
+        if url:
+            if url.startswith("/"): url = BASE_ROOT + url
+            elif not url.startswith("http"): url = BASE_ROOT + "/" + url.lstrip("./")
+        if cid or url:
+            items.append({"label": label, "cid": (str(cid) if cid is not None else None), "url": url})
 
-def pick_finance_url(cat_items):
-    for label, url in cat_items:
-        if any(tok in label for tok in FINANCE_LABELS):
-            return url
+    # 3) Deduplicera på (cid,url)
+    seen = set(); uniq=[]
+    for it in items:
+        key = (it["cid"], it["url"])
+        if key in seen: continue
+        seen.add(key); uniq.append(it)
+    return uniq
+
+def pick_finance(items):
+    """Välj finance-post via label. Returnerar ett dict från items eller None."""
+    for it in items:
+        if any(tok in (it["label"] or "") for tok in FINANCE_LABELS):
+            return it
     return None
 
-# --- robust paginering ---
+def make_list_url_from_cid(cid):
+    # standardiserad list-URL om vi bara har ett category-id
+    return f"{BASE}/listadvertprograms.htm?cId={cid}&asonly=false"
+
+# ---------- Paginering ----------
 def discover_pagination_urls(page, any_list_url):
-    """Returnera alla sid-URL:er för samma kategori (cid/cId; page/p)."""
     parsed = _url.urlparse(any_list_url)
     q = _url.parse_qs(parsed.query)
     cid_key = "cId" if "cId" in q else ("cid" if "cid" in q else None)
     cid_val = (q.get(cid_key, [""])[0] if cid_key else "")
+
     hrefs = page.evaluate("""() => Array.from(document.querySelectorAll('a[href]'), a => a.getAttribute('href'))""") or []
     urls = set([any_list_url])
 
@@ -155,8 +191,10 @@ def discover_pagination_urls(page, any_list_url):
         if not u or "listadvertprograms.htm" not in u.lower(): 
             continue
         pq = _url.parse_qs(_url.urlparse(u).query)
-        if cid_key and pq.get(cid_key, [""])[0] != cid_val: 
+        # samma kategori?
+        if cid_key and pq.get(cid_key, [""])[0] != cid_val:
             continue
+        # någon sidparameter?
         if "page" in pq or "p" in pq:
             urls.add(u)
 
@@ -170,7 +208,7 @@ def discover_pagination_urls(page, any_list_url):
 
     return sorted(urls, key=page_key)
 
-# --- loginhjälp ---
+# ---------- Login ----------
 def looks_like_login(page):
     url = page.url.lower()
     if "login" in url or "signin" in url: return True
@@ -180,10 +218,7 @@ def looks_like_login(page):
 
 def auto_login_and_save_state(p, email: str, password: str, headless: bool = True):
     browser = p.chromium.launch(headless=headless)
-    context = browser.new_context(
-        user_agent=("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                    "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-    )
+    context = browser.new_context()
     page = context.new_page()
     page.goto(f"{BASE}/programs.htm?asonly=false", wait_until="domcontentloaded")
 
@@ -197,28 +232,35 @@ def auto_login_and_save_state(p, email: str, password: str, headless: bool = Tru
         if loc.count(): loc.first.fill(val); return True
         return False
 
-    # prova två vägar till login
     try: page.locator('a:has-text("Partner")').first.click(timeout=2000)
     except Exception: pass
 
-    ok_email = (fill('input[type="email"]', email) or fill('input[name="email"]', email) or
-                fill('input#email', email) or fill('input[id*="email" i]', email) or
+    ok_email = (fill('input[type="email"]', email) or
+                fill('input[name="email"]', email) or
+                fill('input#email', email) or
+                fill('input[id*="email" i]', email) or
                 fill('input[name*="user" i]', email))
-    ok_pwd = (fill('input[type="password"]', password) or fill('input[name="password"]', password) or
-              fill('input#password', password) or fill('input[id*="pass" i]', password))
+    ok_pwd = (fill('input[type="password"]', password) or
+              fill('input[name="password"]', password) or
+              fill('input#password', password) or
+              fill('input[id*="pass" i]', password))
     if not (ok_email and ok_pwd):
         page.goto(f"{BASE}/login.htm", wait_until="domcontentloaded")
-        ok_email = (fill('input[type="email"]', email) or fill('input[name="email"]', email) or
-                    fill('input#email', email) or fill('input[id*="email" i]', email) or
+        ok_email = (fill('input[type="email"]', email) or
+                    fill('input[name="email"]', email) or
+                    fill('input#email', email) or
+                    fill('input[id*="email" i]', email) or
                     fill('input[name*="user" i]', email))
-        ok_pwd = (fill('input[type="password"]', password) or fill('input[name="password"]', password) or
-                  fill('input#password', password) or fill('input[id*="pass" i]', password))
+        ok_pwd = (fill('input[type="password"]', password) or
+                  fill('input[name="password"]', password) or
+                  fill('input#password', password) or
+                  fill('input[id*="pass" i]', password))
 
     clicked = False
     for sel in ['button[type="submit"]','input[type="submit"]',
                 'button:has-text("Logga in")','button:has-text("Sign in")',
                 'text=Logga in','text=Sign in']:
-        try: page.locator(sel).first.click(timeout=1500); clicked = True; break
+        try: page.locator(sel).first.click(timeout=1500); clicked=True; break
         except Exception: continue
     if not clicked:
         try: page.keyboard.press("Enter")
@@ -233,7 +275,7 @@ def auto_login_and_save_state(p, email: str, password: str, headless: bool = Tru
     context.close(); browser.close()
     return ok
 
-# --- FX SEK ---
+# ---------- FX ----------
 def fetch_fx_local_to_sek(currencies):
     need = sorted({c for c in currencies if c and c != "SEK"})
     out = {c: 1.0 for c in currencies}
@@ -259,7 +301,7 @@ def fetch_fx_local_to_sek(currencies):
     for c in need: print(f"  {c}→SEK = {out[c]:.4f}")
     return out
 
-# --- Excel helpers ---
+# ---------- Excel ----------
 def ensure_book_and_sheets(path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     if not os.path.exists(path):
@@ -268,16 +310,13 @@ def ensure_book_and_sheets(path):
         ws1.title = SHEET_FIN
         ws2 = wb.create_sheet(SHEET_NON)
         header = ["date", "All (SEK)"] + [f"{c} (SEK)" for c in COUNTRY_ORDER]
-        ws1.append(header); ws2.append(header)
-        wb.save(path)
+        ws1.append(header); ws2.append(header); wb.save(path)
     else:
         wb = load_workbook(path)
         if SHEET_FIN not in wb.sheetnames:
-            ws = wb.create_sheet(SHEET_FIN)
-            ws.append(["date","All (SEK)"]+[f"{c} (SEK)" for c in COUNTRY_ORDER])
+            wb.create_sheet(SHEET_FIN).append(["date","All (SEK)"]+[f"{c} (SEK)" for c in COUNTRY_ORDER])
         if SHEET_NON not in wb.sheetnames:
-            ws = wb.create_sheet(SHEET_NON)
-            ws.append(["date","All (SEK)"]+[f"{c} (SEK)" for c in COUNTRY_ORDER])
+            wb.create_sheet(SHEET_NON).append(["date","All (SEK)"]+[f"{c} (SEK)" for c in COUNTRY_ORDER])
         wb.save(path)
 
 def append_row(path, sheet_name, dt, all_median, per_country):
@@ -289,9 +328,8 @@ def append_row(path, sheet_name, dt, all_median, per_country):
         row.append(None if v is None else round(v,2))
     ws.append(row); wb.save(path)
 
-# --- main ---
-def run_for_country(page, country, fx, headful=False):
-    """Skrapar både Finance & Non-Finance för ett land. Returnerar dictar med medianer i SEK och 'n'."""
+# ---------- Core per-land ----------
+def run_for_country(page, country, fx):
     results = {"finance": {"n":0, "median": None}, "non": {"n":0, "median": None}}
     ccy_expected = COUNTRY_CCY[country]
 
@@ -300,11 +338,15 @@ def run_for_country(page, country, fx, headful=False):
     try: page.wait_for_load_state("networkidle", timeout=8000)
     except PWTimeout: pass
 
-    cats = extract_categories_via_dom(page)
-    fin_url = pick_finance_url(cats)
-    non_links = [url for label,url in cats if url != fin_url]
+    items = extract_category_items(page)
+    # välj finance
+    fin_item = pick_finance(items)
+    # skapa finance-url om bara cid fanns
+    fin_url = None
+    if fin_item:
+        fin_url = fin_item["url"] or (make_list_url_from_cid(fin_item["cid"]) if fin_item["cid"] else None)
 
-    # --- Finance ---
+    # -- Finance --
     if fin_url:
         values_local = []
         page.goto(fin_url, wait_until="domcontentloaded")
@@ -320,15 +362,25 @@ def run_for_country(page, country, fx, headful=False):
             values_sek = [val * fx.get((ccy or ccy_expected).upper(), 1.0) for val, ccy in values_local]
             results["finance"]["n"] = len(values_local)
             results["finance"]["median"] = median(values_sek)
-            # print i samma format som gamla step summary för kompatibilitet
             print(f"[{country}] n={results['finance']['n']}  median={results['finance']['median']:.2f} SEK")
         else:
             print(f"[{country}] No EPC values found (Finance).")
     else:
         print(f"[{country}] No Finance category link found.")
 
-    # --- Non-Finance ---
+    # -- Non-Finance --
     values_local_nf = []
+    # alla andra: ifall vi har url, använd url; om bara cid – bygg url
+    non_links = []
+    for it in items:
+        # hoppa finance
+        if fin_item and ((it["url"] == fin_item.get("url")) or (it["cid"] and it["cid"] == fin_item.get("cid"))):
+            continue
+        url = it["url"] or (make_list_url_from_cid(it["cid"]) if it["cid"] else None)
+        if url: non_links.append(url)
+
+    # deduplicera non-links
+    non_links = sorted(set(non_links))
     for link in non_links:
         page.goto(link, wait_until="domcontentloaded")
         try: page.wait_for_selector("table", timeout=8000)
@@ -343,42 +395,35 @@ def run_for_country(page, country, fx, headful=False):
         values_sek_nf = [val * fx.get((ccy or ccy_expected).upper(), 1.0) for val, ccy in values_local_nf]
         results["non"]["n"] = len(values_local_nf)
         results["non"]["median"] = median(values_sek_nf)
-        # kompatibel rad för din YAML-parser
         print(f"[{country}] n={results['non']['n']} median_ex_fin={results['non']['median']:.2f} SEK")
     else:
         print(f"[{country}] No EPC values found (Non-Finance).")
 
     return results
 
+# ---------- Main ----------
 def main():
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("countries", nargs="*", help="Optional filter: run only matching countries (partial ok)")
     parser.add_argument("--headful", action="store_true")
     args = parser.parse_args()
 
-    # urval
+    countries = COUNTRY_ORDER
     if args.countries:
-        sel = []
+        sel=[]
         for r in args.countries:
-            rlow = r.lower()
-            sel.extend([c for c in COUNTRY_ORDER if rlow in c.lower()])
-        seen=set(); countries=[c for c in sel if not (c in seen or seen.add(c))]
-        if not countries: countries = COUNTRY_ORDER
-    else:
-        countries = COUNTRY_ORDER
+            sel.extend([c for c in COUNTRY_ORDER if r.lower() in c.lower()])
+        seen=set(); countries=[c for c in sel if not (c in seen or seen.add(c))] or COUNTRY_ORDER
 
-    # FX
     fx = fetch_fx_local_to_sek({COUNTRY_CCY[c] for c in countries})
-
     ensure_book_and_sheets(XLSX_PATH)
     today = date.today().isoformat()
 
     finance_by_country = {}
     non_by_country = {}
-    all_fin_vals, all_non_vals = [], []
 
     with sync_playwright() as p:
-        # state check / login
+        # login
         need_login = not os.path.exists(STATE_PATH)
         if not need_login:
             tb = p.chromium.launch(headless=True)
@@ -391,7 +436,7 @@ def main():
             email = os.environ.get("ADTRACTION_EMAIL","")
             pwd   = os.environ.get("ADTRACTION_PASSWORD","")
             if not (email and pwd) or not auto_login_and_save_state(p, email, pwd, headless=True):
-                print("Auto-login failed or credentials missing. Please set ADTRACTION_EMAIL and ADTRACTION_PASSWORD.")
+                print("Auto-login failed or credentials missing. Set ADTRACTION_EMAIL & ADTRACTION_PASSWORD.")
                 return
 
         browser = p.chromium.launch(headless=not args.headful)
@@ -400,23 +445,14 @@ def main():
 
         for country in countries:
             try:
-                res = run_for_country(page, country, fx, headful=args.headful)
-                # Finance
-                if res["finance"]["n"] > 0 and res["finance"]["median"] is not None:
-                    finance_by_country[country] = res["finance"]["median"]
-                    all_fin_vals.extend([res["finance"]["median"]])  # eller alla values? behåll median per land för "All"? vi tar alla värden:
-                # Lägg istället till alla underliggande värden för riktig "All":
-                # men vi har inte listan här, så vi låter "All" bli median av ländernas medianer:
-                # (vill du använda alla datapunkter globalt, säg till så sparar vi dem mellansteg)
-                # Non-Fin
-                if res["non"]["n"] > 0 and res["non"]["median"] is not None:
-                    non_by_country[country] = res["non"]["median"]
+                res = run_for_country(page, country, fx)
+                if res["finance"]["n"] > 0: finance_by_country[country] = res["finance"]["median"]
+                if res["non"]["n"] > 0:     non_by_country[country]     = res["non"]["median"]
             except Exception as e:
                 print(f"[{country}] Error: {e}")
 
         context.close(); browser.close()
 
-    # "All (SEK)" – median av ländernas medianer (robust; kan bytas till global median om vi behåller alla datapunkter)
     fin_all = median(list(finance_by_country.values())) if finance_by_country else None
     non_all = median(list(non_by_country.values())) if non_by_country else None
 
