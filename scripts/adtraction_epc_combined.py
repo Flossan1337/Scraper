@@ -328,6 +328,20 @@ def append_row(path, sheet_name, dt, all_median, per_country):
         row.append(None if v is None else round(v,2))
     ws.append(row); wb.save(path)
 
+def debug_dump(page, prefix):
+    """Spara PNG + HTML för felsökning."""
+    os.makedirs("pages", exist_ok=True)
+    try:
+        page.screenshot(path=f"pages/{prefix}.png", full_page=True)
+    except Exception:
+        pass
+    try:
+        html = page.content()
+        with open(f"pages/{prefix}.html", "w", encoding="utf-8") as f:
+            f.write(html)
+    except Exception:
+        pass    
+
 # ---------- Core per-land ----------
 def run_for_country(page, country, fx):
     results = {"finance": {"n":0, "median": None}, "non": {"n":0, "median": None}}
@@ -370,26 +384,54 @@ def run_for_country(page, country, fx):
 
     # -- Non-Finance --
     values_local_nf = []
-    # alla andra: ifall vi har url, använd url; om bara cid – bygg url
     non_links = []
     for it in items:
-        # hoppa finance
         if fin_item and ((it["url"] == fin_item.get("url")) or (it["cid"] and it["cid"] == fin_item.get("cid"))):
             continue
         url = it["url"] or (make_list_url_from_cid(it["cid"]) if it["cid"] else None)
-        if url: non_links.append(url)
+        if url:
+            non_links.append(url)
 
-    # deduplicera non-links
+    # deduplicera & logga vad vi faktiskt tänker besöka
     non_links = sorted(set(non_links))
-    for link in non_links:
+    print(f"[{country}] Non-Finance categories detected: {len(non_links)}")
+    for i, lk in enumerate(non_links[:10], 1):
+        print(f"   NF link {i}: {lk}")
+    if len(non_links) > 10:
+        print(f"   ... +{len(non_links)-10} more")
+
+    for idx, link in enumerate(non_links, 1):
         page.goto(link, wait_until="domcontentloaded")
-        try: page.wait_for_selector("table", timeout=8000)
-        except PWTimeout: continue
-        for u in discover_pagination_urls(page, link):
+        try:
+            page.wait_for_selector("table", timeout=15000)
+        except PWTimeout:
+            # om ingen tabell dök upp—dumpa för att se sidan
+            debug_dump(page, f"{country}_nf_{idx}_no_table")
+            continue
+
+        # samla alla pagineringssidor
+        page_urls = discover_pagination_urls(page, link)
+        if len(page_urls) == 1:
+            print(f"   {country} NF page has no pagination: {link}")
+        else:
+            print(f"   {country} NF pagination pages: {len(page_urls)}")
+
+        found_any = False
+        for pidx, u in enumerate(page_urls, 1):
             page.goto(u, wait_until="domcontentloaded")
-            try: page.wait_for_selector("table", timeout=8000)
-            except PWTimeout: continue
+            try:
+                page.wait_for_selector("table", timeout=15000)
+            except PWTimeout:
+                debug_dump(page, f"{country}_nf_{idx}_p{pidx}_no_table")
+                continue
+
+            vals_before = len(values_local_nf)
             values_local_nf.extend(scrape_epc_values_from_table(page, country))
+            if len(values_local_nf) == vals_before:
+                # ingen EPC hittad på just denna sida—dumpa för att se kolumnrubriker etc.
+                debug_dump(page, f"{country}_nf_{idx}_p{pidx}_no_epc")
+            else:
+                found_any = True
 
     if values_local_nf:
         values_sek_nf = [val * fx.get((ccy or ccy_expected).upper(), 1.0) for val, ccy in values_local_nf]
