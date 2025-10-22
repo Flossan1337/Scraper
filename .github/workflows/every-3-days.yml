@@ -26,6 +26,15 @@ jobs:
           python -m playwright install chromium
           python -m playwright install-deps
 
+      # --- Kolla att secrets faktiskt når jobbet (skriver inte ut värden) ---
+      - name: Sanity check env (no secrets printed)
+        env:
+          ADTRACTION_EMAIL: ${{ secrets.ADTRACTION_EMAIL }}
+          ADTRACTION_PASSWORD: ${{ secrets.ADTRACTION_PASSWORD }}
+        run: |
+          [ -n "$ADTRACTION_EMAIL" ] && echo "EMAIL is present" || (echo "EMAIL is MISSING" && exit 1)
+          [ -n "$ADTRACTION_PASSWORD" ] && echo "PASSWORD is present" || (echo "PASSWORD is MISSING" && exit 1)
+
       # ---------- Kör ENDA skriptet och logga allt ----------
       - name: Run Adtraction EPC (combined)
         env:
@@ -56,7 +65,6 @@ jobs:
               MED="$(sed -E 's/.*median=([0-9.]+) SEK.*/\1/' <<< "$LINE")"
               STATUS="OK"
             else
-              # leta efter explicit "No EPC values found (Finance)." eller Error
               if grep -qE "^\[${C}\] No EPC values found \(Finance\)\.|^\[${C}\] Error:" combined.log; then
                 N="0"; MED="-"; STATUS="Fail"
               else
@@ -98,9 +106,19 @@ jobs:
           git commit -m "Update EPC data (combined, every-3-days)" || echo "No changes to commit"
           git push
 
-      # (valfritt) ladda upp loggen som artifact för enkel felsökning
+      # ---------- Ladda upp artifacts för felsökning ----------
       - name: Upload combined.log
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: combined-log
           path: combined.log
+          if-no-files-found: warn
+
+      - name: Upload login screenshot (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: login-debug
+          path: login_fail.png
+          if-no-files-found: ignore
