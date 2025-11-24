@@ -21,6 +21,14 @@ BASE_SLEEP = int(os.getenv("TRENDS_BASE_SLEEP", "20"))
 MAX_TRIES  = int(os.getenv("TRENDS_MAX_TRIES", "7"))
 PAUSE_BETWEEN_GROUPS = int(os.getenv("TRENDS_PAUSE", "35"))
 
+# Extra "stealth"-sömn innan varje API-call (tyst, ingen print)
+PRE_SLEEP_MIN = int(os.getenv("TRENDS_PRE_SLEEP_MIN", "8"))
+PRE_SLEEP_MAX = int(os.getenv("TRENDS_PRE_SLEEP_MAX", "20"))
+
+# Proxy kan sättas via env, t.ex.:
+# TRENDS_PROXY="http://USER:PASS@HOST:PORT"
+PROXY = os.getenv("TRENDS_PROXY", "").strip() or None
+
 # ── DEFINE YOUR GROUPS ──
 GROUPS = [
     ["Fractal North", "Fractal Define", "Fractal Core",   "Fractal Node",    "Fractal Meshify"],
@@ -51,6 +59,7 @@ def iot_with_retry(py: TrendReq) -> pd.DataFrame:
             return df
         except TooManyRequestsError as e:
             last_err = e
+            # Lite aggressivare backoff + slump för att se mindre "botig" ut
             sleep = BASE_SLEEP * (2 ** attempt) + random.uniform(0, BASE_SLEEP)
             print(f"[429] Försök {attempt+1}/{MAX_TRIES} – väntar {sleep:.0f}s...")
             time.sleep(sleep)
@@ -68,6 +77,11 @@ def fetch_group(py: TrendReq, keywords):
     Hämtar månatlig Google Trends för upp till 5 sökord
     från 2016-01-01 till idag. Returnerar DataFrame indexerad per månad.
     """
+    # Tyst, slumpad väntan innan vi pingar Google (”stealth mode”)
+    if PRE_SLEEP_MAX > 0 and PRE_SLEEP_MAX >= PRE_SLEEP_MIN >= 0:
+        pre_sleep = random.uniform(PRE_SLEEP_MIN, PRE_SLEEP_MAX)
+        time.sleep(pre_sleep)
+
     tf = f"2016-01-01 {datetime.now():%Y-%m-%d}"
     py.build_payload(keywords, timeframe=tf)
     df = iot_with_retry(py).drop(columns=["isPartial"], errors="ignore")
@@ -81,12 +95,13 @@ def main():
         tz=120,                 # Stockholm sommar = UTC+2 (pytrends använder minuter)
         timeout=(10, 60),       # connect, read
         retries=0,              # vi sköter retrier själva
-        backoff_factor=0        # (inaktivt, eftersom retries=0)
-        # proxies={"https": "http://USER:PASS@HOST:PORT"}  # valfritt om du vill använda proxy
+        backoff_factor=0,       # (inaktivt, eftersom retries=0)
+        proxies={"https": PROXY} if PROXY else None,
     )
 
     master = None
     for i, grp in enumerate(GROUPS, start=1):
+        # Viktigt: behåller exakt samma print-sträng
         print(f"Kör grupp {i}/{len(GROUPS)}: {grp}")
         df = fetch_group(py, grp)
         if master is None:
@@ -98,6 +113,7 @@ def main():
         # Paus mellan grupper för att undvika 429-spikar
         if i < len(GROUPS):
             sleep = PAUSE_BETWEEN_GROUPS + random.uniform(0, 10)
+            # Samma print-sträng som tidigare
             print(f"Paus {sleep:.0f}s innan nästa grupp...")
             time.sleep(sleep)
 
