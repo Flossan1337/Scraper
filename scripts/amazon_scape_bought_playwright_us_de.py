@@ -48,15 +48,53 @@ def parse_number(text: str) -> int:
     if not m: return 0
     return int(re.sub(r"[^\d]", "", m.group(1)) or "0")
 
+# --- NY FUNKTION FÖR ATT HANTERA BLOCKERINGAR ---
+async def handle_amazon_blockers(page, domain: str):
+    """
+    Hanterar popup-fönster eller blockerande sidor (t.ex. "Continue shopping" / "Weiter einkaufen").
+    Använder språkberoende selektorer baserat på domän.
+    """
+    if "amazon.com" in domain:
+        # Engelsk selektor
+        selector = 'text="Continue shopping"'
+    elif "amazon.de" in domain:
+        # Tysk selektor
+        selector = 'text="Weiter einkaufen"'
+    else:
+        # Ingen känd selektor, fortsätt
+        return
+
+    try:
+        # Försök klicka på knappen med en kort timeout (5 sekunder)
+        await page.click(selector, timeout=5000)
+        print(f"    -> Blockersida klickades bort för {domain}.")
+        # Vänta lite efter klicket för att sidan ska ladda om, för att se mer mänskligt ut
+        await page.wait_for_timeout(random.randint(500, 1500)) 
+        
+    except PWTimeout:
+        # TimeoutError är normalt om blockeraren INTE visas
+        print(f"    -> Ingen blockersida dök upp för {domain}.")
+        pass
+    except Exception as e:
+        print(f"    -> Oväntat fel vid hantering av blockerare på {domain}: {e}")
+# ------------------------------------------------
+
 async def get_bought_count(context, domain: str, gl: str, asin: str, code: str) -> int:
     page = await context.new_page()
     url = f"https://{domain}/dp/{asin}?th=1&psc=1&gl={gl}"
+    print(f"  Fetching {code} {asin}...") # Lade till loggning
+
     try:
         await page.goto(url, wait_until="domcontentloaded", timeout=30000)
+        
+        # --- ANROPA DEN NYA FUNKTIONEN HÄR ---
+        await handle_amazon_blockers(page, domain)
+        # -------------------------------------
 
         found_text = ""
         for sel in SELECTORS:
             try:
+                # Nu fortsätter vi med den befintliga logiken för att hitta skrap-selektorn
                 el = await page.wait_for_selector(sel, state="attached", timeout=4000)
                 if el:
                     found_text = (await el.inner_text()).strip()
@@ -66,7 +104,7 @@ async def get_bought_count(context, domain: str, gl: str, asin: str, code: str) 
 
         value = parse_number(found_text) if found_text else 0
 
-        print(f"Value: {value}")
+        print(f"  Value: {value}")
 
         if value == 0:
             dump = HTML_DUMPS_DIR / f"{code}_{asin}.html"
@@ -74,7 +112,9 @@ async def get_bought_count(context, domain: str, gl: str, asin: str, code: str) 
 
         return value
 
-    except Exception:
+    except Exception as e:
+        # Förbättrad felhantering för att se vad som gick fel om värdet blir 0
+        print(f"  ❌ Error fetching {code} {asin}: {type(e).__name__}: {e}") 
         return 0
     finally:
         await page.close()
@@ -92,6 +132,7 @@ async def run_once():
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=HEADLESS)
         for code, domain, accept_lang, gl, locale, ck_name, ck_value in COUNTRIES:
+            print(f"\n--- Starting Market: {code} ({domain}) ---") # Lade till loggning
             context = await browser.new_context(
                 locale=locale,
                 user_agent=random.choice(UAS),
@@ -112,7 +153,7 @@ async def run_once():
             await context.close()
 
             row_values.extend(results_for_market)
-            print(f"{code}: Dark={results_for_market[0]}  Light={results_for_market[1]}")
+            print(f"--- {code} Summary: Dark={results_for_market[0]}  Light={results_for_market[1]} ---\n")
 
         await browser.close()
 
