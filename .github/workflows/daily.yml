@@ -73,6 +73,11 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
 
+      - name: Run amazon_rank_robust.py
+        run: python ./scripts/amazon_rank_robust.py
+        timeout-minutes: 10
+        continue-on-error: true
+
       - name: Commit & push generated data (if any)
         shell: bash
         run: |

@@ -41,6 +41,7 @@ TARGETS = [
         "asin": "B0D5HK6JRS",
         "domain": "amazon.de",
         "locale": "de-DE",
+        # Vi letar efter både tysk och engelsk rubrik
         "keywords": ["Bestseller-Rang", "Best Sellers Rank"] 
     },
     {
@@ -56,23 +57,23 @@ HEADLESS = True
 
 # ───────────────────────────────────────────────────────────────────────────
 
-def extract_smart_rank(text: str, keywords: list) -> int:
+def extract_rank_v6(text: str, keywords: list) -> int:
     """
-    Hittar ranking men ignorerar 'Top 100' länkar.
-    1. Letar upp nyckelordet.
-    2. Loopar igenom alla träffar av 'siffra + in'.
-    3. Kollar texten INNAN siffran. Står det 'Top', ignorera.
-    4. Returnerar lägsta giltiga siffra.
+    ULTRA-ROBUST LOGIK:
+    1. Hitta sektionen.
+    2. RADERA texten "Top 100" helt och hållet (för att undvika falska träffar).
+    3. Leta efter siffror som antingen har prefix (Nr/#) eller suffix (in).
+    4. Filtrera bort årtal.
     """
     found_keyword = False
     relevant_chunk = ""
 
-    # Hitta startpunkt
+    # 1. Hitta var sektionen börjar
     for kw in keywords:
         idx = text.lower().find(kw.lower())
         if idx != -1:
             start_pos = idx + len(kw)
-            # Vi tar en rejäl bit text för att vara säkra
+            # Vi tar en rejäl bit text
             relevant_chunk = text[start_pos : start_pos + 1500]
             found_keyword = True
             break
@@ -80,34 +81,38 @@ def extract_smart_rank(text: str, keywords: list) -> int:
     if not found_keyword:
         return 0
 
-    # Hitta alla matchningar MED position (så vi kan se vad som står innan)
-    # Regex: Siffror följt av 'in'
-    iterator = re.finditer(r"([0-9,.]+)\s+in\s+", relevant_chunk, re.IGNORECASE)
-    
-    candidates = []
-    
-    for match in iterator:
-        number_str = match.group(1)
-        start_index = match.start()
-        
-        # --- ANTI-TOP-100 LOGIK ---
-        # Titta på de 15 tecknen precis INNAN siffran
-        # Vi använder max(0, ...) för att inte krascha om siffran är allra först
-        preceding_text = relevant_chunk[max(0, start_index - 15) : start_index]
-        
-        # Om det står "Top" precis innan (t.ex. "See Top 100"), så hoppar vi över denna!
-        if "top" in preceding_text.lower():
-            # print(f"      🗑️ Ignorerar '{number_str}' eftersom det står 'Top' innan.")
-            continue 
+    # 2. STÄDA TEXTEN (Detta är nyckeln!)
+    # Vi tar bort fraser som "Top 100", "Top 1000" etc. så att siffran 100 försvinner.
+    # Vi tar också bort årtal för säkerhets skull.
+    clean_chunk = re.sub(r"top\s*100", "", relevant_chunk, flags=re.IGNORECASE)
+    clean_chunk = re.sub(r"202[0-9]", "", clean_chunk) # Tar bort 2024, 2025 etc.
 
-        # Rensa och spara siffran
-        clean_str = number_str.replace(",", "").replace(".", "")
+    candidates = []
+
+    # 3. REGEX SOM TÄCKER ALLA FALL
+    # Grupp 1: Prefix-metoden (Nr. 31 eller #31)
+    # Grupp 2: Suffix-metoden (31 in Computer...)
+    
+    regex_pattern = r"(?:(?:Nr\.?|#)\s*([0-9.,]+))|([0-9.,]+)\s+in\s+"
+    
+    matches = re.findall(regex_pattern, clean_chunk, re.IGNORECASE)
+
+    for m in matches:
+        # m är en tuple, t.ex ('31', '') eller ('', '5.233')
+        # Vi tar den som inte är tom
+        raw_num = m[0] if m[0] else m[1]
+        
+        # Rensa
+        clean_str = raw_num.replace(",", "").replace(".", "")
+        
         if clean_str.isdigit():
             val = int(clean_str)
-            if 0 < val < 10000000:
+            # Extra säkerhetsfilter
+            if val > 0 and val < 10000000:
                 candidates.append(val)
 
     if candidates:
+        # Nu när vi har städat bort "Top 100" och årtal är det säkert att ta lägsta
         lowest = min(candidates)
         print(f"      🔍 Hittade kandidater: {candidates} -> Valde: {lowest}")
         return lowest
@@ -147,7 +152,8 @@ async def get_rank(context, item) -> int:
             "#productDescription", 
             "table", 
             "ul",
-            "div#centerCol",
+            "div#centerCol", # Huvudkolumnen
+            "div#productDetails_db_sections"
         ]
 
         for sel in selectors:
@@ -159,13 +165,15 @@ async def get_rank(context, item) -> int:
         if len(text_content) < 500:
             text_content = await page.inner_text("body")
 
-        # Anropa den nya smarta funktionen
-        rank = extract_smart_rank(text_content, item['keywords'])
+        rank = extract_rank_v6(text_content, item['keywords'])
 
         if rank > 0:
             print(f"    ✅ Rank: #{rank}")
         else:
             print(f"    ⚠️ Kunde inte hitta rank för {item['name']}")
+            # Debug: Om det fortfarande strular, sparar vi texten för analys
+            # with open(f"debug_{item['name']}.txt", "w", encoding="utf-8") as f:
+            #     f.write(text_content)
         
         return rank
 
@@ -207,7 +215,7 @@ async def run():
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=HEADLESS)
         
-        print(f"--- Starting Final V4 Rank Scraping ({today}) ---")
+        print(f"--- Starting Final V6 (Noise Canceller) ({today}) ---")
 
         for item in TARGETS:
             context = await browser.new_context(
