@@ -48,53 +48,60 @@ def parse_number(text: str) -> int:
     if not m: return 0
     return int(re.sub(r"[^\d]", "", m.group(1)) or "0")
 
-# --- NY FUNKTION FÖR ATT HANTERA BLOCKERINGAR ---
+# --- NY HANTERING AV BLOCKERINGAR OCH COOKIES ---
 async def handle_amazon_blockers(page, domain: str):
     """
-    Hanterar popup-fönster eller blockerande sidor (t.ex. "Continue shopping" / "Weiter einkaufen").
-    Använder språkberoende selektorer baserat på domän.
+    Hanterar popup-fönster, GDPR-banners och blockerande sidor.
+    Uppdaterad med 'Weiter shoppen' och Cookie-acceptans.
     """
-    if "amazon.com" in domain:
-        # Engelsk selektor
-        selector = 'text="Continue shopping"'
-    elif "amazon.de" in domain:
-        # Tysk selektor
-        selector = 'text="Weiter einkaufen"'
-    else:
-        # Ingen känd selektor, fortsätt
-        return
+    print(f"    -> Letar efter blockeringar/cookies på {domain}...")
 
+    # 1. HANTERA COOKIES (GDPR) - Kritiskt för Tyskland
     try:
-        # Försök klicka på knappen med en kort timeout (5 sekunder)
-        await page.click(selector, timeout=5000)
-        print(f"    -> Blockersida klickades bort för {domain}.")
-        # Vänta lite efter klicket för att sidan ska ladda om, för att se mer mänskligt ut
-        await page.wait_for_timeout(random.randint(500, 1500)) 
-        
-    except PWTimeout:
-        # TimeoutError är normalt om blockeraren INTE visas
-        print(f"    -> Ingen blockersida dök upp för {domain}.")
-        pass
-    except Exception as e:
-        print(f"    -> Oväntat fel vid hantering av blockerare på {domain}: {e}")
+        cookie_selector = "#sp-cc-accept" # Standardknapp för 'Godkänn' på Amazon
+        if await page.locator(cookie_selector).is_visible(timeout=2000):
+            await page.click(cookie_selector)
+            print("    -> 🍪 GDPR Cookies accepterade.")
+            await page.wait_for_timeout(1000) # Vänta så rutan försvinner
+    except Exception:
+        pass 
+
+    # 2. HANTERA MELLANSIDOR ("Continue shopping" / "Weiter shoppen")
+    # Vi testar flera varianter av texten
+    possible_buttons = [
+        'text="Continue shopping"',  # US
+        'text="Weiter einkaufen"',   # DE (Variant A)
+        'text="Weiter shoppen"',     # DE (Variant B - Från din bild)
+    ]
+
+    for selector in possible_buttons:
+        try:
+            # Vi kollar snabbt om knappen finns
+            if await page.locator(selector).is_visible(timeout=1000):
+                print(f"    -> 🛑 Upsell-sida hittad ('{selector}'). Klickar...")
+                await page.click(selector)
+                await page.wait_for_timeout(2000) # Ge sidan tid att ladda om
+                return # Vi klickade, så vi är klara
+        except Exception:
+            continue # Prova nästa text
+
 # ------------------------------------------------
 
 async def get_bought_count(context, domain: str, gl: str, asin: str, code: str) -> int:
     page = await context.new_page()
     url = f"https://{domain}/dp/{asin}?th=1&psc=1&gl={gl}"
-    print(f"  Fetching {code} {asin}...") # Lade till loggning
+    print(f"  Fetching {code} {asin}...")
 
     try:
         await page.goto(url, wait_until="domcontentloaded", timeout=30000)
         
-        # --- ANROPA DEN NYA FUNKTIONEN HÄR ---
+        # --- KÖR BLOCKERINGS-HANTERAREN HÄR ---
         await handle_amazon_blockers(page, domain)
-        # -------------------------------------
+        # --------------------------------------
 
         found_text = ""
         for sel in SELECTORS:
             try:
-                # Nu fortsätter vi med den befintliga logiken för att hitta skrap-selektorn
                 el = await page.wait_for_selector(sel, state="attached", timeout=4000)
                 if el:
                     found_text = (await el.inner_text()).strip()
@@ -107,14 +114,14 @@ async def get_bought_count(context, domain: str, gl: str, asin: str, code: str) 
         print(f"  Value: {value}")
 
         if value == 0:
+            print(f"  ⚠️ Warning: Got 0 for {code}. Dumping HTML for inspection.")
             dump = HTML_DUMPS_DIR / f"{code}_{asin}.html"
             dump.write_text(await page.content(), encoding="utf-8", errors="ignore")
 
         return value
 
     except Exception as e:
-        # Förbättrad felhantering för att se vad som gick fel om värdet blir 0
-        print(f"  ❌ Error fetching {code} {asin}: {type(e).__name__}: {e}") 
+        print(f"  ❌ Error fetching {code} {asin}: {type(e).__name__}: {e}")
         return 0
     finally:
         await page.close()
@@ -132,7 +139,7 @@ async def run_once():
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=HEADLESS)
         for code, domain, accept_lang, gl, locale, ck_name, ck_value in COUNTRIES:
-            print(f"\n--- Starting Market: {code} ({domain}) ---") # Lade till loggning
+            print(f"\n--- Starting Market: {code} ({domain}) ---")
             context = await browser.new_context(
                 locale=locale,
                 user_agent=random.choice(UAS),
