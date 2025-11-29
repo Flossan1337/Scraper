@@ -7,14 +7,13 @@ from playwright.async_api import async_playwright, TimeoutError as PWTimeout
 import openpyxl
 
 # ── KONFIGURATION ──────────────────────────────────────────────────────────
-# Spara i repo-root/data
 SCRIPT_DIR = Path(__file__).resolve().parent
 DATA_DIR = (SCRIPT_DIR / ".." / "data").resolve()
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 XLSX_PATH = str((DATA_DIR / "fractal_amazon_ranks_us.xlsx").resolve())
 SHEET_NAME = "Rankings_US"
 
-# Produkter och vilken kategori vi ska leta efter ranking i
+# Produkter och kategori
 PRODUCTS = [
     # Headsets
     {"name": "Scape Dark",          "asin": "B0D5HGK3C2", "category": "Computer Headsets"},
@@ -27,30 +26,28 @@ PRODUCTS = [
     {"name": "Refine Fabric Dark",  "asin": "B0CSYWWRSV", "category": "Computer Gaming Chairs"},
 ]
 
-HEADLESS = True  # Sätt till False om du vill se webbläsaren jobba
+HEADLESS = True 
 
 # ───────────────────────────────────────────────────────────────────────────
 
-def parse_rank(text: str, category: str) -> int:
+def parse_rank_from_string(text: str, category: str) -> int:
     """
-    Letar efter mönstret '#123 in Category Name' och returnerar siffran.
+    Extraherar siffran från strängen "#15 in Computer Headsets".
     """
-    # Regex för att hitta rankingen kopplad till den specifika kategorin
-    # Exempel: #45 in Computer Gaming Chairs
-    # Vi använder re.IGNORECASE för att vara säkra
-    pattern = r"#([0-9,]+)\s+in\s+" + re.escape(category)
+    # Vi letar efter mönstret: #123 (någonting) Kategori
+    # Exempel: "#15 in Computer Headsets"
+    # Vi är strikta med att kategorinamnet måste finnas med för att undvika sub-kategorier
+    pattern = r"#([0-9,]+)\s+in\s+.*?" + re.escape(category)
     match = re.search(pattern, text, re.IGNORECASE)
     
     if match:
-        # Ta bort kommatecken (t.ex. 151,380 -> 151380) och konvertera till int
         clean_number = match.group(1).replace(",", "")
         return int(clean_number)
     return 0
 
 async def handle_blockers(page):
-    """Klickar bort eventuella popups/blockers"""
+    """Klickar bort popups"""
     try:
-        # Kollar efter "Continue shopping" eller liknande
         blockers = ['text="Continue shopping"', 'input.a-button-input']
         for sel in blockers:
             if await page.locator(sel).is_visible(timeout=1000):
@@ -59,6 +56,44 @@ async def handle_blockers(page):
                 return
     except:
         pass
+
+async def get_exact_rank(page, category: str) -> int:
+    """
+    Letar upp det exakta HTML-elementet baserat på användarens bild.
+    """
+    rank = 0
+    
+    # --- METOD 1: Tabell-layout (Från din bild) ---
+    # Vi letar efter en tabellrad (tr) som innehåller texten "Best Sellers Rank"
+    # Sedan hämtar vi texten från den raden.
+    try:
+        # Locator: Hitta en 'tr' som har en 'th' med texten "Best Sellers Rank"
+        # Detta är extremt specifikt och bör undvika "Compare"-tabeller
+        table_row = page.locator("tr:has(th:text-is('Best Sellers Rank'))").first
+        
+        if await table_row.count() > 0:
+            row_text = await table_row.inner_text()
+            # row_text ser ut typ: "Best Sellers Rank #15 in Computer Headsets..."
+            val = parse_rank_from_string(row_text, category)
+            if val > 0:
+                return val
+    except Exception:
+        pass
+
+    # --- METOD 2: Bullet List-layout (Alternativ Amazon-design) ---
+    # Ibland använder Amazon punktlistor istället för tabeller.
+    try:
+        # Leta efter list-item som innehåller texten
+        list_item = page.locator("li:has-text('Best Sellers Rank')").first
+        if await list_item.count() > 0:
+            li_text = await list_item.inner_text()
+            val = parse_rank_from_string(li_text, category)
+            if val > 0:
+                return val
+    except Exception:
+        pass
+
+    return 0
 
 async def get_product_rank(context, asin: str, category: str, name: str) -> int:
     page = await context.new_page()
@@ -69,23 +104,15 @@ async def get_product_rank(context, asin: str, category: str, name: str) -> int:
         await page.goto(url, wait_until="domcontentloaded", timeout=30000)
         await handle_blockers(page)
 
-        # Hämta texten från hela sidan.
-        # Det är enklare än att leta efter specifika div-taggar eftersom Amazon
-        # flyttar runt "Product Details" hela tiden.
-        content_text = await page.inner_text("body")
-        
-        # Leta efter "Best Sellers Rank" sektionen för säkerhets skull
-        # (För att undvika att matcha fel text någon annanstans)
-        # Men vi söker i hela texten först, det brukar räcka.
-        
-        rank = parse_rank(content_text, category)
+        # Använd den nya "kirurgiska" funktionen
+        rank = await get_exact_rank(page, category)
         
         if rank > 0:
             print(f"    ✅ Rank: #{rank}")
         else:
-            print(f"    ⚠️ Could not find rank for '{category}'.")
-            # Debug: Spara html om vi misslyckas
-            # await page.screenshot(path=f"debug_{asin}.png")
+            print(f"    ⚠️ Could not find specific rank for '{category}'.")
+            # Om du vill debugga, avkommentera raden nedan för att se vad scriptet ser:
+            # await page.screenshot(path=f"debug_{name.replace(' ', '_')}.png")
         
         return rank
 
@@ -96,17 +123,12 @@ async def get_product_rank(context, asin: str, category: str, name: str) -> int:
         await page.close()
 
 def append_to_excel(data_dict):
-    """
-    Skapar filen om den saknas, annars lägger till en rad.
-    Använder openpyxl direkt för att slippa externa beroenden.
-    """
     file_exists = os.path.exists(XLSX_PATH)
     
     if not file_exists:
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = SHEET_NAME
-        # Skapa header
         headers = ["Date"] + [p["name"] for p in PRODUCTS]
         ws.append(headers)
     else:
@@ -118,7 +140,6 @@ def append_to_excel(data_dict):
             headers = ["Date"] + [p["name"] for p in PRODUCTS]
             ws.append(headers)
 
-    # Skapa raden
     row = [data_dict["Date"]]
     for p in PRODUCTS:
         row.append(data_dict.get(p["name"], 0))
@@ -133,9 +154,10 @@ async def run():
 
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=HEADLESS)
+        # Vi sätter fönstret stort för att undvika mobil-layout
         context = await browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-            viewport={"width": 1366, "height": 850},
+            viewport={"width": 1920, "height": 1080}, 
             locale="en-US"
         )
         
@@ -147,7 +169,6 @@ async def run():
         
         await browser.close()
 
-    # Spara till Excel
     append_to_excel(results)
 
 if __name__ == "__main__":
