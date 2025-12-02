@@ -44,34 +44,63 @@ SELECTORS = [
 ]
 
 def parse_number(text: str) -> int:
-    m = re.search(r"([0-9][0-9.,]*)", text)
-    if not m: return 0
-    return int(re.sub(r"[^\d]", "", m.group(1)) or "0")
+    """
+    Hanterar '100+', '1K+', '1.5K' osv.
+    """
+    if not text:
+        return 0
+    
+    # Normalisera texten: gemener och ta bort '+' och mellanslag
+    clean_text = text.lower().replace("+", "").replace(" ", "").replace(",", ".")
+    
+    multiplier = 1
+    if "k" in clean_text:
+        multiplier = 1000
+    elif "m" in clean_text:
+        multiplier = 1000000
+        
+    # Extrahera siffran (inklusive decimaler)
+    # Regex letar efter siffror, eventuellt följt av en punkt och fler siffror
+    match = re.search(r"([0-9]+(?:\.[0-9]+)?)", clean_text)
+    
+    if not match:
+        return 0
+        
+    number_val = float(match.group(1))
+    return int(number_val * multiplier)
 
 # --- NY HANTERING AV BLOCKERINGAR OCH COOKIES ---
 async def handle_amazon_blockers(page, domain: str):
     """
     Hanterar popup-fönster, GDPR-banners och blockerande sidor.
-    Uppdaterad med 'Weiter shoppen' och Cookie-acceptans.
     """
     print(f"    -> Letar efter blockeringar/cookies på {domain}...")
 
     # 1. HANTERA COOKIES (GDPR) - Kritiskt för Tyskland
-    try:
-        cookie_selector = "#sp-cc-accept" # Standardknapp för 'Godkänn' på Amazon
-        if await page.locator(cookie_selector).is_visible(timeout=2000):
-            await page.click(cookie_selector)
-            print("    -> 🍪 GDPR Cookies accepterade.")
-            await page.wait_for_timeout(1000) # Vänta så rutan försvinner
-    except Exception:
-        pass 
+    # Vi testar både ID och Text-baserad sökning för att vara säkra
+    cookie_buttons = [
+        "#sp-cc-accept",  # Standard ID
+        "button[name='accept']",
+        "text=Akzeptieren", # Tyska
+        "text=Accept Cookies", # Engelska
+    ]
+
+    for selector in cookie_buttons:
+        try:
+            if await page.locator(selector).is_visible(timeout=1000):
+                print(f"    -> 🍪 Hittade cookie-knapp: {selector}. Klickar...")
+                await page.click(selector)
+                await page.wait_for_timeout(1500) # Vänta lite längre för omladdning
+                break # Sluta leta om vi hittat en
+        except Exception:
+            continue
 
     # 2. HANTERA MELLANSIDOR ("Continue shopping" / "Weiter shoppen")
-    # Vi testar flera varianter av texten
     possible_buttons = [
         'text="Continue shopping"',  # US
         'text="Weiter einkaufen"',   # DE (Variant A)
-        'text="Weiter shoppen"',     # DE (Variant B - Från din bild)
+        'text="Weiter shoppen"',     # DE (Variant B)
+        'input.a-button-input[type="submit"]', # Generell submit om text missar
     ]
 
     for selector in possible_buttons:
@@ -83,7 +112,7 @@ async def handle_amazon_blockers(page, domain: str):
                 await page.wait_for_timeout(2000) # Ge sidan tid att ladda om
                 return # Vi klickade, så vi är klara
         except Exception:
-            continue # Prova nästa text
+            continue 
 
 # ------------------------------------------------
 
@@ -109,9 +138,9 @@ async def get_bought_count(context, domain: str, gl: str, asin: str, code: str) 
             except PWTimeout:
                 continue
 
-        value = parse_number(found_text) if found_text else 0
+        value = parse_number(found_text)
 
-        print(f"  Value: {value}")
+        print(f"  Raw text: '{found_text}' -> Value: {value}")
 
         if value == 0:
             print(f"  ⚠️ Warning: Got 0 for {code}. Dumping HTML for inspection.")
