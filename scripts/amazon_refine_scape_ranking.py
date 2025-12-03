@@ -17,9 +17,9 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 DATA_DIR = (SCRIPT_DIR / ".." / "data").resolve()
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-# Filnamn
-XLSX_PATH = str((DATA_DIR / "fractal_scape_refine_data.xlsx").resolve())
-SHEET_NAME = "Tracking"
+# Sparar till en ny fil för att bara ha ranking-data
+XLSX_PATH = str((DATA_DIR / "fractal_scape_refine_ranks.xlsx").resolve())
+SHEET_NAME = "Rankings"
 
 HEADLESS = True
 
@@ -47,54 +47,47 @@ UAS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
 ]
 
-# --- HÄR ÄR DIN HTML-STRUKTUR ---
-# Vi prioriterar ID:t du hittade: #social-proofing-faceout-title-tk_bought
-BOUGHT_SELECTORS = [
-    "#social-proofing-faceout-title-tk_bought span.a-text-bold", # Exakt den struktur du visade
-    "#social-proofing-faceout-title-tk_bought",                  # Fallback till hela texten
-    "div.social-proofing-faceout span.a-text-bold",              # Bredare fallback
-]
-
 # ───────────────────────────────────────────────────────────────────────────
 
-def parse_number(text: str) -> int:
-    # Plockar ut första siffran. "50+ bought" -> 50. "500+ bought" -> 500.
-    m = re.search(r"([0-9][0-9.,]*)", text)
-    if not m: return 0
-    return int(re.sub(r"[^\d]", "", m.group(1)) or "0")
-
-def extract_bought_from_html(html_content: str) -> int:
-    """Backup: Scannar rå HTML efter '>50+ bought' mönstret."""
-    match = re.search(r">([0-9.,]+)\+?\s*bought", html_content, re.IGNORECASE)
-    if match:
-        return parse_number(match.group(1))
-    return 0
-
 def extract_rank_from_row_text(row_text: str) -> int:
-    """Hämtar ranking, ignorerar 'Top 100'."""
+    """
+    Hämtar ranking, ignorerar 'Top 100'.
+    Letar efter siffror med # eller Nr. ELLER siffror följt av 'in'.
+    """
+    # 1. Städa bort "Top 100" länkar så vi inte råkar ta siffran 100
     clean_text = re.sub(r"top\s*100", "", row_text, flags=re.IGNORECASE)
+    
+    # 2. Regex som fångar:
+    # Fall A: Prefix (# eller Nr.) följt av siffra. Ex: "#45" eller "Nr. 45"
+    # Fall B: Siffra följt av "in". Ex: "141 in"
     regex = r"(?:(?:Nr\.?|#)\s*([0-9.,]+))|([0-9.,]+)\s+in\s+"
+    
     matches = re.findall(regex, clean_text, re.IGNORECASE)
     
     candidates = []
     for m in matches:
+        # m är en tuple ('', '141') eller ('45', '')
         raw_num = m[0] if m[0] else m[1]
+        
         clean_str = raw_num.replace(",", "").replace(".", "")
         if clean_str.isdigit():
             val = int(clean_str)
+            # Rimlighetsfilter (Rank > 0 och < 10 miljoner)
             if 0 < val < 10000000:
                 candidates.append(val)
                 
     if candidates:
-        return min(candidates)
+        return min(candidates) # Välj den lägsta (bästa) rankingen
     return 0
 
 async def handle_blockers(page):
     try:
+        # Försök klicka bort cookies
         if await page.locator("#sp-cc-accept").is_visible(timeout=2000):
             await page.click("#sp-cc-accept")
             await page.wait_for_timeout(500)
         
+        # Försök klicka bort "Fortsätt handla" popups
         upsells = ['text="Continue shopping"', 'text="Weiter shoppen"', 'text="Weiter einkaufen"']
         for sel in upsells:
             if await page.locator(sel).is_visible(timeout=500):
@@ -103,64 +96,39 @@ async def handle_blockers(page):
     except:
         pass
 
-async def get_product_data(context, asin: str, domain: str, gl: str, name: str):
+async def get_product_rank(context, asin: str, domain: str, gl: str, name: str):
     page = await context.new_page()
     url = f"https://www.{domain}/dp/{asin}?th=1&psc=1&gl={gl}"
-    print(f"  Fetching {name} ({domain})...")
+    print(f"  Fetching Rank for {name} ({domain})...")
 
-    bought_val = 0
     rank_val = 0
 
     try:
         await page.goto(url, wait_until="domcontentloaded", timeout=30000)
         await handle_blockers(page)
 
-        full_html = await page.content()
-
-        # --- 1. BOUGHT COUNT (Nu med din specifika ID-tagg) ---
-        found_bought_text = ""
-        for sel in BOUGHT_SELECTORS:
-            try:
-                # Vi väntar lite extra (1 sek) på att denna widget ska laddas
-                el = await page.wait_for_selector(sel, state="attached", timeout=1000)
-                if el:
-                    found_bought_text = (await el.inner_text()).strip()
-                    # Om texten innehåller "bought" eller siffror är vi nöjda
-                    if found_bought_text: break
-            except:
-                continue
-        
-        if found_bought_text:
-            bought_val = parse_number(found_bought_text)
-            print(f"    🛒 Bought (CSS): {bought_val}+")
-        else:
-            # Backup: Regex på HTML
-            bought_val = extract_bought_from_html(full_html)
-            if bought_val > 0:
-                print(f"    🛒 Bought (Regex): {bought_val}+")
-            else:
-                print(f"    🛒 Bought: 0")
-
-        # --- 2. RANKING ---
+        # --- RANKING LOGIK ---
         try:
+            # Leta efter element som innehåller "Best Seller" eller "Bestseller"
+            # Vi letar brett efter texten, sen hittar vi föräldern (raden)
             rank_header = page.locator("text=/Best Sellers Rank|Bestseller-Rang|Best Seller Rank/i").first
             
             if await rank_header.count() > 0:
-                # Hitta raden/sektionen
+                # Hitta raden/sektionen (tr, li, eller div)
                 row_element = rank_header.locator("xpath=ancestor::tr | ancestor::li | ancestor::div[contains(@class, 'db_row')]").first
                 
                 if await row_element.count() > 0:
                     row_text = await row_element.inner_text()
                     rank_val = extract_rank_from_row_text(row_text)
                 else:
-                    # Fallback
+                    # Fallback: ta förälderns text om vi inte hittar en tydlig rad
                     row_text = await rank_header.evaluate("el => el.parentElement.innerText")
                     rank_val = extract_rank_from_row_text(row_text)
 
             if rank_val > 0:
                 print(f"    🏆 Rank: #{rank_val}")
             else:
-                # Fallback: Body search
+                # Sista utväg: Sök i hela kroppen om vi missade tabellen
                 body_text = await page.inner_text("body")
                 rank_val = extract_rank_from_row_text(body_text)
                 if rank_val > 0:
@@ -171,11 +139,11 @@ async def get_product_data(context, asin: str, domain: str, gl: str, name: str):
         except Exception as e:
             print(f"    ⚠️ Rank Error: {e}")
 
-        return bought_val, rank_val
+        return rank_val
 
     except Exception as e:
         print(f"    ❌ Error: {e}")
-        return 0, 0
+        return 0
     finally:
         await page.close()
 
@@ -185,13 +153,11 @@ def append_to_excel(data_dict):
     headers = ["Date"]
     keys_order = []
     
+    # Skapa headers ENBART för Ranking
     for country_code, *_ in COUNTRIES:
         for prod_name, _ in PRODUCTS:
-            key_bought = f"{prod_name} {country_code} Bought"
             key_rank = f"{prod_name} {country_code} Rank"
-            headers.append(key_bought)
             headers.append(key_rank)
-            keys_order.append(key_bought)
             keys_order.append(key_rank)
 
     if not file_exists:
@@ -221,7 +187,7 @@ async def run_once():
 
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=HEADLESS)
-        print(f"--- Starting Final V3 (Targeted + Bought Fix) ({today}) ---")
+        print(f"--- Starting Rank-Only Scraper ({today}) ---")
 
         for code, domain, accept_lang, gl, locale, ck_name, ck_value in COUNTRIES:
             print(f"\n--- Market: {code} ({domain}) ---")
@@ -241,9 +207,12 @@ async def run_once():
 
             for prod_name, asin in PRODUCTS:
                 full_name = f"{prod_name} {code}"
-                bought, rank = await get_product_data(context, asin, domain, gl, full_name)
-                results[f"{full_name} Bought"] = bought
+                
+                # Hämtar enbart rank
+                rank = await get_product_rank(context, asin, domain, gl, full_name)
+                
                 results[f"{full_name} Rank"] = rank
+                
                 await asyncio.sleep(random.randint(1, 3))
 
             await context.close()

@@ -73,8 +73,8 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
 
-      - name: Run amazon_refine_scape.py
-        run: python ./scripts/amazon_refine_scape.py
+      - name: Run amazon_refine_scape_ranking.py
+        run: python ./scripts/amazon_refine_scap_ranking.py
         timeout-minutes: 10
         continue-on-error: true
 
