@@ -208,7 +208,7 @@ def main():
     with sync_playwright() as p:
         # VIKTIGT: Arguments för att undvika bot-detektion
         browser = p.chromium.launch(
-            headless=False,  # Ändra till True när du verifierat att det funkar
+            headless=True,  # Sätt till True för Github Actions / Servers
             args=[
                 "--disable-blink-features=AutomationControlled",
                 "--start-maximized"
