@@ -47,7 +47,7 @@ UAS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
 ]
 
-# --- HÄR ÄR DIN HTML-STRUKTUR ---
+# --- SELEKTORER ---
 BOUGHT_SELECTORS = [
     "#social-proofing-faceout-title-tk_bought span.a-text-bold", 
     "#social-proofing-faceout-title-tk_bought",                  
@@ -57,14 +57,46 @@ BOUGHT_SELECTORS = [
 # ───────────────────────────────────────────────────────────────────────────
 
 def parse_number(text: str) -> int:
-    m = re.search(r"([0-9][0-9.,]*)", text)
-    if not m: return 0
-    return int(re.sub(r"[^\d]", "", m.group(1)) or "0")
+    """
+    Hanterar '50+', '1K+', '1.5K', '2M+' och konverterar till heltal.
+    """
+    if not text:
+        return 0
+    
+    # 1. Normalisera: gemener, ta bort mellanslag och plus
+    clean_text = text.lower().replace(" ", "").replace("+", "")
+    
+    # 2. Bestäm multiplier (K = 1000, M = 1,000,000)
+    multiplier = 1
+    if "k" in clean_text:
+        multiplier = 1000
+        clean_text = clean_text.replace("k", "")
+    elif "m" in clean_text:
+        multiplier = 1000000
+        clean_text = clean_text.replace("m", "")
+    
+    # 3. Hitta själva talet (hanterar både punkt och komma som decimal)
+    match = re.search(r"([0-9]+(?:[.,][0-9]+)?)", clean_text)
+    
+    if match:
+        num_str = match.group(1).replace(",", ".") # Standardisera till punkt
+        try:
+            val = float(num_str)
+            return int(val * multiplier)
+        except ValueError:
+            return 0
+            
+    return 0
 
 def extract_bought_from_html(html_content: str) -> int:
-    match = re.search(r">([0-9.,]+)\+?\s*bought", html_content, re.IGNORECASE)
+    """
+    Scannar rå HTML efter '>50+ bought' eller '>1K+ bought'.
+    """
+    match = re.search(r">([0-9.,]+[kKmM]?)\+?\s*bought", html_content, re.IGNORECASE)
+    
     if match:
-        return parse_number(match.group(1))
+        raw_text = match.group(1)
+        return parse_number(raw_text)
     return 0
 
 def extract_rank_from_row_text(row_text: str) -> int:
@@ -85,45 +117,33 @@ def extract_rank_from_row_text(row_text: str) -> int:
         return min(candidates)
     return 0
 
-# --- HÄR ÄR DEN TOTALT OMGJORDA FUNKTIONEN FÖR ATT KLARA TYSKLAND ---
+# --- UPPGRADERAD BLOCKER-HANTERARE FÖR DE ---
 async def handle_amazon_blockers(page, domain="amazon.com"):
-    """
-    Försöker aggressivt hitta och klicka bort cookie-banners och popups.
-    Speciellt anpassad för Amazon DE overlay.
-    """
     print("    -> Checking for blockers/cookies...")
     
-    # Lista på alla möjliga knappar för att acceptera cookies
     cookie_selectors = [
-        "#sp-cc-accept",             # Standard ID (oftast denna)
-        "input[name='accept']",      # Ibland en input
-        "button[name='accept']",     # Ibland en button
-        "text=Akzeptieren",          # Text-baserad (Tyska)
-        "text=Accept Cookies",       # Text-baserad (Engelska)
+        "#sp-cc-accept",             
+        "input[name='accept']",      
+        "button[name='accept']",     
+        "text=Akzeptieren",          
+        "text=Accept Cookies",       
     ]
 
-    # Försök hitta och klicka på cookie-knappen
     for selector in cookie_selectors:
         try:
-            # Vi kollar om den är synlig
             if await page.locator(selector).is_visible(timeout=1000):
                 print(f"    -> 🍪 Hittade cookie-knapp: {selector}. Klickar...")
                 await page.click(selector)
-                
-                # VIKTIGT: Vänta på att overlayn faktiskt försvinner
+                # Vänta på att rutan försvinner
                 try:
                     await page.locator(selector).wait_for(state="hidden", timeout=3000)
-                    print("    -> 🍪 Banner borta.")
                 except:
                     pass
-                
-                # Vänta en kort stund för att sidan ska "sätta sig"
                 await page.wait_for_timeout(1000)
-                break # Vi har klickat, gå vidare
+                break 
         except Exception:
             continue
 
-    # Hantera "Fortsätt handla" (Upsell)
     upsells = ['text="Continue shopping"', 'text="Weiter shoppen"', 'text="Weiter einkaufen"']
     for sel in upsells:
         try:
@@ -144,10 +164,9 @@ async def get_product_data(context, asin: str, domain: str, gl: str, name: str):
     try:
         await page.goto(url, wait_until="domcontentloaded", timeout=30000)
         
-        # Kör den nya blocker-hanteraren
+        # HÄR VAR FELET TIDIGARE - NU FIXAT:
         await handle_amazon_blockers(page, domain)
 
-        # Vi hämtar HTML först nu, EFTER att vi (förhoppningsvis) klickat bort bannern
         full_html = await page.content()
 
         # --- 1. BOUGHT COUNT ---
@@ -163,11 +182,11 @@ async def get_product_data(context, asin: str, domain: str, gl: str, name: str):
         
         if found_bought_text:
             bought_val = parse_number(found_bought_text)
-            print(f"    🛒 Bought (CSS): {bought_val}+")
+            print(f"    🛒 Bought (CSS): {bought_val} (Raw: {found_bought_text})")
         else:
             bought_val = extract_bought_from_html(full_html)
             if bought_val > 0:
-                print(f"    🛒 Bought (Regex): {bought_val}+")
+                print(f"    🛒 Bought (Regex): {bought_val}")
             else:
                 print(f"    🛒 Bought: 0")
 
@@ -200,9 +219,10 @@ async def get_product_data(context, asin: str, domain: str, gl: str, name: str):
 
         # Om vi fick 0 på allt, dumpa HTML för debug
         if bought_val == 0 and rank_val == 0:
-             print(f"    📸 Sparar debug-HTML för {name}...")
-             debug_file = DATA_DIR / f"debug_{name.replace(' ', '_')}.html"
-             debug_file.write_text(full_html, encoding="utf-8")
+             # print(f"    📸 Sparar debug-HTML för {name}...")
+             # debug_file = DATA_DIR / f"debug_{name.replace(' ', '_')}.html"
+             # debug_file.write_text(full_html, encoding="utf-8")
+             pass
 
         return bought_val, rank_val
 
@@ -253,9 +273,9 @@ async def run_once():
     results = {"Date": today}
 
     async with async_playwright() as pw:
-        # VIKTIGT: Sätt args för att starta maximerat, hjälper ibland med layouts
+        # Start-maximized hjälper ofta med Amazon DE layouten
         browser = await pw.chromium.launch(headless=HEADLESS, args=["--start-maximized"])
-        print(f"--- Starting Final Fix V4 ({today}) ---")
+        print(f"--- Starting Final Combo Scraper (Fixed Name) ({today}) ---")
 
         for code, domain, accept_lang, gl, locale, ck_name, ck_value in COUNTRIES:
             print(f"\n--- Market: {code} ({domain}) ---")
@@ -264,7 +284,7 @@ async def run_once():
                 locale=locale,
                 user_agent=random.choice(UAS),
                 java_script_enabled=True,
-                viewport={"width": 1920, "height": 1080}, # Större skärm minskar risken för mobil-layout
+                viewport={"width": 1920, "height": 1080},
                 extra_http_headers={"Accept-Language": accept_lang},
             )
             await context.add_cookies([{
