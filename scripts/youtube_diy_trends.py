@@ -15,7 +15,7 @@ SEARCH_QUERY = "Gaming PC Build"
 MAX_RESULTS = 500
 
 # SET THIS TO TRUE TO SEE DETAILED OUTPUT IN CONSOLE
-DEBUG = True 
+DEBUG = False 
 
 # Retrieve API Key from Environment
 API_KEY = "AIzaSyCHwNxI4HSv5cbLx3praqwLv7w_1YdGeCM"
