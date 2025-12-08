@@ -18,7 +18,7 @@ MAX_RESULTS = 100
 DEBUG = False 
 
 # Retrieve API Key from Environment
-API_KEY = os.environ.get("YOUTUBE_API_KEY")
+API_KEY = "AIzaSyCHwNxI4HSv5cbLx3praqwLv7w_1YdGeCM"
 
 if not API_KEY:
     print(f"[{SCRIPT_NAME}] ERROR: YOUTUBE_API_KEY environment variable not found.")
