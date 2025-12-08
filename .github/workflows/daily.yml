@@ -73,8 +73,8 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
 
-      - name: Run amazon_refine_scape_ranking.py
-        run: python ./scripts/amazon_refine_scape_ranking.py
+      - name: Run youtube_diy_trends.py
+        run: python ./scripts/youtube_diy_trends.py
         timeout-minutes: 10
         continue-on-error: true
 
