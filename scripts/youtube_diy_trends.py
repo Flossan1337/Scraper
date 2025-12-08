@@ -12,10 +12,10 @@ from googleapiclient.errors import HttpError
 SCRIPT_NAME = "youtube_diy_trends.py"
 DATA_FILENAME = "youtube_diy_sentiment.xlsx"
 SEARCH_QUERY = "Gaming PC Build"
-MAX_RESULTS = 100
+MAX_RESULTS = 500
 
 # SET THIS TO TRUE TO SEE DETAILED OUTPUT IN CONSOLE
-DEBUG = False 
+DEBUG = True 
 
 # Retrieve API Key from Environment
 API_KEY = "AIzaSyCHwNxI4HSv5cbLx3praqwLv7w_1YdGeCM"
@@ -26,7 +26,7 @@ if not API_KEY:
 
 def get_youtube_data():
     """
-    Fetches top 100 most relevant videos (no date limit) and calculates metrics.
+    Fetches top 500 most relevant videos (no date limit) and calculates metrics.
     """
     try:
         youtube = build('youtube', 'v3', developerKey=API_KEY)
