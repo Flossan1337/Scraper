@@ -1,6 +1,6 @@
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 import openpyxl
 from googleapiclient.discovery import build
@@ -12,7 +12,10 @@ from googleapiclient.errors import HttpError
 SCRIPT_NAME = "youtube_diy_trends.py"
 DATA_FILENAME = "youtube_diy_sentiment.xlsx"
 SEARCH_QUERY = "Gaming PC Build"
-MAX_RESULTS = 20
+MAX_RESULTS = 100
+
+# SET THIS TO TRUE TO SEE DETAILED OUTPUT IN CONSOLE
+DEBUG = False 
 
 # Retrieve API Key from Environment
 API_KEY = os.environ.get("YOUTUBE_API_KEY")
@@ -23,64 +26,90 @@ if not API_KEY:
 
 def get_youtube_data():
     """
-    Fetches recent videos and calculates metrics.
-    Returns a dictionary of metrics or None if failed.
+    Fetches top 100 most relevant videos (no date limit) and calculates metrics.
     """
     try:
-        # Build the YouTube service
         youtube = build('youtube', 'v3', developerKey=API_KEY)
 
-        # Calculate date for "7 days ago" (RFC 3339 format required by YouTube)
-        published_after = (datetime.utcnow() - timedelta(days=7)).isoformat("T") + "Z"
+        print(f"[{SCRIPT_NAME}] Searching for '{SEARCH_QUERY}' (Top {MAX_RESULTS} by Relevance)...")
 
-        print(f"[{SCRIPT_NAME}] Searching for '{SEARCH_QUERY}' published after {published_after}...")
+        # 1. Search for videos (Pagination loop)
+        video_ids = []
+        top_video_title = "N/A"
+        next_page_token = None
+        
+        while len(video_ids) < MAX_RESULTS:
+            remaining = MAX_RESULTS - len(video_ids)
+            fetch_count = min(remaining, 50) 
 
-        # 1. Search for videos (Returns ID and Snippet, but NO View Count)
-        search_response = youtube.search().list(
-            q=SEARCH_QUERY,
-            part="id,snippet",
-            maxResults=MAX_RESULTS,
-            publishedAfter=published_after,
-            type="video",
-            order="relevance"  # Simulate standard user search behavior
-        ).execute()
+            # NOTE: Removed 'publishedAfter' to remove the day cap
+            search_response = youtube.search().list(
+                q=SEARCH_QUERY,
+                part="id,snippet",
+                maxResults=fetch_count,
+                type="video",
+                order="relevance",
+                pageToken=next_page_token
+            ).execute()
 
-        search_items = search_response.get("items", [])
+            items = search_response.get("items", [])
+            if not items:
+                break
 
-        if not search_items:
-            print(f"[{SCRIPT_NAME}] No videos found for the given criteria.")
+            # Capture top title from the very first result
+            if not next_page_token and items:
+                top_video_title = items[0]['snippet']['title']
+
+            for item in items:
+                video_ids.append(item['id']['videoId'])
+
+            next_page_token = search_response.get("nextPageToken")
+            if not next_page_token:
+                break
+
+        print(f"[{SCRIPT_NAME}] Found {len(video_ids)} relevant videos. Fetching stats...")
+
+        if not video_ids:
             return None
 
-        # Extract Video IDs to fetch statistics
-        video_ids = [item['id']['videoId'] for item in search_items]
-
-        # 2. Fetch Video Statistics (Returns View Counts)
-        stats_response = youtube.videos().list(
-            part="statistics,snippet",
-            id=",".join(video_ids)
-        ).execute()
-
-        stats_items = stats_response.get("items", [])
-
-        # Process Metrics
+        # 2. Fetch Video Statistics (Chunked)
         total_views = 0
-        video_count = len(stats_items)
+        video_count = 0
         
-        # We use the title from the first SEARCH result as it is the most "relevant"
-        top_video_title = search_items[0]['snippet']['title']
+        def chunked_list(lst, n):
+            for i in range(0, len(lst), n):
+                yield lst[i:i + n]
 
-        for video in stats_items:
-            # Some videos might hide view counts
-            views = int(video['statistics'].get('viewCount', 0))
-            total_views += views
+        if DEBUG:
+            print(f"\n{'='*20} DEBUG: INDIVIDUAL VIDEO STATS {'='*20}")
+
+        for chunk in chunked_list(video_ids, 50):
+            # Fetch snippet AND statistics to get titles for debug
+            stats_response = youtube.videos().list(
+                part="statistics,snippet",
+                id=",".join(chunk)
+            ).execute()
+
+            for video in stats_response.get("items", []):
+                views = int(video['statistics'].get('viewCount', 0))
+                title = video['snippet']['title']
+                
+                if DEBUG:
+                    print(f"[Views: {views:,}] {title}")
+
+                total_views += views
+                video_count += 1
+
+        if DEBUG:
+            print(f"{'='*60}\n")
 
         avg_views = int(total_views / video_count) if video_count > 0 else 0
 
-        print(f"[{SCRIPT_NAME}] Success. Found {video_count} videos. Top: {top_video_title[:30]}...")
+        print(f"[{SCRIPT_NAME}] Success. Analyzed {video_count} videos. Avg Views: {avg_views:,}")
         
         return {
-            "Total_Views_Top20": total_views,
-            "Avg_Views_Top20": avg_views,
+            "Total_Views": total_views,
+            "Avg_Views": avg_views,
             "Top_Video_Title": top_video_title
         }
 
@@ -92,41 +121,29 @@ def get_youtube_data():
         return None
 
 def update_excel(metrics):
-    """
-    Appends metrics to the Excel file in the ../data folder.
-    Creates the file and headers if it doesn't exist.
-    """
-    # 1. Path Handling (Relative to script location)
     script_dir = Path(__file__).resolve().parent
     data_dir = script_dir.parent / "data"
-    
-    # Ensure data directory exists
     data_dir.mkdir(parents=True, exist_ok=True)
-    
     file_path = data_dir / DATA_FILENAME
 
-    # 2. Excel Handling
-    headers = ["Date", "Query", "Total_Views_Top20", "Avg_Views_Top20", "Top_Video_Title"]
+    # Updated headers (Removed "30d" since we removed the cap)
+    headers = ["Date", "Query", "Total_Views_Top100", "Avg_Views_Top100", "Top_Video_Title"]
     current_date = datetime.now().strftime("%Y-%m-%d")
 
     if not file_path.exists():
-        # Create new workbook
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = "YouTube Trends"
         ws.append(headers)
-        print(f"[{SCRIPT_NAME}] Created new file: {file_path}")
     else:
-        # Load existing workbook
         wb = openpyxl.load_workbook(file_path)
         ws = wb.active
 
-    # Append Data
     row_data = [
         current_date, 
         SEARCH_QUERY, 
-        metrics["Total_Views_Top20"], 
-        metrics["Avg_Views_Top20"], 
+        metrics["Total_Views"], 
+        metrics["Avg_Views"], 
         metrics["Top_Video_Title"]
     ]
     
