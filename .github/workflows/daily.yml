@@ -74,6 +74,8 @@ jobs:
         continue-on-error: true
 
       - name: Run youtube_diy_trends.py
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python ./scripts/youtube_diy_trends.py
         timeout-minutes: 10
         continue-on-error: true
