@@ -1,6 +1,18 @@
 {
+  "606997": {
+    "available": 130,
+    "price_SEK": 1800.0,
+    "parent_name": "Chessie",
+    "variant_name": "Roströd / Off white",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD40195",
+    "url": "chessie-200x200-cm-kvadratisk-rostrod-off-white-matta-RVD40195",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
   "585810": {
-    "available": 104,
+    "available": 103,
     "price_SEK": 4300.0,
     "parent_name": "Comfy",
     "variant_name": "Beige",
@@ -9,22 +21,10 @@
     "size_label": "x-large",
     "sku": "RVD33651",
     "url": "comfy-250x350-cm-beige-extra-stor-matta-RVD33651",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "629561": {
-    "available": 34,
-    "price_SEK": 6100.0,
-    "parent_name": "Comfy",
-    "variant_name": "Beige",
-    "length_cm": 400,
-    "width_cm": 300,
-    "size_label": "x-large",
-    "sku": "RVD46745",
-    "url": "comfy-300x400-cm-beige-extra-stor-matta-RVD46745",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "585795": {
-    "available": 158,
+    "available": 156,
     "price_SEK": 3000.0,
     "parent_name": "Comfy",
     "variant_name": "Beige",
@@ -33,10 +33,22 @@
     "size_label": "large",
     "sku": "RVD33648",
     "url": "comfy-200x300-cm-beige-stor-matta-RVD33648",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "629561": {
+    "available": 33,
+    "price_SEK": 6100.0,
+    "parent_name": "Comfy",
+    "variant_name": "Beige",
+    "length_cm": 400,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD46745",
+    "url": "comfy-300x400-cm-beige-extra-stor-matta-RVD46745",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "585690": {
-    "available": 124,
+    "available": 122,
     "price_SEK": 1900.0,
     "parent_name": "Comfy",
     "variant_name": "Beige",
@@ -45,7 +57,7 @@
     "size_label": "large",
     "sku": "RVD33649",
     "url": "comfy-160x230-cm-beige-stor-matta-RVD33649",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "585712": {
     "available": 36,
@@ -57,7 +69,7 @@
     "size_label": "medium",
     "sku": "RVD33652",
     "url": "comfy-140x200-cm-beige-matta-RVD33652",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "585697": {
     "available": 66,
@@ -69,58 +81,10 @@
     "size_label": "medium",
     "sku": "RVD33650",
     "url": "comfy-100x160-cm-beige-matta-RVD33650",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606997": {
-    "available": 131,
-    "price_SEK": 1800.0,
-    "parent_name": "Chessie",
-    "variant_name": "Roströd / Off white",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD40195",
-    "url": "chessie-200x200-cm-kvadratisk-rostrod-off-white-matta-RVD40195",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610021": {
-    "available": 37,
-    "price_SEK": 3200.0,
-    "parent_name": "Fiona",
-    "variant_name": "Flerfärgad",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD42419",
-    "url": "fiona-200x300-cm-flerfargad-stor-matta-RVD42419",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610017": {
-    "available": 178,
-    "price_SEK": 2000.0,
-    "parent_name": "Fiona",
-    "variant_name": "Flerfärgad",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD42418",
-    "url": "fiona-160x230-cm-flerfargad-stor-matta-RVD42418",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610008": {
-    "available": 90,
-    "price_SEK": 1500.0,
-    "parent_name": "Fiona",
-    "variant_name": "Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD42417",
-    "url": "fiona-140x200-cm-flerfargad-matta-RVD42417",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "546597": {
-    "available": 17,
+    "available": 11,
     "price_SEK": 4100.0,
     "parent_name": "Serafina",
     "variant_name": "Beige",
@@ -129,10 +93,10 @@
     "size_label": "large",
     "sku": "CVD27101",
     "url": "serafina-250x300-cm-beige-stor-ullmatta-CVD27101",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "546593": {
-    "available": 78,
+    "available": 72,
     "price_SEK": 3300.0,
     "parent_name": "Serafina",
     "variant_name": "Beige",
@@ -141,10 +105,10 @@
     "size_label": "large",
     "sku": "CVD27084",
     "url": "serafina-200x300-cm-beige-stor-ullmatta-CVD27084",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "546598": {
-    "available": 133,
+    "available": 131,
     "price_SEK": 6400.0,
     "parent_name": "Serafina",
     "variant_name": "Beige",
@@ -153,10 +117,10 @@
     "size_label": "x-large",
     "sku": "CVD27102",
     "url": "serafina-300x400-cm-beige-extra-stor-ullmatta-CVD27102",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "546551": {
-    "available": 1,
+    "available": 0,
     "price_SEK": 2100.0,
     "parent_name": "Serafina",
     "variant_name": "Beige",
@@ -165,10 +129,46 @@
     "size_label": "large",
     "sku": "CVD27083",
     "url": "serafina-160x230-cm-beige-stor-ullmatta-CVD27083",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610021": {
+    "available": 31,
+    "price_SEK": 3200.0,
+    "parent_name": "Fiona",
+    "variant_name": "Flerfärgad",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD42419",
+    "url": "fiona-200x300-cm-flerfargad-stor-matta-RVD42419",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610017": {
+    "available": 175,
+    "price_SEK": 2000.0,
+    "parent_name": "Fiona",
+    "variant_name": "Flerfärgad",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD42418",
+    "url": "fiona-160x230-cm-flerfargad-stor-matta-RVD42418",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610008": {
+    "available": 88,
+    "price_SEK": 1500.0,
+    "parent_name": "Fiona",
+    "variant_name": "Flerfärgad",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD42417",
+    "url": "fiona-140x200-cm-flerfargad-matta-RVD42417",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "603291": {
-    "available": 2000,
+    "available": 1983,
     "price_SEK": 2400.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Rosa",
@@ -177,7 +177,7 @@
     "size_label": "large",
     "sku": "RVD39974",
     "url": "georgia-oriental-200x300-cm-rod-rosa-stor-bomullsmatta-RVD39974",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "639272": {
     "available": 55,
@@ -189,7 +189,7 @@
     "size_label": "x-large",
     "sku": "RVD47613",
     "url": "georgia-oriental-300x500-cm-rod-rosa-extra-stor-bomullsmatta-RVD47613",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "639270": {
     "available": 0,
@@ -201,10 +201,10 @@
     "size_label": "large",
     "sku": "RVD47615",
     "url": "georgia-oriental-240x340-cm-rod-rosa-stor-bomullsmatta-RVD47615",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "626845": {
-    "available": 125,
+    "available": 124,
     "price_SEK": 4700.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Rosa",
@@ -213,10 +213,10 @@
     "size_label": "x-large",
     "sku": "RVD44753",
     "url": "georgia-oriental-300x400-cm-rod-rosa-extra-stor-bomullsmatta-RVD44753",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "603272": {
-    "available": 2749,
+    "available": 2729,
     "price_SEK": 1600.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Rosa",
@@ -225,10 +225,10 @@
     "size_label": "large",
     "sku": "RVD39976",
     "url": "georgia-oriental-160x230-cm-rod-rosa-stor-bomullsmatta-RVD39976",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "603277": {
-    "available": 1166,
+    "available": 1152,
     "price_SEK": 990.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Rosa",
@@ -237,7 +237,7 @@
     "size_label": "medium",
     "sku": "RVD39978",
     "url": "georgia-oriental-120x180-cm-rod-rosa-bomullsmatta-RVD39978",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "639521": {
     "available": 95,
@@ -249,10 +249,10 @@
     "size_label": "x-large",
     "sku": "RVD47622",
     "url": "georgia-oriental-300x500-cm-bla-flerfargad-extra-stor-bomullsmatta-RVD47622",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "639519": {
-    "available": 37,
+    "available": 35,
     "price_SEK": 3400.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Blå / Flerfärgad",
@@ -261,7 +261,7 @@
     "size_label": "large",
     "sku": "RVD47623",
     "url": "georgia-oriental-240x340-cm-bla-flerfargad-stor-bomullsmatta-RVD47623",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "626844": {
     "available": 107,
@@ -273,10 +273,10 @@
     "size_label": "x-large",
     "sku": "RVD44752",
     "url": "georgia-oriental-300x400-cm-bla-flerfargad-extra-stor-bomullsmatta-RVD44752",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "626783": {
-    "available": 325,
+    "available": 324,
     "price_SEK": 1600.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Blå / Flerfärgad",
@@ -285,10 +285,10 @@
     "size_label": "large",
     "sku": "RVD44747",
     "url": "georgia-oriental-160x230-cm-bla-flerfargad-stor-bomullsmatta-RVD44747",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "626787": {
-    "available": 248,
+    "available": 245,
     "price_SEK": 2400.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Blå / Flerfärgad",
@@ -297,10 +297,10 @@
     "size_label": "large",
     "sku": "RVD44745",
     "url": "georgia-oriental-200x300-cm-bla-flerfargad-stor-bomullsmatta-RVD44745",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "626796": {
-    "available": 129,
+    "available": 128,
     "price_SEK": 990.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Blå / Flerfärgad",
@@ -309,10 +309,10 @@
     "size_label": "medium",
     "sku": "RVD44749",
     "url": "georgia-oriental-120x180-cm-bla-flerfargad-bomullsmatta-RVD44749",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "624484": {
-    "available": 20,
+    "available": 16,
     "price_SEK": 3100.0,
     "parent_name": "Sterling",
     "variant_name": "Vit / Ljusbeige",
@@ -321,7 +321,7 @@
     "size_label": "large",
     "sku": "RVD44909",
     "url": "sterling-240x340-cm-vit-ljusbeige-stor-matta-RVD44909",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "624419": {
     "available": 71,
@@ -333,22 +333,10 @@
     "size_label": "large",
     "sku": "RVD44911",
     "url": "sterling-160x230-cm-vit-ljusbeige-stor-matta-RVD44911",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "624450": {
-    "available": 10,
-    "price_SEK": 2300.0,
-    "parent_name": "Sterling",
-    "variant_name": "Vit / Ljusbeige",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD44910",
-    "url": "sterling-200x300-cm-vit-ljusbeige-stor-matta-RVD44910",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "624406": {
-    "available": 70,
+    "available": 69,
     "price_SEK": 1100.0,
     "parent_name": "Sterling",
     "variant_name": "Vit / Ljusbeige",
@@ -357,7 +345,79 @@
     "size_label": "medium",
     "sku": "CVD44912",
     "url": "sterling-140x200-cm-vit-ljusbeige-matta-CVD44912",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "624450": {
+    "available": 9,
+    "price_SEK": 2300.0,
+    "parent_name": "Sterling",
+    "variant_name": "Vit / Ljusbeige",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD44910",
+    "url": "sterling-200x300-cm-vit-ljusbeige-stor-matta-RVD44910",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "605435": {
+    "available": 91,
+    "price_SEK": 3500.0,
+    "parent_name": "Venus",
+    "variant_name": "Beige / Greige",
+    "length_cm": 340,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD39893",
+    "url": "venus-240x340-cm-beige-greige-stor-matta-RVD39893",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "605062": {
+    "available": 147,
+    "price_SEK": 1700.0,
+    "parent_name": "Venus",
+    "variant_name": "Beige / Greige",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD39896",
+    "url": "venus-160x230-cm-beige-greige-stor-matta-RVD39896",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "605057": {
+    "available": 121,
+    "price_SEK": 1400.0,
+    "parent_name": "Venus",
+    "variant_name": "Beige / Greige",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD39895",
+    "url": "venus-140x200-cm-beige-greige-matta-RVD39895",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "605436": {
+    "available": 138,
+    "price_SEK": 2600.0,
+    "parent_name": "Venus",
+    "variant_name": "Beige / Greige",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD39894",
+    "url": "venus-200x300-cm-beige-greige-stor-matta-RVD39894",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "605447": {
+    "available": 25,
+    "price_SEK": 790.0,
+    "parent_name": "Venus",
+    "variant_name": "Beige / Greige",
+    "length_cm": 160,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "RVD39897",
+    "url": "venus-100x160-cm-beige-greige-matta-RVD39897",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "639524": {
     "available": 72,
@@ -369,7 +429,7 @@
     "size_label": "x-large",
     "sku": "RVD47619",
     "url": "georgia-oriental-300x500-cm-rod-bla-extra-stor-bomullsmatta-RVD47619",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "639522": {
     "available": 0,
@@ -381,10 +441,10 @@
     "size_label": "large",
     "sku": "RVD47621",
     "url": "georgia-oriental-240x340-cm-rod-bla-stor-bomullsmatta-RVD47621",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "626843": {
-    "available": 127,
+    "available": 126,
     "price_SEK": 4700.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Blå",
@@ -393,10 +453,10 @@
     "size_label": "x-large",
     "sku": "RVD44754",
     "url": "georgia-oriental-300x400-cm-rod-bla-extra-stor-bomullsmatta-RVD44754",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "616951": {
-    "available": 512,
+    "available": 505,
     "price_SEK": 1600.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Blå",
@@ -405,10 +465,10 @@
     "size_label": "large",
     "sku": "RVD43855",
     "url": "georgia-oriental-160x230-cm-rod-bla-stor-bomullsmatta-RVD43855",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "616971": {
-    "available": 290,
+    "available": 281,
     "price_SEK": 2400.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Blå",
@@ -417,10 +477,10 @@
     "size_label": "large",
     "sku": "RVD43853",
     "url": "georgia-oriental-200x300-cm-rod-bla-stor-bomullsmatta-RVD43853",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "616928": {
-    "available": 202,
+    "available": 197,
     "price_SEK": 990.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Blå",
@@ -429,70 +489,10 @@
     "size_label": "medium",
     "sku": "RVD43857",
     "url": "georgia-oriental-120x180-cm-rod-bla-bomullsmatta-RVD43857",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "605435": {
-    "available": 93,
-    "price_SEK": 3500.0,
-    "parent_name": "Venus",
-    "variant_name": "Beige / Greige",
-    "length_cm": 340,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD39893",
-    "url": "venus-240x340-cm-beige-greige-stor-matta-RVD39893",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "605062": {
-    "available": 149,
-    "price_SEK": 1700.0,
-    "parent_name": "Venus",
-    "variant_name": "Beige / Greige",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD39896",
-    "url": "venus-160x230-cm-beige-greige-stor-matta-RVD39896",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "605436": {
-    "available": 142,
-    "price_SEK": 2600.0,
-    "parent_name": "Venus",
-    "variant_name": "Beige / Greige",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD39894",
-    "url": "venus-200x300-cm-beige-greige-stor-matta-RVD39894",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "605057": {
-    "available": 122,
-    "price_SEK": 1400.0,
-    "parent_name": "Venus",
-    "variant_name": "Beige / Greige",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD39895",
-    "url": "venus-140x200-cm-beige-greige-matta-RVD39895",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "605447": {
-    "available": 27,
-    "price_SEK": 790.0,
-    "parent_name": "Venus",
-    "variant_name": "Beige / Greige",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "RVD39897",
-    "url": "venus-100x160-cm-beige-greige-matta-RVD39897",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "423316": {
-    "available": 114,
+    "available": 112,
     "price_SEK": 4300.0,
     "parent_name": "Kaleidoscope",
     "variant_name": "Flerfärgad",
@@ -501,7 +501,7 @@
     "size_label": "large",
     "sku": "RVD19509",
     "url": "kaleidoscope-240x300-cm-flerfargad-stor-matta-RVD19509",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "423281": {
     "available": 51,
@@ -513,7 +513,7 @@
     "size_label": "large",
     "sku": "RVD19510",
     "url": "kaleidoscope-200x300-cm-flerfargad-stor-matta-RVD19510",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "423482": {
     "available": 155,
@@ -525,10 +525,10 @@
     "size_label": "large",
     "sku": "RVD19512",
     "url": "kaleidoscope-160x230-cm-flerfargad-stor-matta-RVD19512",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "423513": {
-    "available": 45,
+    "available": 47,
     "price_SEK": 990.0,
     "parent_name": "Kaleidoscope",
     "variant_name": "Flerfärgad",
@@ -537,10 +537,10 @@
     "size_label": "medium",
     "sku": "RVD19608",
     "url": "kaleidoscope-100x160-cm-flerfargad-matta-RVD19608",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "617330": {
-    "available": 159,
+    "available": 157,
     "price_SEK": 3800.0,
     "parent_name": "Crizia",
     "variant_name": "Beige",
@@ -549,19 +549,7 @@
     "size_label": "large",
     "sku": "RVD44137",
     "url": "crizia-240x340-cm-beige-stor-bomullsmatta-RVD44137",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "617335": {
-    "available": 303,
-    "price_SEK": 1800.0,
-    "parent_name": "Crizia",
-    "variant_name": "Beige",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD44139",
-    "url": "crizia-160x230-cm-beige-stor-bomullsmatta-RVD44139",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "617324": {
     "available": 81,
@@ -573,10 +561,22 @@
     "size_label": "medium",
     "sku": "RVD44142",
     "url": "crizia-140x200-cm-beige-bomullsmatta-RVD44142",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "617335": {
+    "available": 302,
+    "price_SEK": 1800.0,
+    "parent_name": "Crizia",
+    "variant_name": "Beige",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD44139",
+    "url": "crizia-160x230-cm-beige-stor-bomullsmatta-RVD44139",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "618210": {
-    "available": 309,
+    "available": 305,
     "price_SEK": 2800.0,
     "parent_name": "Crizia",
     "variant_name": "Beige",
@@ -585,7 +585,7 @@
     "size_label": "large",
     "sku": "RVD44138",
     "url": "crizia-200x300-cm-beige-stor-bomullsmatta-RVD44138",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "618205": {
     "available": 65,
@@ -597,10 +597,10 @@
     "size_label": "medium",
     "sku": "RVD44143",
     "url": "crizia-100x160-cm-beige-bomullsmatta-RVD44143",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "568000": {
-    "available": 93,
+    "available": 91,
     "price_SEK": 4000.0,
     "parent_name": "Chaima",
     "variant_name": "Krämvit / Beige",
@@ -609,10 +609,10 @@
     "size_label": "large",
     "sku": "RVD32199",
     "url": "chaima-240x340-cm-kramvit-beige-stor-matta-RVD32199",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "568027": {
-    "available": 79,
+    "available": 76,
     "price_SEK": 3000.0,
     "parent_name": "Chaima",
     "variant_name": "Krämvit / Beige",
@@ -621,10 +621,10 @@
     "size_label": "large",
     "sku": "RVD32200",
     "url": "chaima-200x300-cm-kramvit-beige-stor-matta-RVD32200",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "567975": {
-    "available": 61,
+    "available": 58,
     "price_SEK": 1900.0,
     "parent_name": "Chaima",
     "variant_name": "Krämvit / Beige",
@@ -633,7 +633,7 @@
     "size_label": "large",
     "sku": "RVD32201",
     "url": "chaima-160x230-cm-kramvit-beige-stor-matta-RVD32201",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "568041": {
     "available": 0,
@@ -645,70 +645,10 @@
     "size_label": "medium",
     "sku": "RVD32203",
     "url": "chaima-140x200-cm-kramvit-beige-matta-RVD32203",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "604145": {
-    "available": 62,
-    "price_SEK": 4000.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit",
-    "length_cm": 340,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD39789",
-    "url": "bahia-240x340-cm-kramvit-stor-matta-RVD39789",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "639525": {
-    "available": 0,
-    "price_SEK": 5500.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit",
-    "length_cm": 400,
-    "width_cm": 300,
-    "size_label": "x-large",
-    "sku": "RVD47608",
-    "url": "bahia-300x400-cm-kramvit-extra-stor-matta-RVD47608",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "603449": {
-    "available": 151,
-    "price_SEK": 3000.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD39790",
-    "url": "bahia-200x300-cm-kramvit-stor-matta-RVD39790",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "603414": {
-    "available": 158,
-    "price_SEK": 1900.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD39792",
-    "url": "bahia-160x230-cm-kramvit-stor-matta-RVD39792",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "603405": {
-    "available": 0,
-    "price_SEK": 1100.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit",
-    "length_cm": 180,
-    "width_cm": 120,
-    "size_label": "medium",
-    "sku": "RVD39798",
-    "url": "bahia-120x180-cm-kramvit-matta-RVD39798",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "604165": {
-    "available": 66,
+    "available": 65,
     "price_SEK": 4000.0,
     "parent_name": "Bahia",
     "variant_name": "Krämvit / Beige",
@@ -717,10 +657,10 @@
     "size_label": "large",
     "sku": "RVD39783",
     "url": "bahia-240x340-cm-kramvit-beige-stor-matta-RVD39783",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "603640": {
-    "available": 60,
+    "available": 58,
     "price_SEK": 3000.0,
     "parent_name": "Bahia",
     "variant_name": "Krämvit / Beige",
@@ -729,10 +669,10 @@
     "size_label": "large",
     "sku": "RVD39784",
     "url": "bahia-200x300-cm-kramvit-beige-stor-matta-RVD39784",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "603411": {
-    "available": 62,
+    "available": 57,
     "price_SEK": 1900.0,
     "parent_name": "Bahia",
     "variant_name": "Krämvit / Beige",
@@ -741,7 +681,7 @@
     "size_label": "large",
     "sku": "RVD39786",
     "url": "bahia-160x230-cm-kramvit-beige-stor-matta-RVD39786",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "603406": {
     "available": 0,
@@ -753,10 +693,70 @@
     "size_label": "medium",
     "sku": "RVD39788",
     "url": "bahia-120x180-cm-kramvit-beige-matta-RVD39788",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "604145": {
+    "available": 60,
+    "price_SEK": 4000.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit",
+    "length_cm": 340,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD39789",
+    "url": "bahia-240x340-cm-kramvit-stor-matta-RVD39789",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "603449": {
+    "available": 148,
+    "price_SEK": 3000.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD39790",
+    "url": "bahia-200x300-cm-kramvit-stor-matta-RVD39790",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "603414": {
+    "available": 153,
+    "price_SEK": 1900.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD39792",
+    "url": "bahia-160x230-cm-kramvit-stor-matta-RVD39792",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "639525": {
+    "available": 0,
+    "price_SEK": 5500.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit",
+    "length_cm": 400,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD47608",
+    "url": "bahia-300x400-cm-kramvit-extra-stor-matta-RVD47608",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "603405": {
+    "available": 0,
+    "price_SEK": 1100.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit",
+    "length_cm": 180,
+    "width_cm": 120,
+    "size_label": "medium",
+    "sku": "RVD39798",
+    "url": "bahia-120x180-cm-kramvit-matta-RVD39798",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "601582": {
-    "available": 21,
+    "available": 19,
     "price_SEK": 4000.0,
     "parent_name": "Kerala",
     "variant_name": "Röd / Flerfärgad",
@@ -765,22 +765,10 @@
     "size_label": "large",
     "sku": "RVD39686",
     "url": "kerala-240x340-cm-rod-flerfargad-stor-matta-RVD39686",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "596975": {
-    "available": 7,
-    "price_SEK": 3000.0,
-    "parent_name": "Kerala",
-    "variant_name": "Röd / Flerfärgad",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "CVD38702",
-    "url": "kerala-200x300-cm-rod-flerfargad-stor-matta-CVD38702",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "596944": {
-    "available": 186,
+    "available": 180,
     "price_SEK": 1800.0,
     "parent_name": "Kerala",
     "variant_name": "Röd / Flerfärgad",
@@ -789,10 +777,22 @@
     "size_label": "large",
     "sku": "CVD38703",
     "url": "kerala-160x230-cm-rod-flerfargad-stor-matta-CVD38703",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "596975": {
+    "available": 5,
+    "price_SEK": 3000.0,
+    "parent_name": "Kerala",
+    "variant_name": "Röd / Flerfärgad",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "CVD38702",
+    "url": "kerala-200x300-cm-rod-flerfargad-stor-matta-CVD38702",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "596950": {
-    "available": 118,
+    "available": 117,
     "price_SEK": 1400.0,
     "parent_name": "Kerala",
     "variant_name": "Röd / Flerfärgad",
@@ -801,10 +801,10 @@
     "size_label": "medium",
     "sku": "CVD38704",
     "url": "kerala-140x200-cm-rod-flerfargad-matta-CVD38704",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "596935": {
-    "available": 168,
+    "available": 167,
     "price_SEK": 890.0,
     "parent_name": "Kerala",
     "variant_name": "Röd / Flerfärgad",
@@ -813,67 +813,7 @@
     "size_label": "medium",
     "sku": "CVD38705",
     "url": "kerala-100x160-cm-rod-flerfargad-matta-CVD38705",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606529": {
-    "available": 292,
-    "price_SEK": 3800.0,
-    "parent_name": "Crizia",
-    "variant_name": "Off white",
-    "length_cm": 340,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD39960",
-    "url": "crizia-240x340-cm-off-white-stor-bomullsmatta-RVD39960",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606455": {
-    "available": 529,
-    "price_SEK": 1800.0,
-    "parent_name": "Crizia",
-    "variant_name": "Off white",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD39962",
-    "url": "crizia-160x230-cm-off-white-stor-bomullsmatta-RVD39962",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606472": {
-    "available": 319,
-    "price_SEK": 2800.0,
-    "parent_name": "Crizia",
-    "variant_name": "Off white",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD39961",
-    "url": "crizia-200x300-cm-off-white-stor-bomullsmatta-RVD39961",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606504": {
-    "available": 258,
-    "price_SEK": 1400.0,
-    "parent_name": "Crizia",
-    "variant_name": "Off white",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD39965",
-    "url": "crizia-140x200-cm-off-white-bomullsmatta-RVD39965",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606506": {
-    "available": 158,
-    "price_SEK": 890.0,
-    "parent_name": "Crizia",
-    "variant_name": "Off white",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "RVD39966",
-    "url": "crizia-100x160-cm-off-white-bomullsmatta-RVD39966",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611831": {
     "available": 152,
@@ -885,10 +825,10 @@
     "size_label": "large",
     "sku": "RVD41069",
     "url": "clio-240x340-cm-beige-stor-matta-RVD41069",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "630554": {
-    "available": 268,
+    "available": 267,
     "price_SEK": 4400.0,
     "parent_name": "Clio",
     "variant_name": "Beige",
@@ -897,10 +837,10 @@
     "size_label": "x-large",
     "sku": "RVD46305",
     "url": "clio-300x400-cm-beige-extra-stor-matta-RVD46305",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611856": {
-    "available": 146,
+    "available": 143,
     "price_SEK": 1500.0,
     "parent_name": "Clio",
     "variant_name": "Beige",
@@ -909,7 +849,7 @@
     "size_label": "large",
     "sku": "RVD41072",
     "url": "clio-160x230-cm-beige-stor-matta-RVD41072",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611822": {
     "available": 174,
@@ -921,10 +861,10 @@
     "size_label": "large",
     "sku": "RVD41070",
     "url": "clio-200x300-cm-beige-stor-matta-RVD41070",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611915": {
-    "available": 91,
+    "available": 90,
     "price_SEK": 1200.0,
     "parent_name": "Clio",
     "variant_name": "Beige",
@@ -933,10 +873,10 @@
     "size_label": "medium",
     "sku": "RVD41073",
     "url": "clio-140x200-cm-beige-matta-RVD41073",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611833": {
-    "available": 6,
+    "available": 5,
     "price_SEK": 3100.0,
     "parent_name": "Cameron",
     "variant_name": "Beige",
@@ -945,19 +885,7 @@
     "size_label": "large",
     "sku": "RVD41093",
     "url": "cameron-240x340-cm-beige-stor-matta-RVD41093",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611819": {
-    "available": 102,
-    "price_SEK": 2300.0,
-    "parent_name": "Cameron",
-    "variant_name": "Beige",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD41094",
-    "url": "cameron-200x300-cm-beige-stor-matta-RVD41094",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611858": {
     "available": 91,
@@ -969,7 +897,7 @@
     "size_label": "large",
     "sku": "RVD41096",
     "url": "cameron-160x230-cm-beige-stor-matta-RVD41096",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611918": {
     "available": 41,
@@ -981,67 +909,79 @@
     "size_label": "medium",
     "sku": "RVD41097",
     "url": "cameron-140x200-cm-beige-matta-RVD41097",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "438971": {
-    "available": 174,
-    "price_SEK": 3800.0,
-    "parent_name": "Nadia",
-    "variant_name": "Krämvit / Greige",
-    "length_cm": 300,
-    "width_cm": 250,
-    "size_label": "large",
-    "sku": "RVD21821",
-    "url": "nadia-250x300-cm-kramvit-greige-stor-matta-RVD21821",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "432300": {
-    "available": 144,
-    "price_SEK": 3100.0,
-    "parent_name": "Nadia",
-    "variant_name": "Krämvit / Greige",
+  "611819": {
+    "available": 100,
+    "price_SEK": 2300.0,
+    "parent_name": "Cameron",
+    "variant_name": "Beige",
     "length_cm": 300,
     "width_cm": 200,
     "size_label": "large",
-    "sku": "RVD20515",
-    "url": "nadia-200x300-cm-kramvit-greige-stor-matta-RVD20515",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD41094",
+    "url": "cameron-200x300-cm-beige-stor-matta-RVD41094",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "638450": {
-    "available": 3,
-    "price_SEK": 5400.0,
-    "parent_name": "Nadia",
-    "variant_name": "Krämvit / Greige",
-    "length_cm": 400,
-    "width_cm": 300,
-    "size_label": "x-large",
-    "sku": "RVD47612",
-    "url": "nadia-300x400-cm-kramvit-greige-extra-stor-matta-RVD47612",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+  "606529": {
+    "available": 291,
+    "price_SEK": 3800.0,
+    "parent_name": "Crizia",
+    "variant_name": "Off white",
+    "length_cm": 340,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD39960",
+    "url": "crizia-240x340-cm-off-white-stor-bomullsmatta-RVD39960",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "432240": {
-    "available": 146,
-    "price_SEK": 1500.0,
-    "parent_name": "Nadia",
-    "variant_name": "Krämvit / Greige",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD20519",
-    "url": "nadia-140x200-cm-kramvit-greige-matta-RVD20519",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "432212": {
-    "available": 98,
-    "price_SEK": 1900.0,
-    "parent_name": "Nadia",
-    "variant_name": "Krämvit / Greige",
+  "606455": {
+    "available": 528,
+    "price_SEK": 1800.0,
+    "parent_name": "Crizia",
+    "variant_name": "Off white",
     "length_cm": 230,
     "width_cm": 160,
     "size_label": "large",
-    "sku": "RVD20517",
-    "url": "nadia-160x230-cm-kramvit-greige-stor-matta-RVD20517",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD39962",
+    "url": "crizia-160x230-cm-off-white-stor-bomullsmatta-RVD39962",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606472": {
+    "available": 318,
+    "price_SEK": 2800.0,
+    "parent_name": "Crizia",
+    "variant_name": "Off white",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD39961",
+    "url": "crizia-200x300-cm-off-white-stor-bomullsmatta-RVD39961",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606506": {
+    "available": 158,
+    "price_SEK": 890.0,
+    "parent_name": "Crizia",
+    "variant_name": "Off white",
+    "length_cm": 160,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "RVD39966",
+    "url": "crizia-100x160-cm-off-white-bomullsmatta-RVD39966",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606504": {
+    "available": 258,
+    "price_SEK": 1400.0,
+    "parent_name": "Crizia",
+    "variant_name": "Off white",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD39965",
+    "url": "crizia-140x200-cm-off-white-bomullsmatta-RVD39965",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "387198": {
     "available": 97,
@@ -1053,19 +993,7 @@
     "size_label": "large",
     "sku": "CVD16523",
     "url": "melerad-250x300-cm-beige-stor-matta-CVD16523",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "387059": {
-    "available": 191,
-    "price_SEK": 4000.0,
-    "parent_name": "Melange",
-    "variant_name": "Beige",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "CVD16524",
-    "url": "melerad-200x300-cm-beige-stor-matta-CVD16524",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "387201": {
     "available": 126,
@@ -1077,7 +1005,7 @@
     "size_label": "x-large",
     "sku": "CVD16521",
     "url": "melerad-250x350-cm-beige-extra-stor-matta-CVD16521",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "629241": {
     "available": 44,
@@ -1089,7 +1017,19 @@
     "size_label": "x-large",
     "sku": "CVD46781",
     "url": "melerad-300x400-cm-beige-extra-stor-matta-CVD46781",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "387059": {
+    "available": 189,
+    "price_SEK": 4000.0,
+    "parent_name": "Melange",
+    "variant_name": "Beige",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "CVD16524",
+    "url": "melerad-200x300-cm-beige-stor-matta-CVD16524",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "393030": {
     "available": 91,
@@ -1101,7 +1041,7 @@
     "size_label": "large",
     "sku": "CVD16527",
     "url": "melerad-160x230-cm-beige-stor-matta-CVD16527",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "393051": {
     "available": 95,
@@ -1113,7 +1053,7 @@
     "size_label": "medium",
     "sku": "CVD16529",
     "url": "melerad-140x200-cm-beige-matta-CVD16529",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "567996": {
     "available": 31,
@@ -1125,10 +1065,10 @@
     "size_label": "large",
     "sku": "RVD32289",
     "url": "nalori-240x340-cm-svart-beige-stor-matta-RVD32289",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "568032": {
-    "available": 90,
+    "available": 88,
     "price_SEK": 1700.0,
     "parent_name": "Nalori",
     "variant_name": "Svart / Beige",
@@ -1137,10 +1077,10 @@
     "size_label": "large",
     "sku": "RVD32302",
     "url": "nalori-160x230-cm-svart-beige-stor-matta-RVD32302",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "567970": {
-    "available": 31,
+    "available": 30,
     "price_SEK": 2700.0,
     "parent_name": "Nalori",
     "variant_name": "Svart / Beige",
@@ -1149,7 +1089,127 @@
     "size_label": "large",
     "sku": "RVD32288",
     "url": "nalori-200x300-cm-svart-beige-stor-matta-RVD32288",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "438971": {
+    "available": 173,
+    "price_SEK": 3800.0,
+    "parent_name": "Nadia",
+    "variant_name": "Krämvit / Greige",
+    "length_cm": 300,
+    "width_cm": 250,
+    "size_label": "large",
+    "sku": "RVD21821",
+    "url": "nadia-250x300-cm-kramvit-greige-stor-matta-RVD21821",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "432300": {
+    "available": 144,
+    "price_SEK": 3100.0,
+    "parent_name": "Nadia",
+    "variant_name": "Krämvit / Greige",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD20515",
+    "url": "nadia-200x300-cm-kramvit-greige-stor-matta-RVD20515",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "638450": {
+    "available": 3,
+    "price_SEK": 5400.0,
+    "parent_name": "Nadia",
+    "variant_name": "Krämvit / Greige",
+    "length_cm": 400,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD47612",
+    "url": "nadia-300x400-cm-kramvit-greige-extra-stor-matta-RVD47612",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "432240": {
+    "available": 146,
+    "price_SEK": 1500.0,
+    "parent_name": "Nadia",
+    "variant_name": "Krämvit / Greige",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD20519",
+    "url": "nadia-140x200-cm-kramvit-greige-matta-RVD20519",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "432212": {
+    "available": 96,
+    "price_SEK": 1900.0,
+    "parent_name": "Nadia",
+    "variant_name": "Krämvit / Greige",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD20517",
+    "url": "nadia-160x230-cm-kramvit-greige-stor-matta-RVD20517",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601583": {
+    "available": 49,
+    "price_SEK": 4000.0,
+    "parent_name": "Nenax",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 340,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD39687",
+    "url": "nenax-240x340-cm-rod-rosa-stor-matta-RVD39687",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "596973": {
+    "available": 40,
+    "price_SEK": 3000.0,
+    "parent_name": "Nenax",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD38849",
+    "url": "nenax-200x300-cm-rod-rosa-stor-matta-RVD38849",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "596947": {
+    "available": 81,
+    "price_SEK": 1800.0,
+    "parent_name": "Nenax",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD38851",
+    "url": "nenax-160x230-cm-rod-rosa-stor-matta-RVD38851",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "596951": {
+    "available": 25,
+    "price_SEK": 1400.0,
+    "parent_name": "Nenax",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD38852",
+    "url": "nenax-140x200-cm-rod-rosa-matta-RVD38852",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "596937": {
+    "available": 11,
+    "price_SEK": 890.0,
+    "parent_name": "Nenax",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 160,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "RVD38853",
+    "url": "nenax-100x160-cm-rod-rosa-matta-RVD38853",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611834": {
     "available": 17,
@@ -1161,10 +1221,10 @@
     "size_label": "large",
     "sku": "RVD41075",
     "url": "clio-240x340-cm-brun-stor-matta-RVD41075",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "630553": {
-    "available": 66,
+    "available": 63,
     "price_SEK": 4400.0,
     "parent_name": "Clio",
     "variant_name": "Brun",
@@ -1173,22 +1233,10 @@
     "size_label": "x-large",
     "sku": "RVD46786",
     "url": "clio-300x400-cm-brun-extra-stor-matta-RVD46786",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611821": {
-    "available": 50,
-    "price_SEK": 2300.0,
-    "parent_name": "Clio",
-    "variant_name": "Brun",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD41076",
-    "url": "clio-200x300-cm-brun-stor-matta-RVD41076",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611857": {
-    "available": 42,
+    "available": 41,
     "price_SEK": 1500.0,
     "parent_name": "Clio",
     "variant_name": "Brun",
@@ -1197,10 +1245,10 @@
     "size_label": "large",
     "sku": "RVD41078",
     "url": "clio-160x230-cm-brun-stor-matta-RVD41078",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611916": {
-    "available": 9,
+    "available": 6,
     "price_SEK": 1200.0,
     "parent_name": "Clio",
     "variant_name": "Brun",
@@ -1209,310 +1257,22 @@
     "size_label": "medium",
     "sku": "RVD41079",
     "url": "clio-140x200-cm-brun-matta-RVD41079",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "639495": {
-    "available": 0,
-    "price_SEK": 3400.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Grön / Flerfärgad",
-    "length_cm": 340,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD47618",
-    "url": "georgia-oriental-240x340-cm-gron-flerfargad-stor-bomullsmatta-RVD47618",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610982": {
-    "available": 724,
-    "price_SEK": 1600.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Grön / Flerfärgad",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD43243",
-    "url": "georgia-oriental-160x230-cm-gron-flerfargad-stor-bomullsmatta-RVD43243",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "626838": {
-    "available": 0,
-    "price_SEK": 4700.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Grön / Flerfärgad",
-    "length_cm": 400,
-    "width_cm": 300,
-    "size_label": "x-large",
-    "sku": "RVD44755",
-    "url": "georgia-oriental-300x400-cm-gron-flerfargad-extra-stor-bomullsmatta-RVD44755",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "639497": {
-    "available": 80,
-    "price_SEK": 5700.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Grön / Flerfärgad",
-    "length_cm": 500,
-    "width_cm": 300,
-    "size_label": "x-large",
-    "sku": "RVD47616",
-    "url": "georgia-oriental-300x500-cm-gron-flerfargad-extra-stor-bomullsmatta-RVD47616",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611014": {
-    "available": 511,
-    "price_SEK": 2400.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Grön / Flerfärgad",
+  "611821": {
+    "available": 49,
+    "price_SEK": 2300.0,
+    "parent_name": "Clio",
+    "variant_name": "Brun",
     "length_cm": 300,
     "width_cm": 200,
     "size_label": "large",
-    "sku": "RVD43241",
-    "url": "georgia-oriental-200x300-cm-gron-flerfargad-stor-bomullsmatta-RVD43241",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "612002": {
-    "available": 399,
-    "price_SEK": 990.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Grön / Flerfärgad",
-    "length_cm": 180,
-    "width_cm": 120,
-    "size_label": "medium",
-    "sku": "RVD43245",
-    "url": "georgia-oriental-120x180-cm-gron-flerfargad-bomullsmatta-RVD43245",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "393018": {
-    "available": 104,
-    "price_SEK": 5800.0,
-    "parent_name": "Melange",
-    "variant_name": "Beige",
-    "length_cm": 300,
-    "width_cm": 300,
-    "size_label": "large",
-    "sku": "CVD16522",
-    "url": "melerad-300x300-cm-kvadratisk-beige-stor-matta-CVD16522",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "393021": {
-    "available": 61,
-    "price_SEK": 4200.0,
-    "parent_name": "Melange",
-    "variant_name": "Beige",
-    "length_cm": 250,
-    "width_cm": 250,
-    "size_label": "large",
-    "sku": "CVD16526",
-    "url": "melerad-250x250-cm-kvadratisk-beige-stor-matta-CVD16526",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "387233": {
-    "available": 206,
-    "price_SEK": 2800.0,
-    "parent_name": "Melange",
-    "variant_name": "Beige",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "CVD16528",
-    "url": "melerad-200x200-cm-kvadratisk-beige-matta-CVD16528",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601583": {
-    "available": 51,
-    "price_SEK": 4000.0,
-    "parent_name": "Nenax",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 340,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD39687",
-    "url": "nenax-240x340-cm-rod-rosa-stor-matta-RVD39687",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "596973": {
-    "available": 41,
-    "price_SEK": 3000.0,
-    "parent_name": "Nenax",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD38849",
-    "url": "nenax-200x300-cm-rod-rosa-stor-matta-RVD38849",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "596951": {
-    "available": 28,
-    "price_SEK": 1400.0,
-    "parent_name": "Nenax",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD38852",
-    "url": "nenax-140x200-cm-rod-rosa-matta-RVD38852",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "596947": {
-    "available": 82,
-    "price_SEK": 1800.0,
-    "parent_name": "Nenax",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD38851",
-    "url": "nenax-160x230-cm-rod-rosa-stor-matta-RVD38851",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "596937": {
-    "available": 12,
-    "price_SEK": 890.0,
-    "parent_name": "Nenax",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "RVD38853",
-    "url": "nenax-100x160-cm-rod-rosa-matta-RVD38853",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601267": {
-    "available": 456,
-    "price_SEK": 3900.0,
-    "parent_name": "Big Sur",
-    "variant_name": "Terrakotta / Marinblå",
-    "length_cm": 300,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD39537",
-    "url": "big-sur-240x300-cm-terrakotta-marinbla-stor-matta-RVD39537",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "637577": {
-    "available": 4,
-    "price_SEK": 4900.0,
-    "parent_name": "Big Sur",
-    "variant_name": "Terrakotta / Marinblå",
-    "length_cm": 400,
-    "width_cm": 300,
-    "size_label": "x-large",
-    "sku": "RVD47430",
-    "url": "big-sur-300x400-cm-terrakotta-marinbla-extra-stor-matta-RVD47430",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601282": {
-    "available": 774,
-    "price_SEK": 2000.0,
-    "parent_name": "Big Sur",
-    "variant_name": "Terrakotta / Marinblå",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD39538",
-    "url": "big-sur-160x230-cm-terrakotta-marinbla-stor-matta-RVD39538",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601252": {
-    "available": 500,
-    "price_SEK": 1500.0,
-    "parent_name": "Big Sur",
-    "variant_name": "Terrakotta / Marinblå",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD39539",
-    "url": "big-sur-140x200-cm-terrakotta-marinbla-matta-RVD39539",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601271": {
-    "available": 250,
-    "price_SEK": 890.0,
-    "parent_name": "Big Sur",
-    "variant_name": "Terrakotta / Marinblå",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "RVD39565",
-    "url": "big-sur-100x160-cm-terrakotta-marinbla-matta-RVD39565",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "589652": {
-    "available": 80,
-    "price_SEK": 3200.0,
-    "parent_name": "Comfy",
-    "variant_name": "Beige",
-    "length_cm": 250,
-    "width_cm": 250,
-    "size_label": "large",
-    "sku": "RVD34079",
-    "url": "comfy-o-250-cm-rund-beige-stor-matta-RVD34079",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585655": {
-    "available": 100,
-    "price_SEK": 1200.0,
-    "parent_name": "Comfy",
-    "variant_name": "Beige",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD34081",
-    "url": "comfy-o-150-cm-rund-beige-liten-matta-RVD34081",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "600262": {
-    "available": 140,
-    "price_SEK": 690.0,
-    "parent_name": "Comfy",
-    "variant_name": "Beige",
-    "length_cm": 100,
-    "width_cm": 100,
-    "size_label": "small",
-    "sku": "RVD34080",
-    "url": "comfy-o-100-cm-rund-beige-liten-matta-RVD34080",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "546548": {
-    "available": 104,
-    "price_SEK": 2600.0,
-    "parent_name": "Serafina",
-    "variant_name": "Beige",
-    "length_cm": 450,
-    "width_cm": 100,
-    "size_label": "x-large",
-    "sku": "CVD27082",
-    "url": "serafina-100x450-cm-avlang-beige-extra-stor-ullmatta-CVD27082",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "546571": {
-    "available": 168,
-    "price_SEK": 1600.0,
-    "parent_name": "Serafina",
-    "variant_name": "Beige",
-    "length_cm": 250,
-    "width_cm": 100,
-    "size_label": "large",
-    "sku": "CVD27095",
-    "url": "serafina-100x250-cm-avlang-beige-stor-ullmatta-CVD27095",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "546549": {
-    "available": 99,
-    "price_SEK": 2100.0,
-    "parent_name": "Serafina",
-    "variant_name": "Beige",
-    "length_cm": 350,
-    "width_cm": 100,
-    "size_label": "x-large",
-    "sku": "CVD27094",
-    "url": "serafina-100x350-cm-avlang-beige-extra-stor-ullmatta-CVD27094",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD41076",
+    "url": "clio-200x300-cm-brun-stor-matta-RVD41076",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "425343": {
-    "available": 149,
+    "available": 146,
     "price_SEK": 6400.0,
     "parent_name": "Ritz",
     "variant_name": "Ljusgrå",
@@ -1521,10 +1281,10 @@
     "size_label": "large",
     "sku": "RVD19975",
     "url": "ritz-240x340-cm-ljusgra-stor-matta-RVD19975",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "425365": {
-    "available": 340,
+    "available": 339,
     "price_SEK": 3000.0,
     "parent_name": "Ritz",
     "variant_name": "Ljusgrå",
@@ -1533,10 +1293,10 @@
     "size_label": "large",
     "sku": "RVD19626",
     "url": "ritz-160x230-cm-ljusgra-stor-matta-RVD19626",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "425261": {
-    "available": 221,
+    "available": 219,
     "price_SEK": 4600.0,
     "parent_name": "Ritz",
     "variant_name": "Ljusgrå",
@@ -1545,7 +1305,7 @@
     "size_label": "large",
     "sku": "RVD19624",
     "url": "ritz-200x290-cm-ljusgra-stor-matta-RVD19624",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "627284": {
     "available": 0,
@@ -1557,10 +1317,10 @@
     "size_label": "x-large",
     "sku": "RVD46532",
     "url": "ritz-300x400-cm-ljusgra-extra-stor-matta-RVD46532",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "425263": {
-    "available": 97,
+    "available": 96,
     "price_SEK": 1800.0,
     "parent_name": "Ritz",
     "variant_name": "Ljusgrå",
@@ -1569,70 +1329,274 @@
     "size_label": "medium",
     "sku": "RVD19629",
     "url": "ritz-120x180-cm-ljusgra-matta-RVD19629",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "607019": {
-    "available": 76,
-    "price_SEK": 3300.0,
-    "parent_name": "Aris",
-    "variant_name": "Greige",
-    "length_cm": 350,
-    "width_cm": 250,
-    "size_label": "x-large",
-    "sku": "RVD40188",
-    "url": "aris-250x350-cm-greige-extra-stor-matta-RVD40188",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+  "639495": {
+    "available": 0,
+    "price_SEK": 3400.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Grön / Flerfärgad",
+    "length_cm": 340,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD47618",
+    "url": "georgia-oriental-240x340-cm-gron-flerfargad-stor-bomullsmatta-RVD47618",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "606952": {
-    "available": 98,
+  "610982": {
+    "available": 716,
     "price_SEK": 1600.0,
-    "parent_name": "Aris",
-    "variant_name": "Greige",
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Grön / Flerfärgad",
     "length_cm": 230,
     "width_cm": 160,
     "size_label": "large",
-    "sku": "RVD40084",
-    "url": "aris-160x230-cm-greige-stor-matta-RVD40084",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD43243",
+    "url": "georgia-oriental-160x230-cm-gron-flerfargad-stor-bomullsmatta-RVD43243",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "606965": {
-    "available": 34,
-    "price_SEK": 1100.0,
-    "parent_name": "Aris",
-    "variant_name": "Greige",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD40085",
-    "url": "aris-140x200-cm-greige-matta-RVD40085",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+  "626838": {
+    "available": 0,
+    "price_SEK": 4700.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Grön / Flerfärgad",
+    "length_cm": 400,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD44755",
+    "url": "georgia-oriental-300x400-cm-gron-flerfargad-extra-stor-bomullsmatta-RVD44755",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "607000": {
-    "available": 73,
+  "639497": {
+    "available": 81,
+    "price_SEK": 5700.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Grön / Flerfärgad",
+    "length_cm": 500,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD47616",
+    "url": "georgia-oriental-300x500-cm-gron-flerfargad-extra-stor-bomullsmatta-RVD47616",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "611014": {
+    "available": 500,
     "price_SEK": 2400.0,
-    "parent_name": "Aris",
-    "variant_name": "Greige",
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Grön / Flerfärgad",
     "length_cm": 300,
     "width_cm": 200,
     "size_label": "large",
-    "sku": "RVD40083",
-    "url": "aris-200x300-cm-greige-stor-matta-RVD40083",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD43241",
+    "url": "georgia-oriental-200x300-cm-gron-flerfargad-stor-bomullsmatta-RVD43241",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "606956": {
-    "available": 51,
-    "price_SEK": 690.0,
-    "parent_name": "Aris",
-    "variant_name": "Greige",
+  "612002": {
+    "available": 395,
+    "price_SEK": 990.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Grön / Flerfärgad",
+    "length_cm": 180,
+    "width_cm": 120,
+    "size_label": "medium",
+    "sku": "RVD43245",
+    "url": "georgia-oriental-120x180-cm-gron-flerfargad-bomullsmatta-RVD43245",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "393018": {
+    "available": 104,
+    "price_SEK": 5800.0,
+    "parent_name": "Melange",
+    "variant_name": "Beige",
+    "length_cm": 300,
+    "width_cm": 300,
+    "size_label": "large",
+    "sku": "CVD16522",
+    "url": "melerad-300x300-cm-kvadratisk-beige-stor-matta-CVD16522",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "393021": {
+    "available": 61,
+    "price_SEK": 4200.0,
+    "parent_name": "Melange",
+    "variant_name": "Beige",
+    "length_cm": 250,
+    "width_cm": 250,
+    "size_label": "large",
+    "sku": "CVD16526",
+    "url": "melerad-250x250-cm-kvadratisk-beige-stor-matta-CVD16526",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "387233": {
+    "available": 204,
+    "price_SEK": 2800.0,
+    "parent_name": "Melange",
+    "variant_name": "Beige",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "CVD16528",
+    "url": "melerad-200x200-cm-kvadratisk-beige-matta-CVD16528",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601267": {
+    "available": 456,
+    "price_SEK": 3900.0,
+    "parent_name": "Big Sur",
+    "variant_name": "Terrakotta / Marinblå",
+    "length_cm": 300,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD39537",
+    "url": "big-sur-240x300-cm-terrakotta-marinbla-stor-matta-RVD39537",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "637577": {
+    "available": 3,
+    "price_SEK": 4900.0,
+    "parent_name": "Big Sur",
+    "variant_name": "Terrakotta / Marinblå",
+    "length_cm": 400,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD47430",
+    "url": "big-sur-300x400-cm-terrakotta-marinbla-extra-stor-matta-RVD47430",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601282": {
+    "available": 769,
+    "price_SEK": 2000.0,
+    "parent_name": "Big Sur",
+    "variant_name": "Terrakotta / Marinblå",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD39538",
+    "url": "big-sur-160x230-cm-terrakotta-marinbla-stor-matta-RVD39538",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601252": {
+    "available": 500,
+    "price_SEK": 1500.0,
+    "parent_name": "Big Sur",
+    "variant_name": "Terrakotta / Marinblå",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD39539",
+    "url": "big-sur-140x200-cm-terrakotta-marinbla-matta-RVD39539",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601271": {
+    "available": 250,
+    "price_SEK": 890.0,
+    "parent_name": "Big Sur",
+    "variant_name": "Terrakotta / Marinblå",
     "length_cm": 160,
     "width_cm": 100,
     "size_label": "medium",
-    "sku": "RVD40086",
-    "url": "aris-100x160-cm-greige-matta-RVD40086",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD39565",
+    "url": "big-sur-100x160-cm-terrakotta-marinbla-matta-RVD39565",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "637174": {
+    "available": 57,
+    "price_SEK": 5900.0,
+    "parent_name": "Benni",
+    "variant_name": "Beige / Vit",
+    "length_cm": 400,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD47501",
+    "url": "benni-300x400-cm-beige-vit-extra-stor-matta-RVD47501",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "637171": {
+    "available": 93,
+    "price_SEK": 1800.0,
+    "parent_name": "Benni",
+    "variant_name": "Beige / Vit",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD47433",
+    "url": "benni-160x230-cm-beige-vit-stor-matta-RVD47433",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "637172": {
+    "available": 94,
+    "price_SEK": 2900.0,
+    "parent_name": "Benni",
+    "variant_name": "Beige / Vit",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD47502",
+    "url": "benni-200x300-cm-beige-vit-stor-matta-RVD47502",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "637169": {
+    "available": 96,
+    "price_SEK": 1400.0,
+    "parent_name": "Benni",
+    "variant_name": "Beige / Vit",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD47505",
+    "url": "benni-140x200-cm-beige-vit-matta-RVD47505",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "637168": {
+    "available": 104,
+    "price_SEK": 990.0,
+    "parent_name": "Benni",
+    "variant_name": "Beige / Vit",
+    "length_cm": 200,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "RVD47506",
+    "url": "benni-100x200-cm-beige-vit-matta-RVD47506",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "589652": {
+    "available": 80,
+    "price_SEK": 3200.0,
+    "parent_name": "Comfy",
+    "variant_name": "Beige",
+    "length_cm": 250,
+    "width_cm": 250,
+    "size_label": "large",
+    "sku": "RVD34079",
+    "url": "comfy-o-250-cm-rund-beige-stor-matta-RVD34079",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "585655": {
+    "available": 98,
+    "price_SEK": 1200.0,
+    "parent_name": "Comfy",
+    "variant_name": "Beige",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD34081",
+    "url": "comfy-o-150-cm-rund-beige-liten-matta-RVD34081",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "600262": {
+    "available": 137,
+    "price_SEK": 690.0,
+    "parent_name": "Comfy",
+    "variant_name": "Beige",
+    "length_cm": 100,
+    "width_cm": 100,
+    "size_label": "small",
+    "sku": "RVD34080",
+    "url": "comfy-o-100-cm-rund-beige-liten-matta-RVD34080",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "604563": {
-    "available": 905,
+    "available": 900,
     "price_SEK": 1100.0,
     "parent_name": "Rainbow",
     "variant_name": "Off white / Flerfärgad",
@@ -1641,10 +1605,10 @@
     "size_label": "medium",
     "sku": "RVD39611",
     "url": "rainbow-100x160-cm-off-white-flerfargad-bomullsmatta-RVD39611",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "629448": {
-    "available": 444,
+    "available": 438,
     "price_SEK": 1900.0,
     "parent_name": "Rainbow",
     "variant_name": "Off white / Flerfärgad",
@@ -1653,43 +1617,79 @@
     "size_label": "medium",
     "sku": "RVD46780",
     "url": "rainbow-140x200-cm-off-white-flerfargad-bomullsmatta-RVD46780",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "610022": {
-    "available": 35,
-    "price_SEK": 3200.0,
-    "parent_name": "Flor",
-    "variant_name": "Flerfärgad",
-    "length_cm": 300,
-    "width_cm": 200,
+  "546548": {
+    "available": 102,
+    "price_SEK": 2600.0,
+    "parent_name": "Serafina",
+    "variant_name": "Beige",
+    "length_cm": 450,
+    "width_cm": 100,
+    "size_label": "x-large",
+    "sku": "CVD27082",
+    "url": "serafina-100x450-cm-avlang-beige-extra-stor-ullmatta-CVD27082",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "546549": {
+    "available": 98,
+    "price_SEK": 2100.0,
+    "parent_name": "Serafina",
+    "variant_name": "Beige",
+    "length_cm": 350,
+    "width_cm": 100,
+    "size_label": "x-large",
+    "sku": "CVD27094",
+    "url": "serafina-100x350-cm-avlang-beige-extra-stor-ullmatta-CVD27094",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "546571": {
+    "available": 168,
+    "price_SEK": 1600.0,
+    "parent_name": "Serafina",
+    "variant_name": "Beige",
+    "length_cm": 250,
+    "width_cm": 100,
     "size_label": "large",
-    "sku": "RVD42437",
-    "url": "flor-200x300-cm-flerfargad-stor-matta-RVD42437",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "CVD27095",
+    "url": "serafina-100x250-cm-avlang-beige-stor-ullmatta-CVD27095",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "610003": {
-    "available": 91,
-    "price_SEK": 2000.0,
-    "parent_name": "Flor",
-    "variant_name": "Flerfärgad",
+  "629613": {
+    "available": 45,
+    "price_SEK": 1800.0,
+    "parent_name": "Olga",
+    "variant_name": "Beige",
     "length_cm": 230,
     "width_cm": 160,
     "size_label": "large",
-    "sku": "RVD42438",
-    "url": "flor-160x230-cm-flerfargad-stor-matta-RVD42438",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD46627",
+    "url": "olga-160x230-cm-oregelbunden-beige-stor-matta-RVD46627",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "610010": {
-    "available": 71,
-    "price_SEK": 1500.0,
-    "parent_name": "Flor",
-    "variant_name": "Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD42439",
-    "url": "flor-140x200-cm-flerfargad-matta-RVD42439",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+  "629616": {
+    "available": 70,
+    "price_SEK": 4720.0,
+    "parent_name": "Olga",
+    "variant_name": "Beige",
+    "length_cm": 400,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD46755",
+    "url": "olga-300x400-cm-oregelbunden-beige-extra-stor-matta-RVD46755",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "629614": {
+    "available": 70,
+    "price_SEK": 2900.0,
+    "parent_name": "Olga",
+    "variant_name": "Beige",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD46626",
+    "url": "olga-200x300-cm-oregelbunden-beige-stor-matta-RVD46626",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "234107": {
     "available": 29,
@@ -1701,7 +1701,7 @@
     "size_label": "large",
     "sku": "RVD9418",
     "url": "davina-250x300-cm-flerfargad-stor-matta-RVD9418",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "234151": {
     "available": 7,
@@ -1713,10 +1713,10 @@
     "size_label": "large",
     "sku": "RVD9423",
     "url": "davina-200x250-cm-flerfargad-stor-matta-RVD9423",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "228927": {
-    "available": 23,
+    "available": 22,
     "price_SEK": 3600.0,
     "parent_name": "Davina",
     "variant_name": "Flerfärgad",
@@ -1725,10 +1725,10 @@
     "size_label": "large",
     "sku": "RVD8449",
     "url": "davina-200x300-cm-flerfargad-stor-matta-RVD8449",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "228950": {
-    "available": 123,
+    "available": 122,
     "price_SEK": 2200.0,
     "parent_name": "Davina",
     "variant_name": "Flerfärgad",
@@ -1737,7 +1737,7 @@
     "size_label": "large",
     "sku": "RVD8450",
     "url": "davina-160x230-cm-flerfargad-stor-matta-RVD8450",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "229005": {
     "available": 51,
@@ -1749,79 +1749,127 @@
     "size_label": "medium",
     "sku": "RVD8451",
     "url": "davina-133x190-cm-flerfargad-matta-RVD8451",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "585683": {
-    "available": 54,
-    "price_SEK": 3000.0,
-    "parent_name": "Comfy",
-    "variant_name": "Grön",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD34131",
-    "url": "comfy-200x300-cm-gron-stor-matta-RVD34131",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585674": {
-    "available": 43,
-    "price_SEK": 4300.0,
-    "parent_name": "Comfy",
-    "variant_name": "Grön",
+  "612042": {
+    "available": 75,
+    "price_SEK": 4000.0,
+    "parent_name": "Jolin",
+    "variant_name": "Beige",
     "length_cm": 350,
-    "width_cm": 250,
+    "width_cm": 240,
     "size_label": "x-large",
-    "sku": "RVD34130",
-    "url": "comfy-250x350-cm-gron-extra-stor-matta-RVD34130",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD43274",
+    "url": "jolin-240x350-cm-beige-extra-stor-matta-RVD43274",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "585692": {
-    "available": 136,
-    "price_SEK": 1900.0,
-    "parent_name": "Comfy",
-    "variant_name": "Grön",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD34133",
-    "url": "comfy-160x230-cm-gron-stor-matta-RVD34133",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "629563": {
-    "available": 9,
-    "price_SEK": 6100.0,
-    "parent_name": "Comfy",
-    "variant_name": "Grön",
-    "length_cm": 400,
-    "width_cm": 300,
-    "size_label": "x-large",
-    "sku": "RVD46747",
-    "url": "comfy-300x400-cm-gron-extra-stor-matta-RVD46747",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585661": {
-    "available": 72,
-    "price_SEK": 1600.0,
-    "parent_name": "Comfy",
-    "variant_name": "Grön",
+  "612066": {
+    "available": 125,
+    "price_SEK": 1400.0,
+    "parent_name": "Jolin",
+    "variant_name": "Beige",
     "length_cm": 200,
     "width_cm": 140,
     "size_label": "medium",
-    "sku": "RVD34135",
-    "url": "comfy-140x200-cm-gron-matta-RVD34135",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD43276",
+    "url": "jolin-140x200-cm-beige-matta-RVD43276",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "585723": {
-    "available": 42,
-    "price_SEK": 890.0,
-    "parent_name": "Comfy",
-    "variant_name": "Grön",
+  "612047": {
+    "available": 85,
+    "price_SEK": 1800.0,
+    "parent_name": "Jolin",
+    "variant_name": "Beige",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD43275",
+    "url": "jolin-160x230-cm-beige-stor-matta-RVD43275",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "612019": {
+    "available": 61,
+    "price_SEK": 2800.0,
+    "parent_name": "Jolin",
+    "variant_name": "Beige",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD43273",
+    "url": "jolin-200x300-cm-beige-stor-matta-RVD43273",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "612053": {
+    "available": 295,
+    "price_SEK": 790.0,
+    "parent_name": "Jolin",
+    "variant_name": "Beige",
     "length_cm": 160,
     "width_cm": 100,
     "size_label": "medium",
-    "sku": "RVD34136",
-    "url": "comfy-100x160-cm-gron-matta-RVD34136",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD43277",
+    "url": "jolin-100x160-cm-beige-matta-RVD43277",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "631239": {
+    "available": 167,
+    "price_SEK": 4900.0,
+    "parent_name": "Sabine",
+    "variant_name": "Flerfärgad",
+    "length_cm": 400,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD46776",
+    "url": "sabine-300x400-cm-flerfargad-extra-stor-matta-RVD46776",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610881": {
+    "available": 427,
+    "price_SEK": 1500.0,
+    "parent_name": "Sabine",
+    "variant_name": "Flerfärgad",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD41235",
+    "url": "sabine-160x230-cm-flerfargad-stor-matta-RVD41235",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610873": {
+    "available": 285,
+    "price_SEK": 1200.0,
+    "parent_name": "Sabine",
+    "variant_name": "Flerfärgad",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD41251",
+    "url": "sabine-140x200-cm-flerfargad-matta-RVD41251",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610872": {
+    "available": 259,
+    "price_SEK": 2500.0,
+    "parent_name": "Sabine",
+    "variant_name": "Flerfärgad",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD41248",
+    "url": "sabine-200x300-cm-flerfargad-stor-matta-RVD41248",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610884": {
+    "available": 298,
+    "price_SEK": 790.0,
+    "parent_name": "Sabine",
+    "variant_name": "Flerfärgad",
+    "length_cm": 160,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "RVD41253",
+    "url": "sabine-100x160-cm-flerfargad-matta-RVD41253",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "607020": {
     "available": 0,
@@ -1833,7 +1881,7 @@
     "size_label": "x-large",
     "sku": "RVD40190",
     "url": "aris-250x350-cm-off-white-extra-stor-matta-RVD40190",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "606969": {
     "available": 127,
@@ -1845,7 +1893,7 @@
     "size_label": "large",
     "sku": "RVD40184",
     "url": "aris-160x230-cm-off-white-stor-matta-RVD40184",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "606984": {
     "available": 114,
@@ -1857,7 +1905,7 @@
     "size_label": "large",
     "sku": "RVD40182",
     "url": "aris-200x300-cm-off-white-stor-matta-RVD40182",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "606963": {
     "available": 78,
@@ -1869,7 +1917,7 @@
     "size_label": "medium",
     "sku": "RVD40186",
     "url": "aris-140x200-cm-off-white-matta-RVD40186",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "606954": {
     "available": 37,
@@ -1881,7 +1929,7 @@
     "size_label": "medium",
     "sku": "RVD40187",
     "url": "aris-100x160-cm-off-white-matta-RVD40187",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "585809": {
     "available": 145,
@@ -1893,19 +1941,7 @@
     "size_label": "x-large",
     "sku": "RVD34114",
     "url": "comfy-250x350-cm-off-white-extra-stor-matta-RVD34114",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585793": {
-    "available": 168,
-    "price_SEK": 3000.0,
-    "parent_name": "Comfy",
-    "variant_name": "Off white",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD34115",
-    "url": "comfy-200x300-cm-off-white-stor-matta-RVD34115",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "629565": {
     "available": 5,
@@ -1917,7 +1953,19 @@
     "size_label": "x-large",
     "sku": "RVD46743",
     "url": "comfy-300x400-cm-off-white-extra-stor-matta-RVD46743",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "585793": {
+    "available": 168,
+    "price_SEK": 3000.0,
+    "parent_name": "Comfy",
+    "variant_name": "Off white",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD34115",
+    "url": "comfy-200x300-cm-off-white-stor-matta-RVD34115",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "585687": {
     "available": 113,
@@ -1929,7 +1977,7 @@
     "size_label": "large",
     "sku": "RVD34117",
     "url": "comfy-160x230-cm-off-white-stor-matta-RVD34117",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "585715": {
     "available": 50,
@@ -1941,7 +1989,7 @@
     "size_label": "medium",
     "sku": "RVD34119",
     "url": "comfy-140x200-cm-off-white-matta-RVD34119",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "585695": {
     "available": 54,
@@ -1953,166 +2001,10 @@
     "size_label": "medium",
     "sku": "RVD34120",
     "url": "comfy-100x160-cm-off-white-matta-RVD34120",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "630550": {
-    "available": 21,
-    "price_SEK": 4700.0,
-    "parent_name": "Chessie",
-    "variant_name": "Grön / Off white",
-    "length_cm": 400,
-    "width_cm": 300,
-    "size_label": "x-large",
-    "sku": "RVD46777",
-    "url": "chessie-300x400-cm-gron-off-white-extra-stor-matta-RVD46777",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606977": {
-    "available": 69,
-    "price_SEK": 1700.0,
-    "parent_name": "Chessie",
-    "variant_name": "Grön / Off white",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD40096",
-    "url": "chessie-160x230-cm-gron-off-white-stor-matta-RVD40096",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606959": {
-    "available": 179,
-    "price_SEK": 1300.0,
-    "parent_name": "Chessie",
-    "variant_name": "Grön / Off white",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD40097",
-    "url": "chessie-140x200-cm-gron-off-white-matta-RVD40097",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606998": {
-    "available": 160,
-    "price_SEK": 2500.0,
-    "parent_name": "Chessie",
-    "variant_name": "Grön / Off white",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD40095",
-    "url": "chessie-200x300-cm-gron-off-white-stor-matta-RVD40095",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606936": {
-    "available": 155,
-    "price_SEK": 790.0,
-    "parent_name": "Chessie",
-    "variant_name": "Grön / Off white",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "RVD40098",
-    "url": "chessie-100x160-cm-gron-off-white-matta-RVD40098",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "612042": {
-    "available": 77,
-    "price_SEK": 4000.0,
-    "parent_name": "Jolin",
-    "variant_name": "Beige",
-    "length_cm": 350,
-    "width_cm": 240,
-    "size_label": "x-large",
-    "sku": "RVD43274",
-    "url": "jolin-240x350-cm-beige-extra-stor-matta-RVD43274",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "612066": {
-    "available": 127,
-    "price_SEK": 1400.0,
-    "parent_name": "Jolin",
-    "variant_name": "Beige",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD43276",
-    "url": "jolin-140x200-cm-beige-matta-RVD43276",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "612047": {
-    "available": 86,
-    "price_SEK": 1800.0,
-    "parent_name": "Jolin",
-    "variant_name": "Beige",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD43275",
-    "url": "jolin-160x230-cm-beige-stor-matta-RVD43275",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "612019": {
-    "available": 63,
-    "price_SEK": 2800.0,
-    "parent_name": "Jolin",
-    "variant_name": "Beige",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD43273",
-    "url": "jolin-200x300-cm-beige-stor-matta-RVD43273",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "612053": {
-    "available": 297,
-    "price_SEK": 790.0,
-    "parent_name": "Jolin",
-    "variant_name": "Beige",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "RVD43277",
-    "url": "jolin-100x160-cm-beige-matta-RVD43277",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585680": {
-    "available": 750,
-    "price_SEK": 1500.0,
-    "parent_name": "Confetti",
-    "variant_name": "Off white",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD34072",
-    "url": "confetti-140x200-cm-off-white-matta-RVD34072",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585641": {
-    "available": 651,
-    "price_SEK": 1900.0,
-    "parent_name": "Confetti",
-    "variant_name": "Off white",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD34071",
-    "url": "confetti-160x230-cm-off-white-stor-matta-RVD34071",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585651": {
-    "available": 505,
-    "price_SEK": 890.0,
-    "parent_name": "Confetti",
-    "variant_name": "Off white",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "RVD34073",
-    "url": "confetti-100x160-cm-off-white-matta-RVD34073",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "606971": {
-    "available": 266,
+    "available": 262,
     "price_SEK": 1700.0,
     "parent_name": "Chessie",
     "variant_name": "Roströd / Off white",
@@ -2121,10 +2013,10 @@
     "size_label": "large",
     "sku": "RVD40100",
     "url": "chessie-160x230-cm-rostrod-off-white-stor-matta-RVD40100",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "606960": {
-    "available": 182,
+    "available": 178,
     "price_SEK": 1300.0,
     "parent_name": "Chessie",
     "variant_name": "Roströd / Off white",
@@ -2133,10 +2025,10 @@
     "size_label": "medium",
     "sku": "RVD40101",
     "url": "chessie-140x200-cm-rostrod-off-white-matta-RVD40101",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "630551": {
-    "available": 2,
+    "available": 1,
     "price_SEK": 4700.0,
     "parent_name": "Chessie",
     "variant_name": "Roströd / Off white",
@@ -2145,10 +2037,10 @@
     "size_label": "x-large",
     "sku": "RVD46778",
     "url": "chessie-300x400-cm-rostrod-off-white-extra-stor-matta-RVD46778",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "606996": {
-    "available": 161,
+    "available": 157,
     "price_SEK": 2500.0,
     "parent_name": "Chessie",
     "variant_name": "Roströd / Off white",
@@ -2157,10 +2049,10 @@
     "size_label": "large",
     "sku": "RVD40099",
     "url": "chessie-200x300-cm-rostrod-off-white-stor-matta-RVD40099",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "606941": {
-    "available": 128,
+    "available": 126,
     "price_SEK": 790.0,
     "parent_name": "Chessie",
     "variant_name": "Roströd / Off white",
@@ -2169,226 +2061,10 @@
     "size_label": "medium",
     "sku": "RVD40102",
     "url": "chessie-100x160-cm-rostrod-off-white-matta-RVD40102",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "631239": {
-    "available": 168,
-    "price_SEK": 4900.0,
-    "parent_name": "Sabine",
-    "variant_name": "Flerfärgad",
-    "length_cm": 400,
-    "width_cm": 300,
-    "size_label": "x-large",
-    "sku": "RVD46776",
-    "url": "sabine-300x400-cm-flerfargad-extra-stor-matta-RVD46776",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610881": {
-    "available": 428,
-    "price_SEK": 1500.0,
-    "parent_name": "Sabine",
-    "variant_name": "Flerfärgad",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD41235",
-    "url": "sabine-160x230-cm-flerfargad-stor-matta-RVD41235",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610873": {
-    "available": 286,
-    "price_SEK": 1200.0,
-    "parent_name": "Sabine",
-    "variant_name": "Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD41251",
-    "url": "sabine-140x200-cm-flerfargad-matta-RVD41251",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610872": {
-    "available": 260,
-    "price_SEK": 2500.0,
-    "parent_name": "Sabine",
-    "variant_name": "Flerfärgad",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD41248",
-    "url": "sabine-200x300-cm-flerfargad-stor-matta-RVD41248",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610884": {
-    "available": 300,
-    "price_SEK": 790.0,
-    "parent_name": "Sabine",
-    "variant_name": "Flerfärgad",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "RVD41253",
-    "url": "sabine-100x160-cm-flerfargad-matta-RVD41253",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601194": {
-    "available": 169,
-    "price_SEK": 1600.0,
-    "parent_name": "Galaxy Oriental",
-    "variant_name": "Roströd / Blå",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD39344",
-    "url": "galaxy-oriental-160x230-cm-rostrod-bla-stor-bomullsmatta-RVD39344",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601221": {
-    "available": 144,
-    "price_SEK": 2400.0,
-    "parent_name": "Galaxy Oriental",
-    "variant_name": "Roströd / Blå",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD39341",
-    "url": "galaxy-oriental-200x300-cm-rostrod-bla-stor-bomullsmatta-RVD39341",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601201": {
-    "available": 136,
-    "price_SEK": 990.0,
-    "parent_name": "Galaxy Oriental",
-    "variant_name": "Roströd / Blå",
-    "length_cm": 180,
-    "width_cm": 120,
-    "size_label": "medium",
-    "sku": "RVD39345",
-    "url": "galaxy-oriental-120x180-cm-rostrod-bla-bomullsmatta-RVD39345",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "314381": {
-    "available": 38,
-    "price_SEK": 3700.0,
-    "parent_name": "Davina",
-    "variant_name": "Flerfärgad",
-    "length_cm": 250,
-    "width_cm": 250,
-    "size_label": "large",
-    "sku": "RVD9422",
-    "url": "davina-o-250-cm-rund-flerfargad-stor-matta-RVD9422",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "228951": {
-    "available": 97,
-    "price_SEK": 1400.0,
-    "parent_name": "Davina",
-    "variant_name": "Flerfärgad",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD8577",
-    "url": "davina-o-150-cm-rund-flerfargad-liten-matta-RVD8577",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "228931": {
-    "available": 52,
-    "price_SEK": 2400.0,
-    "parent_name": "Davina",
-    "variant_name": "Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD8578",
-    "url": "davina-o-200-cm-rund-flerfargad-matta-RVD8578",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "598290": {
-    "available": 265,
-    "price_SEK": 390.0,
-    "parent_name": "Breeze",
-    "variant_name": "Krämbeige",
-    "length_cm": 80,
-    "width_cm": 50,
-    "size_label": "small",
-    "sku": "CVD38788",
-    "url": "breeze-50x80-cm-krambeige-liten-badrumsmatta-CVD38788",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "621612": {
-    "available": 0,
-    "price_SEK": 2100.0,
-    "parent_name": "Breeze",
-    "variant_name": "Krämbeige",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "CVD43407",
-    "url": "breeze-140x200-cm-krambeige-bomullsmatta-CVD43407",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "603015": {
-    "available": 206,
-    "price_SEK": 490.0,
-    "parent_name": "Breeze",
-    "variant_name": "Krämbeige",
-    "length_cm": 100,
-    "width_cm": 50,
-    "size_label": "small",
-    "sku": "CVD39600",
-    "url": "breeze-50x100-cm-krambeige-liten-badrumsmatta-CVD39600",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "621575": {
-    "available": 75,
-    "price_SEK": 790.0,
-    "parent_name": "Breeze",
-    "variant_name": "Krämbeige",
-    "length_cm": 150,
-    "width_cm": 70,
-    "size_label": "small",
-    "sku": "CVD43409",
-    "url": "breeze-70x150-cm-krambeige-liten-bomullsmatta-CVD43409",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585664": {
-    "available": 66,
-    "price_SEK": 3200.0,
-    "parent_name": "Comfy",
-    "variant_name": "Off white",
-    "length_cm": 250,
-    "width_cm": 250,
-    "size_label": "large",
-    "sku": "RVD34116",
-    "url": "comfy-o-250-cm-rund-off-white-stor-matta-RVD34116",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585654": {
-    "available": 70,
-    "price_SEK": 1200.0,
-    "parent_name": "Comfy",
-    "variant_name": "Off white",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD34121",
-    "url": "comfy-o-150-cm-rund-off-white-liten-matta-RVD34121",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "599821": {
-    "available": 121,
-    "price_SEK": 690.0,
-    "parent_name": "Comfy",
-    "variant_name": "Off white",
-    "length_cm": 100,
-    "width_cm": 100,
-    "size_label": "small",
-    "sku": "RVD34118",
-    "url": "comfy-o-100-cm-rund-off-white-liten-matta-RVD34118",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "415625": {
-    "available": 146,
+    "available": 145,
     "price_SEK": 4900.0,
     "parent_name": "Vintage Vega",
     "variant_name": "Mörkblå / Turkos",
@@ -2397,7 +2073,7 @@
     "size_label": "x-large",
     "sku": "RVD19085",
     "url": "vintage-vega-300x400-cm-morkbla-turkos-extra-stor-matta-RVD19085",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "415511": {
     "available": 176,
@@ -2409,7 +2085,7 @@
     "size_label": "medium",
     "sku": "RVD19088",
     "url": "vintage-vega-140x200-cm-morkbla-turkos-matta-RVD19088",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "415569": {
     "available": 256,
@@ -2421,7 +2097,7 @@
     "size_label": "large",
     "sku": "RVD19087",
     "url": "vintage-vega-160x230-cm-morkbla-turkos-stor-matta-RVD19087",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "415496": {
     "available": 260,
@@ -2433,7 +2109,7 @@
     "size_label": "large",
     "sku": "RVD19086",
     "url": "vintage-vega-200x300-cm-morkbla-turkos-stor-matta-RVD19086",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "415552": {
     "available": 167,
@@ -2445,46 +2121,10 @@
     "size_label": "medium",
     "sku": "RVD19097",
     "url": "vintage-vega-100x160-cm-morkbla-turkos-matta-RVD19097",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "620778": {
-    "available": 25,
-    "price_SEK": 1300.0,
-    "parent_name": "Jester",
-    "variant_name": "Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "RVD44327",
-    "url": "jester-140x200-cm-flerfargad-matta-RVD44327",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "620795": {
-    "available": 44,
-    "price_SEK": 1700.0,
-    "parent_name": "Jester",
-    "variant_name": "Flerfärgad",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "RVD44326",
-    "url": "jester-160x230-cm-flerfargad-stor-matta-RVD44326",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "620815": {
-    "available": 23,
-    "price_SEK": 790.0,
-    "parent_name": "Jester",
-    "variant_name": "Flerfärgad",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "RVD44477",
-    "url": "jester-100x160-cm-flerfargad-matta-RVD44477",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "601270": {
-    "available": 235,
+    "available": 234,
     "price_SEK": 3600.0,
     "parent_name": "Memphis",
     "variant_name": "Krämvit",
@@ -2493,7 +2133,7 @@
     "size_label": "large",
     "sku": "RVD39546",
     "url": "memphis-240x300-cm-kramvit-stor-matta-RVD39546",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "601284": {
     "available": 63,
@@ -2505,7 +2145,7 @@
     "size_label": "large",
     "sku": "RVD39548",
     "url": "memphis-160x230-cm-kramvit-stor-matta-RVD39548",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "601256": {
     "available": 23,
@@ -2517,10 +2157,298 @@
     "size_label": "medium",
     "sku": "RVD39550",
     "url": "memphis-140x200-cm-kramvit-matta-RVD39550",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "314381": {
+    "available": 37,
+    "price_SEK": 3700.0,
+    "parent_name": "Davina",
+    "variant_name": "Flerfärgad",
+    "length_cm": 250,
+    "width_cm": 250,
+    "size_label": "large",
+    "sku": "RVD9422",
+    "url": "davina-o-250-cm-rund-flerfargad-stor-matta-RVD9422",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "228951": {
+    "available": 97,
+    "price_SEK": 1400.0,
+    "parent_name": "Davina",
+    "variant_name": "Flerfärgad",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD8577",
+    "url": "davina-o-150-cm-rund-flerfargad-liten-matta-RVD8577",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "228931": {
+    "available": 52,
+    "price_SEK": 2400.0,
+    "parent_name": "Davina",
+    "variant_name": "Flerfärgad",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD8578",
+    "url": "davina-o-200-cm-rund-flerfargad-matta-RVD8578",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "630550": {
+    "available": 19,
+    "price_SEK": 4700.0,
+    "parent_name": "Chessie",
+    "variant_name": "Grön / Off white",
+    "length_cm": 400,
+    "width_cm": 300,
+    "size_label": "x-large",
+    "sku": "RVD46777",
+    "url": "chessie-300x400-cm-gron-off-white-extra-stor-matta-RVD46777",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606977": {
+    "available": 66,
+    "price_SEK": 1700.0,
+    "parent_name": "Chessie",
+    "variant_name": "Grön / Off white",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD40096",
+    "url": "chessie-160x230-cm-gron-off-white-stor-matta-RVD40096",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606959": {
+    "available": 175,
+    "price_SEK": 1300.0,
+    "parent_name": "Chessie",
+    "variant_name": "Grön / Off white",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD40097",
+    "url": "chessie-140x200-cm-gron-off-white-matta-RVD40097",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606998": {
+    "available": 155,
+    "price_SEK": 2500.0,
+    "parent_name": "Chessie",
+    "variant_name": "Grön / Off white",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD40095",
+    "url": "chessie-200x300-cm-gron-off-white-stor-matta-RVD40095",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606936": {
+    "available": 154,
+    "price_SEK": 790.0,
+    "parent_name": "Chessie",
+    "variant_name": "Grön / Off white",
+    "length_cm": 160,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "RVD40098",
+    "url": "chessie-100x160-cm-gron-off-white-matta-RVD40098",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601194": {
+    "available": 165,
+    "price_SEK": 1600.0,
+    "parent_name": "Galaxy Oriental",
+    "variant_name": "Roströd / Blå",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD39344",
+    "url": "galaxy-oriental-160x230-cm-rostrod-bla-stor-bomullsmatta-RVD39344",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601221": {
+    "available": 140,
+    "price_SEK": 2400.0,
+    "parent_name": "Galaxy Oriental",
+    "variant_name": "Roströd / Blå",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD39341",
+    "url": "galaxy-oriental-200x300-cm-rostrod-bla-stor-bomullsmatta-RVD39341",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601201": {
+    "available": 135,
+    "price_SEK": 990.0,
+    "parent_name": "Galaxy Oriental",
+    "variant_name": "Roströd / Blå",
+    "length_cm": 180,
+    "width_cm": 120,
+    "size_label": "medium",
+    "sku": "RVD39345",
+    "url": "galaxy-oriental-120x180-cm-rostrod-bla-bomullsmatta-RVD39345",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "598290": {
+    "available": 262,
+    "price_SEK": 390.0,
+    "parent_name": "Breeze",
+    "variant_name": "Krämbeige",
+    "length_cm": 80,
+    "width_cm": 50,
+    "size_label": "small",
+    "sku": "CVD38788",
+    "url": "breeze-50x80-cm-krambeige-liten-badrumsmatta-CVD38788",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "621612": {
+    "available": 0,
+    "price_SEK": 2100.0,
+    "parent_name": "Breeze",
+    "variant_name": "Krämbeige",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "CVD43407",
+    "url": "breeze-140x200-cm-krambeige-bomullsmatta-CVD43407",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "603015": {
+    "available": 206,
+    "price_SEK": 490.0,
+    "parent_name": "Breeze",
+    "variant_name": "Krämbeige",
+    "length_cm": 100,
+    "width_cm": 50,
+    "size_label": "small",
+    "sku": "CVD39600",
+    "url": "breeze-50x100-cm-krambeige-liten-badrumsmatta-CVD39600",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "621575": {
+    "available": 69,
+    "price_SEK": 790.0,
+    "parent_name": "Breeze",
+    "variant_name": "Krämbeige",
+    "length_cm": 150,
+    "width_cm": 70,
+    "size_label": "small",
+    "sku": "CVD43409",
+    "url": "breeze-70x150-cm-krambeige-liten-bomullsmatta-CVD43409",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610022": {
+    "available": 32,
+    "price_SEK": 3200.0,
+    "parent_name": "Flor",
+    "variant_name": "Flerfärgad",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD42437",
+    "url": "flor-200x300-cm-flerfargad-stor-matta-RVD42437",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610003": {
+    "available": 87,
+    "price_SEK": 2000.0,
+    "parent_name": "Flor",
+    "variant_name": "Flerfärgad",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD42438",
+    "url": "flor-160x230-cm-flerfargad-stor-matta-RVD42438",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610010": {
+    "available": 67,
+    "price_SEK": 1500.0,
+    "parent_name": "Flor",
+    "variant_name": "Flerfärgad",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD42439",
+    "url": "flor-140x200-cm-flerfargad-matta-RVD42439",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "572727": {
+    "available": 250,
+    "price_SEK": 1200.0,
+    "parent_name": "Balloon Ride",
+    "variant_name": "Beige / Rosa",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "CVD33642",
+    "url": "balloon-ride-140x200-cm-beige-rosa-matta-CVD33642",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "572782": {
+    "available": 302,
+    "price_SEK": 1600.0,
+    "parent_name": "Balloon Ride",
+    "variant_name": "Beige / Rosa",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "CVD33641",
+    "url": "balloon-ride-160x230-cm-beige-rosa-stor-matta-CVD33641",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "572797": {
+    "available": 351,
+    "price_SEK": 790.0,
+    "parent_name": "Balloon Ride",
+    "variant_name": "Beige / Rosa",
+    "length_cm": 160,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "CVD33643",
+    "url": "balloon-ride-100x160-cm-beige-rosa-matta-CVD33643",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "585664": {
+    "available": 66,
+    "price_SEK": 3200.0,
+    "parent_name": "Comfy",
+    "variant_name": "Off white",
+    "length_cm": 250,
+    "width_cm": 250,
+    "size_label": "large",
+    "sku": "RVD34116",
+    "url": "comfy-o-250-cm-rund-off-white-stor-matta-RVD34116",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "585654": {
+    "available": 69,
+    "price_SEK": 1200.0,
+    "parent_name": "Comfy",
+    "variant_name": "Off white",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD34121",
+    "url": "comfy-o-150-cm-rund-off-white-liten-matta-RVD34121",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "599821": {
+    "available": 120,
+    "price_SEK": 690.0,
+    "parent_name": "Comfy",
+    "variant_name": "Off white",
+    "length_cm": 100,
+    "width_cm": 100,
+    "size_label": "small",
+    "sku": "RVD34118",
+    "url": "comfy-o-100-cm-rund-off-white-liten-matta-RVD34118",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "546596": {
-    "available": 180,
+    "available": 174,
     "price_SEK": 3400.0,
     "parent_name": "Serafina",
     "variant_name": "Beige",
@@ -2529,10 +2457,10 @@
     "size_label": "large",
     "sku": "CVD27086",
     "url": "serafina-250x250-cm-kvadratisk-beige-stor-ullmatta-CVD27086",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "598293": {
-    "available": 379,
+    "available": 375,
     "price_SEK": 490.0,
     "parent_name": "Breeze",
     "variant_name": "Krämbeige",
@@ -2541,10 +2469,10 @@
     "size_label": "small",
     "sku": "CVD38789",
     "url": "breeze-o-70-cm-rund-krambeige-liten-badrumsmatta-CVD38789",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "603025": {
-    "available": 355,
+    "available": 351,
     "price_SEK": 690.0,
     "parent_name": "Breeze",
     "variant_name": "Krämbeige",
@@ -2553,7 +2481,7 @@
     "size_label": "small",
     "sku": "CVD39601",
     "url": "breeze-o-90-cm-rund-krambeige-liten-badrumsmatta-CVD39601",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "621604": {
     "available": 71,
@@ -2565,7 +2493,7 @@
     "size_label": "small",
     "sku": "CVD43408",
     "url": "breeze-o-150-cm-rund-krambeige-liten-badrumsmatta-CVD43408",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "621587": {
     "available": 133,
@@ -2577,130 +2505,10 @@
     "size_label": "small",
     "sku": "CVD43775",
     "url": "breeze-o-120-cm-rund-krambeige-liten-bomullsmatta-CVD43775",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "612562": {
-    "available": 94,
-    "price_SEK": 1300.0,
-    "parent_name": "Venus",
-    "variant_name": "Beige / Greige",
-    "length_cm": 350,
-    "width_cm": 80,
-    "size_label": "x-large",
-    "sku": "RVD39899",
-    "url": "venus-80x350-cm-avlang-beige-greige-extra-stor-matta-RVD39899",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "605445": {
-    "available": 35,
-    "price_SEK": 990.0,
-    "parent_name": "Venus",
-    "variant_name": "Beige / Greige",
-    "length_cm": 250,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "RVD39900",
-    "url": "venus-80x250-cm-avlang-beige-greige-stor-matta-RVD39900",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "572727": {
-    "available": 253,
-    "price_SEK": 1200.0,
-    "parent_name": "Balloon Ride",
-    "variant_name": "Beige / Rosa",
-    "length_cm": 200,
-    "width_cm": 140,
-    "size_label": "medium",
-    "sku": "CVD33642",
-    "url": "balloon-ride-140x200-cm-beige-rosa-matta-CVD33642",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "572782": {
-    "available": 303,
-    "price_SEK": 1600.0,
-    "parent_name": "Balloon Ride",
-    "variant_name": "Beige / Rosa",
-    "length_cm": 230,
-    "width_cm": 160,
-    "size_label": "large",
-    "sku": "CVD33641",
-    "url": "balloon-ride-160x230-cm-beige-rosa-stor-matta-CVD33641",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "572797": {
-    "available": 353,
-    "price_SEK": 790.0,
-    "parent_name": "Balloon Ride",
-    "variant_name": "Beige / Rosa",
-    "length_cm": 160,
-    "width_cm": 100,
-    "size_label": "medium",
-    "sku": "CVD33643",
-    "url": "balloon-ride-100x160-cm-beige-rosa-matta-CVD33643",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "234088": {
-    "available": 8,
-    "price_SEK": 5300.0,
-    "parent_name": "Davina",
-    "variant_name": "Flerfärgad",
-    "length_cm": 300,
-    "width_cm": 300,
-    "size_label": "large",
-    "sku": "RVD9419",
-    "url": "davina-300x300-cm-kvadratisk-flerfargad-stor-matta-RVD9419",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "234150": {
-    "available": 60,
-    "price_SEK": 2400.0,
-    "parent_name": "Davina",
-    "variant_name": "Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD9420",
-    "url": "davina-200x200-cm-kvadratisk-flerfargad-matta-RVD9420",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "512562": {
-    "available": 93,
-    "price_SEK": 1600.0,
-    "parent_name": "Melange",
-    "variant_name": "Beige",
-    "length_cm": 250,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "CVD23544",
-    "url": "melerad-80x250-cm-avlang-beige-stor-matta-CVD23544",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "512563": {
-    "available": 303,
-    "price_SEK": 2300.0,
-    "parent_name": "Melange",
-    "variant_name": "Beige",
-    "length_cm": 400,
-    "width_cm": 80,
-    "size_label": "x-large",
-    "sku": "CVD23543",
-    "url": "melerad-80x400-cm-avlang-beige-extra-stor-matta-CVD23543",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "393044": {
-    "available": 162,
-    "price_SEK": 1800.0,
-    "parent_name": "Melange",
-    "variant_name": "Beige",
-    "length_cm": 300,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "CVD16525",
-    "url": "melerad-80x300-cm-avlang-beige-stor-matta-CVD16525",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "620793": {
-    "available": 100,
+    "available": 99,
     "price_SEK": 1900.0,
     "parent_name": "Linnea",
     "variant_name": "Rosa",
@@ -2709,10 +2517,10 @@
     "size_label": "large",
     "sku": "RVD44351",
     "url": "linnea-160x230-cm-rosa-stor-matta-RVD44351",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "620779": {
-    "available": 177,
+    "available": 174,
     "price_SEK": 1500.0,
     "parent_name": "Linnea",
     "variant_name": "Rosa",
@@ -2721,7 +2529,7 @@
     "size_label": "medium",
     "sku": "RVD44352",
     "url": "linnea-140x200-cm-rosa-matta-RVD44352",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "620782": {
     "available": 48,
@@ -2733,7 +2541,7 @@
     "size_label": "large",
     "sku": "RVD44350",
     "url": "linnea-200x300-cm-rosa-stor-matta-RVD44350",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "620816": {
     "available": 257,
@@ -2745,10 +2553,22 @@
     "size_label": "medium",
     "sku": "RVD44482",
     "url": "linnea-100x160-cm-rosa-matta-RVD44482",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "639496": {
+    "available": 0,
+    "price_SEK": 2300.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Grön / Flerfärgad",
+    "length_cm": 240,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD47617",
+    "url": "georgia-oriental-240x240-cm-kvadratisk-gron-flerfargad-stor-bomullsmatta-RVD47617",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "609997": {
-    "available": 23,
+    "available": 21,
     "price_SEK": 1500.0,
     "parent_name": "Flor",
     "variant_name": "Flerfärgad",
@@ -2757,10 +2577,10 @@
     "size_label": "x-large",
     "sku": "RVD42440",
     "url": "flor-80x350-cm-avlang-flerfargad-extra-stor-matta-RVD42440",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "610016": {
-    "available": 149,
+    "available": 145,
     "price_SEK": 1100.0,
     "parent_name": "Flor",
     "variant_name": "Flerfärgad",
@@ -2769,31 +2589,247 @@
     "size_label": "large",
     "sku": "RVD42442",
     "url": "flor-80x250-cm-avlang-flerfargad-stor-matta-RVD42442",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "552041": {
-    "available": 270,
-    "price_SEK": 2100.0,
-    "parent_name": "Nadia",
-    "variant_name": "Krämvit / Greige",
+  "620778": {
+    "available": 24,
+    "price_SEK": 1300.0,
+    "parent_name": "Jester",
+    "variant_name": "Flerfärgad",
     "length_cm": 200,
-    "width_cm": 200,
+    "width_cm": 140,
     "size_label": "medium",
-    "sku": "RVD28463",
-    "url": "nadia-200x200-cm-kvadratisk-kramvit-greige-matta-RVD28463",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD44327",
+    "url": "jester-140x200-cm-flerfargad-matta-RVD44327",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "605439": {
-    "available": 51,
+  "620795": {
+    "available": 41,
     "price_SEK": 1700.0,
+    "parent_name": "Jester",
+    "variant_name": "Flerfärgad",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD44326",
+    "url": "jester-160x230-cm-flerfargad-stor-matta-RVD44326",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "620815": {
+    "available": 22,
+    "price_SEK": 790.0,
+    "parent_name": "Jester",
+    "variant_name": "Flerfärgad",
+    "length_cm": 160,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "RVD44477",
+    "url": "jester-100x160-cm-flerfargad-matta-RVD44477",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "612562": {
+    "available": 94,
+    "price_SEK": 1300.0,
     "parent_name": "Venus",
     "variant_name": "Beige / Greige",
+    "length_cm": 350,
+    "width_cm": 80,
+    "size_label": "x-large",
+    "sku": "RVD39899",
+    "url": "venus-80x350-cm-avlang-beige-greige-extra-stor-matta-RVD39899",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "605445": {
+    "available": 35,
+    "price_SEK": 990.0,
+    "parent_name": "Venus",
+    "variant_name": "Beige / Greige",
+    "length_cm": 250,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD39900",
+    "url": "venus-80x250-cm-avlang-beige-greige-stor-matta-RVD39900",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "234088": {
+    "available": 8,
+    "price_SEK": 5300.0,
+    "parent_name": "Davina",
+    "variant_name": "Flerfärgad",
+    "length_cm": 300,
+    "width_cm": 300,
+    "size_label": "large",
+    "sku": "RVD9419",
+    "url": "davina-300x300-cm-kvadratisk-flerfargad-stor-matta-RVD9419",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "234150": {
+    "available": 60,
+    "price_SEK": 2400.0,
+    "parent_name": "Davina",
+    "variant_name": "Flerfärgad",
     "length_cm": 200,
     "width_cm": 200,
     "size_label": "medium",
-    "sku": "RVD39898",
-    "url": "venus-o-200-cm-rund-beige-greige-matta-RVD39898",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD9420",
+    "url": "davina-200x200-cm-kvadratisk-flerfargad-matta-RVD9420",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "585680": {
+    "available": 748,
+    "price_SEK": 1500.0,
+    "parent_name": "Confetti",
+    "variant_name": "Off white",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD34072",
+    "url": "confetti-140x200-cm-off-white-matta-RVD34072",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "585641": {
+    "available": 645,
+    "price_SEK": 1900.0,
+    "parent_name": "Confetti",
+    "variant_name": "Off white",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD34071",
+    "url": "confetti-160x230-cm-off-white-stor-matta-RVD34071",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "585651": {
+    "available": 504,
+    "price_SEK": 890.0,
+    "parent_name": "Confetti",
+    "variant_name": "Off white",
+    "length_cm": 160,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "RVD34073",
+    "url": "confetti-100x160-cm-off-white-matta-RVD34073",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "512563": {
+    "available": 302,
+    "price_SEK": 2300.0,
+    "parent_name": "Melange",
+    "variant_name": "Beige",
+    "length_cm": 400,
+    "width_cm": 80,
+    "size_label": "x-large",
+    "sku": "CVD23543",
+    "url": "melerad-80x400-cm-avlang-beige-extra-stor-matta-CVD23543",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "512562": {
+    "available": 92,
+    "price_SEK": 1600.0,
+    "parent_name": "Melange",
+    "variant_name": "Beige",
+    "length_cm": 250,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "CVD23544",
+    "url": "melerad-80x250-cm-avlang-beige-stor-matta-CVD23544",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "393044": {
+    "available": 162,
+    "price_SEK": 1800.0,
+    "parent_name": "Melange",
+    "variant_name": "Beige",
+    "length_cm": 300,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "CVD16525",
+    "url": "melerad-80x300-cm-avlang-beige-stor-matta-CVD16525",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610020": {
+    "available": 47,
+    "price_SEK": 1300.0,
+    "parent_name": "Fiona",
+    "variant_name": "Flerfärgad",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD42421",
+    "url": "fiona-o-150-cm-rund-flerfargad-liten-matta-RVD42421",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "610035": {
+    "available": 89,
+    "price_SEK": 2200.0,
+    "parent_name": "Fiona",
+    "variant_name": "Flerfärgad",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD42420",
+    "url": "fiona-o-200-cm-rund-flerfargad-matta-RVD42420",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "604089": {
+    "available": 226,
+    "price_SEK": 2900.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit",
+    "length_cm": 240,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD39791",
+    "url": "bahia-240x240-cm-kvadratisk-kramvit-stor-matta-RVD39791",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601210": {
+    "available": 227,
+    "price_SEK": 1600.0,
+    "parent_name": "Galore Oriental",
+    "variant_name": "Terrakotta / Beige",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD39350",
+    "url": "galore-oriental-160x230-cm-terrakotta-beige-stor-bomullsmatta-RVD39350",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601222": {
+    "available": 466,
+    "price_SEK": 2400.0,
+    "parent_name": "Galore Oriental",
+    "variant_name": "Terrakotta / Beige",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD39348",
+    "url": "galore-oriental-200x300-cm-terrakotta-beige-stor-bomullsmatta-RVD39348",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601204": {
+    "available": 155,
+    "price_SEK": 990.0,
+    "parent_name": "Galore Oriental",
+    "variant_name": "Terrakotta / Beige",
+    "length_cm": 180,
+    "width_cm": 120,
+    "size_label": "medium",
+    "sku": "RVD39351",
+    "url": "galore-oriental-120x180-cm-terrakotta-beige-bomullsmatta-RVD39351",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "604546": {
+    "available": 31,
+    "price_SEK": 1300.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit / Beige",
+    "length_cm": 300,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD39787",
+    "url": "bahia-80x300-cm-avlang-kramvit-beige-stor-matta-RVD39787",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611815": {
     "available": 213,
@@ -2805,7 +2841,7 @@
     "size_label": "large",
     "sku": "RVD41154",
     "url": "clio-o-250-cm-rund-beige-stor-matta-RVD41154",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611922": {
     "available": 152,
@@ -2817,7 +2853,91 @@
     "size_label": "small",
     "sku": "RVD41155",
     "url": "clio-o-150-cm-rund-beige-liten-matta-RVD41155",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "630006": {
+    "available": 114,
+    "price_SEK": 1100.0,
+    "parent_name": "Olga",
+    "variant_name": "Beige",
+    "length_cm": 300,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD47085",
+    "url": "olga-80x300-cm-oregelbunden-beige-stor-matta-RVD47085",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "629611": {
+    "available": 2,
+    "price_SEK": 890.0,
+    "parent_name": "Olga",
+    "variant_name": "Beige",
+    "length_cm": 200,
+    "width_cm": 80,
+    "size_label": "medium",
+    "sku": "RVD46629",
+    "url": "olga-80x200-cm-oregelbunden-beige-matta-RVD46629",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "621168": {
+    "available": 44,
+    "price_SEK": 1100.0,
+    "parent_name": "Road map",
+    "variant_name": "Grön / Flerfärgad",
+    "length_cm": 200,
+    "width_cm": 140,
+    "size_label": "medium",
+    "sku": "RVD44617",
+    "url": "road-map-140x200-cm-gron-flerfargad-matta-RVD44617",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "621185": {
+    "available": 0,
+    "price_SEK": 690.0,
+    "parent_name": "Road map",
+    "variant_name": "Grön / Flerfärgad",
+    "length_cm": 160,
+    "width_cm": 100,
+    "size_label": "medium",
+    "sku": "RVD44685",
+    "url": "road-map-100x160-cm-gron-flerfargad-matta-RVD44685",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "621188": {
+    "available": 0,
+    "price_SEK": 1500.0,
+    "parent_name": "Road map",
+    "variant_name": "Grön / Flerfärgad",
+    "length_cm": 230,
+    "width_cm": 160,
+    "size_label": "large",
+    "sku": "RVD44615",
+    "url": "road-map-160x230-cm-gron-flerfargad-stor-matta-RVD44615",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "604560": {
+    "available": 406,
+    "price_SEK": 1500.0,
+    "parent_name": "Rainbow",
+    "variant_name": "Off white / Flerfärgad",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD39612",
+    "url": "rainbow-o-150-cm-rund-off-white-flerfargad-liten-bomullsmatta-RVD39612",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "604564": {
+    "available": 385,
+    "price_SEK": 690.0,
+    "parent_name": "Rainbow",
+    "variant_name": "Off white / Flerfärgad",
+    "length_cm": 100,
+    "width_cm": 100,
+    "size_label": "small",
+    "sku": "RVD39613",
+    "url": "rainbow-o-100-cm-rund-off-white-flerfargad-liten-bomullsmatta-RVD39613",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "234193": {
     "available": 45,
@@ -2829,10 +2949,10 @@
     "size_label": "x-large",
     "sku": "RVD9421",
     "url": "davina-80x400-cm-avlang-flerfargad-extra-stor-matta-RVD9421",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "229037": {
-    "available": 51,
+    "available": 49,
     "price_SEK": 1500.0,
     "parent_name": "Davina",
     "variant_name": "Flerfärgad",
@@ -2841,10 +2961,10 @@
     "size_label": "large",
     "sku": "RVD8452",
     "url": "davina-80x300-cm-avlang-flerfargad-stor-matta-RVD8452",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "229044": {
-    "available": 101,
+    "available": 99,
     "price_SEK": 990.0,
     "parent_name": "Davina",
     "variant_name": "Flerfärgad",
@@ -2853,118 +2973,10 @@
     "size_label": "medium",
     "sku": "RVD8453",
     "url": "davina-80x200-cm-avlang-flerfargad-matta-RVD8453",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611001": {
-    "available": 350,
-    "price_SEK": 1100.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Grön / Flerfärgad",
-    "length_cm": 160,
-    "width_cm": 160,
-    "size_label": "medium",
-    "sku": "RVD43246",
-    "url": "georgia-oriental-o-160-cm-rund-gron-flerfargad-bomullsmatta-RVD43246",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611003": {
-    "available": 418,
-    "price_SEK": 790.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Grön / Flerfärgad",
-    "length_cm": 120,
-    "width_cm": 120,
-    "size_label": "small",
-    "sku": "RVD43247",
-    "url": "georgia-oriental-o-120-cm-rund-gron-flerfargad-liten-bomullsmatta-RVD43247",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "423294": {
-    "available": 84,
-    "price_SEK": 2400.0,
-    "parent_name": "Kaleidoscope",
-    "variant_name": "Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD19511",
-    "url": "kaleidoscope-200x200-cm-kvadratisk-flerfargad-matta-RVD19511",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610020": {
-    "available": 52,
-    "price_SEK": 1300.0,
-    "parent_name": "Fiona",
-    "variant_name": "Flerfärgad",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD42421",
-    "url": "fiona-o-150-cm-rund-flerfargad-liten-matta-RVD42421",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "610035": {
-    "available": 90,
-    "price_SEK": 2200.0,
-    "parent_name": "Fiona",
-    "variant_name": "Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD42420",
-    "url": "fiona-o-200-cm-rund-flerfargad-matta-RVD42420",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "432225": {
-    "available": 123,
-    "price_SEK": 1300.0,
-    "parent_name": "Nadia",
-    "variant_name": "Krämvit / Greige",
-    "length_cm": 300,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "RVD20516",
-    "url": "nadia-80x300-cm-avlang-kramvit-greige-stor-matta-RVD20516",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "552046": {
-    "available": 123,
-    "price_SEK": 890.0,
-    "parent_name": "Nadia",
-    "variant_name": "Krämvit / Greige",
-    "length_cm": 200,
-    "width_cm": 80,
-    "size_label": "medium",
-    "sku": "RVD28464",
-    "url": "nadia-80x200-cm-avlang-kramvit-greige-matta-RVD28464",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "603325": {
-    "available": 528,
-    "price_SEK": 1100.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 160,
-    "width_cm": 160,
-    "size_label": "medium",
-    "sku": "RVD39979",
-    "url": "georgia-oriental-o-160-cm-rund-rod-rosa-bomullsmatta-RVD39979",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "607647": {
-    "available": 526,
-    "price_SEK": 790.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 120,
-    "width_cm": 120,
-    "size_label": "small",
-    "sku": "RVD41021",
-    "url": "georgia-oriental-o-120-cm-rund-rod-rosa-liten-bomullsmatta-RVD41021",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "567987": {
-    "available": 90,
+    "available": 85,
     "price_SEK": 2900.0,
     "parent_name": "Chaima",
     "variant_name": "Krämvit / Beige",
@@ -2973,454 +2985,34 @@
     "size_label": "large",
     "sku": "RVD32202",
     "url": "chaima-240x240-cm-kvadratisk-kramvit-beige-stor-matta-RVD32202",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "611816": {
-    "available": 95,
-    "price_SEK": 2400.0,
-    "parent_name": "Clio",
-    "variant_name": "Brun",
-    "length_cm": 250,
-    "width_cm": 250,
-    "size_label": "large",
-    "sku": "RVD41156",
-    "url": "clio-o-250-cm-rund-brun-stor-matta-RVD41156",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611921": {
-    "available": 30,
-    "price_SEK": 990.0,
-    "parent_name": "Clio",
-    "variant_name": "Brun",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD41157",
-    "url": "clio-o-150-cm-rund-brun-liten-matta-RVD41157",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "604083": {
-    "available": 37,
-    "price_SEK": 2900.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit / Beige",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD39785",
-    "url": "bahia-240x240-cm-kvadratisk-kramvit-beige-stor-matta-RVD39785",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "624570": {
-    "available": 10,
-    "price_SEK": 2100.0,
-    "parent_name": "Flor",
-    "variant_name": "Flerfärgad",
+  "605439": {
+    "available": 49,
+    "price_SEK": 1700.0,
+    "parent_name": "Venus",
+    "variant_name": "Beige / Greige",
     "length_cm": 200,
     "width_cm": 200,
     "size_label": "medium",
-    "sku": "RVD42445",
-    "url": "flor-o-200-cm-rund-flerfargad-matta-RVD42445",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD39898",
+    "url": "venus-o-200-cm-rund-beige-greige-matta-RVD39898",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "624452": {
-    "available": 69,
-    "price_SEK": 1600.0,
-    "parent_name": "Sterling",
-    "variant_name": "Vit / Ljusbeige",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD44913",
-    "url": "sterling-o-200-cm-rund-vit-ljusbeige-matta-RVD44913",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "423534": {
-    "available": 62,
-    "price_SEK": 1400.0,
-    "parent_name": "Kaleidoscope",
-    "variant_name": "Flerfärgad",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD19607",
-    "url": "kaleidoscope-o-150-cm-rund-flerfargad-liten-matta-RVD19607",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "423292": {
-    "available": 73,
-    "price_SEK": 2400.0,
-    "parent_name": "Kaleidoscope",
-    "variant_name": "Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD19515",
-    "url": "kaleidoscope-o-200-cm-rund-flerfargad-matta-RVD19515",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "639496": {
-    "available": 2,
-    "price_SEK": 2300.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Grön / Flerfärgad",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD47617",
-    "url": "georgia-oriental-240x240-cm-kvadratisk-gron-flerfargad-stor-bomullsmatta-RVD47617",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "432314": {
-    "available": 79,
+  "552041": {
+    "available": 269,
     "price_SEK": 2100.0,
     "parent_name": "Nadia",
     "variant_name": "Krämvit / Greige",
     "length_cm": 200,
     "width_cm": 200,
     "size_label": "medium",
-    "sku": "RVD20518",
-    "url": "nadia-o-200-cm-rund-kramvit-greige-matta-RVD20518",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "604089": {
-    "available": 229,
-    "price_SEK": 2900.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD39791",
-    "url": "bahia-240x240-cm-kvadratisk-kramvit-stor-matta-RVD39791",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "639520": {
-    "available": 69,
-    "price_SEK": 2300.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Blå / Flerfärgad",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD47624",
-    "url": "georgia-oriental-240x240-cm-kvadratisk-bla-flerfargad-stor-bomullsmatta-RVD47624",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "567999": {
-    "available": 11,
-    "price_SEK": 2700.0,
-    "parent_name": "Nalori",
-    "variant_name": "Svart / Beige",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD32281",
-    "url": "nalori-o-240-cm-rund-svart-beige-stor-matta-RVD32281",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606986": {
-    "available": 80,
-    "price_SEK": 1600.0,
-    "parent_name": "Aris",
-    "variant_name": "Off white",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD40185",
-    "url": "aris-o-200-cm-rund-off-white-matta-RVD40185",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "607010": {
-    "available": 91,
-    "price_SEK": 990.0,
-    "parent_name": "Aris",
-    "variant_name": "Off white",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD40191",
-    "url": "aris-o-150-cm-rund-off-white-liten-matta-RVD40191",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "639523": {
-    "available": 0,
-    "price_SEK": 2300.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Röd / Blå",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD47620",
-    "url": "georgia-oriental-240x240-cm-kvadratisk-rod-bla-stor-bomullsmatta-RVD47620",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "604560": {
-    "available": 409,
-    "price_SEK": 1500.0,
-    "parent_name": "Rainbow",
-    "variant_name": "Off white / Flerfärgad",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD39612",
-    "url": "rainbow-o-150-cm-rund-off-white-flerfargad-liten-bomullsmatta-RVD39612",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "604564": {
-    "available": 387,
-    "price_SEK": 690.0,
-    "parent_name": "Rainbow",
-    "variant_name": "Off white / Flerfärgad",
-    "length_cm": 100,
-    "width_cm": 100,
-    "size_label": "small",
-    "sku": "RVD39613",
-    "url": "rainbow-o-100-cm-rund-off-white-flerfargad-liten-bomullsmatta-RVD39613",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606951": {
-    "available": 137,
-    "price_SEK": 1100.0,
-    "parent_name": "Chessie",
-    "variant_name": "Roströd / Off white",
-    "length_cm": 300,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "RVD40181",
-    "url": "chessie-80x300-cm-avlang-rostrod-off-white-stor-matta-RVD40181",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606947": {
-    "available": 155,
-    "price_SEK": 1100.0,
-    "parent_name": "Chessie",
-    "variant_name": "Grön / Off white",
-    "length_cm": 300,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "RVD40178",
-    "url": "chessie-80x300-cm-avlang-gron-off-white-stor-matta-RVD40178",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "639271": {
-    "available": 0,
-    "price_SEK": 2300.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD47614",
-    "url": "georgia-oriental-240x240-cm-kvadratisk-rod-rosa-stor-bomullsmatta-RVD47614",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601213": {
-    "available": 114,
-    "price_SEK": 990.0,
-    "parent_name": "Galaxy Oriental",
-    "variant_name": "Roströd / Blå",
-    "length_cm": 160,
-    "width_cm": 160,
-    "size_label": "medium",
-    "sku": "RVD39346",
-    "url": "galaxy-oriental-o-160-cm-rund-rostrod-bla-bomullsmatta-RVD39346",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "612014": {
-    "available": 51,
-    "price_SEK": 1100.0,
-    "parent_name": "Jolin",
-    "variant_name": "Beige",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD43334",
-    "url": "jolin-o-150-cm-rund-beige-liten-matta-RVD43334",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "612038": {
-    "available": 37,
-    "price_SEK": 2800.0,
-    "parent_name": "Jolin",
-    "variant_name": "Beige",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD43335",
-    "url": "jolin-o-240-cm-rund-beige-stor-matta-RVD43335",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "621200": {
-    "available": 138,
-    "price_SEK": 1800.0,
-    "parent_name": "Chessie",
-    "variant_name": "Gul / Off white",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD43869",
-    "url": "chessie-200x200-cm-kvadratisk-gul-off-white-matta-RVD43869",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "596978": {
-    "available": 44,
-    "price_SEK": 2000.0,
-    "parent_name": "Nenax",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD38856",
-    "url": "nenax-o-200-cm-rund-rod-rosa-matta-RVD38856",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "616974": {
-    "available": 199,
-    "price_SEK": 1100.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Röd / Blå",
-    "length_cm": 160,
-    "width_cm": 160,
-    "size_label": "medium",
-    "sku": "RVD43858",
-    "url": "georgia-oriental-o-160-cm-rund-rod-bla-bomullsmatta-RVD43858",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "616944": {
-    "available": 216,
-    "price_SEK": 790.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Röd / Blå",
-    "length_cm": 120,
-    "width_cm": 120,
-    "size_label": "small",
-    "sku": "RVD43859",
-    "url": "georgia-oriental-o-120-cm-rund-rod-bla-liten-bomullsmatta-RVD43859",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "604144": {
-    "available": 73,
-    "price_SEK": 2900.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD39797",
-    "url": "bahia-o-240-cm-rund-kramvit-stor-matta-RVD39797",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "604546": {
-    "available": 33,
-    "price_SEK": 1300.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit / Beige",
-    "length_cm": 300,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "RVD39787",
-    "url": "bahia-80x300-cm-avlang-kramvit-beige-stor-matta-RVD39787",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "627584": {
-    "available": 0,
-    "price_SEK": 2300.0,
-    "parent_name": "Sterling",
-    "variant_name": "Vit / Ljusbeige",
-    "length_cm": 300,
-    "width_cm": 200,
-    "size_label": "large",
-    "sku": "RVD45137",
-    "url": "sterling-200x300-cm-oregelbunden-vit-ljusbeige-stor-matta-RVD45137",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "604156": {
-    "available": 35,
-    "price_SEK": 2900.0,
-    "parent_name": "Bahia",
-    "variant_name": "Krämvit / Beige",
-    "length_cm": 240,
-    "width_cm": 240,
-    "size_label": "large",
-    "sku": "RVD39799",
-    "url": "bahia-o-240-cm-rund-kramvit-beige-stor-matta-RVD39799",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601295": {
-    "available": 68,
-    "price_SEK": 1200.0,
-    "parent_name": "Memphis",
-    "variant_name": "Krämvit",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD39552",
-    "url": "memphis-o-150-cm-rund-kramvit-liten-matta-RVD39552",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601261": {
-    "available": 62,
-    "price_SEK": 2100.0,
-    "parent_name": "Memphis",
-    "variant_name": "Krämvit",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD39549",
-    "url": "memphis-o-200-cm-rund-kramvit-matta-RVD39549",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611924": {
-    "available": 114,
-    "price_SEK": 1600.0,
-    "parent_name": "Cameron",
-    "variant_name": "Beige",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD41146",
-    "url": "cameron-o-200-cm-rund-beige-matta-RVD41146",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611958": {
-    "available": 60,
-    "price_SEK": 590.0,
-    "parent_name": "Cameron",
-    "variant_name": "Beige",
-    "length_cm": 100,
-    "width_cm": 100,
-    "size_label": "small",
-    "sku": "RVD41147",
-    "url": "cameron-o-100-cm-rund-beige-liten-matta-RVD41147",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "585657": {
-    "available": 516,
-    "price_SEK": 1200.0,
-    "parent_name": "Confetti",
-    "variant_name": "Off white",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD34076",
-    "url": "confetti-o-150-cm-rund-off-white-liten-matta-RVD34076",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "599818": {
-    "available": 522,
-    "price_SEK": 690.0,
-    "parent_name": "Confetti",
-    "variant_name": "Off white",
-    "length_cm": 100,
-    "width_cm": 100,
-    "size_label": "small",
-    "sku": "RVD34075",
-    "url": "confetti-o-100-cm-rund-off-white-liten-matta-RVD34075",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD28463",
+    "url": "nadia-200x200-cm-kvadratisk-kramvit-greige-matta-RVD28463",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "601279": {
-    "available": 7,
+    "available": 6,
     "price_SEK": 1600.0,
     "parent_name": "Memphis",
     "variant_name": "Krämvit",
@@ -3429,7 +3021,7 @@
     "size_label": "large",
     "sku": "RVD39572",
     "url": "memphis-100x300-cm-avlang-kramvit-stor-matta-RVD39572",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "607664": {
     "available": 0,
@@ -3441,106 +3033,94 @@
     "size_label": "medium",
     "sku": "RVD41018",
     "url": "memphis-80x200-cm-avlang-kramvit-matta-RVD41018",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "620848": {
-    "available": 249,
-    "price_SEK": 1200.0,
-    "parent_name": "Linnea",
-    "variant_name": "Rosa",
-    "length_cm": 150,
-    "width_cm": 150,
-    "size_label": "small",
-    "sku": "RVD44353",
-    "url": "linnea-o-150-cm-rund-rosa-liten-matta-RVD44353",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "620928": {
-    "available": 263,
-    "price_SEK": 690.0,
-    "parent_name": "Linnea",
-    "variant_name": "Rosa",
-    "length_cm": 100,
-    "width_cm": 100,
-    "size_label": "small",
-    "sku": "RVD44354",
-    "url": "linnea-o-100-cm-rund-rosa-liten-matta-RVD44354",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "606989": {
+  "637167": {
     "available": 92,
-    "price_SEK": 1600.0,
-    "parent_name": "Aris",
-    "variant_name": "Greige",
-    "length_cm": 200,
-    "width_cm": 200,
-    "size_label": "medium",
-    "sku": "RVD40172",
-    "url": "aris-o-200-cm-rund-greige-matta-RVD40172",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "price_SEK": 1500.0,
+    "parent_name": "Benni",
+    "variant_name": "Beige / Vit",
+    "length_cm": 300,
+    "width_cm": 100,
+    "size_label": "large",
+    "sku": "RVD47503",
+    "url": "benni-100x300-cm-avlang-beige-vit-stor-matta-RVD47503",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "607008": {
-    "available": 117,
+  "611816": {
+    "available": 95,
+    "price_SEK": 2400.0,
+    "parent_name": "Clio",
+    "variant_name": "Brun",
+    "length_cm": 250,
+    "width_cm": 250,
+    "size_label": "large",
+    "sku": "RVD41156",
+    "url": "clio-o-250-cm-rund-brun-stor-matta-RVD41156",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "611921": {
+    "available": 30,
     "price_SEK": 990.0,
-    "parent_name": "Aris",
-    "variant_name": "Greige",
+    "parent_name": "Clio",
+    "variant_name": "Brun",
     "length_cm": 150,
     "width_cm": 150,
     "size_label": "small",
-    "sku": "RVD40189",
-    "url": "aris-o-150-cm-rund-greige-liten-matta-RVD40189",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD41157",
+    "url": "clio-o-150-cm-rund-brun-liten-matta-RVD41157",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "603285": {
-    "available": 1212,
-    "price_SEK": 790.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 200,
-    "width_cm": 80,
-    "size_label": "medium",
-    "sku": "RVD39977",
-    "url": "georgia-oriental-80x200-cm-avlang-rod-rosa-bomullsmatta-RVD39977",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "603284": {
-    "available": 1041,
-    "price_SEK": 990.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Röd / Rosa",
-    "length_cm": 300,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "RVD39975",
-    "url": "georgia-oriental-80x300-cm-avlang-rod-rosa-stor-bomullsmatta-RVD39975",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "626810": {
-    "available": 152,
+  "611001": {
+    "available": 346,
     "price_SEK": 1100.0,
     "parent_name": "Georgia Oriental",
-    "variant_name": "Blå / Flerfärgad",
+    "variant_name": "Grön / Flerfärgad",
     "length_cm": 160,
     "width_cm": 160,
     "size_label": "medium",
-    "sku": "RVD44750",
-    "url": "georgia-oriental-o-160-cm-rund-bla-flerfargad-bomullsmatta-RVD44750",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD43246",
+    "url": "georgia-oriental-o-160-cm-rund-gron-flerfargad-bomullsmatta-RVD43246",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "626801": {
-    "available": 130,
+  "611003": {
+    "available": 415,
     "price_SEK": 790.0,
     "parent_name": "Georgia Oriental",
-    "variant_name": "Blå / Flerfärgad",
+    "variant_name": "Grön / Flerfärgad",
     "length_cm": 120,
     "width_cm": 120,
     "size_label": "small",
-    "sku": "RVD44751",
-    "url": "georgia-oriental-o-120-cm-rund-bla-flerfargad-liten-bomullsmatta-RVD44751",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD43247",
+    "url": "georgia-oriental-o-120-cm-rund-gron-flerfargad-liten-bomullsmatta-RVD43247",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "603325": {
+    "available": 520,
+    "price_SEK": 1100.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 160,
+    "width_cm": 160,
+    "size_label": "medium",
+    "sku": "RVD39979",
+    "url": "georgia-oriental-o-160-cm-rund-rod-rosa-bomullsmatta-RVD39979",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "607647": {
+    "available": 523,
+    "price_SEK": 790.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 120,
+    "width_cm": 120,
+    "size_label": "small",
+    "sku": "RVD41021",
+    "url": "georgia-oriental-o-120-cm-rund-rod-rosa-liten-bomullsmatta-RVD41021",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "607001": {
-    "available": 73,
+    "available": 71,
     "price_SEK": 1800.0,
     "parent_name": "Chessie",
     "variant_name": "Grön / Off white",
@@ -3549,10 +3129,454 @@
     "size_label": "medium",
     "sku": "RVD40192",
     "url": "chessie-200x200-cm-kvadratisk-gron-off-white-matta-RVD40192",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "585657": {
+    "available": 512,
+    "price_SEK": 1200.0,
+    "parent_name": "Confetti",
+    "variant_name": "Off white",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD34076",
+    "url": "confetti-o-150-cm-rund-off-white-liten-matta-RVD34076",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "599818": {
+    "available": 521,
+    "price_SEK": 690.0,
+    "parent_name": "Confetti",
+    "variant_name": "Off white",
+    "length_cm": 100,
+    "width_cm": 100,
+    "size_label": "small",
+    "sku": "RVD34075",
+    "url": "confetti-o-100-cm-rund-off-white-liten-matta-RVD34075",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "604083": {
+    "available": 36,
+    "price_SEK": 2900.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit / Beige",
+    "length_cm": 240,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD39785",
+    "url": "bahia-240x240-cm-kvadratisk-kramvit-beige-stor-matta-RVD39785",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "627584": {
+    "available": 0,
+    "price_SEK": 2300.0,
+    "parent_name": "Sterling",
+    "variant_name": "Vit / Ljusbeige",
+    "length_cm": 300,
+    "width_cm": 200,
+    "size_label": "large",
+    "sku": "RVD45137",
+    "url": "sterling-200x300-cm-oregelbunden-vit-ljusbeige-stor-matta-RVD45137",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601213": {
+    "available": 112,
+    "price_SEK": 990.0,
+    "parent_name": "Galaxy Oriental",
+    "variant_name": "Roströd / Blå",
+    "length_cm": 160,
+    "width_cm": 160,
+    "size_label": "medium",
+    "sku": "RVD39346",
+    "url": "galaxy-oriental-o-160-cm-rund-rostrod-bla-bomullsmatta-RVD39346",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "639520": {
+    "available": 69,
+    "price_SEK": 2300.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Blå / Flerfärgad",
+    "length_cm": 240,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD47624",
+    "url": "georgia-oriental-240x240-cm-kvadratisk-bla-flerfargad-stor-bomullsmatta-RVD47624",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "612014": {
+    "available": 50,
+    "price_SEK": 1100.0,
+    "parent_name": "Jolin",
+    "variant_name": "Beige",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD43334",
+    "url": "jolin-o-150-cm-rund-beige-liten-matta-RVD43334",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "612038": {
+    "available": 37,
+    "price_SEK": 2800.0,
+    "parent_name": "Jolin",
+    "variant_name": "Beige",
+    "length_cm": 240,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD43335",
+    "url": "jolin-o-240-cm-rund-beige-stor-matta-RVD43335",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "624452": {
+    "available": 68,
+    "price_SEK": 1600.0,
+    "parent_name": "Sterling",
+    "variant_name": "Vit / Ljusbeige",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD44913",
+    "url": "sterling-o-200-cm-rund-vit-ljusbeige-matta-RVD44913",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "432225": {
+    "available": 122,
+    "price_SEK": 1300.0,
+    "parent_name": "Nadia",
+    "variant_name": "Krämvit / Greige",
+    "length_cm": 300,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD20516",
+    "url": "nadia-80x300-cm-avlang-kramvit-greige-stor-matta-RVD20516",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "552046": {
+    "available": 122,
+    "price_SEK": 890.0,
+    "parent_name": "Nadia",
+    "variant_name": "Krämvit / Greige",
+    "length_cm": 200,
+    "width_cm": 80,
+    "size_label": "medium",
+    "sku": "RVD28464",
+    "url": "nadia-80x200-cm-avlang-kramvit-greige-matta-RVD28464",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "639523": {
+    "available": 0,
+    "price_SEK": 2300.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Röd / Blå",
+    "length_cm": 240,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD47620",
+    "url": "georgia-oriental-240x240-cm-kvadratisk-rod-bla-stor-bomullsmatta-RVD47620",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606951": {
+    "available": 137,
+    "price_SEK": 1100.0,
+    "parent_name": "Chessie",
+    "variant_name": "Roströd / Off white",
+    "length_cm": 300,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD40181",
+    "url": "chessie-80x300-cm-avlang-rostrod-off-white-stor-matta-RVD40181",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "624570": {
+    "available": 10,
+    "price_SEK": 2100.0,
+    "parent_name": "Flor",
+    "variant_name": "Flerfärgad",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD42445",
+    "url": "flor-o-200-cm-rund-flerfargad-matta-RVD42445",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "629612": {
+    "available": 57,
+    "price_SEK": 1200.0,
+    "parent_name": "Olga",
+    "variant_name": "Beige",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD46631",
+    "url": "olga-o-150-cm-oregelbunden-beige-liten-matta-RVD46631",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601295": {
+    "available": 67,
+    "price_SEK": 1200.0,
+    "parent_name": "Memphis",
+    "variant_name": "Krämvit",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD39552",
+    "url": "memphis-o-150-cm-rund-kramvit-liten-matta-RVD39552",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601261": {
+    "available": 62,
+    "price_SEK": 2100.0,
+    "parent_name": "Memphis",
+    "variant_name": "Krämvit",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD39549",
+    "url": "memphis-o-200-cm-rund-kramvit-matta-RVD39549",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "621200": {
+    "available": 138,
+    "price_SEK": 1800.0,
+    "parent_name": "Chessie",
+    "variant_name": "Gul / Off white",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD43869",
+    "url": "chessie-200x200-cm-kvadratisk-gul-off-white-matta-RVD43869",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "620848": {
+    "available": 246,
+    "price_SEK": 1200.0,
+    "parent_name": "Linnea",
+    "variant_name": "Rosa",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD44353",
+    "url": "linnea-o-150-cm-rund-rosa-liten-matta-RVD44353",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "620928": {
+    "available": 262,
+    "price_SEK": 690.0,
+    "parent_name": "Linnea",
+    "variant_name": "Rosa",
+    "length_cm": 100,
+    "width_cm": 100,
+    "size_label": "small",
+    "sku": "RVD44354",
+    "url": "linnea-o-100-cm-rund-rosa-liten-matta-RVD44354",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606986": {
+    "available": 79,
+    "price_SEK": 1600.0,
+    "parent_name": "Aris",
+    "variant_name": "Off white",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD40185",
+    "url": "aris-o-200-cm-rund-off-white-matta-RVD40185",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "607010": {
+    "available": 90,
+    "price_SEK": 990.0,
+    "parent_name": "Aris",
+    "variant_name": "Off white",
+    "length_cm": 150,
+    "width_cm": 150,
+    "size_label": "small",
+    "sku": "RVD40191",
+    "url": "aris-o-150-cm-rund-off-white-liten-matta-RVD40191",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "596978": {
+    "available": 44,
+    "price_SEK": 2000.0,
+    "parent_name": "Nenax",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD38856",
+    "url": "nenax-o-200-cm-rund-rod-rosa-matta-RVD38856",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "604144": {
+    "available": 73,
+    "price_SEK": 2900.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit",
+    "length_cm": 240,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD39797",
+    "url": "bahia-o-240-cm-rund-kramvit-stor-matta-RVD39797",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "604156": {
+    "available": 35,
+    "price_SEK": 2900.0,
+    "parent_name": "Bahia",
+    "variant_name": "Krämvit / Beige",
+    "length_cm": 240,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD39799",
+    "url": "bahia-o-240-cm-rund-kramvit-beige-stor-matta-RVD39799",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "606947": {
+    "available": 154,
+    "price_SEK": 1100.0,
+    "parent_name": "Chessie",
+    "variant_name": "Grön / Off white",
+    "length_cm": 300,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD40178",
+    "url": "chessie-80x300-cm-avlang-gron-off-white-stor-matta-RVD40178",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "611924": {
+    "available": 114,
+    "price_SEK": 1600.0,
+    "parent_name": "Cameron",
+    "variant_name": "Beige",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD41146",
+    "url": "cameron-o-200-cm-rund-beige-matta-RVD41146",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "611958": {
+    "available": 60,
+    "price_SEK": 590.0,
+    "parent_name": "Cameron",
+    "variant_name": "Beige",
+    "length_cm": 100,
+    "width_cm": 100,
+    "size_label": "small",
+    "sku": "RVD41147",
+    "url": "cameron-o-100-cm-rund-beige-liten-matta-RVD41147",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "626810": {
+    "available": 150,
+    "price_SEK": 1100.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Blå / Flerfärgad",
+    "length_cm": 160,
+    "width_cm": 160,
+    "size_label": "medium",
+    "sku": "RVD44750",
+    "url": "georgia-oriental-o-160-cm-rund-bla-flerfargad-bomullsmatta-RVD44750",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "626801": {
+    "available": 129,
+    "price_SEK": 790.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Blå / Flerfärgad",
+    "length_cm": 120,
+    "width_cm": 120,
+    "size_label": "small",
+    "sku": "RVD44751",
+    "url": "georgia-oriental-o-120-cm-rund-bla-flerfargad-liten-bomullsmatta-RVD44751",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "432314": {
+    "available": 78,
+    "price_SEK": 2100.0,
+    "parent_name": "Nadia",
+    "variant_name": "Krämvit / Greige",
+    "length_cm": 200,
+    "width_cm": 200,
+    "size_label": "medium",
+    "sku": "RVD20518",
+    "url": "nadia-o-200-cm-rund-kramvit-greige-matta-RVD20518",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "603285": {
+    "available": 1201,
+    "price_SEK": 790.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 200,
+    "width_cm": 80,
+    "size_label": "medium",
+    "sku": "RVD39977",
+    "url": "georgia-oriental-80x200-cm-avlang-rod-rosa-bomullsmatta-RVD39977",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "603284": {
+    "available": 1030,
+    "price_SEK": 990.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 300,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD39975",
+    "url": "georgia-oriental-80x300-cm-avlang-rod-rosa-stor-bomullsmatta-RVD39975",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "601211": {
+    "available": 78,
+    "price_SEK": 990.0,
+    "parent_name": "Galore Oriental",
+    "variant_name": "Terrakotta / Beige",
+    "length_cm": 160,
+    "width_cm": 160,
+    "size_label": "medium",
+    "sku": "RVD39352",
+    "url": "galore-oriental-o-160-cm-rund-terrakotta-beige-bomullsmatta-RVD39352",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "639271": {
+    "available": 0,
+    "price_SEK": 2300.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 240,
+    "width_cm": 240,
+    "size_label": "large",
+    "sku": "RVD47614",
+    "url": "georgia-oriental-240x240-cm-kvadratisk-rod-rosa-stor-bomullsmatta-RVD47614",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "616974": {
+    "available": 197,
+    "price_SEK": 1100.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Röd / Blå",
+    "length_cm": 160,
+    "width_cm": 160,
+    "size_label": "medium",
+    "sku": "RVD43858",
+    "url": "georgia-oriental-o-160-cm-rund-rod-bla-bomullsmatta-RVD43858",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "616944": {
+    "available": 214,
+    "price_SEK": 790.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Röd / Blå",
+    "length_cm": 120,
+    "width_cm": 120,
+    "size_label": "small",
+    "sku": "RVD43859",
+    "url": "georgia-oriental-o-120-cm-rund-rod-bla-liten-bomullsmatta-RVD43859",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611842": {
-    "available": 276,
+    "available": 272,
     "price_SEK": 790.0,
     "parent_name": "Clio",
     "variant_name": "Beige",
@@ -3561,10 +3585,10 @@
     "size_label": "medium",
     "sku": "RVD41074",
     "url": "clio-80x200-cm-avlang-beige-matta-RVD41074",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "611846": {
-    "available": 204,
+    "available": 200,
     "price_SEK": 990.0,
     "parent_name": "Clio",
     "variant_name": "Beige",
@@ -3573,10 +3597,10 @@
     "size_label": "large",
     "sku": "RVD41071",
     "url": "clio-80x300-cm-avlang-beige-stor-matta-RVD41071",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "610985": {
-    "available": 686,
+    "available": 680,
     "price_SEK": 790.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Grön / Flerfärgad",
@@ -3585,10 +3609,10 @@
     "size_label": "medium",
     "sku": "RVD43244",
     "url": "georgia-oriental-80x200-cm-avlang-gron-flerfargad-bomullsmatta-RVD43244",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "610990": {
-    "available": 452,
+    "available": 443,
     "price_SEK": 990.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Grön / Flerfärgad",
@@ -3597,10 +3621,10 @@
     "size_label": "large",
     "sku": "RVD43242",
     "url": "georgia-oriental-80x300-cm-avlang-gron-flerfargad-stor-bomullsmatta-RVD43242",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "612052": {
-    "available": 199,
+    "available": 191,
     "price_SEK": 990.0,
     "parent_name": "Jolin",
     "variant_name": "Beige",
@@ -3609,10 +3633,10 @@
     "size_label": "large",
     "sku": "RVD43278",
     "url": "jolin-80x250-cm-avlang-beige-stor-matta-RVD43278",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "616930": {
-    "available": 272,
+    "available": 268,
     "price_SEK": 790.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Blå",
@@ -3621,10 +3645,10 @@
     "size_label": "medium",
     "sku": "RVD43856",
     "url": "georgia-oriental-80x200-cm-avlang-rod-bla-bomullsmatta-RVD43856",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "616933": {
-    "available": 73,
+    "available": 65,
     "price_SEK": 990.0,
     "parent_name": "Georgia Oriental",
     "variant_name": "Röd / Blå",
@@ -3633,7 +3657,31 @@
     "size_label": "large",
     "sku": "RVD43854",
     "url": "georgia-oriental-80x300-cm-avlang-rod-bla-stor-bomullsmatta-RVD43854",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "611841": {
+    "available": 118,
+    "price_SEK": 790.0,
+    "parent_name": "Clio",
+    "variant_name": "Brun",
+    "length_cm": 200,
+    "width_cm": 80,
+    "size_label": "medium",
+    "sku": "RVD41080",
+    "url": "clio-80x200-cm-avlang-brun-matta-RVD41080",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "611848": {
+    "available": 80,
+    "price_SEK": 990.0,
+    "parent_name": "Clio",
+    "variant_name": "Brun",
+    "length_cm": 300,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD41077",
+    "url": "clio-80x300-cm-avlang-brun-stor-matta-RVD41077",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "601276": {
     "available": 21,
@@ -3645,70 +3693,10 @@
     "size_label": "medium",
     "sku": "RVD39562",
     "url": "memphis-100x160-cm-kramvit-matta-RVD39562",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611845": {
-    "available": 396,
-    "price_SEK": 790.0,
-    "parent_name": "Cameron",
-    "variant_name": "Beige",
-    "length_cm": 200,
-    "width_cm": 80,
-    "size_label": "medium",
-    "sku": "RVD41098",
-    "url": "cameron-80x200-cm-avlang-beige-matta-RVD41098",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611847": {
-    "available": 157,
-    "price_SEK": 990.0,
-    "parent_name": "Cameron",
-    "variant_name": "Beige",
-    "length_cm": 300,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "RVD41095",
-    "url": "cameron-80x300-cm-avlang-beige-stor-matta-RVD41095",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "626784": {
-    "available": 251,
-    "price_SEK": 790.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Blå / Flerfärgad",
-    "length_cm": 200,
-    "width_cm": 80,
-    "size_label": "medium",
-    "sku": "RVD44748",
-    "url": "georgia-oriental-80x200-cm-avlang-bla-flerfargad-bomullsmatta-RVD44748",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "626782": {
-    "available": 243,
-    "price_SEK": 990.0,
-    "parent_name": "Georgia Oriental",
-    "variant_name": "Blå / Flerfärgad",
-    "length_cm": 300,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "RVD44746",
-    "url": "georgia-oriental-80x300-cm-avlang-bla-flerfargad-stor-bomullsmatta-RVD44746",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "601184": {
-    "available": 189,
-    "price_SEK": 990.0,
-    "parent_name": "Galaxy Oriental",
-    "variant_name": "Roströd / Blå",
-    "length_cm": 300,
-    "width_cm": 80,
-    "size_label": "large",
-    "sku": "RVD39342",
-    "url": "galaxy-oriental-80x300-cm-avlang-rostrod-bla-stor-bomullsmatta-RVD39342",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "601186": {
-    "available": 171,
+    "available": 168,
     "price_SEK": 790.0,
     "parent_name": "Galaxy Oriental",
     "variant_name": "Roströd / Blå",
@@ -3717,34 +3705,34 @@
     "size_label": "medium",
     "sku": "RVD39343",
     "url": "galaxy-oriental-80x200-cm-avlang-rostrod-bla-bomullsmatta-RVD39343",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "611841": {
-    "available": 120,
-    "price_SEK": 790.0,
-    "parent_name": "Clio",
-    "variant_name": "Brun",
-    "length_cm": 200,
-    "width_cm": 80,
-    "size_label": "medium",
-    "sku": "RVD41080",
-    "url": "clio-80x200-cm-avlang-brun-matta-RVD41080",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "611848": {
-    "available": 83,
+  "601184": {
+    "available": 188,
     "price_SEK": 990.0,
-    "parent_name": "Clio",
-    "variant_name": "Brun",
+    "parent_name": "Galaxy Oriental",
+    "variant_name": "Roströd / Blå",
     "length_cm": 300,
     "width_cm": 80,
     "size_label": "large",
-    "sku": "RVD41077",
-    "url": "clio-80x300-cm-avlang-brun-stor-matta-RVD41077",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD39342",
+    "url": "galaxy-oriental-80x300-cm-avlang-rostrod-bla-stor-bomullsmatta-RVD39342",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "596926": {
+    "available": 134,
+    "price_SEK": 990.0,
+    "parent_name": "Nenax",
+    "variant_name": "Röd / Rosa",
+    "length_cm": 250,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD38850",
+    "url": "nenax-80x250-cm-avlang-rod-rosa-stor-matta-RVD38850",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "596927": {
-    "available": 281,
+    "available": 280,
     "price_SEK": 990.0,
     "parent_name": "Kerala",
     "variant_name": "Röd / Flerfärgad",
@@ -3753,34 +3741,34 @@
     "size_label": "large",
     "sku": "CVD38706",
     "url": "kerala-80x250-cm-avlang-rod-flerfargad-stor-matta-CVD38706",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "610887": {
-    "available": 297,
+  "626782": {
+    "available": 239,
+    "price_SEK": 990.0,
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Blå / Flerfärgad",
+    "length_cm": 300,
+    "width_cm": 80,
+    "size_label": "large",
+    "sku": "RVD44746",
+    "url": "georgia-oriental-80x300-cm-avlang-bla-flerfargad-stor-bomullsmatta-RVD44746",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "626784": {
+    "available": 249,
     "price_SEK": 790.0,
-    "parent_name": "Sabine",
-    "variant_name": "Flerfärgad",
+    "parent_name": "Georgia Oriental",
+    "variant_name": "Blå / Flerfärgad",
     "length_cm": 200,
     "width_cm": 80,
     "size_label": "medium",
-    "sku": "RVD41252",
-    "url": "sabine-80x200-cm-avlang-flerfargad-matta-RVD41252",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
-  },
-  "620925": {
-    "available": 15,
-    "price_SEK": 531.0,
-    "parent_name": "Jester",
-    "variant_name": "Flerfärgad",
-    "length_cm": 100,
-    "width_cm": 100,
-    "size_label": "small",
-    "sku": "RVD44329",
-    "url": "jester-o-100-cm-rund-flerfargad-liten-matta-RVD44329",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD44748",
+    "url": "georgia-oriental-80x200-cm-avlang-bla-flerfargad-bomullsmatta-RVD44748",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "604473": {
-    "available": 274,
+    "available": 268,
     "price_SEK": 990.0,
     "parent_name": "Balloon Ride",
     "variant_name": "Beige / Rosa",
@@ -3789,10 +3777,10 @@
     "size_label": "small",
     "sku": "CVD40043",
     "url": "balloon-ride-o-150-cm-rund-beige-rosa-liten-matta-CVD40043",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "629560": {
-    "available": 50,
+    "available": 48,
     "price_SEK": 890.0,
     "parent_name": "Comfy",
     "variant_name": "Beige",
@@ -3801,19 +3789,31 @@
     "size_label": "medium",
     "sku": "RVD46746",
     "url": "comfy-80x200-cm-avlang-beige-matta-RVD46746",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
-  "629562": {
-    "available": 56,
-    "price_SEK": 890.0,
-    "parent_name": "Comfy",
-    "variant_name": "Grön",
+  "610887": {
+    "available": 296,
+    "price_SEK": 790.0,
+    "parent_name": "Sabine",
+    "variant_name": "Flerfärgad",
     "length_cm": 200,
     "width_cm": 80,
     "size_label": "medium",
-    "sku": "RVD46748",
-    "url": "comfy-80x200-cm-avlang-gron-matta-RVD46748",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "sku": "RVD41252",
+    "url": "sabine-80x200-cm-avlang-flerfargad-matta-RVD41252",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "620925": {
+    "available": 14,
+    "price_SEK": 531.0,
+    "parent_name": "Jester",
+    "variant_name": "Flerfärgad",
+    "length_cm": 100,
+    "width_cm": 100,
+    "size_label": "small",
+    "sku": "RVD44329",
+    "url": "jester-o-100-cm-rund-flerfargad-liten-matta-RVD44329",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   },
   "606945": {
     "available": 79,
@@ -3825,6 +3825,18 @@
     "size_label": "large",
     "sku": "RVD40183",
     "url": "aris-80x250-cm-avlang-off-white-stor-matta-RVD40183",
-    "snapshot_time": "2026-01-04T05:19:36+01:00"
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
+  },
+  "629564": {
+    "available": 0,
+    "price_SEK": 890.0,
+    "parent_name": "Comfy",
+    "variant_name": "Off white",
+    "length_cm": 200,
+    "width_cm": 80,
+    "size_label": "medium",
+    "sku": "RVD46744",
+    "url": "comfy-80x200-cm-avlang-off-white-matta-RVD46744",
+    "snapshot_time": "2026-01-05T05:25:23+01:00"
   }
 }
