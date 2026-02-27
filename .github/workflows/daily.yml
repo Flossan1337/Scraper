@@ -78,6 +78,11 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
 
+      - name: Run fetch_cint_panelbook.py
+        run: python ./scripts/fetch_cint_panelbook.py
+        timeout-minutes: 5
+        continue-on-error: true
+
       - name: Commit & push generated data (if any)
         shell: bash
         run: |
@@ -131,12 +136,14 @@ jobs:
           DESCR[track_nelly_aov.py]="Fetches Nelly AOV & top list data"
           DESCR[track_rugvista_bestsellers.py]="Fetches Rugvista top list rankings"
           DESCR[track_rugvista_daily_sales.py]="Tracks Rugvista daily sales delta"
+          DESCR[fetch_cint_panelbook.py]="Fetches Cint completed surveys per country"
 
           METRICS_DIR="scripts/metrics"
           mkdir -p "$METRICS_DIR"
 
           for script in "fetch_kpi.py" "amazon_scape_bought_playwright_us_de.py" "track_combined_prices.py" \
-                        "track_fractal_rankings_playwright.py" "track_nelly_aov.py" "track_rugvista_bestsellers.py" "track_rugvista_daily_sales.py"; do
+                        "track_fractal_rankings_playwright.py" "track_nelly_aov.py" "track_rugvista_bestsellers.py" \
+                        "track_rugvista_daily_sales.py" "fetch_cint_panelbook.py"; do
             desc="${DESCR[$script]:-}" || true
             base=$(basename "$script")
             jsonfile="$METRICS_DIR/${base}.json"
