@@ -59,33 +59,36 @@ BOUGHT_SELECTORS = [
 def parse_number(text: str) -> int:
     """
     Hanterar '50+', '1K+', '1.5K', '2M+' och konverterar till heltal.
+    K/M-multiplikatorn tillämpas BARA om den direkt följer siffran OCH
+    inte följs av ytterligare en bokstav — så ord som 'month' eller 'mal'
+    triggar inte M-multiplikatorn av misstag.
     """
     if not text:
         return 0
-    
-    # 1. Normalisera: gemener, ta bort mellanslag och plus
-    clean_text = text.lower().replace(" ", "").replace("+", "")
-    
-    # 2. Bestäm multiplier (K = 1000, M = 1,000,000)
-    multiplier = 1
-    if "k" in clean_text:
-        multiplier = 1000
-        clean_text = clean_text.replace("k", "")
-    elif "m" in clean_text:
-        multiplier = 1000000
-        clean_text = clean_text.replace("m", "")
-    
-    # 3. Hitta själva talet (hanterar både punkt och komma som decimal)
-    match = re.search(r"([0-9]+(?:[.,][0-9]+)?)", clean_text)
-    
+
+    # Steg 1: försök matcha siffra + K/M-suffix där suffixet INTE följs av en bokstav.
+    # Ex: "1K+", "2M+", "1.5K" matchar. "month", "mal" matchar INTE.
+    match = re.search(r"([0-9]+(?:[.,][0-9]+)?)\s*([kKmM])(?![a-zA-Z])", text)
     if match:
-        num_str = match.group(1).replace(",", ".") # Standardisera till punkt
+        num_str = match.group(1).replace(",", ".")
+        suffix  = match.group(2).lower()
         try:
             val = float(num_str)
-            return int(val * multiplier)
+            if suffix == "k":
+                return int(val * 1000)
+            elif suffix == "m":
+                return int(val * 1000000)
         except ValueError:
             return 0
-            
+
+    # Steg 2: inget K/M-suffix — extrahera bara siffran (ex: "300+", "50")
+    plain = re.search(r"([0-9]+)", text)
+    if plain:
+        try:
+            return int(plain.group(1))
+        except ValueError:
+            return 0
+
     return 0
 
 def extract_bought_from_html(html_content: str) -> int:
