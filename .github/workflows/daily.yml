@@ -90,6 +90,11 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
 
+      - name: Run fetch_ted_procurements.py
+        run: python ./scripts/fetch_ted_procurements.py
+        timeout-minutes: 10
+        continue-on-error: true
+
       - name: Commit & push generated data (if any)
         shell: bash
         run: |
