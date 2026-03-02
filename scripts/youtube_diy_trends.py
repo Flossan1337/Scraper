@@ -1,3 +1,5 @@
+import sys
+import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import openpyxl
@@ -10,7 +12,10 @@ from googleapiclient.errors import HttpError
 SCRIPT_NAME = "youtube_diy_trends.py"
 DATA_FILENAME = "youtube_diy_sentiment.xlsx"
 PRIMARY_QUERY = "Gaming PC Build"
-API_KEY = "AIzaSyCHwNxI4HSv5cbLx3praqwLv7w_1YdGeCM"
+API_KEY = os.environ.get("YOUTUBE_API_KEY", "")
+if not API_KEY:
+    print(f"[{SCRIPT_NAME}] ERROR: YOUTUBE_API_KEY environment variable not set.")
+    sys.exit(1)
 
 # Window for counting new upload velocity (how many videos published recently)
 UPLOAD_WINDOW_DAYS = 7
