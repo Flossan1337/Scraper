@@ -403,9 +403,17 @@ def main() -> None:
             "price_sek": None, "price_updated": None, "counts": [],
         })
 
-        prev_count  = p["counts"][-1]["count"] if p["counts"] else 0
+        # Previous count = last entry that is NOT today (so re-runs on the same
+        # day don't accumulate phantom new reviews).
+        prior_entries = [e for e in p["counts"] if e["date"] != today]
+        prev_count  = prior_entries[-1]["count"] if prior_entries else 0
         new_reviews = max(0, current_count - prev_count)
-        p["counts"].append({"date": today, "count": current_count})
+
+        # Update today's entry in-place rather than appending duplicates.
+        if p["counts"] and p["counts"][-1]["date"] == today:
+            p["counts"][-1]["count"] = current_count
+        else:
+            p["counts"].append({"date": today, "count": current_count})
 
         price = p.get("price_sek") or 0.0
         proxy = price * new_reviews
