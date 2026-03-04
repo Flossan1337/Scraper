@@ -1,0 +1,4015 @@
+{
+  "2014-09": {
+    "total": 12,
+    "total_excl_big": 12,
+    "by_country": {
+      "other": 12
+    },
+    "by_category": {
+      "TOPS": 9,
+      "JACKETS": 3
+    },
+    "by_gender": {
+      "MEN": 2,
+      "WOMEN": 10
+    }
+  },
+  "2014-10": {
+    "total": 12,
+    "total_excl_big": 12,
+    "by_country": {
+      "other": 12
+    },
+    "by_category": {
+      "TOPS": 7,
+      "JACKETS": 5
+    },
+    "by_gender": {
+      "MEN": 3,
+      "WOMEN": 9
+    }
+  },
+  "2014-11": {
+    "total": 7,
+    "total_excl_big": 7,
+    "by_country": {
+      "other": 7
+    },
+    "by_category": {
+      "TOPS": 3,
+      "JACKETS": 4
+    },
+    "by_gender": {
+      "WOMEN": 5,
+      "MEN": 2
+    }
+  },
+  "2014-12": {
+    "total": 3,
+    "total_excl_big": 3,
+    "by_country": {
+      "other": 3
+    },
+    "by_category": {
+      "TOPS": 2,
+      "JACKETS": 1
+    },
+    "by_gender": {
+      "MEN": 1,
+      "WOMEN": 2
+    }
+  },
+  "2015-01": {
+    "total": 21,
+    "total_excl_big": 21,
+    "by_country": {
+      "other": 21
+    },
+    "by_category": {
+      "PANTS": 17,
+      "TOPS": 2,
+      "JACKETS": 2
+    },
+    "by_gender": {
+      "WOMEN": 11,
+      "MEN": 10
+    }
+  },
+  "2015-02": {
+    "total": 34,
+    "total_excl_big": 34,
+    "by_country": {
+      "other": 34
+    },
+    "by_category": {
+      "JACKETS": 2,
+      "PANTS": 28,
+      "TOPS": 4
+    },
+    "by_gender": {
+      "WOMEN": 20,
+      "MEN": 14
+    }
+  },
+  "2015-03": {
+    "total": 56,
+    "total_excl_big": 56,
+    "by_country": {
+      "other": 56
+    },
+    "by_category": {
+      "JACKETS": 11,
+      "PANTS": 43,
+      "TOPS": 2
+    },
+    "by_gender": {
+      "WOMEN": 38,
+      "MEN": 18
+    }
+  },
+  "2015-04": {
+    "total": 42,
+    "total_excl_big": 42,
+    "by_country": {
+      "other": 42
+    },
+    "by_category": {
+      "JACKETS": 8,
+      "PANTS": 33,
+      "TOPS": 1
+    },
+    "by_gender": {
+      "WOMEN": 38,
+      "MEN": 4
+    }
+  },
+  "2015-05": {
+    "total": 34,
+    "total_excl_big": 34,
+    "by_country": {
+      "other": 34
+    },
+    "by_category": {
+      "JACKETS": 6,
+      "PANTS": 28
+    },
+    "by_gender": {
+      "WOMEN": 32,
+      "MEN": 2
+    }
+  },
+  "2015-06": {
+    "total": 21,
+    "total_excl_big": 21,
+    "by_country": {
+      "other": 21
+    },
+    "by_category": {
+      "PANTS": 17,
+      "JACKETS": 4
+    },
+    "by_gender": {
+      "WOMEN": 16,
+      "MEN": 5
+    }
+  },
+  "2015-07": {
+    "total": 51,
+    "total_excl_big": 51,
+    "by_country": {
+      "other": 51
+    },
+    "by_category": {
+      "TOPS": 1,
+      "JACKETS": 1,
+      "PANTS": 49
+    },
+    "by_gender": {
+      "MEN": 15,
+      "WOMEN": 36
+    }
+  },
+  "2015-08": {
+    "total": 75,
+    "total_excl_big": 75,
+    "by_country": {
+      "other": 75
+    },
+    "by_category": {
+      "PANTS": 71,
+      "JACKETS": 4
+    },
+    "by_gender": {
+      "WOMEN": 59,
+      "MEN": 16
+    }
+  },
+  "2015-09": {
+    "total": 93,
+    "total_excl_big": 93,
+    "by_country": {
+      "other": 93
+    },
+    "by_category": {
+      "PANTS": 78,
+      "ACCS": 6,
+      "JACKETS": 9
+    },
+    "by_gender": {
+      "WOMEN": 54,
+      "MEN": 33,
+      "UNISEX": 6
+    }
+  },
+  "2015-10": {
+    "total": 85,
+    "total_excl_big": 85,
+    "by_country": {
+      "other": 85
+    },
+    "by_category": {
+      "JACKETS": 15,
+      "PANTS": 58,
+      "ACCS": 11,
+      "BASELAYERS\n": 1
+    },
+    "by_gender": {
+      "WOMEN": 45,
+      "MEN": 29,
+      "UNISEX": 11
+    }
+  },
+  "2015-11": {
+    "total": 99,
+    "total_excl_big": 99,
+    "by_country": {
+      "other": 99
+    },
+    "by_category": {
+      "TOPS": 5,
+      "JACKETS": 7,
+      "PANTS": 41,
+      "ACCS": 12,
+      "BASELAYERS\n": 34
+    },
+    "by_gender": {
+      "WOMEN": 49,
+      "MEN": 38,
+      "UNISEX": 12
+    }
+  },
+  "2015-12": {
+    "total": 97,
+    "total_excl_big": 97,
+    "by_country": {
+      "other": 97
+    },
+    "by_category": {
+      "TOPS": 8,
+      "JACKETS": 12,
+      "PANTS": 26,
+      "ACCS": 17,
+      "BASELAYERS\n": 34
+    },
+    "by_gender": {
+      "WOMEN": 45,
+      "MEN": 35,
+      "UNISEX": 17
+    }
+  },
+  "2016-01": {
+    "total": 82,
+    "total_excl_big": 82,
+    "by_country": {
+      "other": 82
+    },
+    "by_category": {
+      "TOPS": 5,
+      "JACKETS": 7,
+      "PANTS": 51,
+      "ACCS": 12,
+      "BASELAYERS\n": 7
+    },
+    "by_gender": {
+      "WOMEN": 45,
+      "MEN": 25,
+      "UNISEX": 12
+    }
+  },
+  "2016-02": {
+    "total": 168,
+    "total_excl_big": 168,
+    "by_country": {
+      "other": 168
+    },
+    "by_category": {
+      "TOPS": 7,
+      "JACKETS": 13,
+      "PANTS": 128,
+      "ACCS": 19,
+      "BASELAYERS\n": 1
+    },
+    "by_gender": {
+      "WOMEN": 98,
+      "MEN": 51,
+      "UNISEX": 19
+    }
+  },
+  "2016-03": {
+    "total": 180,
+    "total_excl_big": 180,
+    "by_country": {
+      "other": 180
+    },
+    "by_category": {
+      "TOPS": 9,
+      "JACKETS": 6,
+      "PANTS": 154,
+      "ACCS": 10,
+      "BASELAYERS\n": 1
+    },
+    "by_gender": {
+      "WOMEN": 112,
+      "MEN": 58,
+      "UNISEX": 10
+    }
+  },
+  "2016-04": {
+    "total": 239,
+    "total_excl_big": 239,
+    "by_country": {
+      "other": 239
+    },
+    "by_category": {
+      "TOPS": 2,
+      "JACKETS": 37,
+      "PANTS": 191,
+      "ACCS": 9
+    },
+    "by_gender": {
+      "WOMEN": 136,
+      "MEN": 94,
+      "UNISEX": 9
+    }
+  },
+  "2016-05": {
+    "total": 284,
+    "total_excl_big": 284,
+    "by_country": {
+      "other": 284
+    },
+    "by_category": {
+      "TOPS": 19,
+      "JACKETS": 42,
+      "PANTS": 217,
+      "ACCS": 6
+    },
+    "by_gender": {
+      "WOMEN": 134,
+      "MEN": 144,
+      "UNISEX": 6
+    }
+  },
+  "2016-06": {
+    "total": 368,
+    "total_excl_big": 368,
+    "by_country": {
+      "other": 368
+    },
+    "by_category": {
+      "TOPS": 33,
+      "JACKETS": 46,
+      "PANTS": 276,
+      "ACCS": 11,
+      "BASELAYERS\n": 2
+    },
+    "by_gender": {
+      "WOMEN": 150,
+      "MEN": 207,
+      "UNISEX": 11
+    }
+  },
+  "2016-07": {
+    "total": 225,
+    "total_excl_big": 225,
+    "by_country": {
+      "other": 225
+    },
+    "by_category": {
+      "TOPS": 19,
+      "JACKETS": 28,
+      "PANTS": 170,
+      "ACCS": 6,
+      "BASELAYERS\n": 2
+    },
+    "by_gender": {
+      "MEN": 101,
+      "WOMEN": 118,
+      "UNISEX": 6
+    }
+  },
+  "2016-08": {
+    "total": 256,
+    "total_excl_big": 256,
+    "by_country": {
+      "other": 256
+    },
+    "by_category": {
+      "TOPS": 33,
+      "JACKETS": 19,
+      "PANTS": 190,
+      "ACCS": 6,
+      "BASELAYERS\n": 8
+    },
+    "by_gender": {
+      "MEN": 112,
+      "WOMEN": 138,
+      "UNISEX": 6
+    }
+  },
+  "2016-09": {
+    "total": 287,
+    "total_excl_big": 287,
+    "by_country": {
+      "other": 287
+    },
+    "by_category": {
+      "TOPS": 50,
+      "JACKETS": 33,
+      "PANTS": 185,
+      "ACCS": 6,
+      "BASELAYERS\n": 13
+    },
+    "by_gender": {
+      "MEN": 99,
+      "WOMEN": 182,
+      "UNISEX": 6
+    }
+  },
+  "2016-10": {
+    "total": 290,
+    "total_excl_big": 290,
+    "by_country": {
+      "other": 290
+    },
+    "by_category": {
+      "TOPS": 53,
+      "JACKETS": 21,
+      "PANTS": 108,
+      "ACCS": 23,
+      "BASELAYERS\n": 67,
+      "CARE": 18
+    },
+    "by_gender": {
+      "MEN": 98,
+      "WOMEN": 151,
+      "UNISEX": 41
+    }
+  },
+  "2016-11": {
+    "total": 327,
+    "total_excl_big": 327,
+    "by_country": {
+      "other": 327
+    },
+    "by_category": {
+      "PANTS": 99,
+      "TOPS": 71,
+      "JACKETS": 35,
+      "ACCS": 22,
+      "BASELAYERS\n": 92,
+      "CARE": 8
+    },
+    "by_gender": {
+      "MEN": 136,
+      "WOMEN": 161,
+      "UNISEX": 30
+    }
+  },
+  "2016-12": {
+    "total": 221,
+    "total_excl_big": 221,
+    "by_country": {
+      "other": 221
+    },
+    "by_category": {
+      "PANTS": 87,
+      "JACKETS": 19,
+      "TOPS": 47,
+      "ACCS": 20,
+      "BASELAYERS\n": 38,
+      "CARE": 10
+    },
+    "by_gender": {
+      "MEN": 100,
+      "WOMEN": 91,
+      "UNISEX": 30
+    }
+  },
+  "2017-01": {
+    "total": 310,
+    "total_excl_big": 310,
+    "by_country": {
+      "other": 310
+    },
+    "by_category": {
+      "PANTS": 175,
+      "JACKETS": 45,
+      "TOPS": 58,
+      "ACCS": 13,
+      "BASELAYERS\n": 15,
+      "CARE": 4
+    },
+    "by_gender": {
+      "MEN": 137,
+      "WOMEN": 156,
+      "UNISEX": 17
+    }
+  },
+  "2017-02": {
+    "total": 215,
+    "total_excl_big": 215,
+    "by_country": {
+      "other": 215
+    },
+    "by_category": {
+      "PANTS": 115,
+      "JACKETS": 41,
+      "TOPS": 44,
+      "ACCS": 7,
+      "BASELAYERS\n": 7,
+      "CARE": 1
+    },
+    "by_gender": {
+      "MEN": 105,
+      "WOMEN": 102,
+      "UNISEX": 8
+    }
+  },
+  "2017-03": {
+    "total": 289,
+    "total_excl_big": 289,
+    "by_country": {
+      "other": 289
+    },
+    "by_category": {
+      "PANTS": 153,
+      "JACKETS": 46,
+      "TOPS": 62,
+      "ACCS": 13,
+      "BASELAYERS\n": 8,
+      "CARE": 7
+    },
+    "by_gender": {
+      "MEN": 156,
+      "WOMEN": 113,
+      "UNISEX": 20
+    }
+  },
+  "2017-04": {
+    "total": 524,
+    "total_excl_big": 524,
+    "by_country": {
+      "other": 524
+    },
+    "by_category": {
+      "JACKETS": 62,
+      "TOPS": 112,
+      "PANTS": 324,
+      "ACCS": 16,
+      "BASELAYERS\n": 5,
+      "CARE": 5
+    },
+    "by_gender": {
+      "MEN": 287,
+      "WOMEN": 216,
+      "UNISEX": 21
+    }
+  },
+  "2017-05": {
+    "total": 630,
+    "total_excl_big": 630,
+    "by_country": {
+      "other": 630
+    },
+    "by_category": {
+      "PANTS": 441,
+      "JACKETS": 53,
+      "TOPS": 110,
+      "ACCS": 18,
+      "BASELAYERS\n": 2,
+      "CARE": 6
+    },
+    "by_gender": {
+      "WOMEN": 261,
+      "MEN": 345,
+      "UNISEX": 24
+    }
+  },
+  "2017-06": {
+    "total": 756,
+    "total_excl_big": 754,
+    "by_country": {
+      "other": 756
+    },
+    "by_category": {
+      "PANTS": 583,
+      "JACKETS": 58,
+      "TOPS": 100,
+      "ACCS": 9,
+      "BASELAYERS\n": 1,
+      "CARE": 5
+    },
+    "by_gender": {
+      "MEN": 421,
+      "WOMEN": 321,
+      "UNISEX": 14
+    }
+  },
+  "2017-07": {
+    "total": 703,
+    "total_excl_big": 653,
+    "by_country": {
+      "other": 703
+    },
+    "by_category": {
+      "JACKETS": 49,
+      "PANTS": 562,
+      "TOPS": 81,
+      "BASELAYERS\n": 1,
+      "CARE": 8,
+      "ACCS": 2
+    },
+    "by_gender": {
+      "MEN": 401,
+      "WOMEN": 292,
+      "UNISEX": 10
+    }
+  },
+  "2017-08": {
+    "total": 673,
+    "total_excl_big": 634,
+    "by_country": {
+      "other": 673
+    },
+    "by_category": {
+      "JACKETS": 79,
+      "PANTS": 522,
+      "TOPS": 62,
+      "ACCS": 3,
+      "CARE": 7
+    },
+    "by_gender": {
+      "MEN": 344,
+      "WOMEN": 319,
+      "UNISEX": 10
+    }
+  },
+  "2017-09": {
+    "total": 1098,
+    "total_excl_big": 1064,
+    "by_country": {
+      "other": 1098
+    },
+    "by_category": {
+      "JACKETS": 143,
+      "PANTS": 719,
+      "TOPS": 113,
+      "ACCS": 56,
+      "BASELAYERS\n": 54,
+      "CARE": 13
+    },
+    "by_gender": {
+      "MEN": 555,
+      "WOMEN": 478,
+      "UNISEX": 65
+    }
+  },
+  "2017-10": {
+    "total": 1696,
+    "total_excl_big": 1522,
+    "by_country": {
+      "other": 1696
+    },
+    "by_category": {
+      "JACKETS": 370,
+      "PANTS": 813,
+      "TOPS": 246,
+      "ACCS": 119,
+      "BASELAYERS\n": 134,
+      "CARE": 14
+    },
+    "by_gender": {
+      "MEN": 932,
+      "WOMEN": 667,
+      "UNISEX": 97
+    }
+  },
+  "2017-11": {
+    "total": 1579,
+    "total_excl_big": 1463,
+    "by_country": {
+      "other": 1579
+    },
+    "by_category": {
+      "JACKETS": 275,
+      "PANTS": 690,
+      "TOPS": 278,
+      "ACCS": 123,
+      "BASELAYERS\n": 207,
+      "CARE": 6
+    },
+    "by_gender": {
+      "MEN": 943,
+      "WOMEN": 550,
+      "UNISEX": 86
+    }
+  },
+  "2017-12": {
+    "total": 1543,
+    "total_excl_big": 1501,
+    "by_country": {
+      "other": 1543
+    },
+    "by_category": {
+      "JACKETS": 221,
+      "PANTS": 708,
+      "TOPS": 181,
+      "ACCS": 122,
+      "BASELAYERS\n": 308,
+      "CARE": 3
+    },
+    "by_gender": {
+      "MEN": 824,
+      "WOMEN": 627,
+      "UNISEX": 92
+    }
+  },
+  "2018-01": {
+    "total": 1468,
+    "total_excl_big": 1430,
+    "by_country": {
+      "other": 1468
+    },
+    "by_category": {
+      "JACKETS": 273,
+      "PANTS": 667,
+      "TOPS": 224,
+      "ACCS": 113,
+      "BASELAYERS\n": 187,
+      "CARE": 4
+    },
+    "by_gender": {
+      "MEN": 822,
+      "WOMEN": 570,
+      "UNISEX": 76
+    }
+  },
+  "2018-02": {
+    "total": 1531,
+    "total_excl_big": 1497,
+    "by_country": {
+      "other": 1531
+    },
+    "by_category": {
+      "JACKETS": 264,
+      "PANTS": 663,
+      "TOPS": 278,
+      "ACCS": 115,
+      "BASELAYERS\n": 208,
+      "CARE": 3
+    },
+    "by_gender": {
+      "MEN": 835,
+      "WOMEN": 636,
+      "UNISEX": 60
+    }
+  },
+  "2018-03": {
+    "total": 1919,
+    "total_excl_big": 1838,
+    "by_country": {
+      "other": 1919
+    },
+    "by_category": {
+      "JACKETS": 449,
+      "PANTS": 758,
+      "TOPS": 334,
+      "ACCS": 133,
+      "BASELAYERS\n": 238,
+      "CARE": 7
+    },
+    "by_gender": {
+      "MEN": 973,
+      "WOMEN": 865,
+      "UNISEX": 81
+    }
+  },
+  "2018-04": {
+    "total": 1498,
+    "total_excl_big": 1322,
+    "by_country": {
+      "other": 1498
+    },
+    "by_category": {
+      "JACKETS": 365,
+      "PANTS": 679,
+      "TOPS": 281,
+      "ACCS": 91,
+      "BASELAYERS\n": 71,
+      "CARE": 11
+    },
+    "by_gender": {
+      "MEN": 795,
+      "WOMEN": 642,
+      "UNISEX": 61
+    }
+  },
+  "2018-05": {
+    "total": 1924,
+    "total_excl_big": 1678,
+    "by_country": {
+      "other": 1924
+    },
+    "by_category": {
+      "JACKETS": 295,
+      "PANTS": 1131,
+      "TOPS": 362,
+      "ACCS": 80,
+      "BASELAYERS\n": 49,
+      "CARE": 7
+    },
+    "by_gender": {
+      "MEN": 1117,
+      "WOMEN": 745,
+      "UNISEX": 62
+    }
+  },
+  "2018-06": {
+    "total": 1298,
+    "total_excl_big": 1123,
+    "by_country": {
+      "other": 1298
+    },
+    "by_category": {
+      "JACKETS": 119,
+      "PANTS": 918,
+      "TOPS": 185,
+      "ACCS": 55,
+      "BASELAYERS\n": 17,
+      "CARE": 4
+    },
+    "by_gender": {
+      "MEN": 775,
+      "WOMEN": 485,
+      "UNISEX": 38
+    }
+  },
+  "2018-07": {
+    "total": 1445,
+    "total_excl_big": 1236,
+    "by_country": {
+      "other": 1445
+    },
+    "by_category": {
+      "JACKETS": 163,
+      "PANTS": 1007,
+      "TOPS": 176,
+      "ACCS": 75,
+      "BASELAYERS\n": 22,
+      "CARE": 2
+    },
+    "by_gender": {
+      "MEN": 842,
+      "WOMEN": 547,
+      "UNISEX": 56
+    }
+  },
+  "2018-08": {
+    "total": 1379,
+    "total_excl_big": 1178,
+    "by_country": {
+      "other": 1379
+    },
+    "by_category": {
+      "JACKETS": 164,
+      "PANTS": 975,
+      "TOPS": 137,
+      "ACCS": 46,
+      "BASELAYERS\n": 17,
+      "CARE": 40
+    },
+    "by_gender": {
+      "MEN": 804,
+      "WOMEN": 507,
+      "UNISEX": 68
+    }
+  },
+  "2018-09": {
+    "total": 1533,
+    "total_excl_big": 1394,
+    "by_country": {
+      "other": 1533
+    },
+    "by_category": {
+      "JACKETS": 334,
+      "PANTS": 801,
+      "TOPS": 181,
+      "ACCS": 147,
+      "BASELAYERS\n": 56,
+      "CARE": 14
+    },
+    "by_gender": {
+      "MEN": 732,
+      "WOMEN": 677,
+      "UNISEX": 124
+    }
+  },
+  "2018-10": {
+    "total": 1977,
+    "total_excl_big": 1810,
+    "by_country": {
+      "other": 1977
+    },
+    "by_category": {
+      "JACKETS": 456,
+      "PANTS": 801,
+      "TOPS": 297,
+      "ACCS": 147,
+      "BASELAYERS\n": 268,
+      "CARE": 8
+    },
+    "by_gender": {
+      "MEN": 1013,
+      "WOMEN": 868,
+      "UNISEX": 96
+    }
+  },
+  "2018-11": {
+    "total": 1511,
+    "total_excl_big": 1417,
+    "by_country": {
+      "other": 1511
+    },
+    "by_category": {
+      "JACKETS": 275,
+      "PANTS": 638,
+      "TOPS": 237,
+      "ACCS": 102,
+      "BASELAYERS\n": 252,
+      "CARE": 7
+    },
+    "by_gender": {
+      "MEN": 930,
+      "WOMEN": 525,
+      "UNISEX": 56
+    }
+  },
+  "2018-12": {
+    "total": 3016,
+    "total_excl_big": 2943,
+    "by_country": {
+      "other": 3016
+    },
+    "by_category": {
+      "JACKETS": 241,
+      "PANTS": 1536,
+      "TOPS": 431,
+      "ACCS": 388,
+      "BASELAYERS\n": 404,
+      "CARE": 16
+    },
+    "by_gender": {
+      "MEN": 1631,
+      "WOMEN": 1108,
+      "UNISEX": 277
+    }
+  },
+  "2019-01": {
+    "total": 1879,
+    "total_excl_big": 1797,
+    "by_country": {
+      "other": 1879
+    },
+    "by_category": {
+      "JACKETS": 172,
+      "PANTS": 1122,
+      "TOPS": 233,
+      "ACCS": 129,
+      "BASELAYERS\n": 218,
+      "CARE": 5
+    },
+    "by_gender": {
+      "MEN": 1029,
+      "WOMEN": 739,
+      "UNISEX": 111
+    }
+  },
+  "2019-02": {
+    "total": 1652,
+    "total_excl_big": 1508,
+    "by_country": {
+      "other": 1652
+    },
+    "by_category": {
+      "JACKETS": 242,
+      "PANTS": 808,
+      "TOPS": 321,
+      "ACCS": 95,
+      "BASELAYERS\n": 181,
+      "CARE": 5
+    },
+    "by_gender": {
+      "MEN": 962,
+      "WOMEN": 625,
+      "UNISEX": 65
+    }
+  },
+  "2019-03": {
+    "total": 912,
+    "total_excl_big": 815,
+    "by_country": {
+      "other": 912
+    },
+    "by_category": {
+      "JACKETS": 168,
+      "PANTS": 466,
+      "TOPS": 190,
+      "ACCS": 41,
+      "BASELAYERS\n": 44,
+      "CARE": 3
+    },
+    "by_gender": {
+      "MEN": 516,
+      "WOMEN": 359,
+      "UNISEX": 37
+    }
+  },
+  "2019-04": {
+    "total": 1640,
+    "total_excl_big": 1477,
+    "by_country": {
+      "other": 1640
+    },
+    "by_category": {
+      "JACKETS": 328,
+      "PANTS": 1006,
+      "TOPS": 194,
+      "ACCS": 73,
+      "BASELAYERS\n": 35,
+      "CARE": 4
+    },
+    "by_gender": {
+      "MEN": 938,
+      "WOMEN": 646,
+      "UNISEX": 56
+    }
+  },
+  "2019-05": {
+    "total": 1839,
+    "total_excl_big": 1559,
+    "by_country": {
+      "other": 1839
+    },
+    "by_category": {
+      "JACKETS": 369,
+      "PANTS": 1027,
+      "TOPS": 322,
+      "ACCS": 93,
+      "BASELAYERS\n": 21,
+      "CARE": 7
+    },
+    "by_gender": {
+      "MEN": 1045,
+      "WOMEN": 712,
+      "UNISEX": 82
+    }
+  },
+  "2019-06": {
+    "total": 2178,
+    "total_excl_big": 1913,
+    "by_country": {
+      "other": 2178
+    },
+    "by_category": {
+      "JACKETS": 380,
+      "PANTS": 1329,
+      "TOPS": 343,
+      "ACCS": 96,
+      "BASELAYERS\n": 24,
+      "CARE": 6
+    },
+    "by_gender": {
+      "MEN": 1268,
+      "WOMEN": 830,
+      "UNISEX": 80
+    }
+  },
+  "2019-07": {
+    "total": 1903,
+    "total_excl_big": 1626,
+    "by_country": {
+      "other": 1903
+    },
+    "by_category": {
+      "JACKETS": 201,
+      "PANTS": 1388,
+      "TOPS": 243,
+      "ACCS": 63,
+      "BASELAYERS\n": 5,
+      "CARE": 3
+    },
+    "by_gender": {
+      "MEN": 1142,
+      "WOMEN": 708,
+      "UNISEX": 53
+    }
+  },
+  "2019-08": {
+    "total": 2224,
+    "total_excl_big": 2077,
+    "by_country": {
+      "other": 2224
+    },
+    "by_category": {
+      "JACKETS": 312,
+      "PANTS": 1573,
+      "TOPS": 242,
+      "ACCS": 81,
+      "BASELAYERS\n": 12,
+      "CARE": 4
+    },
+    "by_gender": {
+      "MEN": 1172,
+      "WOMEN": 974,
+      "UNISEX": 78
+    }
+  },
+  "2019-09": {
+    "total": 2678,
+    "total_excl_big": 2414,
+    "by_country": {
+      "other": 2678
+    },
+    "by_category": {
+      "JACKETS": 651,
+      "PANTS": 1382,
+      "TOPS": 444,
+      "ACCS": 135,
+      "BASELAYERS\n": 49,
+      "CARE": 17
+    },
+    "by_gender": {
+      "MEN": 1355,
+      "WOMEN": 1176,
+      "UNISEX": 147
+    }
+  },
+  "2019-10": {
+    "total": 4371,
+    "total_excl_big": 4000,
+    "by_country": {
+      "other": 4371
+    },
+    "by_category": {
+      "JACKETS": 979,
+      "PANTS": 2279,
+      "TOPS": 658,
+      "ACCS": 298,
+      "BASELAYERS\n": 129,
+      "CARE": 28
+    },
+    "by_gender": {
+      "MEN": 2302,
+      "WOMEN": 1824,
+      "UNISEX": 245
+    }
+  },
+  "2019-11": {
+    "total": 2959,
+    "total_excl_big": 2665,
+    "by_country": {
+      "other": 2959
+    },
+    "by_category": {
+      "JACKETS": 662,
+      "PANTS": 1373,
+      "TOPS": 369,
+      "ACCS": 354,
+      "BASELAYERS\n": 186,
+      "CARE": 15
+    },
+    "by_gender": {
+      "MEN": 1636,
+      "WOMEN": 1106,
+      "UNISEX": 217
+    }
+  },
+  "2019-12": {
+    "total": 5193,
+    "total_excl_big": 4922,
+    "by_country": {
+      "other": 5193
+    },
+    "by_category": {
+      "JACKETS": 698,
+      "PANTS": 2462,
+      "TOPS": 785,
+      "ACCS": 915,
+      "BASELAYERS\n": 268,
+      "CARE": 65
+    },
+    "by_gender": {
+      "MEN": 2722,
+      "WOMEN": 1847,
+      "UNISEX": 624
+    }
+  },
+  "2020-01": {
+    "total": 3349,
+    "total_excl_big": 3059,
+    "by_country": {
+      "other": 3349
+    },
+    "by_category": {
+      "TOPS": 479,
+      "JACKETS": 636,
+      "PANTS": 1440,
+      "ACCS": 315,
+      "BASELAYERS\n": 456,
+      "CARE": 23
+    },
+    "by_gender": {
+      "MEN": 1819,
+      "WOMEN": 1277,
+      "UNISEX": 253
+    }
+  },
+  "2020-02": {
+    "total": 2691,
+    "total_excl_big": 2350,
+    "by_country": {
+      "other": 2691
+    },
+    "by_category": {
+      "TOPS": 504,
+      "JACKETS": 631,
+      "PANTS": 1141,
+      "ACCS": 222,
+      "BASELAYERS\n": 183,
+      "CARE": 10
+    },
+    "by_gender": {
+      "MEN": 1439,
+      "WOMEN": 1120,
+      "UNISEX": 132
+    }
+  },
+  "2020-03": {
+    "total": 2699,
+    "total_excl_big": 2315,
+    "by_country": {
+      "other": 2699
+    },
+    "by_category": {
+      "TOPS": 435,
+      "JACKETS": 593,
+      "PANTS": 1390,
+      "ACCS": 179,
+      "BASELAYERS\n": 93,
+      "CARE": 9
+    },
+    "by_gender": {
+      "MEN": 1443,
+      "WOMEN": 1148,
+      "UNISEX": 108
+    }
+  },
+  "2020-04": {
+    "total": 4114,
+    "total_excl_big": 3628,
+    "by_country": {
+      "other": 4114
+    },
+    "by_category": {
+      "TOPS": 785,
+      "JACKETS": 677,
+      "PANTS": 2280,
+      "ACCS": 276,
+      "BASELAYERS\n": 78,
+      "CARE": 18
+    },
+    "by_gender": {
+      "MEN": 2205,
+      "WOMEN": 1739,
+      "UNISEX": 170
+    }
+  },
+  "2020-05": {
+    "total": 3870,
+    "total_excl_big": 3469,
+    "by_country": {
+      "other": 3870
+    },
+    "by_category": {
+      "TOPS": 745,
+      "JACKETS": 558,
+      "PANTS": 2201,
+      "ACCS": 282,
+      "BASELAYERS\n": 67,
+      "CARE": 17
+    },
+    "by_gender": {
+      "MEN": 2072,
+      "WOMEN": 1636,
+      "UNISEX": 162
+    }
+  },
+  "2020-06": {
+    "total": 108,
+    "total_excl_big": 93,
+    "by_country": {
+      "other": 107,
+      "SE": 1
+    },
+    "by_category": {
+      "TOPS": 17,
+      "JACKETS": 21,
+      "PANTS": 55,
+      "ACCS": 14,
+      "CARE": 1
+    },
+    "by_gender": {
+      "MEN": 53,
+      "WOMEN": 49,
+      "UNISEX": 6
+    }
+  },
+  "2020-07": {
+    "total": 2614,
+    "total_excl_big": 2163,
+    "by_country": {
+      "SE": 737,
+      "UK": 91,
+      "DE": 574,
+      "NL": 121,
+      "FI": 470,
+      "PL": 64,
+      "IT": 38,
+      "NO": 209,
+      "DK": 152,
+      "CZ": 19,
+      "FR": 25,
+      "AT": 101,
+      "IE": 8,
+      "other": 5
+    },
+    "by_category": {
+      "TOPS": 464,
+      "JACKETS": 424,
+      "PANTS": 1513,
+      "ACCS": 168,
+      "BASELAYERS\n": 30,
+      "CARE": 15
+    },
+    "by_gender": {
+      "MEN": 1583,
+      "WOMEN": 958,
+      "UNISEX": 73
+    }
+  },
+  "2020-08": {
+    "total": 2198,
+    "total_excl_big": 1920,
+    "by_country": {
+      "DE": 447,
+      "other": 5,
+      "UK": 84,
+      "NO": 158,
+      "FI": 520,
+      "SE": 665,
+      "NL": 63,
+      "DK": 113,
+      "FR": 25,
+      "AT": 55,
+      "IT": 14,
+      "PL": 31,
+      "IE": 7,
+      "CZ": 11
+    },
+    "by_category": {
+      "PANTS": 1038,
+      "TOPS": 451,
+      "JACKETS": 434,
+      "ACCS": 220,
+      "BASELAYERS\n": 21,
+      "CARE": 34
+    },
+    "by_gender": {
+      "WOMEN": 994,
+      "MEN": 1037,
+      "UNISEX": 167
+    }
+  },
+  "2020-09": {
+    "total": 4320,
+    "total_excl_big": 3637,
+    "by_country": {
+      "NL": 170,
+      "DE": 1034,
+      "FI": 996,
+      "AT": 148,
+      "NO": 261,
+      "UK": 178,
+      "SE": 1208,
+      "PL": 79,
+      "IT": 27,
+      "DK": 154,
+      "FR": 34,
+      "IE": 5,
+      "CZ": 20,
+      "other": 6
+    },
+    "by_category": {
+      "PANTS": 1790,
+      "TOPS": 1059,
+      "JACKETS": 1074,
+      "ACCS": 307,
+      "BASELAYERS\n": 54,
+      "CARE": 36
+    },
+    "by_gender": {
+      "WOMEN": 2165,
+      "MEN": 1879,
+      "UNISEX": 276
+    }
+  },
+  "2020-10": {
+    "total": 7481,
+    "total_excl_big": 6159,
+    "by_country": {
+      "DK": 315,
+      "DE": 2129,
+      "UK": 485,
+      "NL": 278,
+      "FI": 1397,
+      "SE": 1785,
+      "AT": 272,
+      "IT": 83,
+      "NO": 374,
+      "PL": 174,
+      "other": 38,
+      "FR": 96,
+      "CZ": 45,
+      "IE": 10
+    },
+    "by_category": {
+      "PANTS": 2903,
+      "TOPS": 1581,
+      "JACKETS": 1760,
+      "ACCS": 697,
+      "BASELAYERS\n": 467,
+      "CARE": 73
+    },
+    "by_gender": {
+      "WOMEN": 3159,
+      "MEN": 3674,
+      "UNISEX": 648
+    }
+  },
+  "2020-11": {
+    "total": 7113,
+    "total_excl_big": 5858,
+    "by_country": {
+      "DE": 2277,
+      "FR": 107,
+      "FI": 897,
+      "SE": 1546,
+      "UK": 588,
+      "DK": 338,
+      "CZ": 94,
+      "IE": 20,
+      "other": 54,
+      "AT": 357,
+      "NO": 264,
+      "PL": 234,
+      "NL": 246,
+      "IT": 91
+    },
+    "by_category": {
+      "PANTS": 2704,
+      "TOPS": 1522,
+      "JACKETS": 1679,
+      "ACCS": 753,
+      "BASELAYERS\n": 409,
+      "CARE": 46
+    },
+    "by_gender": {
+      "WOMEN": 2980,
+      "MEN": 3629,
+      "UNISEX": 504
+    }
+  },
+  "2020-12": {
+    "total": 6946,
+    "total_excl_big": 5845,
+    "by_country": {
+      "SE": 1523,
+      "DE": 2339,
+      "FI": 700,
+      "IE": 41,
+      "UK": 494,
+      "DK": 329,
+      "AT": 384,
+      "NL": 141,
+      "CZ": 153,
+      "FR": 133,
+      "PL": 329,
+      "other": 63,
+      "IT": 88,
+      "NO": 229
+    },
+    "by_category": {
+      "PANTS": 3160,
+      "TOPS": 1534,
+      "JACKETS": 1401,
+      "ACCS": 495,
+      "BASELAYERS\n": 308,
+      "CARE": 48
+    },
+    "by_gender": {
+      "WOMEN": 2956,
+      "MEN": 3720,
+      "UNISEX": 270
+    }
+  },
+  "2021-01": {
+    "total": 6128,
+    "total_excl_big": 4850,
+    "by_country": {
+      "UK": 525,
+      "other": 39,
+      "DK": 359,
+      "DE": 2110,
+      "SE": 1488,
+      "FR": 112,
+      "AT": 341,
+      "FI": 491,
+      "NO": 212,
+      "CZ": 124,
+      "NL": 30,
+      "IE": 26,
+      "PL": 215,
+      "IT": 56
+    },
+    "by_category": {
+      "PANTS": 2827,
+      "TOPS": 1465,
+      "JACKETS": 1274,
+      "ACCS": 421,
+      "BASELAYERS\n": 104,
+      "CARE": 37
+    },
+    "by_gender": {
+      "WOMEN": 2530,
+      "MEN": 3315,
+      "UNISEX": 283
+    }
+  },
+  "2021-02": {
+    "total": 6187,
+    "total_excl_big": 4676,
+    "by_country": {
+      "IT": 73,
+      "UK": 545,
+      "DE": 2195,
+      "CZ": 216,
+      "SE": 1295,
+      "DK": 463,
+      "FI": 460,
+      "AT": 280,
+      "FR": 95,
+      "PL": 262,
+      "NO": 199,
+      "IE": 37,
+      "other": 53,
+      "NL": 14
+    },
+    "by_category": {
+      "PANTS": 2992,
+      "TOPS": 1369,
+      "JACKETS": 1257,
+      "ACCS": 481,
+      "BASELAYERS\n": 59,
+      "CARE": 29
+    },
+    "by_gender": {
+      "WOMEN": 2643,
+      "MEN": 3243,
+      "UNISEX": 301
+    }
+  },
+  "2021-03": {
+    "total": 9376,
+    "total_excl_big": 7558,
+    "by_country": {
+      "AT": 421,
+      "SE": 2270,
+      "other": 98,
+      "DE": 3427,
+      "CZ": 343,
+      "FI": 895,
+      "DK": 751,
+      "IE": 87,
+      "NO": 286,
+      "PL": 361,
+      "IT": 76,
+      "FR": 151,
+      "UK": 199,
+      "NL": 11
+    },
+    "by_category": {
+      "PANTS": 4172,
+      "TOPS": 1975,
+      "JACKETS": 2280,
+      "ACCS": 781,
+      "BASELAYERS\n": 113,
+      "CARE": 55
+    },
+    "by_gender": {
+      "WOMEN": 4322,
+      "MEN": 4563,
+      "UNISEX": 491
+    }
+  },
+  "2021-04": {
+    "total": 7984,
+    "total_excl_big": 6263,
+    "by_country": {
+      "DK": 732,
+      "FI": 922,
+      "DE": 2803,
+      "PL": 287,
+      "SE": 1860,
+      "CZ": 279,
+      "IT": 66,
+      "AT": 331,
+      "IE": 93,
+      "FR": 136,
+      "NO": 364,
+      "other": 79,
+      "UK": 23,
+      "NL": 9
+    },
+    "by_category": {
+      "PANTS": 3643,
+      "TOPS": 1649,
+      "JACKETS": 1873,
+      "ACCS": 722,
+      "BASELAYERS\n": 51,
+      "CARE": 46
+    },
+    "by_gender": {
+      "WOMEN": 3939,
+      "MEN": 3498,
+      "UNISEX": 547
+    }
+  },
+  "2021-05": {
+    "total": 10407,
+    "total_excl_big": 7946,
+    "by_country": {
+      "NO": 483,
+      "FI": 1103,
+      "IE": 110,
+      "DE": 4081,
+      "SE": 2246,
+      "DK": 912,
+      "CZ": 323,
+      "PL": 373,
+      "other": 114,
+      "AT": 406,
+      "IT": 61,
+      "UK": 19,
+      "FR": 172,
+      "NL": 4
+    },
+    "by_category": {
+      "PANTS": 5366,
+      "TOPS": 2239,
+      "JACKETS": 1968,
+      "ACCS": 750,
+      "BASELAYERS\n": 33,
+      "CARE": 51
+    },
+    "by_gender": {
+      "WOMEN": 4894,
+      "MEN": 4988,
+      "UNISEX": 525
+    }
+  },
+  "2021-06": {
+    "total": 6548,
+    "total_excl_big": 5265,
+    "by_country": {
+      "FI": 549,
+      "CZ": 184,
+      "DK": 457,
+      "SE": 1545,
+      "DE": 2625,
+      "IE": 71,
+      "NO": 278,
+      "AT": 276,
+      "UK": 160,
+      "PL": 209,
+      "NL": 4,
+      "other": 72,
+      "FR": 80,
+      "IT": 38
+    },
+    "by_category": {
+      "PANTS": 3959,
+      "TOPS": 1156,
+      "JACKETS": 1015,
+      "ACCS": 369,
+      "BASELAYERS\n": 26,
+      "CARE": 23
+    },
+    "by_gender": {
+      "WOMEN": 2824,
+      "MEN": 3503,
+      "UNISEX": 221
+    }
+  },
+  "2021-07": {
+    "total": 5315,
+    "total_excl_big": 4032,
+    "by_country": {
+      "DE": 2276,
+      "DK": 366,
+      "SE": 881,
+      "FI": 415,
+      "CZ": 131,
+      "AT": 215,
+      "PL": 138,
+      "other": 73,
+      "NO": 326,
+      "UK": 313,
+      "FR": 79,
+      "IT": 41,
+      "IE": 61
+    },
+    "by_category": {
+      "PANTS": 2832,
+      "TOPS": 1188,
+      "JACKETS": 728,
+      "ACCS": 538,
+      "BASELAYERS\n": 7,
+      "CARE": 22
+    },
+    "by_gender": {
+      "WOMEN": 2295,
+      "MEN": 2684,
+      "UNISEX": 336
+    }
+  },
+  "2021-08": {
+    "total": 4660,
+    "total_excl_big": 3300,
+    "by_country": {
+      "UK": 197,
+      "FI": 559,
+      "DE": 1894,
+      "SE": 976,
+      "FR": 62,
+      "NO": 188,
+      "other": 67,
+      "DK": 239,
+      "CZ": 107,
+      "AT": 190,
+      "IE": 33,
+      "PL": 125,
+      "IT": 22,
+      "NL": 1
+    },
+    "by_category": {
+      "PANTS": 2653,
+      "TOPS": 742,
+      "JACKETS": 889,
+      "ACCS": 346,
+      "BASELAYERS\n": 5,
+      "CARE": 25
+    },
+    "by_gender": {
+      "WOMEN": 2340,
+      "MEN": 2118,
+      "UNISEX": 202
+    }
+  },
+  "2021-09": {
+    "total": 6604,
+    "total_excl_big": 5072,
+    "by_country": {
+      "DE": 2153,
+      "SE": 1650,
+      "DK": 283,
+      "other": 90,
+      "UK": 286,
+      "FI": 1205,
+      "PL": 214,
+      "CZ": 185,
+      "FR": 69,
+      "AT": 191,
+      "NO": 196,
+      "IT": 27,
+      "IE": 55
+    },
+    "by_category": {
+      "PANTS": 3400,
+      "TOPS": 889,
+      "JACKETS": 1843,
+      "ACCS": 417,
+      "BASELAYERS\n": 6,
+      "CARE": 49
+    },
+    "by_gender": {
+      "WOMEN": 3257,
+      "MEN": 3027,
+      "UNISEX": 320
+    }
+  },
+  "2021-10": {
+    "total": 9362,
+    "total_excl_big": 7051,
+    "by_country": {
+      "SE": 1882,
+      "UK": 444,
+      "NL": 278,
+      "FI": 1318,
+      "DE": 3358,
+      "FR": 129,
+      "CH": 18,
+      "IT": 79,
+      "AT": 326,
+      "DK": 472,
+      "other": 119,
+      "NO": 230,
+      "IE": 68,
+      "CZ": 286,
+      "PL": 355
+    },
+    "by_category": {
+      "PANTS": 4344,
+      "TOPS": 1618,
+      "JACKETS": 2558,
+      "ACCS": 702,
+      "BASELAYERS\n": 94,
+      "CARE": 46
+    },
+    "by_gender": {
+      "WOMEN": 4544,
+      "MEN": 4331,
+      "UNISEX": 487
+    }
+  },
+  "2021-11": {
+    "total": 8695,
+    "total_excl_big": 7056,
+    "by_country": {
+      "CZ": 373,
+      "DE": 3487,
+      "NL": 344,
+      "DK": 399,
+      "NO": 182,
+      "UK": 396,
+      "AT": 399,
+      "SE": 1395,
+      "PL": 388,
+      "IT": 112,
+      "FI": 753,
+      "IE": 96,
+      "other": 157,
+      "CH": 70,
+      "FR": 144
+    },
+    "by_category": {
+      "PANTS": 4106,
+      "TOPS": 1461,
+      "JACKETS": 1742,
+      "ACCS": 843,
+      "BASELAYERS\n": 512,
+      "CARE": 31
+    },
+    "by_gender": {
+      "WOMEN": 3678,
+      "MEN": 4438,
+      "UNISEX": 579
+    }
+  },
+  "2021-12": {
+    "total": 13942,
+    "total_excl_big": 11773,
+    "by_country": {
+      "DE": 5601,
+      "CZ": 483,
+      "FI": 1026,
+      "PL": 711,
+      "NL": 674,
+      "SE": 2203,
+      "AT": 665,
+      "other": 299,
+      "UK": 575,
+      "IE": 148,
+      "FR": 271,
+      "DK": 758,
+      "IT": 172,
+      "CH": 120,
+      "NO": 236
+    },
+    "by_category": {
+      "PANTS": 6443,
+      "TOPS": 3519,
+      "JACKETS": 2306,
+      "ACCS": 1088,
+      "FOOTWEAR": 17,
+      "BASELAYERS\n": 558,
+      "CARE": 11
+    },
+    "by_gender": {
+      "WOMEN": 5509,
+      "MEN": 7600,
+      "UNISEX": 833
+    }
+  },
+  "2022-01": {
+    "total": 10823,
+    "total_excl_big": 8648,
+    "by_country": {
+      "DE": 4457,
+      "other": 259,
+      "SE": 1546,
+      "FI": 715,
+      "PL": 524,
+      "UK": 586,
+      "CH": 146,
+      "DK": 611,
+      "AT": 489,
+      "FR": 193,
+      "NL": 482,
+      "CZ": 334,
+      "NO": 217,
+      "IE": 115,
+      "IT": 149
+    },
+    "by_category": {
+      "PANTS": 5168,
+      "TOPS": 2310,
+      "JACKETS": 1948,
+      "ACCS": 853,
+      "FOOTWEAR": 154,
+      "BASELAYERS\n": 367,
+      "CARE": 23
+    },
+    "by_gender": {
+      "WOMEN": 4704,
+      "MEN": 5407,
+      "UNISEX": 712
+    }
+  },
+  "2022-02": {
+    "total": 8281,
+    "total_excl_big": 6446,
+    "by_country": {
+      "SE": 1243,
+      "UK": 369,
+      "NL": 394,
+      "DE": 3348,
+      "other": 221,
+      "DK": 507,
+      "PL": 384,
+      "FI": 511,
+      "AT": 346,
+      "IT": 128,
+      "FR": 173,
+      "CZ": 251,
+      "CH": 132,
+      "NO": 173,
+      "IE": 101
+    },
+    "by_category": {
+      "PANTS": 3802,
+      "TOPS": 1725,
+      "JACKETS": 1801,
+      "ACCS": 674,
+      "FOOTWEAR": 36,
+      "BASELAYERS\n": 198,
+      "CARE": 45
+    },
+    "by_gender": {
+      "WOMEN": 3601,
+      "MEN": 4079,
+      "UNISEX": 601
+    }
+  },
+  "2022-03": {
+    "total": 9188,
+    "total_excl_big": 7428,
+    "by_country": {
+      "DE": 3830,
+      "AT": 400,
+      "FR": 176,
+      "other": 223,
+      "SE": 1355,
+      "FI": 614,
+      "CH": 164,
+      "UK": 431,
+      "IT": 81,
+      "IE": 89,
+      "NL": 414,
+      "DK": 516,
+      "PL": 371,
+      "CZ": 345,
+      "NO": 179
+    },
+    "by_category": {
+      "PANTS": 3683,
+      "TOPS": 1699,
+      "JACKETS": 2171,
+      "ACCS": 639,
+      "FOOTWEAR": 684,
+      "BASELAYERS\n": 174,
+      "BAGS": 98,
+      "CARE": 40
+    },
+    "by_gender": {
+      "WOMEN": 3972,
+      "MEN": 4506,
+      "UNISEX": 710
+    }
+  },
+  "2022-04": {
+    "total": 7716,
+    "total_excl_big": 6151,
+    "by_country": {
+      "other": 245,
+      "FI": 768,
+      "NO": 225,
+      "DE": 2298,
+      "DK": 509,
+      "SE": 1477,
+      "IE": 74,
+      "NL": 433,
+      "UK": 214,
+      "CZ": 318,
+      "PL": 468,
+      "CH": 149,
+      "AT": 318,
+      "IT": 93,
+      "FR": 127
+    },
+    "by_category": {
+      "PANTS": 3069,
+      "TOPS": 1696,
+      "JACKETS": 1988,
+      "ACCS": 506,
+      "FOOTWEAR": 163,
+      "BASELAYERS\n": 197,
+      "BAGS": 76,
+      "CARE": 21
+    },
+    "by_gender": {
+      "WOMEN": 3368,
+      "MEN": 3797,
+      "UNISEX": 551
+    }
+  },
+  "2022-05": {
+    "total": 7273,
+    "total_excl_big": 6021,
+    "by_country": {
+      "SE": 1268,
+      "FI": 717,
+      "CH": 176,
+      "AT": 344,
+      "DE": 2080,
+      "DK": 557,
+      "PL": 347,
+      "NO": 214,
+      "other": 260,
+      "CZ": 271,
+      "IT": 111,
+      "NL": 463,
+      "UK": 259,
+      "FR": 138,
+      "IE": 68
+    },
+    "by_category": {
+      "PANTS": 3815,
+      "TOPS": 1638,
+      "JACKETS": 1178,
+      "ACCS": 447,
+      "FOOTWEAR": 42,
+      "BASELAYERS\n": 57,
+      "BAGS": 83,
+      "CARE": 13
+    },
+    "by_gender": {
+      "WOMEN": 2968,
+      "MEN": 3812,
+      "UNISEX": 493
+    }
+  },
+  "2022-06": {
+    "total": 5455,
+    "total_excl_big": 4493,
+    "by_country": {
+      "DE": 1526,
+      "FI": 466,
+      "CH": 96,
+      "AT": 307,
+      "PL": 272,
+      "SE": 904,
+      "IT": 53,
+      "CZ": 150,
+      "FR": 91,
+      "UK": 242,
+      "NO": 187,
+      "DK": 425,
+      "NL": 449,
+      "other": 228,
+      "IE": 59
+    },
+    "by_category": {
+      "PANTS": 3371,
+      "TOPS": 1155,
+      "JACKETS": 545,
+      "ACCS": 256,
+      "FOOTWEAR": 55,
+      "BASELAYERS\n": 17,
+      "BAGS": 39,
+      "CARE": 17
+    },
+    "by_gender": {
+      "WOMEN": 1981,
+      "MEN": 3209,
+      "UNISEX": 265
+    }
+  },
+  "2022-07": {
+    "total": 5478,
+    "total_excl_big": 4636,
+    "by_country": {
+      "CH": 81,
+      "DE": 1486,
+      "CZ": 145,
+      "NL": 472,
+      "SE": 1014,
+      "FI": 452,
+      "IT": 57,
+      "PL": 265,
+      "DK": 432,
+      "AT": 292,
+      "UK": 197,
+      "FR": 99,
+      "IE": 43,
+      "other": 209,
+      "NO": 234
+    },
+    "by_category": {
+      "PANTS": 3192,
+      "TOPS": 1014,
+      "JACKETS": 694,
+      "ACCS": 298,
+      "FOOTWEAR": 199,
+      "BASELAYERS\n": 21,
+      "BAGS": 43,
+      "CARE": 17
+    },
+    "by_gender": {
+      "WOMEN": 1877,
+      "MEN": 3309,
+      "UNISEX": 292
+    }
+  },
+  "2022-08": {
+    "total": 3612,
+    "total_excl_big": 3053,
+    "by_country": {
+      "UK": 123,
+      "DE": 957,
+      "FR": 63,
+      "SE": 568,
+      "FI": 417,
+      "AT": 187,
+      "DK": 259,
+      "CH": 90,
+      "other": 133,
+      "NL": 270,
+      "PL": 201,
+      "CZ": 131,
+      "NO": 132,
+      "IT": 49,
+      "IE": 32
+    },
+    "by_category": {
+      "PANTS": 2138,
+      "TOPS": 703,
+      "JACKETS": 421,
+      "ACCS": 214,
+      "FOOTWEAR": 78,
+      "BASELAYERS\n": 20,
+      "BAGS": 26,
+      "CARE": 12
+    },
+    "by_gender": {
+      "WOMEN": 1456,
+      "MEN": 1943,
+      "UNISEX": 213
+    }
+  },
+  "2022-09": {
+    "total": 4839,
+    "total_excl_big": 3926,
+    "by_country": {
+      "DE": 1391,
+      "CH": 112,
+      "PL": 272,
+      "NL": 262,
+      "AT": 225,
+      "FI": 720,
+      "SE": 822,
+      "CZ": 178,
+      "FR": 63,
+      "NO": 146,
+      "DK": 273,
+      "other": 139,
+      "UK": 169,
+      "IT": 36,
+      "IE": 31
+    },
+    "by_category": {
+      "PANTS": 2309,
+      "TOPS": 1073,
+      "JACKETS": 894,
+      "ACCS": 308,
+      "FOOTWEAR": 115,
+      "BASELAYERS\n": 68,
+      "BAGS": 48,
+      "CARE": 24
+    },
+    "by_gender": {
+      "WOMEN": 2184,
+      "MEN": 2330,
+      "UNISEX": 325
+    }
+  },
+  "2022-10": {
+    "total": 8784,
+    "total_excl_big": 6897,
+    "by_country": {
+      "PL": 480,
+      "CH": 207,
+      "DE": 2880,
+      "NO": 197,
+      "UK": 229,
+      "SE": 1230,
+      "other": 306,
+      "FI": 1022,
+      "CZ": 424,
+      "NL": 542,
+      "IE": 87,
+      "AT": 500,
+      "FR": 123,
+      "DK": 454,
+      "IT": 103
+    },
+    "by_category": {
+      "PANTS": 3960,
+      "TOPS": 2124,
+      "JACKETS": 1736,
+      "ACCS": 421,
+      "FOOTWEAR": 211,
+      "BASELAYERS\n": 174,
+      "BAGS": 72,
+      "DOGS": 61,
+      "CARE": 25
+    },
+    "by_gender": {
+      "MEN": 4249,
+      "WOMEN": 3973,
+      "UNISEX": 459,
+      "DOGS": 61,
+      "TEENS": 42
+    }
+  },
+  "2022-11": {
+    "total": 8040,
+    "total_excl_big": 5932,
+    "by_country": {
+      "AT": 491,
+      "FR": 194,
+      "other": 300,
+      "DE": 2750,
+      "CZ": 405,
+      "IT": 176,
+      "UK": 237,
+      "IE": 143,
+      "FI": 568,
+      "SE": 1118,
+      "PL": 411,
+      "CH": 196,
+      "NL": 501,
+      "DK": 415,
+      "NO": 135
+    },
+    "by_category": {
+      "PANTS": 3652,
+      "TOPS": 1729,
+      "JACKETS": 1530,
+      "ACCS": 548,
+      "FOOTWEAR": 144,
+      "BASELAYERS\n": 183,
+      "BAGS": 50,
+      "DOGS": 184,
+      "CARE": 20
+    },
+    "by_gender": {
+      "MEN": 4059,
+      "WOMEN": 3216,
+      "UNISEX": 552,
+      "DOGS": 184,
+      "TEENS": 29
+    }
+  },
+  "2022-12": {
+    "total": 12289,
+    "total_excl_big": 9677,
+    "by_country": {
+      "DE": 3970,
+      "other": 543,
+      "AT": 670,
+      "FI": 772,
+      "SE": 1731,
+      "PL": 810,
+      "CH": 247,
+      "FR": 380,
+      "DK": 789,
+      "UK": 355,
+      "NO": 213,
+      "IT": 297,
+      "NL": 824,
+      "CZ": 520,
+      "IE": 168
+    },
+    "by_category": {
+      "PANTS": 5062,
+      "TOPS": 2931,
+      "JACKETS": 2352,
+      "ACCS": 884,
+      "FOOTWEAR": 176,
+      "BASELAYERS\n": 672,
+      "BAGS": 132,
+      "DOGS": 38,
+      "unknown": 19,
+      "CARE": 23
+    },
+    "by_gender": {
+      "MEN": 6634,
+      "WOMEN": 4625,
+      "UNISEX": 939,
+      "DOGS": 38,
+      "unknown": 19,
+      "TEENS": 34
+    }
+  },
+  "2023-01": {
+    "total": 9278,
+    "total_excl_big": 6511,
+    "by_country": {
+      "FI": 531,
+      "DK": 635,
+      "IE": 172,
+      "SE": 1164,
+      "DE": 2878,
+      "UK": 332,
+      "other": 442,
+      "CZ": 454,
+      "NL": 621,
+      "NO": 141,
+      "PL": 710,
+      "FR": 280,
+      "IT": 221,
+      "CH": 179,
+      "AT": 518
+    },
+    "by_category": {
+      "PANTS": 4276,
+      "TOPS": 2072,
+      "JACKETS": 1397,
+      "ACCS": 869,
+      "FOOTWEAR": 184,
+      "BASELAYERS\n": 353,
+      "BAGS": 46,
+      "DOGS": 4,
+      "unknown": 54,
+      "CARE": 23
+    },
+    "by_gender": {
+      "MEN": 5121,
+      "WOMEN": 3344,
+      "UNISEX": 733,
+      "DOGS": 4,
+      "unknown": 54,
+      "TEENS": 22
+    }
+  },
+  "2023-02": {
+    "total": 7190,
+    "total_excl_big": 4780,
+    "by_country": {
+      "DE": 2416,
+      "FI": 355,
+      "PL": 565,
+      "CZ": 351,
+      "SE": 877,
+      "DK": 422,
+      "UK": 207,
+      "FR": 253,
+      "CH": 166,
+      "IE": 111,
+      "AT": 334,
+      "other": 357,
+      "NL": 512,
+      "IT": 168,
+      "NO": 96
+    },
+    "by_category": {
+      "PANTS": 3555,
+      "TOPS": 1363,
+      "JACKETS": 1065,
+      "ACCS": 498,
+      "FOOTWEAR": 357,
+      "BASELAYERS\n": 256,
+      "BAGS": 46,
+      "DOGS": 4,
+      "unknown": 19,
+      "CARE": 27
+    },
+    "by_gender": {
+      "MEN": 3987,
+      "WOMEN": 2669,
+      "UNISEX": 486,
+      "DOGS": 4,
+      "unknown": 19,
+      "TEENS": 25
+    }
+  },
+  "2023-03": {
+    "total": 7490,
+    "total_excl_big": 5287,
+    "by_country": {
+      "other": 376,
+      "DE": 2342,
+      "FI": 430,
+      "FR": 185,
+      "UK": 222,
+      "AT": 410,
+      "NL": 521,
+      "DK": 480,
+      "IT": 130,
+      "PL": 538,
+      "SE": 1069,
+      "NO": 124,
+      "IE": 137,
+      "CH": 172,
+      "CZ": 354
+    },
+    "by_category": {
+      "PANTS": 3560,
+      "TOPS": 1587,
+      "JACKETS": 1202,
+      "ACCS": 453,
+      "FOOTWEAR": 316,
+      "BASELAYERS\n": 195,
+      "BAGS": 93,
+      "DOGS": 50,
+      "unknown": 15,
+      "CARE": 19
+    },
+    "by_gender": {
+      "MEN": 4105,
+      "WOMEN": 2804,
+      "UNISEX": 496,
+      "DOGS": 50,
+      "unknown": 15,
+      "TEENS": 20
+    }
+  },
+  "2023-04": {
+    "total": 10936,
+    "total_excl_big": 7631,
+    "by_country": {
+      "UK": 317,
+      "DE": 4951,
+      "SE": 1220,
+      "other": 414,
+      "IT": 138,
+      "CH": 194,
+      "DK": 595,
+      "FI": 553,
+      "IE": 141,
+      "CZ": 377,
+      "PL": 593,
+      "AT": 442,
+      "NL": 631,
+      "NO": 161,
+      "FR": 209
+    },
+    "by_category": {
+      "PANTS": 5892,
+      "TOPS": 2064,
+      "JACKETS": 1815,
+      "ACCS": 479,
+      "FOOTWEAR": 406,
+      "BASELAYERS\n": 86,
+      "BAGS": 88,
+      "DOGS": 52,
+      "unknown": 32,
+      "CARE": 22
+    },
+    "by_gender": {
+      "MEN": 6089,
+      "WOMEN": 4235,
+      "UNISEX": 496,
+      "DOGS": 52,
+      "unknown": 32,
+      "TEENS": 32
+    }
+  },
+  "2023-05": {
+    "total": 9775,
+    "total_excl_big": 7065,
+    "by_country": {
+      "DE": 4157,
+      "NL": 638,
+      "SE": 1213,
+      "FI": 560,
+      "PL": 551,
+      "UK": 222,
+      "DK": 521,
+      "CZ": 359,
+      "AT": 396,
+      "IE": 120,
+      "other": 384,
+      "FR": 196,
+      "CH": 188,
+      "IT": 129,
+      "NO": 141
+    },
+    "by_category": {
+      "PANTS": 5495,
+      "TOPS": 1901,
+      "JACKETS": 1410,
+      "ACCS": 422,
+      "FOOTWEAR": 363,
+      "BASELAYERS\n": 29,
+      "BAGS": 97,
+      "DOGS": 13,
+      "unknown": 24,
+      "CARE": 21
+    },
+    "by_gender": {
+      "MEN": 5514,
+      "WOMEN": 3708,
+      "UNISEX": 474,
+      "DOGS": 13,
+      "unknown": 24,
+      "TEENS": 42
+    }
+  },
+  "2023-06": {
+    "total": 8616,
+    "total_excl_big": 6685,
+    "by_country": {
+      "DK": 660,
+      "DE": 3245,
+      "NL": 661,
+      "FI": 494,
+      "UK": 165,
+      "PL": 494,
+      "other": 325,
+      "SE": 1264,
+      "CZ": 293,
+      "FR": 140,
+      "IT": 93,
+      "IE": 82,
+      "NO": 186,
+      "AT": 379,
+      "CH": 135
+    },
+    "by_category": {
+      "PANTS": 5705,
+      "TOPS": 1516,
+      "JACKETS": 643,
+      "ACCS": 365,
+      "FOOTWEAR": 233,
+      "BASELAYERS\n": 26,
+      "BAGS": 87,
+      "DOGS": 7,
+      "unknown": 22,
+      "CARE": 12
+    },
+    "by_gender": {
+      "MEN": 5341,
+      "WOMEN": 2830,
+      "UNISEX": 384,
+      "DOGS": 7,
+      "unknown": 22,
+      "TEENS": 32
+    }
+  },
+  "2023-07": {
+    "total": 9019,
+    "total_excl_big": 7010,
+    "by_country": {
+      "SE": 1311,
+      "DE": 3149,
+      "PL": 662,
+      "DK": 673,
+      "CZ": 311,
+      "IT": 115,
+      "UK": 175,
+      "other": 336,
+      "FI": 629,
+      "NL": 787,
+      "NO": 201,
+      "FR": 135,
+      "IE": 100,
+      "AT": 344,
+      "CH": 91
+    },
+    "by_category": {
+      "PANTS": 5326,
+      "TOPS": 2165,
+      "JACKETS": 763,
+      "ACCS": 323,
+      "FOOTWEAR": 212,
+      "BASELAYERS\n": 68,
+      "BAGS": 126,
+      "DOGS": 2,
+      "unknown": 23,
+      "CARE": 11
+    },
+    "by_gender": {
+      "MEN": 5491,
+      "WOMEN": 3088,
+      "UNISEX": 390,
+      "DOGS": 2,
+      "unknown": 23,
+      "TEENS": 25
+    }
+  },
+  "2023-08": {
+    "total": 7993,
+    "total_excl_big": 5923,
+    "by_country": {
+      "NL": 586,
+      "DE": 2835,
+      "FI": 606,
+      "DK": 601,
+      "UK": 195,
+      "IT": 89,
+      "PL": 494,
+      "SE": 1333,
+      "AT": 265,
+      "FR": 116,
+      "CZ": 209,
+      "IE": 86,
+      "NO": 210,
+      "other": 271,
+      "CH": 97
+    },
+    "by_category": {
+      "PANTS": 4589,
+      "TOPS": 1206,
+      "JACKETS": 1370,
+      "ACCS": 269,
+      "FOOTWEAR": 319,
+      "BASELAYERS\n": 53,
+      "BAGS": 118,
+      "DOGS": 12,
+      "unknown": 22,
+      "CARE": 35
+    },
+    "by_gender": {
+      "MEN": 4503,
+      "WOMEN": 3054,
+      "UNISEX": 383,
+      "DOGS": 12,
+      "unknown": 22,
+      "TEENS": 19
+    }
+  },
+  "2023-09": {
+    "total": 6262,
+    "total_excl_big": 4531,
+    "by_country": {
+      "CH": 92,
+      "FR": 99,
+      "DE": 2112,
+      "other": 260,
+      "PL": 388,
+      "FI": 692,
+      "AT": 185,
+      "IE": 55,
+      "SE": 1167,
+      "IT": 64,
+      "NL": 397,
+      "UK": 101,
+      "CZ": 169,
+      "DK": 335,
+      "NO": 146
+    },
+    "by_category": {
+      "PANTS": 3349,
+      "TOPS": 898,
+      "JACKETS": 1277,
+      "ACCS": 220,
+      "FOOTWEAR": 245,
+      "BASELAYERS\n": 50,
+      "BAGS": 88,
+      "DOGS": 93,
+      "unknown": 9,
+      "CARE": 33
+    },
+    "by_gender": {
+      "MEN": 3377,
+      "WOMEN": 2446,
+      "UNISEX": 310,
+      "DOGS": 93,
+      "unknown": 9,
+      "TEENS": 27
+    }
+  },
+  "2023-10": {
+    "total": 8498,
+    "total_excl_big": 6325,
+    "by_country": {
+      "other": 292,
+      "SE": 1143,
+      "DE": 3681,
+      "PL": 507,
+      "DK": 480,
+      "UK": 222,
+      "IE": 80,
+      "CZ": 263,
+      "FI": 732,
+      "IT": 74,
+      "CH": 105,
+      "FR": 130,
+      "AT": 275,
+      "NL": 432,
+      "NO": 82
+    },
+    "by_category": {
+      "PANTS": 4015,
+      "TOPS": 2277,
+      "JACKETS": 1463,
+      "ACCS": 277,
+      "FOOTWEAR": 221,
+      "BASELAYERS\n": 69,
+      "BAGS": 49,
+      "DOGS": 68,
+      "unknown": 23,
+      "CARE": 28,
+      "BASELAYERS": 8
+    },
+    "by_gender": {
+      "MEN": 4826,
+      "WOMEN": 3171,
+      "UNISEX": 328,
+      "DOGS": 68,
+      "unknown": 23,
+      "TEENS": 82
+    }
+  },
+  "2023-11": {
+    "total": 13277,
+    "total_excl_big": 10052,
+    "by_country": {
+      "NO": 130,
+      "DE": 5994,
+      "SE": 1576,
+      "FR": 285,
+      "NL": 758,
+      "PL": 825,
+      "UK": 376,
+      "other": 518,
+      "DK": 659,
+      "CZ": 453,
+      "AT": 478,
+      "CH": 210,
+      "IT": 170,
+      "FI": 693,
+      "IE": 152
+    },
+    "by_category": {
+      "PANTS": 5920,
+      "TOPS": 2455,
+      "JACKETS": 3078,
+      "ACCS": 620,
+      "FOOTWEAR": 609,
+      "BASELAYERS\n": 263,
+      "BAGS": 91,
+      "DOGS": 115,
+      "unknown": 39,
+      "CARE": 55,
+      "BASELAYERS": 32
+    },
+    "by_gender": {
+      "MEN": 7778,
+      "WOMEN": 4573,
+      "UNISEX": 690,
+      "DOGS": 115,
+      "unknown": 39,
+      "TEENS": 82
+    }
+  },
+  "2023-12": {
+    "total": 18406,
+    "total_excl_big": 14617,
+    "by_country": {
+      "DE": 8568,
+      "CZ": 567,
+      "FR": 469,
+      "UK": 507,
+      "other": 737,
+      "PL": 1010,
+      "IE": 218,
+      "SE": 2123,
+      "NO": 180,
+      "DK": 1079,
+      "NL": 878,
+      "AT": 808,
+      "IT": 297,
+      "FI": 728,
+      "CH": 237
+    },
+    "by_category": {
+      "PANTS": 8295,
+      "TOPS": 3498,
+      "JACKETS": 4268,
+      "ACCS": 957,
+      "FOOTWEAR": 493,
+      "BASELAYERS\n": 513,
+      "BAGS": 99,
+      "DOGS": 129,
+      "unknown": 67,
+      "CARE": 14,
+      "BASELAYERS": 73
+    },
+    "by_gender": {
+      "MEN": 10935,
+      "WOMEN": 6229,
+      "UNISEX": 975,
+      "DOGS": 129,
+      "unknown": 67,
+      "TEENS": 71
+    }
+  },
+  "2024-01": {
+    "total": 14828,
+    "total_excl_big": 11066,
+    "by_country": {
+      "UK": 487,
+      "IE": 170,
+      "DE": 6531,
+      "AT": 599,
+      "other": 698,
+      "PL": 955,
+      "SE": 1636,
+      "CZ": 570,
+      "IT": 251,
+      "DK": 976,
+      "NL": 745,
+      "NO": 161,
+      "FR": 407,
+      "FI": 458,
+      "CH": 184
+    },
+    "by_category": {
+      "PANTS": 6976,
+      "TOPS": 3030,
+      "JACKETS": 2744,
+      "ACCS": 837,
+      "FOOTWEAR": 322,
+      "BASELAYERS\n": 435,
+      "BAGS": 129,
+      "DOGS": 70,
+      "unknown": 188,
+      "CARE": 9,
+      "BASELAYERS": 88
+    },
+    "by_gender": {
+      "MEN": 8983,
+      "WOMEN": 4640,
+      "UNISEX": 900,
+      "DOGS": 70,
+      "unknown": 188,
+      "TEENS": 47
+    }
+  },
+  "2024-02": {
+    "total": 9931,
+    "total_excl_big": 7168,
+    "by_country": {
+      "UK": 303,
+      "SE": 1007,
+      "CH": 129,
+      "DE": 4843,
+      "FI": 329,
+      "DK": 462,
+      "CZ": 316,
+      "PL": 531,
+      "NL": 489,
+      "other": 442,
+      "FR": 273,
+      "IE": 106,
+      "IT": 175,
+      "AT": 432,
+      "NO": 94
+    },
+    "by_category": {
+      "PANTS": 4566,
+      "TOPS": 2231,
+      "JACKETS": 1865,
+      "ACCS": 447,
+      "FOOTWEAR": 224,
+      "BASELAYERS\n": 301,
+      "BAGS": 129,
+      "DOGS": 32,
+      "unknown": 45,
+      "CARE": 3,
+      "BASELAYERS": 88
+    },
+    "by_gender": {
+      "MEN": 5734,
+      "WOMEN": 3572,
+      "UNISEX": 519,
+      "DOGS": 32,
+      "unknown": 45,
+      "TEENS": 29
+    }
+  },
+  "2024-03": {
+    "total": 12666,
+    "total_excl_big": 9774,
+    "by_country": {
+      "SE": 1335,
+      "DE": 5918,
+      "CZ": 479,
+      "other": 562,
+      "DK": 603,
+      "FR": 274,
+      "FI": 483,
+      "NL": 695,
+      "UK": 406,
+      "AT": 510,
+      "IT": 181,
+      "PL": 764,
+      "CH": 194,
+      "IE": 140,
+      "NO": 122
+    },
+    "by_category": {
+      "PANTS": 6058,
+      "TOPS": 2457,
+      "JACKETS": 2355,
+      "ACCS": 454,
+      "FOOTWEAR": 783,
+      "BASELAYERS\n": 214,
+      "BAGS": 254,
+      "DOGS": 29,
+      "unknown": 37,
+      "CARE": 8,
+      "BASELAYERS": 17
+    },
+    "by_gender": {
+      "MEN": 7102,
+      "WOMEN": 4749,
+      "UNISEX": 689,
+      "DOGS": 29,
+      "unknown": 37,
+      "TEENS": 60
+    }
+  },
+  "2024-04": {
+    "total": 12887,
+    "total_excl_big": 10286,
+    "by_country": {
+      "DE": 5665,
+      "DK": 632,
+      "SE": 1639,
+      "FI": 820,
+      "UK": 378,
+      "NL": 676,
+      "PL": 991,
+      "other": 465,
+      "AT": 403,
+      "NO": 147,
+      "IT": 152,
+      "FR": 210,
+      "CH": 157,
+      "CZ": 453,
+      "IE": 99
+    },
+    "by_category": {
+      "PANTS": 5672,
+      "TOPS": 2642,
+      "JACKETS": 3117,
+      "ACCS": 432,
+      "FOOTWEAR": 502,
+      "BASELAYERS\n": 172,
+      "BAGS": 216,
+      "DOGS": 33,
+      "unknown": 44,
+      "CARE": 41,
+      "BASELAYERS": 16
+    },
+    "by_gender": {
+      "MEN": 7176,
+      "WOMEN": 4933,
+      "UNISEX": 645,
+      "DOGS": 33,
+      "unknown": 44,
+      "TEENS": 56
+    }
+  },
+  "2024-05": {
+    "total": 10559,
+    "total_excl_big": 8706,
+    "by_country": {
+      "UK": 340,
+      "PL": 690,
+      "FI": 590,
+      "IT": 97,
+      "DE": 4450,
+      "NL": 651,
+      "DK": 616,
+      "SE": 1438,
+      "other": 416,
+      "AT": 333,
+      "CZ": 374,
+      "FR": 181,
+      "CH": 161,
+      "NO": 139,
+      "IE": 83
+    },
+    "by_category": {
+      "PANTS": 5505,
+      "TOPS": 2227,
+      "JACKETS": 1540,
+      "ACCS": 355,
+      "FOOTWEAR": 628,
+      "BASELAYERS\n": 73,
+      "BAGS": 102,
+      "DOGS": 10,
+      "unknown": 46,
+      "CARE": 25,
+      "BASELAYERS": 8,
+      "GEAR": 40
+    },
+    "by_gender": {
+      "MEN": 5921,
+      "WOMEN": 4056,
+      "UNISEX": 471,
+      "DOGS": 10,
+      "unknown": 46,
+      "TEENS": 55
+    }
+  },
+  "2024-06": {
+    "total": 8814,
+    "total_excl_big": 7565,
+    "by_country": {
+      "SE": 1126,
+      "DE": 3965,
+      "FI": 370,
+      "IT": 85,
+      "FR": 124,
+      "CH": 123,
+      "other": 301,
+      "UK": 264,
+      "DK": 608,
+      "AT": 300,
+      "NL": 585,
+      "CZ": 294,
+      "PL": 481,
+      "IE": 72,
+      "NO": 116
+    },
+    "by_category": {
+      "PANTS": 5317,
+      "TOPS": 1524,
+      "JACKETS": 1056,
+      "ACCS": 321,
+      "FOOTWEAR": 337,
+      "BASELAYERS\n": 51,
+      "BAGS": 133,
+      "DOGS": 15,
+      "unknown": 36,
+      "CARE": 18,
+      "BASELAYERS": 4,
+      "GEAR": 2
+    },
+    "by_gender": {
+      "MEN": 5166,
+      "WOMEN": 3122,
+      "UNISEX": 423,
+      "DOGS": 15,
+      "unknown": 36,
+      "TEENS": 52
+    }
+  },
+  "2024-07": {
+    "total": 8213,
+    "total_excl_big": 6804,
+    "by_country": {
+      "DK": 642,
+      "DE": 3437,
+      "SE": 1287,
+      "FR": 121,
+      "other": 301,
+      "PL": 290,
+      "NL": 516,
+      "CZ": 283,
+      "FI": 415,
+      "UK": 272,
+      "NO": 127,
+      "IT": 87,
+      "AT": 286,
+      "CH": 91,
+      "IE": 58
+    },
+    "by_category": {
+      "PANTS": 4265,
+      "TOPS": 1786,
+      "JACKETS": 1226,
+      "ACCS": 290,
+      "FOOTWEAR": 369,
+      "BASELAYERS\n": 45,
+      "BAGS": 182,
+      "DOGS": 3,
+      "unknown": 24,
+      "CARE": 21,
+      "BASELAYERS": 2
+    },
+    "by_gender": {
+      "MEN": 4692,
+      "WOMEN": 3049,
+      "UNISEX": 427,
+      "DOGS": 3,
+      "unknown": 24,
+      "TEENS": 18
+    }
+  },
+  "2024-08": {
+    "total": 6927,
+    "total_excl_big": 5994,
+    "by_country": {
+      "FI": 485,
+      "PL": 500,
+      "DE": 2842,
+      "other": 223,
+      "SE": 1028,
+      "NL": 400,
+      "UK": 223,
+      "DK": 445,
+      "FR": 99,
+      "NO": 99,
+      "AT": 198,
+      "CZ": 219,
+      "IT": 59,
+      "CH": 68,
+      "IE": 39
+    },
+    "by_category": {
+      "PANTS": 3540,
+      "TOPS": 1511,
+      "JACKETS": 1203,
+      "ACCS": 215,
+      "FOOTWEAR": 185,
+      "BASELAYERS\n": 77,
+      "BAGS": 139,
+      "DOGS": 6,
+      "unknown": 29,
+      "CARE": 21,
+      "BASELAYERS": 1
+    },
+    "by_gender": {
+      "MEN": 3935,
+      "WOMEN": 2575,
+      "UNISEX": 352,
+      "DOGS": 6,
+      "unknown": 29,
+      "TEENS": 30
+    }
+  },
+  "2024-09": {
+    "total": 8480,
+    "total_excl_big": 6571,
+    "by_country": {
+      "DE": 3476,
+      "FI": 702,
+      "NL": 465,
+      "CZ": 244,
+      "UK": 277,
+      "other": 319,
+      "AT": 291,
+      "PL": 517,
+      "SE": 1116,
+      "IE": 94,
+      "IT": 99,
+      "DK": 427,
+      "FR": 186,
+      "NO": 149,
+      "CH": 118
+    },
+    "by_category": {
+      "PANTS": 4222,
+      "TOPS": 1712,
+      "JACKETS": 1437,
+      "ACCS": 365,
+      "FOOTWEAR": 415,
+      "BASELAYERS\n": 59,
+      "BAGS": 154,
+      "DOGS": 44,
+      "unknown": 36,
+      "CARE": 29,
+      "BASELAYERS": 5,
+      "GEAR": 2
+    },
+    "by_gender": {
+      "MEN": 4752,
+      "WOMEN": 3124,
+      "UNISEX": 496,
+      "DOGS": 44,
+      "unknown": 36,
+      "TEENS": 28
+    }
+  },
+  "2024-10": {
+    "total": 16643,
+    "total_excl_big": 14379,
+    "by_country": {
+      "AT": 647,
+      "SE": 2224,
+      "CZ": 546,
+      "DE": 7393,
+      "PL": 802,
+      "IE": 132,
+      "other": 484,
+      "FR": 298,
+      "FI": 1147,
+      "NL": 836,
+      "IT": 196,
+      "UK": 496,
+      "NO": 236,
+      "DK": 878,
+      "CH": 328
+    },
+    "by_category": {
+      "PANTS": 5755,
+      "TOPS": 5045,
+      "JACKETS": 3462,
+      "ACCS": 771,
+      "FOOTWEAR": 589,
+      "BASELAYERS\n": 244,
+      "BAGS": 168,
+      "DOGS": 447,
+      "unknown": 47,
+      "CARE": 59,
+      "BASELAYERS": 55,
+      "GEAR": 1
+    },
+    "by_gender": {
+      "MEN": 8558,
+      "WOMEN": 6578,
+      "UNISEX": 930,
+      "DOGS": 447,
+      "unknown": 47,
+      "TEENS": 83
+    }
+  },
+  "2024-11": {
+    "total": 13164,
+    "total_excl_big": 10899,
+    "by_country": {
+      "PL": 777,
+      "IE": 134,
+      "other": 423,
+      "IT": 184,
+      "DE": 6145,
+      "FR": 261,
+      "UK": 424,
+      "SE": 1475,
+      "AT": 567,
+      "NL": 637,
+      "FI": 564,
+      "CZ": 435,
+      "DK": 637,
+      "CH": 331,
+      "NO": 170
+    },
+    "by_category": {
+      "PANTS": 4808,
+      "TOPS": 3285,
+      "JACKETS": 2793,
+      "ACCS": 676,
+      "FOOTWEAR": 620,
+      "BASELAYERS\n": 245,
+      "BAGS": 158,
+      "DOGS": 271,
+      "unknown": 44,
+      "CARE": 28,
+      "BASELAYERS": 225,
+      "GEAR": 11
+    },
+    "by_gender": {
+      "MEN": 6962,
+      "WOMEN": 5038,
+      "UNISEX": 809,
+      "DOGS": 271,
+      "unknown": 44,
+      "TEENS": 40
+    }
+  },
+  "2024-12": {
+    "total": 12236,
+    "total_excl_big": 10301,
+    "by_country": {
+      "DE": 5775,
+      "CZ": 356,
+      "PL": 758,
+      "DK": 624,
+      "other": 488,
+      "IT": 221,
+      "AT": 545,
+      "SE": 1327,
+      "UK": 348,
+      "FI": 416,
+      "NL": 589,
+      "FR": 298,
+      "IE": 141,
+      "NO": 98,
+      "CH": 252
+    },
+    "by_category": {
+      "PANTS": 4391,
+      "TOPS": 3634,
+      "JACKETS": 2008,
+      "ACCS": 723,
+      "FOOTWEAR": 701,
+      "BASELAYERS\n": 285,
+      "BAGS": 130,
+      "DOGS": 172,
+      "unknown": 31,
+      "CARE": 30,
+      "BASELAYERS": 123,
+      "GEAR": 8
+    },
+    "by_gender": {
+      "MEN": 6816,
+      "WOMEN": 4394,
+      "UNISEX": 797,
+      "DOGS": 172,
+      "unknown": 31,
+      "TEENS": 26
+    }
+  },
+  "2025-01": {
+    "total": 10836,
+    "total_excl_big": 9152,
+    "by_country": {
+      "NL": 503,
+      "DE": 4923,
+      "CZ": 471,
+      "other": 418,
+      "FR": 324,
+      "NO": 127,
+      "PL": 743,
+      "SE": 1098,
+      "FI": 317,
+      "DK": 613,
+      "UK": 341,
+      "IE": 108,
+      "AT": 430,
+      "CH": 257,
+      "IT": 163
+    },
+    "by_category": {
+      "PANTS": 3954,
+      "TOPS": 3235,
+      "JACKETS": 1714,
+      "ACCS": 566,
+      "FOOTWEAR": 663,
+      "BASELAYERS\n": 257,
+      "BAGS": 121,
+      "DOGS": 128,
+      "unknown": 48,
+      "CARE": 20,
+      "BASELAYERS": 124,
+      "GEAR": 6
+    },
+    "by_gender": {
+      "MEN": 5999,
+      "WOMEN": 4003,
+      "UNISEX": 639,
+      "DOGS": 128,
+      "unknown": 48,
+      "TEENS": 19
+    }
+  },
+  "2025-02": {
+    "total": 6622,
+    "total_excl_big": 5597,
+    "by_country": {
+      "SE": 704,
+      "UK": 245,
+      "DE": 3006,
+      "CH": 194,
+      "DK": 355,
+      "other": 247,
+      "PL": 356,
+      "CZ": 273,
+      "AT": 266,
+      "NO": 91,
+      "FR": 165,
+      "NL": 342,
+      "FI": 228,
+      "IT": 93,
+      "IE": 57
+    },
+    "by_category": {
+      "PANTS": 2512,
+      "TOPS": 1746,
+      "JACKETS": 1068,
+      "ACCS": 414,
+      "FOOTWEAR": 352,
+      "BAGS": 89,
+      "DOGS": 98,
+      "unknown": 74,
+      "CARE": 19,
+      "BASELAYERS": 74,
+      "BASELAYERS\n": 164,
+      "GEAR": 12
+    },
+    "by_gender": {
+      "MEN": 3593,
+      "WOMEN": 2346,
+      "UNISEX": 497,
+      "DOGS": 98,
+      "unknown": 74,
+      "TEENS": 14
+    }
+  },
+  "2025-03": {
+    "total": 7318,
+    "total_excl_big": 6160,
+    "by_country": {
+      "SE": 735,
+      "FI": 286,
+      "DE": 3265,
+      "PL": 610,
+      "DK": 371,
+      "other": 272,
+      "NL": 377,
+      "AT": 370,
+      "FR": 162,
+      "UK": 202,
+      "IT": 74,
+      "CH": 159,
+      "NO": 91,
+      "CZ": 266,
+      "IE": 78
+    },
+    "by_category": {
+      "PANTS": 2936,
+      "TOPS": 1835,
+      "JACKETS": 1206,
+      "ACCS": 457,
+      "FOOTWEAR": 413,
+      "BASELAYERS\n": 128,
+      "BAGS": 92,
+      "DOGS": 67,
+      "unknown": 47,
+      "CARE": 48,
+      "BASELAYERS": 77,
+      "GEAR": 12
+    },
+    "by_gender": {
+      "MEN": 3919,
+      "WOMEN": 2692,
+      "UNISEX": 569,
+      "DOGS": 67,
+      "unknown": 47,
+      "TEENS": 24
+    }
+  },
+  "2025-04": {
+    "total": 5237,
+    "total_excl_big": 4465,
+    "by_country": {
+      "PL": 416,
+      "DE": 2466,
+      "FI": 234,
+      "DK": 287,
+      "SE": 530,
+      "other": 166,
+      "CZ": 127,
+      "FR": 88,
+      "IE": 42,
+      "UK": 154,
+      "NO": 70,
+      "IT": 56,
+      "NL": 231,
+      "CH": 127,
+      "AT": 243
+    },
+    "by_category": {
+      "PANTS": 2201,
+      "TOPS": 1241,
+      "JACKETS": 884,
+      "ACCS": 322,
+      "FOOTWEAR": 217,
+      "BASELAYERS\n": 122,
+      "BAGS": 95,
+      "DOGS": 45,
+      "unknown": 22,
+      "CARE": 28,
+      "BASELAYERS": 49,
+      "GEAR": 11
+    },
+    "by_gender": {
+      "MEN": 2603,
+      "WOMEN": 2119,
+      "UNISEX": 427,
+      "DOGS": 45,
+      "unknown": 22,
+      "TEENS": 21
+    }
+  },
+  "2025-05": {
+    "total": 5437,
+    "total_excl_big": 4685,
+    "by_country": {
+      "DE": 2447,
+      "SE": 630,
+      "other": 197,
+      "AT": 287,
+      "DK": 333,
+      "UK": 99,
+      "FR": 99,
+      "CZ": 144,
+      "FI": 232,
+      "NL": 253,
+      "PL": 446,
+      "NO": 56,
+      "CH": 113,
+      "IE": 51,
+      "IT": 50
+    },
+    "by_category": {
+      "PANTS": 2264,
+      "TOPS": 1212,
+      "JACKETS": 745,
+      "ACCS": 287,
+      "FOOTWEAR": 648,
+      "BASELAYERS\n": 71,
+      "BAGS": 99,
+      "DOGS": 20,
+      "unknown": 20,
+      "CARE": 24,
+      "BASELAYERS": 27,
+      "GEAR": 20
+    },
+    "by_gender": {
+      "MEN": 2776,
+      "WOMEN": 2192,
+      "UNISEX": 398,
+      "DOGS": 20,
+      "unknown": 20,
+      "TEENS": 31
+    }
+  },
+  "2025-06": {
+    "total": 3966,
+    "total_excl_big": 3250,
+    "by_country": {
+      "DE": 1699,
+      "DK": 244,
+      "SE": 514,
+      "NL": 222,
+      "FI": 202,
+      "AT": 160,
+      "UK": 97,
+      "CZ": 130,
+      "CH": 71,
+      "PL": 318,
+      "NO": 58,
+      "FR": 64,
+      "IE": 32,
+      "IT": 35,
+      "other": 120
+    },
+    "by_category": {
+      "PANTS": 1831,
+      "TOPS": 1003,
+      "JACKETS": 530,
+      "ACCS": 205,
+      "FOOTWEAR": 207,
+      "BASELAYERS\n": 40,
+      "BAGS": 95,
+      "DOGS": 14,
+      "unknown": 10,
+      "CARE": 12,
+      "BASELAYERS": 11,
+      "GEAR": 8
+    },
+    "by_gender": {
+      "MEN": 2132,
+      "WOMEN": 1500,
+      "UNISEX": 292,
+      "DOGS": 14,
+      "unknown": 10,
+      "TEENS": 18
+    }
+  },
+  "2025-07": {
+    "total": 3539,
+    "total_excl_big": 2982,
+    "by_country": {
+      "DE": 1563,
+      "SE": 398,
+      "AT": 171,
+      "CZ": 89,
+      "DK": 170,
+      "other": 119,
+      "CH": 72,
+      "UK": 113,
+      "NL": 215,
+      "NO": 40,
+      "FR": 39,
+      "FI": 209,
+      "PL": 287,
+      "IE": 15,
+      "IT": 39
+    },
+    "by_category": {
+      "PANTS": 1669,
+      "TOPS": 798,
+      "JACKETS": 497,
+      "ACCS": 183,
+      "FOOTWEAR": 228,
+      "BASELAYERS\n": 32,
+      "BAGS": 77,
+      "DOGS": 8,
+      "unknown": 5,
+      "CARE": 6,
+      "BASELAYERS": 23,
+      "GEAR": 13
+    },
+    "by_gender": {
+      "MEN": 1765,
+      "WOMEN": 1488,
+      "UNISEX": 260,
+      "DOGS": 8,
+      "unknown": 5,
+      "TEENS": 13
+    }
+  },
+  "2025-08": {
+    "total": 3085,
+    "total_excl_big": 2612,
+    "by_country": {
+      "PL": 214,
+      "DK": 151,
+      "NL": 136,
+      "DE": 1376,
+      "other": 103,
+      "SE": 398,
+      "UK": 85,
+      "AT": 152,
+      "CZ": 49,
+      "NO": 41,
+      "IT": 26,
+      "FI": 183,
+      "CH": 94,
+      "FR": 60,
+      "IE": 17
+    },
+    "by_category": {
+      "PANTS": 1326,
+      "TOPS": 752,
+      "JACKETS": 496,
+      "ACCS": 163,
+      "FOOTWEAR": 166,
+      "BAGS": 65,
+      "DOGS": 16,
+      "unknown": 11,
+      "CARE": 7,
+      "BASELAYERS": 22,
+      "BASELAYERS\n": 46,
+      "GEAR": 15
+    },
+    "by_gender": {
+      "MEN": 1485,
+      "WOMEN": 1318,
+      "UNISEX": 234,
+      "DOGS": 16,
+      "unknown": 11,
+      "TEENS": 21
+    }
+  },
+  "2025-09": {
+    "total": 2627,
+    "total_excl_big": 2221,
+    "by_country": {
+      "PL": 242,
+      "DK": 101,
+      "SE": 269,
+      "DE": 1181,
+      "NL": 121,
+      "AT": 109,
+      "CH": 48,
+      "other": 80,
+      "FR": 49,
+      "CZ": 61,
+      "UK": 96,
+      "IE": 22,
+      "FI": 194,
+      "NO": 27,
+      "IT": 27
+    },
+    "by_category": {
+      "PANTS": 1152,
+      "TOPS": 628,
+      "JACKETS": 390,
+      "ACCS": 150,
+      "FOOTWEAR": 146,
+      "BASELAYERS\n": 21,
+      "BAGS": 62,
+      "DOGS": 23,
+      "unknown": 10,
+      "CARE": 8,
+      "BASELAYERS": 15,
+      "GEAR": 22
+    },
+    "by_gender": {
+      "MEN": 1219,
+      "WOMEN": 1146,
+      "UNISEX": 221,
+      "DOGS": 23,
+      "unknown": 10,
+      "TEENS": 8
+    }
+  },
+  "2025-10": {
+    "total": 2062,
+    "total_excl_big": 1726,
+    "by_country": {
+      "DE": 947,
+      "CZ": 47,
+      "PL": 167,
+      "FI": 139,
+      "NL": 87,
+      "other": 61,
+      "IT": 35,
+      "SE": 214,
+      "CH": 55,
+      "AT": 80,
+      "FR": 50,
+      "UK": 50,
+      "DK": 94,
+      "IE": 22,
+      "NO": 14
+    },
+    "by_category": {
+      "PANTS": 882,
+      "TOPS": 493,
+      "JACKETS": 369,
+      "ACCS": 111,
+      "FOOTWEAR": 112,
+      "BASELAYERS\n": 26,
+      "BAGS": 29,
+      "DOGS": 9,
+      "unknown": 8,
+      "CARE": 8,
+      "BASELAYERS": 8,
+      "GEAR": 7
+    },
+    "by_gender": {
+      "MEN": 974,
+      "WOMEN": 922,
+      "UNISEX": 144,
+      "DOGS": 9,
+      "unknown": 8,
+      "TEENS": 5
+    }
+  },
+  "2025-11": {
+    "total": 1728,
+    "total_excl_big": 1418,
+    "by_country": {
+      "NL": 74,
+      "DE": 796,
+      "other": 61,
+      "SE": 132,
+      "UK": 58,
+      "PL": 204,
+      "CH": 46,
+      "IT": 22,
+      "NO": 8,
+      "FI": 54,
+      "FR": 39,
+      "DK": 67,
+      "IE": 36,
+      "CZ": 72,
+      "AT": 59
+    },
+    "by_category": {
+      "PANTS": 740,
+      "TOPS": 374,
+      "JACKETS": 318,
+      "ACCS": 123,
+      "FOOTWEAR": 79,
+      "BAGS": 30,
+      "DOGS": 15,
+      "unknown": 5,
+      "BASELAYERS\n": 22,
+      "CARE": 2,
+      "BASELAYERS": 13,
+      "GEAR": 7
+    },
+    "by_gender": {
+      "MEN": 911,
+      "WOMEN": 642,
+      "UNISEX": 151,
+      "DOGS": 15,
+      "unknown": 5,
+      "TEENS": 4
+    }
+  },
+  "2025-12": {
+    "total": 1390,
+    "total_excl_big": 1183,
+    "by_country": {
+      "DE": 577,
+      "FI": 43,
+      "CZ": 65,
+      "other": 40,
+      "UK": 53,
+      "PL": 197,
+      "AT": 76,
+      "SE": 88,
+      "NL": 65,
+      "CH": 52,
+      "FR": 28,
+      "IE": 25,
+      "NO": 13,
+      "DK": 52,
+      "IT": 16
+    },
+    "by_category": {
+      "PANTS": 565,
+      "TOPS": 314,
+      "JACKETS": 278,
+      "ACCS": 76,
+      "FOOTWEAR": 72,
+      "BASELAYERS\n": 8,
+      "BAGS": 21,
+      "unknown": 6,
+      "DOGS": 6,
+      "CARE": 1,
+      "BASELAYERS": 37,
+      "GEAR": 6
+    },
+    "by_gender": {
+      "MEN": 799,
+      "WOMEN": 479,
+      "UNISEX": 98,
+      "unknown": 6,
+      "TEENS": 2,
+      "DOGS": 6
+    }
+  },
+  "2026-01": {
+    "total": 1215,
+    "total_excl_big": 1048,
+    "by_country": {
+      "DE": 434,
+      "UK": 43,
+      "PL": 184,
+      "CZ": 67,
+      "FR": 34,
+      "NO": 16,
+      "NL": 53,
+      "DK": 75,
+      "SE": 97,
+      "IT": 14,
+      "FI": 50,
+      "AT": 37,
+      "other": 50,
+      "IE": 18,
+      "CH": 43
+    },
+    "by_category": {
+      "PANTS": 484,
+      "TOPS": 274,
+      "JACKETS": 238,
+      "ACCS": 84,
+      "FOOTWEAR": 62,
+      "BAGS": 20,
+      "DOGS": 12,
+      "unknown": 2,
+      "CARE": 5,
+      "BASELAYERS": 26,
+      "BASELAYERS\n": 3,
+      "GEAR": 5
+    },
+    "by_gender": {
+      "MEN": 626,
+      "WOMEN": 459,
+      "UNISEX": 109,
+      "DOGS": 12,
+      "unknown": 2,
+      "TEENS": 7
+    }
+  },
+  "2026-02": {
+    "total": 7782,
+    "total_excl_big": 6842,
+    "by_country": {
+      "SE": 830,
+      "DE": 3537,
+      "CZ": 277,
+      "NL": 350,
+      "NO": 73,
+      "DK": 496,
+      "UK": 233,
+      "AT": 396,
+      "FR": 101,
+      "CH": 222,
+      "PL": 476,
+      "IT": 123,
+      "other": 274,
+      "IE": 75,
+      "FI": 319
+    },
+    "by_category": {
+      "PANTS": 3298,
+      "TOPS": 1728,
+      "JACKETS": 1128,
+      "ACCS": 607,
+      "FOOTWEAR": 398,
+      "BAGS": 201,
+      "DOGS": 93,
+      "unknown": 25,
+      "CARE": 14,
+      "BASELAYERS": 253,
+      "BASELAYERS\n": 6,
+      "GEAR": 31
+    },
+    "by_gender": {
+      "MEN": 3776,
+      "WOMEN": 3064,
+      "UNISEX": 778,
+      "DOGS": 93,
+      "unknown": 25,
+      "TEENS": 46
+    }
+  },
+  "2026-03": {
+    "total": 5465,
+    "total_excl_big": 4714,
+    "by_country": {
+      "DE": 2679,
+      "NL": 223,
+      "FR": 70,
+      "other": 159,
+      "SE": 594,
+      "UK": 151,
+      "CH": 186,
+      "IE": 52,
+      "DK": 261,
+      "AT": 280,
+      "PL": 279,
+      "FI": 295,
+      "NO": 53,
+      "CZ": 116,
+      "IT": 67
+    },
+    "by_category": {
+      "PANTS": 2166,
+      "TOPS": 1339,
+      "ACCS": 410,
+      "FOOTWEAR": 176,
+      "JACKETS": 1081,
+      "BAGS": 79,
+      "DOGS": 39,
+      "unknown": 20,
+      "CARE": 14,
+      "BASELAYERS": 112,
+      "BASELAYERS\n": 8,
+      "GEAR": 21
+    },
+    "by_gender": {
+      "MEN": 2512,
+      "WOMEN": 2384,
+      "UNISEX": 488,
+      "DOGS": 39,
+      "unknown": 20,
+      "TEENS": 22
+    }
+  }
+}

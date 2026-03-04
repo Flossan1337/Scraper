@@ -37,8 +37,6 @@ from typing import Optional
 import requests
 from bs4 import BeautifulSoup
 from openpyxl import Workbook, load_workbook
-from openpyxl.utils.dataframe import dataframe_to_rows
-import pandas as pd
 
 # ── Configuration ──────────────────────────────────────────────────────────────
 GRAPHQL_URL      = "https://reviews.revolutionrace.com/revolutionrace/graphql"
@@ -356,23 +354,38 @@ def save_state(state: dict) -> None:
 
 # ── Excel output ───────────────────────────────────────────────────────────────
 
-def _append_df(wb: Workbook, sheet_name: str, df: pd.DataFrame) -> None:
-    """Append a DataFrame to an existing or new sheet (header written once)."""
-    if sheet_name in wb.sheetnames:
-        ws = wb[sheet_name]
-        for row in dataframe_to_rows(df, index=False, header=False):
-            ws.append(row)
-    else:
-        ws = wb.create_sheet(title=sheet_name)
-        for row in dataframe_to_rows(df, index=False, header=True):
-            ws.append(row)
-
-
-def write_to_excel(summary_row: dict) -> None:
+def _write_summary_sheet(wb: Workbook, rows: list[dict]) -> None:
     """
-    Appends one summary row to the 'Summary' sheet.
-    Per-product history lives in revolutionrace_state.json and is not
-    written to Excel (avoids the file growing by 1000+ rows per run).
+    (Re)write the Summary sheet from a list of row dicts.
+    Columns are the union of all keys across all rows, with 'date' always first.
+    Missing values in older rows are written as empty string.
+    """
+    if not rows:
+        return
+
+    # Build the full ordered column list: date first, then all others in
+    # insertion order (consistent across runs because summary_row is built
+    # with a fixed key sequence).
+    all_cols: list[str] = ["date"]
+    for row in rows:
+        for k in row:
+            if k != "date" and k not in all_cols:
+                all_cols.append(k)
+
+    if "Summary" in wb.sheetnames:
+        del wb["Summary"]
+    ws = wb.create_sheet(title="Summary")
+
+    ws.append(all_cols)
+    for row in rows:
+        ws.append([row.get(col, "") for col in all_cols])
+
+
+def write_to_excel(runs: list[dict]) -> None:
+    """
+    Rebuild the Summary sheet from the full runs list stored in state.
+    This ensures headers always match the current column set and that
+    re-running on the same day never duplicates a row.
     """
     XLSX_PATH.parent.mkdir(parents=True, exist_ok=True)
 
@@ -383,7 +396,7 @@ def write_to_excel(summary_row: dict) -> None:
         if "Sheet" in wb.sheetnames:
             del wb["Sheet"]
 
-    _append_df(wb, "Summary", pd.DataFrame([summary_row]))
+    _write_summary_sheet(wb, runs)
 
     wb.save(XLSX_PATH)
     print(f"  → Saved: {XLSX_PATH}")
@@ -606,6 +619,19 @@ def main() -> None:
 
     runs.append(summary_row)
 
+    # Deduplicate runs: if today already has an entry (re-run), update it in-place.
+    seen_dates: dict[str, int] = {}
+    deduped_runs: list[dict] = []
+    for r in runs:
+        d = r.get("date", "")
+        if d in seen_dates:
+            deduped_runs[seen_dates[d]] = r  # overwrite with latest
+        else:
+            seen_dates[d] = len(deduped_runs)
+            deduped_runs.append(r)
+    state["runs"] = deduped_runs
+    runs = deduped_runs
+
     print(f"\n  ── Summary {'─' * 38}")
     print(f"     Total reviews       {total_now:>12,}")
     print(f"     New reviews today   {total_new_reviews:>12,}")
@@ -621,7 +647,7 @@ def main() -> None:
 
     # ── 6. Persist state + write Excel ────────────────────────────────────────
     save_state(state)
-    write_to_excel(summary_row)
+    write_to_excel(runs)
 
 
 if __name__ == "__main__":
