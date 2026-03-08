@@ -80,11 +80,6 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
 
-      - name: Run fetch_cint_panelbook.py
-        run: python ./scripts/fetch_cint_panelbook.py
-        timeout-minutes: 5
-        continue-on-error: true
-
       - name: Run track_revolutionrace_reviews.py
         run: python ./scripts/track_revolutionrace_reviews.py
         timeout-minutes: 15
@@ -141,43 +136,67 @@ jobs:
           SUMMARY="$GITHUB_STEP_SUMMARY"
           echo "## 📊 Daily Scraper Summary" >> "$SUMMARY"
           echo "" >> "$SUMMARY"
-          echo "| Script | Description | Status | Metrics |" >> "$SUMMARY"
-          echo "|:--|:--|:--|:--|" >> "$SUMMARY"
+          echo "| Script | Description | Output file | Status | Metrics |" >> "$SUMMARY"
+          echo "|:--|:--|:--|:--|:--|" >> "$SUMMARY"
 
-          # List of scripts and descriptions (update if you add/remove scripts)
           declare -A DESCR
-          DESCR[fetch_kpi.py]="Fetches Adtraction EPC and KPI data"
-          DESCR[amazon_scape_bought_playwright_us_de.py]="Tracks Amazon 'bought together' for Scape"
-          DESCR[track_combined_prices.py]="Combines Inet & Amazon price data"
-          DESCR[track_fractal_rankings_playwright.py]="Fetches Fractal product rankings"
-          DESCR[track_nelly_aov.py]="Fetches Nelly AOV & top list data"
-          DESCR[track_rugvista_bestsellers.py]="Fetches Rugvista top list rankings"
-          DESCR[track_rugvista_daily_sales.py]="Tracks Rugvista daily sales delta"
-          DESCR[fetch_cint_panelbook.py]="Fetches Cint completed surveys per country"
-          DESCR[track_revolutionrace_reviews.py]="Tracks RevolutionRace review counts & sales proxy"
+          DESCR[fetch_kpi.py]="Scrapes Adtraction's platform page for total conversion and brand-count KPIs"
+          DESCR[amazon_scape_bought_playwright_us_de.py]="Scrapes Amazon US & DE for 'bought in past month' counts and BSR rankings for Fractal Scape & Refine cases"
+          DESCR[track_combined_prices.py]="Scrapes Fractal Design case prices across Inet, Webhallen, MediaMarkt, Newegg & AWD-IT; records daily avg/median per retailer"
+          DESCR[track_fractal_rankings_playwright.py]="Tracks Fractal Design product ranking positions on Newegg category pages"
+          DESCR[track_nelly_aov.py]="Scrapes Nelly.com selling prices (handling discounted & regular items) and estimates average order value (AOV)"
+          DESCR[track_rugvista_bestsellers.py]="Scrapes Rugvista bestseller list prices; records daily median & average rug price"
+          DESCR[track_rugvista_daily_sales.py]="Diffs Rugvista top-seller API snapshots to estimate daily unit sales and revenue"
+          DESCR[youtube_diy_trends.py]="Counts new 'Gaming PC Build' YouTube uploads in the past 7 days as a PC-demand signal (requires YOUTUBE_API_KEY)"
+          DESCR[fetch_ted_procurements.py]="Fetches EU procurement notices for tracked companies from the public TED API; writes one Excel sheet per company"
+          DESCR[track_rvrc_inventory.py]="Diffs RevolutionRace variant-level stock across SE/DE/NO/UK markets to estimate daily units sold and SEK revenue"
+          DESCR[track_revolutionrace_reviews.py]="Diffs RevolutionRace review counts via GraphQL; estimates sales-activity proxy as price × new reviews"
+
+          declare -A OUTFILE
+          OUTFILE[fetch_kpi.py]="data/kpi-history.xlsx"
+          OUTFILE[amazon_scape_bought_playwright_us_de.py]="data/scape_bought_by_country.xlsx"
+          OUTFILE[track_combined_prices.py]="data/combined_prices.xlsx"
+          OUTFILE[track_fractal_rankings_playwright.py]="data/fractal_rankings.xlsx"
+          OUTFILE[track_nelly_aov.py]="data/nelly_aov.xlsx"
+          OUTFILE[track_rugvista_bestsellers.py]="data/rugvista_bestsellers.xlsx"
+          OUTFILE[track_rugvista_daily_sales.py]="data/rugvista_daily_sales.xlsx"
+          OUTFILE[youtube_diy_trends.py]="data/youtube_diy_sentiment.xlsx"
+          OUTFILE[fetch_ted_procurements.py]="data/ted_procurements.xlsx"
+          OUTFILE[track_rvrc_inventory.py]="data/rvrc_inventory.xlsx"
+          OUTFILE[track_revolutionrace_reviews.py]="data/revolutionrace_reviews.xlsx"
 
           METRICS_DIR="scripts/metrics"
           mkdir -p "$METRICS_DIR"
+          today=$(date -u +%Y-%m-%d)
 
           for script in "fetch_kpi.py" "amazon_scape_bought_playwright_us_de.py" "track_combined_prices.py" \
                         "track_fractal_rankings_playwright.py" "track_nelly_aov.py" "track_rugvista_bestsellers.py" \
-                        "track_rugvista_daily_sales.py" "fetch_cint_panelbook.py" "track_revolutionrace_reviews.py"; do
-            desc="${DESCR[$script]:-}" || true
-            base=$(basename "$script")
-            jsonfile="$METRICS_DIR/${base}.json"
+                        "track_rugvista_daily_sales.py" "youtube_diy_trends.py" "fetch_ted_procurements.py" \
+                        "track_rvrc_inventory.py" "track_revolutionrace_reviews.py"; do
+            desc="${DESCR[$script]:-—}"
+            outfile="${OUTFILE[$script]:-}"
+            jsonfile="$METRICS_DIR/${script}.json"
 
-            status="✅ Completed"
-            metrics_str="-"
-
-            if [ -f "$jsonfile" ]; then
-              # Read JSON and convert to key=value pairs for display
-              # Expecting simple flat JSON like {"rows": 123, "median": 456.7}
-              metrics_str=$(jq -r 'to_entries | map("\(.key)=\(.value)") | join(", ")' "$jsonfile" 2>/dev/null || echo "invalid json")
+            # Determine status by checking whether the output file was written today
+            if [ -n "$outfile" ] && [ -f "$outfile" ]; then
+              file_date=$(date -u -r "$outfile" +%Y-%m-%d 2>/dev/null || echo "")
+              if [ "$file_date" = "$today" ]; then
+                status="✅ Updated"
+              else
+                status="⚠️ Stale (last: $file_date)"
+              fi
             else
-              metrics_str="No metrics"
+              status="❌ No output"
             fi
 
-            printf "| %s | %s | %s | %s |\n" "$base" "$desc" "$status" "$metrics_str" >> "$SUMMARY"
+            # Read metrics JSON if present
+            if [ -f "$jsonfile" ]; then
+              metrics_str=$(jq -r 'to_entries | map("\(.key)=\(.value)") | join(", ")' "$jsonfile" 2>/dev/null || echo "invalid json")
+            else
+              metrics_str="—"
+            fi
+
+            printf "| \`%s\` | %s | \`%s\` | %s | %s |\n" "$script" "$desc" "$outfile" "$status" "$metrics_str" >> "$SUMMARY"
           done
 
           echo "" >> "$SUMMARY"
