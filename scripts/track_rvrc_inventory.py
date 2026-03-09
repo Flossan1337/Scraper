@@ -3,16 +3,16 @@
 track_rvrc_inventory.py
 
 Tracks RevolutionRace inventory at variant (size × colour) level across multiple
-markets (SE, DE, NO, UK) by fetching the Nuxt payload JSON from each category
-listing page.
+markets (SE, DE, NO, UK, COM) using the Voyado Elevate API directly.
 
 Methodology
 -----------
 Each daily run:
-  1. Fetches all configured category pages (paginated) for every market via the
-     /_payload.json endpoint (Nuxt 3 SSR data endpoint — no browser required).
-  2. Decodes the Nuxt flat-array (@ nuxt/devalue) payload to extract per-variant
-     stockNumber, sellingPrice, and listPrice.
+  1. Queries the Voyado Elevate storefront API for every top-level product
+     category (clothing, accessories, shoes) in each market, paginating with
+     limit=600 until all products are retrieved.
+  2. Extracts per-variant stockNumber, sellingPrice, and listPrice from the
+     structured JSON response (no HTML parsing or payload decoding required).
   3. Compares against the previous snapshot stored in the state file.
   4. Estimated units sold per variant = max(0, prev_stock − curr_stock).
      Stock increases (restocks / new colours) are excluded from the estimate.
@@ -20,46 +20,33 @@ Each daily run:
        - sell revenue ≈ units × sellingPrice   (customer-facing / post-discount)
        - list revenue ≈ units × listPrice      (full / pre-discount price)
      Both are converted to SEK via live FX rates (Frankfurter / ECB API).
-  6. Tracks all four markets so products that exist only in DE, NO, or UK are
-     not missed (confirmed: DE /bekleidung/hosen has 621 products vs SE's 610).
+  6. Tracks all five markets so products that exist only in DE, NO, UK, or COM
+     are not missed.
 
 How the data is fetched
 -----------------------
-The RVRC site is Nuxt 3.  Each category page exposes its full product data at:
-  https://www.revolutionrace.{tld}{category-path}/_payload.json
-The payload is a flat-array (@ nuxt/devalue format).  flat[2] is a nav dict that
-contains a key "Elevate Category Products <english-name>" pointing to the index
-of the page object, which holds primaryList → productGroups → products → variants.
+The RVRC site uses Voyado Elevate (Apptus) as its product search/catalog backend.
+The storefront API is publicly accessible without authentication — customerKey
+and sessionKey are random UUIDs generated fresh each run.
 
-Category discovery
-------------------
-Rather than maintaining hardcoded category lists, the script auto-discovers
-category paths at runtime via discover_category_paths_from_sitemap().  For
-each market, the function fetches /sitemap.axd?page=1 (an XML sitemap exposed
-by every RVRC domain) and extracts all depth-1 and depth-2 URL paths.  It
-then filters out known non-product prefixes (customer service, legal pages,
-etc.) and keeps only paths that could carry product listings.  This means
-when RVRC adds a new top-level section, product line, or seasonal collection,
-the script discovers it automatically on the next run.
+Endpoint: GET https://{cluster}.api.esales.apptus.cloud/api/storefront/v3/queries/landing-page
+Required param: pageReference (e.g. "clothing", "accessories", "shoes")
+Optional params: limit (max 600), skip (pagination offset), market, locale
 
-The actual product test happens at fetch time: categories whose /_payload.json
-lacks the "Elevate Category Products" key are silently skipped (1 WARN log).
+The response structure is:
+  {primaryList: {productGroups: [{products: [{variants: [{key, stockNumber,
+   sellingPrice, listPrice, size, label}]}]}], totalHits: N}}
 
-Fallback: if the sitemap fetch fails entirely, a generous set of hardcoded
-fallback_paths is used so the script still produces a snapshot.
-
-Products appearing in multiple categories (e.g. a fleece jacket in both
-/jackor and /lager-pa-lager, or in both SE and DE) are keyed by variant_key so
-they cause no double-counting in the delta calculation within a market.
-Cross-market inventory is independent (same SKU, separate stock pools per market).
+Pagination uses skip (offset by productGroup count) until skip >= totalHits.
+Typically 5–15 total requests cover all 5 markets, completing in ~30 seconds.
 
 State file  : data/rvrc_inventory_state.json
 Excel output: data/rvrc_inventory.xlsx
 """
 
 import json
-import re
 import time
+import uuid
 from datetime import date, datetime
 from pathlib import Path
 from typing import Optional
@@ -69,92 +56,25 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
-# ── Market configuration ───────────────────────────────────────────────────────
-# Each market is scraped independently; variant keys are shared across markets
-# but inventory pools are market-specific (same SKU has separate stock per market).
+# ── Elevate API configuration ──────────────────────────────────────────────────
+ELEVATE_CLUSTER_ID = "wA4BFC9F5"
+ELEVATE_BASE_URL   = f"https://{ELEVATE_CLUSTER_ID}.api.esales.apptus.cloud"
+ELEVATE_ENDPOINT   = "/api/storefront/v3/queries/landing-page"
+ELEVATE_LIMIT      = 600  # max allowed by API (1000 returns 400 error)
 
+# Top-level Elevate category pageReference values covering all RVRC products.
+# clothing ~1,700 products, accessories ~180, shoes ~70 (SE market; similar for others).
+ELEVATE_CATEGORIES = ["clothing", "accessories", "shoes"]
+
+# ── Market configuration ───────────────────────────────────────────────────────
+# Each market is fetched independently; variant keys are shared across markets
+# but inventory pools are market-specific (same SKU has separate stock per market).
 MARKETS: dict[str, dict] = {
-    "SE": {
-        "base_url":       "https://www.revolutionrace.se",
-        "currency":       "SEK",
-        "lang":           "sv-SE",
-        "fallback_paths": [
-            "/klader/byxor", "/klader/jackor", "/klader/trojor",
-            "/klader/lager-pa-lager", "/klader/regnklader", "/klader/vinterklader",
-            "/klader/understall", "/klader/underklader-strumpor",
-            "/dam/byxor", "/dam/jackor", "/dam/trojor", "/dam/understall",
-            "/herr/byxor", "/herr/jackor", "/herr/trojor", "/herr/understall",
-            "/skor/dam", "/skor/herr",
-            "/accessoarer/handskar", "/accessoarer/mossor-kepsar",
-            "/barn-ungdom/byxor", "/barn-ungdom/jackor",
-            "/vaskor-ryggsackar/ryggsackar", "/vaskor-ryggsackar/vaskor",
-            "/outlet-se/byxor", "/outlet-se/jackor",
-            "/sommarklader/shorts", "/sommarklader/sommarbyxor",
-            "/ultra/products",
-        ],
-    },
-    "DE": {
-        "base_url":       "https://www.revolutionrace.de",
-        "currency":       "EUR",
-        "lang":           "de-DE",
-        "fallback_paths": [
-            "/bekleidung/hosen", "/bekleidung/jacken",
-            "/bekleidung/regenbekleidung", "/bekleidung/oberteile",
-            "/damen/hosen", "/damen/jacken",
-            "/herren/hosen", "/herren/jacken",
-            "/schuhe/damen", "/schuhe/herren",
-            "/accessoires/handschuhe", "/accessoires/mutzen-caps",
-            "/kinder-teens/hosen", "/kinder-teens/jacken",
-            "/taschen-rucksacke/rucksacke",
-            "/outlet/hosen", "/outlet/jacken",
-        ],
-    },
-    "NO": {
-        "base_url":       "https://www.revolutionrace.no",
-        "currency":       "NOK",
-        "lang":           "nb-NO",
-        "fallback_paths": [
-            "/klaer/bukser", "/klaer/jakker",
-            "/klaer/regntoy", "/klaer/superundertoy-ullundertoy",
-            "/dame/bukser", "/dame/jakker",
-            "/herre/bukser", "/herre/jakker",
-            "/sko/dame", "/sko/herre",
-            "/tilbehor/hansker", "/tilbehor/luer-capser",
-            "/barn-junior/bukser", "/barn-junior/jakker",
-            "/vesker-ryggsekker/ryggsekker",
-        ],
-    },
-    "UK": {
-        "base_url":       "https://www.revolutionrace.co.uk",
-        "currency":       "GBP",
-        "lang":           "en-GB",
-        "fallback_paths": [
-            "/clothing/trousers", "/clothing/jackets",
-            "/clothing/waterproofs", "/clothing/tops",
-            "/women/trousers", "/women/jackets",
-            "/men/trousers", "/men/jackets",
-            "/shoes/women", "/shoes/men",
-            "/accessories/gloves", "/accessories/hats-caps",
-            "/bags-backpacks/backpacks",
-            "/outlet/trousers", "/outlet/jackets",
-        ],
-    },
-    # 31 remaining countries (AU, CH, FI, DK, FR, NL, CA, US, JP, etc.) all
-    # shop via revolutionrace.com — a single shared stock pool for all of them.
-    "COM": {
-        "base_url":       "https://www.revolutionrace.com",
-        "currency":       "EUR",
-        "lang":           "en-US",
-        "fallback_paths": [
-            "/clothing/jackets", "/clothing/tops",
-            "/clothing/trousers", "/clothing/base-layers",
-            "/women/trousers", "/women/jackets",
-            "/men/trousers", "/men/jackets",
-            "/shoes/women", "/shoes/men",
-            "/accessories/gloves", "/accessories/hats-caps",
-            "/bags-backpacks/backpacks",
-        ],
-    },
+    "SE":  {"elevate_market": "SE",  "locale": "sv-SE",  "currency": "SEK"},
+    "DE":  {"elevate_market": "DE",  "locale": "de-DE",  "currency": "EUR"},
+    "NO":  {"elevate_market": "NO",  "locale": "nb-NO",  "currency": "NOK"},
+    "UK":  {"elevate_market": "UK",  "locale": "en-GB",  "currency": "GBP"},
+    "COM": {"elevate_market": "EU",  "locale": "en-001", "currency": "EUR"},
 }
 
 # FX fallback rates (local currency → SEK) used if the Frankfurter API is down
@@ -168,10 +88,6 @@ FX_FALLBACKS: dict[str, float] = {
 SCRIPT_DIR = Path(__file__).resolve().parent
 STATE_FILE = (SCRIPT_DIR / ".." / "data" / "rvrc_inventory_state.json").resolve()
 XLSX_PATH  = (SCRIPT_DIR / ".." / "data" / "rvrc_inventory.xlsx").resolve()
-
-REQUEST_DELAY_S = 2.0  # polite wait between HTTP requests (seconds)
-MAX_PAGES       = 30   # safety cap on pagination depth per category
-MIN_GROUPS      = 3    # if a page returns fewer productGroups, treat as last page
 
 # ── State I/O ──────────────────────────────────────────────────────────────────
 
@@ -233,300 +149,107 @@ def fetch_fx_rates() -> dict[str, float]:
     return rates
 
 
-# ── Nuxt payload decoding ──────────────────────────────────────────────────────
+# ── Elevate API helpers ────────────────────────────────────────────────────────
 
-def _make_headers(lang: str) -> dict[str, str]:
-    return {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/122.0.0.0 Safari/537.36"
-        ),
-        "Accept":          "application/json",
-        "Accept-Language": f"{lang},{lang.split('-')[0]};q=0.9,en;q=0.8",
-        "Accept-Encoding": "gzip, deflate, br",
-    }
-
-def _deref(flat: list, value):
-    """
-    Dereference a single value from the Nuxt flat-array payload.
-
-    The @nuxt/devalue format stores all values in a flat list where objects and
-    arrays reference other entries by integer index.  Primitive values (strings,
-    booleans, null) are stored directly at their index; structured values
-    (objects/arrays) may themselves contain integer references.
-
-    One level of dereferencing is sufficient for all the fields we care about
-    (stockNumber, sellingPrice, key, size, title) because the Nuxt encoder
-    stores primitives at the leaf level.  We do NOT recurse further to avoid
-    touching the entire 46 k-entry payload.
-    """
-    if isinstance(value, int) and 0 <= value < len(flat):
-        return flat[value]
-    return value
-
-
-def _extract_primary_list(flat: list) -> Optional[dict]:
-    """
-    Navigate the Nuxt flat-array payload to find the Elevate Category Products
-    entry that contains primaryList → productGroups → products → variants.
-
-    The top-level data-keys object is always at flat[2].  One of its keys
-    matches 'Elevate Category Products <english-path>' and its value is an
-    index into the flat array pointing to the landing-page-style object
-    {primaryList, recommendationLists, seo, published, contentLists, customData}.
-    """
-    if len(flat) < 3 or not isinstance(flat[2], dict):
-        return None
-
-    nav: dict = flat[2]
-    elevate_key = next(
-        (k for k in nav if k.startswith("Elevate Category Products") and not k.endswith("_Facets")),
-        None,
-    )
-    if elevate_key is None:
-        return None
-
-    page_obj = _deref(flat, nav[elevate_key])
-    if not isinstance(page_obj, dict) or "primaryList" not in page_obj:
-        return None
-
-    primary_list = _deref(flat, page_obj["primaryList"])
-    return primary_list if isinstance(primary_list, dict) else None
-
-
-def fetch_category_page(base_url: str, lang: str, path: str, page: int) -> Optional[dict]:
-    """
-    Fetch one paginated listing page via the Nuxt /_payload.json endpoint and
-    return the primaryList dict (with _flat attached), or None on failure.
-    """
-    url = base_url + path + "/_payload.json" + (f"?page={page}" if page > 1 else "")
+def _get_price(price_raw) -> float:
+    """Parse a price that may be a float or {'min': x, 'max': x} dict."""
+    if isinstance(price_raw, dict):
+        try:
+            return float(price_raw.get("min") or 0.0)
+        except (TypeError, ValueError):
+            return 0.0
     try:
-        resp = requests.get(url, headers=_make_headers(lang), timeout=(10, 30))
+        return float(price_raw) if price_raw is not None else 0.0
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def fetch_elevate_page(
+    elevate_market: str, locale: str, page_ref: str,
+    skip: int = 0, customer_key: str = "", session_key: str = "",
+) -> Optional[dict]:
+    """Fetch one page from the Elevate landing-page API."""
+    params = {
+        "market":       elevate_market,
+        "locale":       locale,
+        "customerKey":  customer_key,
+        "sessionKey":   session_key,
+        "touchpoint":   "desktop",
+        "pageReference": page_ref,
+        "limit":        ELEVATE_LIMIT,
+        "skip":         skip,
+    }
+    try:
+        resp = requests.get(
+            ELEVATE_BASE_URL + ELEVATE_ENDPOINT,
+            params=params,
+            timeout=(10, 60),
+        )
         resp.raise_for_status()
-        flat = resp.json()
-    except requests.RequestException as e:
-        print(f"    [WARN] {url}: {e}")
-        return None
-    except ValueError:
-        print(f"    [WARN] {url}: response is not valid JSON")
+        return resp.json()
+    except requests.RequestException as exc:
+        print(f"    [WARN] Elevate {page_ref} skip={skip}: {exc}")
         return None
 
-    if not isinstance(flat, list):
-        print(f"    [WARN] {url}: expected flat array, got {type(flat).__name__}")
-        return None
 
-    primary_list = _extract_primary_list(flat)
-    if primary_list is None:
-        print(f"    [WARN] No Elevate primaryList found in {url}")
-        return None
-
-    # Re-attach the flat array so extract_variants can dereference values
-    primary_list["_flat"] = flat
-    return primary_list
-
-
-def extract_variants(primary_list: dict) -> dict[str, dict]:
+def extract_variants_from_elevate(data: dict) -> tuple[dict[str, dict], int, int]:
     """
-    Parse productGroups → products → variants from a page's primaryList.
+    Extract variant data from an Elevate landing-page response.
 
     Returns
     -------
-    {variant_key: {"stock": int, "sell_price": float, "list_price": float,
-                   "title": str, "size": str}}
-    where variant_key is the RVRC key e.g. "10004_2243-XS".
-    sell_price = sellingPrice (customer-facing / post-discount price).
-    list_price = listPrice    (full / pre-discount price).
-    Both prices are in the market's local currency.
+    (variants_dict, total_hits, group_count)
+    variants_dict: {variant_key: {"stock", "sell_price", "list_price", "title", "size"}}
+    total_hits:    totalHits from the API response (used for pagination)
+    group_count:   number of productGroups in this page (pagination offset increment)
     """
-    flat: list = primary_list.get("_flat", [])
-
-    def d(v):
-        return _deref(flat, v)
-
-    results: dict[str, dict] = {}
-
-    pg_ref = primary_list.get("productGroups")
-    product_groups = d(pg_ref) if pg_ref is not None else []
-    if not isinstance(product_groups, list):
-        return results
-
-    for group_ref in product_groups:
-        group = d(group_ref)
-        if not isinstance(group, dict):
-            continue
-
-        for product_ref in d(group.get("products")) or []:
-            product = d(product_ref)
-            if not isinstance(product, dict):
-                continue
-
-            title = d(product.get("title")) or d(product.get("name")) or ""
-
-            # Product-level prices as fallback (used when variant lacks its own)
-            def _parse_price(raw) -> float:
-                raw = d(raw)
-                if isinstance(raw, dict):
-                    return float(d(raw.get("min")) or 0.0)
-                try:
-                    return float(raw) if raw is not None else 0.0
-                except (TypeError, ValueError):
-                    return 0.0
-
-            p_sell = _parse_price(product.get("sellingPrice"))
-            p_list = _parse_price(product.get("listPrice"))
-            if p_list == 0.0:
-                p_list = p_sell  # fallback: treat list = sell when unavailable
-
-            for variant_ref in d(product.get("variants")) or []:
-                variant = d(variant_ref)
-                if not isinstance(variant, dict):
-                    continue
-
-                key = d(variant.get("key"))
+    variants: dict[str, dict] = {}
+    pl = data.get("primaryList") or {}
+    total_hits = int(pl.get("totalHits") or 0)
+    groups = pl.get("productGroups") or []
+    for group in groups:
+        for product in group.get("products") or []:
+            title  = str(product.get("title") or product.get("name") or "")
+            p_sell = _get_price(product.get("sellingPrice"))
+            p_list = _get_price(product.get("listPrice")) or p_sell
+            for variant in product.get("variants") or []:
+                key = variant.get("key")
                 if not key or not isinstance(key, str):
                     continue
-
-                stock_raw = d(variant.get("stockNumber"))
                 try:
-                    stock = int(stock_raw) if stock_raw is not None else 0
+                    stock = int(variant.get("stockNumber") or 0)
                 except (TypeError, ValueError):
                     stock = 0
-
-                sell_raw = d(variant.get("sellingPrice"))
-                try:
-                    sell_price = float(sell_raw) if sell_raw is not None else p_sell
-                except (TypeError, ValueError):
-                    sell_price = p_sell
-
-                list_raw = d(variant.get("listPrice"))
-                try:
-                    list_price = float(list_raw) if list_raw is not None else p_list
-                except (TypeError, ValueError):
-                    list_price = p_list
-                if list_price == 0.0:
-                    list_price = sell_price  # last resort fallback
-
-                results[key] = {
+                sell_price = _get_price(variant.get("sellingPrice")) or p_sell
+                list_price = _get_price(variant.get("listPrice")) or p_list or sell_price
+                size = str(variant.get("size") or variant.get("label") or "")
+                variants[key] = {
                     "stock":      stock,
                     "sell_price": sell_price,
                     "list_price": list_price,
-                    "title":      title if isinstance(title, str) else str(title),
-                    "size":       str(d(variant.get("size")) or d(variant.get("label")) or ""),
+                    "title":      title,
+                    "size":       size,
                 }
-
-    return results
-
-
-# Top-level sitemap prefixes that are known to NEVER contain product listings.
-# Everything not in this set is treated as a potential product category.
-# This is intentionally conservative: unknown new sections are included by
-# default, so we never silently miss a new product line.
-NON_PRODUCT_PREFIXES: set[str] = {
-    # Legal / info pages
-    "/accessibility", "/cookie-policy", "/cookie-richtlinie", "/cookies",
-    "/integritetspolicy", "/datenschutzbestimmungen", "/personvernpolicy",
-    "/privacy-policy",
-    "/allmanna-villkor", "/allgemeine-geschaftsbedingungen",
-    "/generelle-vilkar-og-betingelser", "/general-terms-conditions",
-    # Service / account
-    "/kundservice", "/kundenservice", "/kundeservice", "/customer-service",
-    "/kundrecensioner", "/bewertungen", "/kundeomtaler", "/customer-reviews",
-    "/bli-medlem", "/mitglied-werden", "/welcome-sign-up",
-    "/presentkort", "/geschenkgutschein", "/gift-cards",
-    # Marketing / editorial
-    "/campsite", "/match-with-your-dog", "/mark-billingham",
-    "/esales-ads", "/productpages", "/dynamic-pages", "/storage",
-}
-
-
-def discover_category_paths_from_sitemap(
-    base_url: str, lang: str,
-) -> list[str]:
-    """
-    Auto-discover ALL product-listing category paths for a market by parsing
-    the site's XML sitemap (sitemap.axd?page=1).
-
-    The sitemap lists every indexable URL on the site.  We extract depth-1 and
-    depth-2 paths, drop non-product prefixes, and return a deduplicated list.
-    Depth-3 paths (individual product pages like /dam/byxor/hyper-pants-women)
-    are skipped because the depth-2 category page already aggregates them.
-
-    Depth-1 paths like /nyheter, /bastsaljare, /back-in-stock (which are root
-    category pages with no sub-paths) are also included — they often carry
-    their own Elevate product list.
-
-    Returns [] on failure so the caller can fall back to hardcoded fallback_paths.
-    """
-    url = f"{base_url}/sitemap.axd?page=1"
-    try:
-        resp = requests.get(url, headers=_make_headers(lang), timeout=(10, 30))
-        resp.raise_for_status()
-    except Exception as exc:
-        print(f"  [sitemap] Failed to fetch {url}: {exc}")
-        return []
-
-    locs = re.findall(r"<loc>(.*?)</loc>", resp.text)
-    if not locs:
-        print(f"  [sitemap] No <loc> entries found in {url}")
-        return []
-
-    seen: set[str] = set()
-    paths: list[str] = []
-
-    for loc in locs:
-        path = loc.replace(base_url, "")
-        parts = path.strip("/").split("/")
-
-        if not parts or not parts[0]:
-            continue
-
-        top = "/" + parts[0]
-
-        # Skip known non-product sections
-        if top in NON_PRODUCT_PREFIXES:
-            continue
-
-        if len(parts) == 1:
-            # Depth-1: root category page (e.g. /nyheter, /bastsaljare)
-            candidate = top
-        elif len(parts) == 2:
-            # Depth-2: sub-category (e.g. /klader/byxor, /dam/jackor)
-            candidate = f"/{parts[0]}/{parts[1]}"
-        else:
-            # Depth-3+: individual product page — skip
-            continue
-
-        if candidate not in seen:
-            seen.add(candidate)
-            paths.append(candidate)
-
-    print(f"  [sitemap] Discovered {len(paths)} candidate category paths from {base_url}")
-    return sorted(paths)
+    return variants, total_hits, len(groups)
 
 
 # Minimum expected unique variants per market.  If a market returns fewer than
-# this after scraping all categories, a loud warning is printed.  This catches
-# silent failures (sitemap gone, site restructured, etc.).
+# this after fetching all categories, a loud warning is printed.  The Elevate
+# API typically returns ~13,000–16,000 variants per market; 10,000 is a safe
+# lower threshold that catches silent failures.
 MIN_EXPECTED_VARIANTS: dict[str, int] = {
-    "SE":  3000,
-    "DE":  3000,
-    "NO":  3000,
-    "UK":  3000,
-    "COM": 3000,
+    "SE":  10000,
+    "DE":  10000,
+    "NO":  10000,
+    "UK":  10000,
+    "COM": 10000,
 }
 
 
 def fetch_all_by_market() -> dict[str, dict[str, dict]]:
     """
-    Fetch variants for every configured market and category, handling pagination.
-
-    Category paths are discovered from the site's XML sitemap so new sections,
-    seasonal collections, and product lines are picked up automatically.
-    Falls back to hardcoded fallback_paths only if the sitemap is unreachable.
-
-    After scraping, a validation check warns if the number of variants found
-    is suspiciously low compared to MIN_EXPECTED_VARIANTS.
+    Fetch variants for every market using the Voyado Elevate API directly.
+    ~5–15 total requests across all markets (<30s) vs old ~600 requests (~40min).
 
     Returns
     -------
@@ -535,75 +258,41 @@ def fetch_all_by_market() -> dict[str, dict[str, dict]]:
     result: dict[str, dict[str, dict]] = {}
 
     for market_code, cfg in MARKETS.items():
-        base_url = cfg["base_url"]
-        lang     = cfg["lang"]
-
-        paths = discover_category_paths_from_sitemap(base_url, lang)
-        if paths:
-            print(f"\n[{market_code}] Discovered {len(paths)} category paths from {base_url} sitemap")
-        else:
-            paths = cfg["fallback_paths"]
-            print(f"\n[{market_code}] Sitemap discovery failed — using {len(paths)} fallback paths")
+        elevate_market = cfg["elevate_market"]
+        locale         = cfg["locale"]
+        customer_key   = str(uuid.uuid4())
+        session_key    = str(uuid.uuid4())
+        print(f"\n[{market_code}] Elevate API (market={elevate_market}, locale={locale})")
 
         market_variants: dict[str, dict] = {}
-        categories_with_products = 0
-        categories_skipped       = 0
 
-        for path in paths:
-            seen_in_category: set[str] = set()
-            category_had_products = False
-
-            for page in range(1, MAX_PAGES + 1):
-                primary_list = fetch_category_page(base_url, lang, path, page)
-                if primary_list is None:
-                    break
-
-                flat = primary_list.get("_flat", [])
-                pg_ref = primary_list.get("productGroups")
-                groups = _deref(flat, pg_ref) if pg_ref is not None else []
-                if not isinstance(groups, list) or not groups:
-                    break
-
-                page_variants = extract_variants(primary_list)
-                new_keys = set(page_variants) - seen_in_category
-                if page > 1 and not new_keys:
-                    break
-
-                seen_in_category.update(page_variants)
-                market_variants.update(page_variants)
-                category_had_products = True
-
-                total_hits = _deref(flat, primary_list.get("totalHits"))
-                print(
-                    f"  {path} p{page}: +{len(new_keys)} new "
-                    f"(cat: {len(seen_in_category)}, hits: {total_hits})"
+        for cat in ELEVATE_CATEGORIES:
+            skip, page = 0, 1
+            while True:
+                data = fetch_elevate_page(
+                    elevate_market, locale, cat, skip, customer_key, session_key
                 )
-
-                if len(groups) < MIN_GROUPS:
+                if data is None:
                     break
+                new_v, total_hits, pg_count = extract_variants_from_elevate(data)
+                market_variants.update(new_v)
+                print(
+                    f"  {cat} p{page}: +{len(new_v)} variants "
+                    f"[{skip}–{skip + pg_count}/{total_hits}]"
+                )
+                skip += pg_count
+                if skip >= total_hits or pg_count == 0:
+                    break
+                page += 1
 
-                time.sleep(REQUEST_DELAY_S)
-
-            if category_had_products:
-                categories_with_products += 1
-            else:
-                categories_skipped += 1
-
-            time.sleep(REQUEST_DELAY_S)
-
-        # Validation gate
-        min_expected = MIN_EXPECTED_VARIANTS.get(market_code, 1000)
         variant_count = len(market_variants)
+        min_expected  = MIN_EXPECTED_VARIANTS.get(market_code, 5000)
         status = "OK" if variant_count >= min_expected else "LOW"
-        print(
-            f"  [{market_code}] {variant_count:,} unique variants | "
-            f"{categories_with_products} categories w/ products | "
-            f"{categories_skipped} skipped | status: {status}"
-        )
+        print(f"  [{market_code}] {variant_count:,} unique variants | status: {status}")
         if status == "LOW":
             print(
-                f"  *** WARNING [{market_code}]: Only {variant_count:,} variants found "
-                f"(expected >= {min_expected:,}). Possible site change or fetch failure. ***"
+                f"  *** WARNING [{market_code}]: Only {variant_count:,} variants "
+                f"(expected >= {min_expected:,}). Possible API change or fetch failure. ***"
             )
 
         result[market_code] = market_variants

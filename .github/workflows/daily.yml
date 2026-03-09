@@ -92,7 +92,7 @@ jobs:
 
       - name: Run track_rvrc_inventory.py
         run: python ./scripts/track_rvrc_inventory.py
-        timeout-minutes: 60
+        timeout-minutes: 5
         continue-on-error: true
 
       - name: Commit & push generated data (if any)
@@ -149,7 +149,7 @@ jobs:
           DESCR[track_rugvista_daily_sales.py]="Diffs Rugvista top-seller API snapshots to estimate daily unit sales and revenue"
           DESCR[youtube_diy_trends.py]="Counts new 'Gaming PC Build' YouTube uploads in the past 7 days as a PC-demand signal (requires YOUTUBE_API_KEY)"
           DESCR[fetch_ted_procurements.py]="Fetches EU procurement notices for tracked companies from the public TED API; writes one Excel sheet per company"
-          DESCR[track_rvrc_inventory.py]="Diffs RevolutionRace variant-level stock across SE/DE/NO/UK markets to estimate daily units sold and SEK revenue"
+          DESCR[track_rvrc_inventory.py]="Diffs RevolutionRace variant-level stock across SE/DE/NO/UK/COM markets via Voyado Elevate API to estimate daily units sold and SEK revenue"
           DESCR[track_revolutionrace_reviews.py]="Diffs RevolutionRace review counts via GraphQL; estimates sales-activity proxy as price × new reviews"
 
           declare -A OUTFILE

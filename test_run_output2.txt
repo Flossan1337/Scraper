@@ -1,0 +1,666 @@
+[2026-03-09T11:45:32] RevolutionRace multi-market inventory tracker
+============================================================
+
+Fetching live FX rates ...
+  [FX] {'SEK': 1.0, 'EUR': 10.693, 'GBP': 12.334329184593912, 'NOK': 0.9570821212799284}
+
+Fetching inventory across all markets and categories ...
+  [sitemap] Discovered 129 candidate category paths from https://www.revolutionrace.se
+
+[SE] Discovered 129 category paths from https://www.revolutionrace.se sitemap
+  /accessoarer p1: +94 new (cat: 94, hits: 181)
+  /accessoarer/balten p1: +22 new (cat: 22, hits: 20)
+  /accessoarer/glasogon p1: +16 new (cat: 16, hits: 16)
+  /accessoarer/halsdukar p1: +8 new (cat: 8, hits: 7)
+  /accessoarer/handskar p1: +107 new (cat: 107, hits: 19)
+  /accessoarer/kladvard p1: +13 new (cat: 13, hits: 13)
+  /accessoarer/mossor-kepsar p1: +37 new (cat: 37, hits: 80)
+  /accessoarer/tillbehor p1: +19 new (cat: 19, hits: 17)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/aktiviteter/_payload.json
+  /aktiviteter/arbete-tradgard p1: +499 new (cat: 499, hits: 66)
+  /aktiviteter/camping p1: +445 new (cat: 445, hits: 196)
+  /aktiviteter/cykling p1: +298 new (cat: 298, hits: 65)
+  /aktiviteter/fiske p1: +644 new (cat: 644, hits: 68)
+  /aktiviteter/hundsport p1: +336 new (cat: 336, hits: 121)
+  /aktiviteter/hundsport p2: +176 new (cat: 512, hits: 121)
+  /aktiviteter/jakt-naturfotografering p1: +616 new (cat: 616, hits: 81)
+  /aktiviteter/langdakning p1: +301 new (cat: 301, hits: 56)
+  /aktiviteter/traillopning p1: +192 new (cat: 192, hits: 143)
+  /aktiviteter/traillopning p2: +218 new (cat: 410, hits: 143)
+  /aktiviteter/traning p1: +284 new (cat: 284, hits: 157)
+  /aktiviteter/utforsakning p1: +388 new (cat: 388, hits: 204)
+  /aktiviteter/vandring p1: +845 new (cat: 845, hits: 767)
+  /back-in-stock p1: +380 new (cat: 380, hits: 9)
+  /barn-ungdom p1: +148 new (cat: 148, hits: 45)
+  /barn-ungdom/byxor p1: +80 new (cat: 80, hits: 20)
+  /barn-ungdom/jackor p1: +52 new (cat: 52, hits: 13)
+  /barn-ungdom/trojor p1: +48 new (cat: 48, hits: 12)
+  /bastsaljare p1: +874 new (cat: 874, hits: 172)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/black-friday/_payload.json
+  /dam p1: +514 new (cat: 514, hits: 857)
+  /dam/byxor p1: +628 new (cat: 628, hits: 305)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/dam/hiball-pro-vent-jacket-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/dam/igloo-pants-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/dam/illusion-pants-women/_payload.json
+  /dam/jackor p1: +338 new (cat: 338, hits: 190)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/dam/radiation-fleece-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/dam/tornado-pants-women/_payload.json
+  /dam/trojor p1: +328 new (cat: 328, hits: 291)
+  /dam/underklader-strumpor p1: +214 new (cat: 214, hits: 53)
+  /dam/understall p1: +168 new (cat: 168, hits: 32)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/dam/zip-up-pants-women/_payload.json
+  /herr p1: +658 new (cat: 658, hits: 818)
+  /herr/byxor p1: +579 new (cat: 579, hits: 285)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/herr/hiball-pro-vent-jacket-men/_payload.json
+  /herr/jackor p1: +335 new (cat: 335, hits: 183)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/herr/responder-softshell-vest-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/herr/thunderball-jacket-men/_payload.json
+  /herr/trojor p1: +488 new (cat: 488, hits: 278)
+  /herr/underklader-strumpor p1: +141 new (cat: 141, hits: 42)
+  /herr/understall p1: +192 new (cat: 192, hits: 31)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/herr/zip-up-pants-men/_payload.json
+  /klader p1: +858 new (cat: 858, hits: 1723)
+  /klader/byxor p1: +686 new (cat: 686, hits: 610)
+  /klader/byxor p2: +28 new (cat: 714, hits: 610)
+  /klader/jackor p1: +435 new (cat: 435, hits: 404)
+  /klader/lager-pa-lager p1: +391 new (cat: 391, hits: 360)
+  /klader/regnklader p1: +437 new (cat: 437, hits: 138)
+  /klader/trojor p1: +392 new (cat: 392, hits: 581)
+  /klader/underklader-strumpor p1: +158 new (cat: 158, hits: 47)
+  /klader/understall p1: +264 new (cat: 264, hits: 63)
+  /klader/vinterklader p1: +423 new (cat: 423, hits: 104)
+  /nyheter p1: +458 new (cat: 458, hits: 223)
+  /outlet-se p1: +325 new (cat: 325, hits: 103)
+  /outlet-se/byxor p1: +347 new (cat: 347, hits: 28)
+  /outlet-se/jackor p1: +367 new (cat: 367, hits: 25)
+  /outlet-se/trojor p1: +426 new (cat: 426, hits: 41)
+  /outlet-se/utrustning-accessoarer p1: +77 new (cat: 77, hits: 9)
+  /presentshoppen p1: +557 new (cat: 557, hits: 556)
+  /presentshoppen/gifts-for-her p1: +425 new (cat: 425, hits: 119)
+  /presentshoppen/gifts-for-her p2: +32 new (cat: 457, hits: 119)
+  /presentshoppen/gifts-for-the-hiker p1: +414 new (cat: 414, hits: 140)
+  /presentshoppen/presenter-accessoarer p1: +104 new (cat: 104, hits: 80)
+  /presentshoppen/presenttips-till-camparen p1: +415 new (cat: 415, hits: 130)
+  /presentshoppen/presenttips-till-honom p1: +509 new (cat: 509, hits: 121)
+  /presentshoppen/presenttips-till-hundagare p1: +455 new (cat: 455, hits: 86)
+  /presentshoppen/presenttips-till-skidakaren p1: +303 new (cat: 303, hits: 67)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/rabatt-erbjudande/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/serier/_payload.json
+  /serier/accxel p1: +362 new (cat: 362, hits: 36)
+  /serier/arcade p1: +154 new (cat: 154, hits: 22)
+  /serier/atlas p1: +154 new (cat: 154, hits: 12)
+  /serier/cloud p1: +147 new (cat: 147, hits: 21)
+  /serier/cyclone p1: +191 new (cat: 191, hits: 23)
+  /serier/daytrek p1: +111 new (cat: 111, hits: 17)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/serier/hiball/_payload.json
+  /serier/nordwand p1: +420 new (cat: 420, hits: 40)
+  /serier/pace p1: +115 new (cat: 115, hits: 15)
+  /serier/pathfinder p1: +10 new (cat: 10, hits: 10)
+  /serier/rambler p1: +232 new (cat: 232, hits: 54)
+  /serier/rvrc-gp p1: +469 new (cat: 469, hits: 71)
+  /serier/silence p1: +221 new (cat: 221, hits: 29)
+  /serier/trailblaze p1: +84 new (cat: 84, hits: 13)
+  /serier/trekker p1: +16 new (cat: 16, hits: 4)
+  /serier/vector p1: +240 new (cat: 240, hits: 30)
+  /skor p1: +285 new (cat: 285, hits: 70)
+  /skor/dam p1: +216 new (cat: 216, hits: 36)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/daytrek-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/daytrek-walking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/daytrek-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/daytrek-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/ease-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/ease-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/forge-waterproof-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/forge-waterproof-walking-boots-women/_payload.json
+  /skor/herr p1: +233 new (cat: 233, hits: 38)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/phantom-trail-low-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/phantom-trail-low-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/phantom-trail-mid-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/phantom-trail-mid-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/rvrc-slides-unisex/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/trailblaze-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/trailblaze-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/trailblaze-waterproof-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/trailblaze-waterproof-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/trailknit-waterproof-hiking-sneakers-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/trailknit-waterproof-hiking-sneakers-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/trailknit-waterproof-mid-hiking-shoes-men-2-0/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/skor/trailknit-waterproof-mid-hiking-shoes-women-2-0/_payload.json
+  /sommarklader p1: +364 new (cat: 364, hits: 248)
+  /sommarklader/shorts p1: +411 new (cat: 411, hits: 56)
+  /sommarklader/sommaraccessoarer p1: +49 new (cat: 49, hits: 56)
+  /sommarklader/sommarbyxor p1: +291 new (cat: 291, hits: 26)
+  /sommarklader/sommartrojor p1: +192 new (cat: 192, hits: 18)
+  /sommarklader/t-shirts-linnen p1: +391 new (cat: 391, hits: 38)
+  /sommarklader/zip-off-byxor p1: +117 new (cat: 117, hits: 16)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/ultra/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/ultra/5-layer-system/_payload.json
+  /ultra/products p1: +174 new (cat: 174, hits: 44)
+  /vaskor-ryggsackar p1: +79 new (cat: 79, hits: 26)
+  /vaskor-ryggsackar/ryggsackar p1: +38 new (cat: 38, hits: 9)
+  /vaskor-ryggsackar/vaskor p1: +42 new (cat: 42, hits: 12)
+  /vaskor-ryggsackar/vasktillbehor p1: +15 new (cat: 15, hits: 5)
+  [SE] 8,682 unique variants | 90 categories w/ products | 39 skipped | status: OK
+  [sitemap] Discovered 128 candidate category paths from https://www.revolutionrace.de
+
+[DE] Discovered 128 category paths from https://www.revolutionrace.de sitemap
+  /accessoires p1: +50 new (cat: 50, hits: 181)
+  /accessoires/brillen p1: +16 new (cat: 16, hits: 16)
+  /accessoires/gurtel p1: +22 new (cat: 22, hits: 20)
+  /accessoires/handschuhe p1: +107 new (cat: 107, hits: 19)
+  /accessoires/kleidungspflege p1: +13 new (cat: 13, hits: 13)
+  /accessoires/mutzen-caps p1: +34 new (cat: 34, hits: 80)
+  /accessoires/schlauchschals p1: +8 new (cat: 8, hits: 7)
+  /accessoires/zubehor p1: +19 new (cat: 19, hits: 17)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/aktivitaten/_payload.json
+  /aktivitaten/angeln p1: +523 new (cat: 523, hits: 68)
+  /aktivitaten/arbeit-garten p1: +452 new (cat: 452, hits: 67)
+  /aktivitaten/camping p1: +479 new (cat: 479, hits: 199)
+  /aktivitaten/hundesport p1: +235 new (cat: 235, hits: 124)
+  /aktivitaten/jagd-naturfotografie p1: +644 new (cat: 644, hits: 81)
+  /aktivitaten/radfahren p1: +314 new (cat: 314, hits: 65)
+  /aktivitaten/ski p1: +438 new (cat: 438, hits: 204)
+  /aktivitaten/skilanglauf p1: +289 new (cat: 289, hits: 56)
+  /aktivitaten/trailrunning p1: +192 new (cat: 192, hits: 143)
+  /aktivitaten/training p1: +252 new (cat: 252, hits: 157)
+  /aktivitaten/wandern p1: +770 new (cat: 770, hits: 779)
+  /back-in-stock p1: +360 new (cat: 360, hits: 9)
+  /bekleidung p1: +637 new (cat: 637, hits: 1751)
+  /bekleidung/3-schichten-system p1: +499 new (cat: 499, hits: 365)
+  /bekleidung/funktionsunterwasche p1: +300 new (cat: 300, hits: 63)
+  /bekleidung/hosen p1: +611 new (cat: 611, hits: 621)
+  /bekleidung/jacken p1: +392 new (cat: 392, hits: 411)
+  /bekleidung/oberteile p1: +328 new (cat: 328, hits: 591)
+  /bekleidung/regenbekleidung p1: +419 new (cat: 419, hits: 142)
+  /bekleidung/unterwasche-socken p1: +130 new (cat: 130, hits: 47)
+  /bekleidung/winterkleidung p1: +361 new (cat: 361, hits: 106)
+  /bestsellers p1: +637 new (cat: 637, hits: 172)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/black-friday/_payload.json
+  /damen p1: +548 new (cat: 548, hits: 868)
+  /damen/funktionsunterwasche p1: +220 new (cat: 220, hits: 32)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/damen/hiball-pro-vent-jacket-women/_payload.json
+  /damen/hosen p1: +480 new (cat: 480, hits: 308)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/damen/igloo-pants-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/damen/illusion-pants-women/_payload.json
+  /damen/jacken p1: +317 new (cat: 317, hits: 192)
+  /damen/oberteile p1: +280 new (cat: 280, hits: 297)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/damen/radiation-fleece-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/damen/tornado-pants-women/_payload.json
+  /damen/unterwasche-socken p1: +183 new (cat: 183, hits: 53)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/damen/zip-up-pants-women/_payload.json
+  /gift-shop p1: +558 new (cat: 558, hits: 563)
+  /gift-shop/geschenkideen-accessoires p1: +99 new (cat: 99, hits: 80)
+  /gift-shop/geschenkideen-fur-camper p1: +369 new (cat: 369, hits: 134)
+  /gift-shop/geschenkideen-fur-hundebesitzer p1: +418 new (cat: 418, hits: 88)
+  /gift-shop/geschenkideen-fur-ihn p1: +606 new (cat: 606, hits: 121)
+  /gift-shop/geschenkideen-fur-sie p1: +511 new (cat: 511, hits: 120)
+  /gift-shop/geschenkideen-fur-skifahrer p1: +286 new (cat: 286, hits: 67)
+  /gift-shop/geschenkideen-fur-wanderer p1: +375 new (cat: 375, hits: 141)
+  /herren p1: +537 new (cat: 537, hits: 835)
+  /herren/funktionsunterwasche p1: +224 new (cat: 224, hits: 31)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/herren/hiball-pro-vent-jacket-men/_payload.json
+  /herren/hosen p1: +598 new (cat: 598, hits: 293)
+  /herren/jacken p1: +362 new (cat: 362, hits: 188)
+  /herren/oberteile p1: +496 new (cat: 496, hits: 282)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/herren/responder-softshell-vest-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/herren/thunderball-jacket-men/_payload.json
+  /herren/unterwasche-socken p1: +119 new (cat: 119, hits: 42)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/herren/zip-up-pants-men/_payload.json
+  /kinder-teens p1: +148 new (cat: 148, hits: 45)
+  /kinder-teens/hosen p1: +80 new (cat: 80, hits: 20)
+  /kinder-teens/jacken p1: +52 new (cat: 52, hits: 13)
+  /kinder-teens/oberteile p1: +48 new (cat: 48, hits: 12)
+  /neuheiten p1: +511 new (cat: 511, hits: 223)
+  /outlet p1: +445 new (cat: 445, hits: 144)
+  /outlet/hosen p1: +372 new (cat: 372, hits: 39)
+  /outlet/jacken p1: +405 new (cat: 405, hits: 36)
+  /outlet/oberteile p1: +497 new (cat: 497, hits: 58)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/rabattcode-angebote/_payload.json
+  /schuhe p1: +234 new (cat: 234, hits: 70)
+  /schuhe/damen p1: +186 new (cat: 186, hits: 36)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/daytrek-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/daytrek-walking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/daytrek-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/daytrek-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/ease-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/ease-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/forge-waterproof-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/forge-waterproof-walking-boots-women/_payload.json
+  /schuhe/herren p1: +196 new (cat: 196, hits: 38)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/phantom-trail-low-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/phantom-trail-low-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/phantom-trail-mid-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/phantom-trail-mid-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/rvrc-slides-unisex/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/trailblaze-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/trailblaze-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/trailblaze-waterproof-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/trailblaze-waterproof-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/trailknit-waterproof-hiking-sneakers-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/trailknit-waterproof-hiking-sneakers-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/trailknit-waterproof-mid-hiking-shoes-men-2-0/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/schuhe/trailknit-waterproof-mid-hiking-shoes-women-2-0/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/serien/_payload.json
+  /serien/accxel p1: +375 new (cat: 375, hits: 36)
+  /serien/arcade p1: +147 new (cat: 147, hits: 22)
+  /serien/atlas p1: +154 new (cat: 154, hits: 12)
+  /serien/cloud p1: +147 new (cat: 147, hits: 21)
+  /serien/cyclone p1: +198 new (cat: 198, hits: 23)
+  /serien/daytrek p1: +111 new (cat: 111, hits: 17)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/serien/hiball/_payload.json
+  /serien/nordwand p1: +372 new (cat: 372, hits: 40)
+  /serien/pace p1: +115 new (cat: 115, hits: 15)
+  /serien/pathfinder p1: +10 new (cat: 10, hits: 10)
+  /serien/rambler p1: +240 new (cat: 240, hits: 55)
+  /serien/rvrc-gp p1: +381 new (cat: 381, hits: 71)
+  /serien/silence p1: +229 new (cat: 229, hits: 31)
+  /serien/trailblaze p1: +84 new (cat: 84, hits: 13)
+  /serien/trekker p1: +16 new (cat: 16, hits: 4)
+  /serien/vector p1: +256 new (cat: 256, hits: 32)
+  /sommerkleidung p1: +447 new (cat: 447, hits: 252)
+  /sommerkleidung/shorts p1: +341 new (cat: 341, hits: 58)
+  /sommerkleidung/sommeraccessoires p1: +45 new (cat: 45, hits: 56)
+  /sommerkleidung/sommerhosen p1: +284 new (cat: 284, hits: 26)
+  /sommerkleidung/sommeroberteile p1: +192 new (cat: 192, hits: 18)
+  /sommerkleidung/t-shirts-tops p1: +407 new (cat: 407, hits: 40)
+  /sommerkleidung/zip-off-hosen p1: +117 new (cat: 117, hits: 16)
+  /taschen-rucksacke p1: +66 new (cat: 66, hits: 26)
+  /taschen-rucksacke/rucksacke p1: +35 new (cat: 35, hits: 9)
+  /taschen-rucksacke/taschen p1: +42 new (cat: 42, hits: 12)
+  /taschen-rucksacke/taschenzubehor p1: +15 new (cat: 15, hits: 5)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/ultra/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.de/ultra/5-layer-system/_payload.json
+  /ultra/products p1: +162 new (cat: 162, hits: 44)
+  [DE] 8,543 unique variants | 89 categories w/ products | 39 skipped | status: OK
+  [sitemap] Discovered 123 candidate category paths from https://www.revolutionrace.no
+
+[NO] Discovered 123 category paths from https://www.revolutionrace.no sitemap
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/aktiviteter/_payload.json
+  /aktiviteter/arbeid-hage p1: +432 new (cat: 432, hits: 66)
+  /aktiviteter/camping p1: +440 new (cat: 440, hits: 199)
+  /aktiviteter/fiske p1: +699 new (cat: 699, hits: 68)
+  /aktiviteter/hundesport p1: +174 new (cat: 174, hits: 122)
+  /aktiviteter/hundesport p2: +237 new (cat: 411, hits: 122)
+  /aktiviteter/jakt-naturfotografering p1: +596 new (cat: 596, hits: 81)
+  /aktiviteter/langrenn p1: +238 new (cat: 238, hits: 56)
+  /aktiviteter/skikjoring p1: +312 new (cat: 312, hits: 236)
+  /aktiviteter/sykling p1: +228 new (cat: 228, hits: 69)
+  /aktiviteter/terrengloping p1: +192 new (cat: 192, hits: 143)
+  /aktiviteter/trening p1: +260 new (cat: 260, hits: 157)
+  /aktiviteter/tur p1: +579 new (cat: 579, hits: 804)
+  /back-in-stock p1: +360 new (cat: 360, hits: 9)
+  /barn-junior p1: +120 new (cat: 120, hits: 45)
+  /barn-junior/bukser p1: +80 new (cat: 80, hits: 20)
+  /barn-junior/jakker p1: +52 new (cat: 52, hits: 13)
+  /barn-junior/overdeler p1: +48 new (cat: 48, hits: 12)
+  /bestsellers p1: +572 new (cat: 572, hits: 172)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/black-friday/_payload.json
+  /dame p1: +516 new (cat: 516, hits: 918)
+  /dame/bukser p1: +514 new (cat: 514, hits: 323)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/dame/hiball-pro-vent-jacket-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/dame/igloo-pants-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/dame/illusion-pants-women/_payload.json
+  /dame/jakker p1: +319 new (cat: 319, hits: 205)
+  /dame/overdeler p1: +440 new (cat: 440, hits: 318)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/dame/radiation-fleece-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/dame/tornado-pants-women/_payload.json
+  /dame/ull-superundertoy p1: +184 new (cat: 184, hits: 32)
+  /dame/undertoy-sokker p1: +198 new (cat: 198, hits: 56)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/dame/zip-up-pants-women/_payload.json
+  /gift-shop p1: +439 new (cat: 439, hits: 595)
+  /gift-shop/baveideer-for-skiloperen p1: +249 new (cat: 249, hits: 86)
+  /gift-shop/gaveideer-for-camperen p1: +429 new (cat: 429, hits: 140)
+  /gift-shop/gaveideer-for-ham p1: +533 new (cat: 533, hits: 121)
+  /gift-shop/gaveideer-for-henne p1: +264 new (cat: 264, hits: 119)
+  /gift-shop/gaveideer-for-hundeeiere p1: +432 new (cat: 432, hits: 86)
+  /gift-shop/gaveideer-tilbehor p1: +125 new (cat: 125, hits: 82)
+  /gift-shop/gifts-for-the-hiker p1: +315 new (cat: 315, hits: 150)
+  /herre p1: +425 new (cat: 425, hits: 861)
+  /herre/bukser p1: +411 new (cat: 411, hits: 302)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/herre/hiball-pro-vent-jacket-men/_payload.json
+  /herre/jakker p1: +291 new (cat: 291, hits: 194)
+  /herre/overdeler p1: +624 new (cat: 624, hits: 294)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/herre/responder-softshell-vest-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/herre/thunderball-jacket-men/_payload.json
+  /herre/ull-superundertoy p1: +168 new (cat: 168, hits: 31)
+  /herre/undertoy-sokker p1: +152 new (cat: 152, hits: 42)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/herre/zip-up-pants-men/_payload.json
+  /klaer p1: +537 new (cat: 537, hits: 1827)
+  /klaer/bukser p1: +445 new (cat: 445, hits: 645)
+  /klaer/jakker p1: +506 new (cat: 506, hits: 430)
+  /klaer/overdeler p1: +560 new (cat: 560, hits: 624)
+  /klaer/regntoy p1: +448 new (cat: 448, hits: 143)
+  /klaer/superundertoy-ullundertoy p1: +264 new (cat: 264, hits: 63)
+  /klaer/trelagsprinsippet p1: +474 new (cat: 474, hits: 365)
+  /klaer/undertoy-sokker p1: +162 new (cat: 162, hits: 48)
+  /klaer/vinterklaer p1: +308 new (cat: 308, hits: 121)
+  /nyheter p1: +564 new (cat: 564, hits: 223)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/rabattkode-tilbud/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/serier/_payload.json
+  /serier/accxel p1: +340 new (cat: 340, hits: 53)
+  /serier/arcade p1: +147 new (cat: 147, hits: 22)
+  /serier/atlas p1: +154 new (cat: 154, hits: 22)
+  /serier/cloud p1: +147 new (cat: 147, hits: 21)
+  /serier/cyclone p1: +191 new (cat: 191, hits: 24)
+  /serier/daytrek p1: +111 new (cat: 111, hits: 17)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/serier/hiball/_payload.json
+  /serier/nordwand p1: +321 new (cat: 321, hits: 40)
+  /serier/pace p1: +115 new (cat: 115, hits: 16)
+  /serier/pathfinder p1: +10 new (cat: 10, hits: 10)
+  /serier/rambler p1: +301 new (cat: 301, hits: 58)
+  /serier/rvrc-gp p1: +344 new (cat: 344, hits: 71)
+  /serier/silence p1: +213 new (cat: 213, hits: 29)
+  /serier/trailblaze p1: +84 new (cat: 84, hits: 13)
+  /serier/trekker p1: +16 new (cat: 16, hits: 4)
+  /serier/vector p1: +240 new (cat: 240, hits: 30)
+  /sko p1: +290 new (cat: 290, hits: 70)
+  /sko/dame p1: +192 new (cat: 192, hits: 36)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/daytrek-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/daytrek-walking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/daytrek-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/daytrek-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/ease-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/ease-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/forge-waterproof-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/forge-waterproof-walking-boots-women/_payload.json
+  /sko/herre p1: +212 new (cat: 212, hits: 38)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/phantom-trail-low-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/phantom-trail-low-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/phantom-trail-mid-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/phantom-trail-mid-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/rvrc-slides-unisex/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/trailblaze-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/trailblaze-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/trailblaze-waterproof-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/trailblaze-waterproof-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/trailknit-waterproof-hiking-sneakers-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/trailknit-waterproof-hiking-sneakers-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/trailknit-waterproof-mid-hiking-shoes-men-2-0/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/sko/trailknit-waterproof-mid-hiking-shoes-women-2-0/_payload.json
+  /sommerklaer p1: +466 new (cat: 466, hits: 264)
+  /sommerklaer/shorts p1: +411 new (cat: 411, hits: 59)
+  /sommerklaer/sommerbukser p1: +269 new (cat: 269, hits: 26)
+  /sommerklaer/sommerens-tilbehor p1: +55 new (cat: 55, hits: 57)
+  /sommerklaer/sommertopper p1: +192 new (cat: 192, hits: 18)
+  /sommerklaer/t-shirts-singletter p1: +391 new (cat: 391, hits: 50)
+  /sommerklaer/zip-off-bukser p1: +117 new (cat: 117, hits: 16)
+  /tilbehor p1: +48 new (cat: 48, hits: 187)
+  /tilbehor/belter p1: +22 new (cat: 22, hits: 20)
+  /tilbehor/briller p1: +16 new (cat: 16, hits: 16)
+  /tilbehor/halsvarmere p1: +9 new (cat: 9, hits: 9)
+  /tilbehor/hansker p1: +107 new (cat: 107, hits: 19)
+  /tilbehor/klespleie p1: +13 new (cat: 13, hits: 13)
+  /tilbehor/luer-capser p1: +34 new (cat: 34, hits: 85)
+  /tilbehor/utstyr p1: +19 new (cat: 19, hits: 17)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/ultra/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.no/ultra/5-layer-system/_payload.json
+  /ultra/products p1: +150 new (cat: 150, hits: 44)
+  /vesker-ryggsekker p1: +71 new (cat: 71, hits: 26)
+  /vesker-ryggsekker/ryggsekker p1: +35 new (cat: 35, hits: 9)
+  /vesker-ryggsekker/vesker p1: +38 new (cat: 38, hits: 12)
+  /vesker-ryggsekker/vesker-accessoirer p1: +15 new (cat: 15, hits: 5)
+  [NO] 7,450 unique variants | 85 categories w/ products | 38 skipped | status: OK
+  [sitemap] Discovered 124 candidate category paths from https://www.revolutionrace.co.uk
+
+[UK] Discovered 124 category paths from https://www.revolutionrace.co.uk sitemap
+  /accessories p1: +40 new (cat: 40, hits: 168)
+  /accessories/beanies-caps p1: +36 new (cat: 36, hits: 80)
+  /accessories/belts p1: +22 new (cat: 22, hits: 20)
+  /accessories/clothing-care p1: +13 new (cat: 13, hits: 13)
+  /accessories/eyewear p1: +3 new (cat: 3, hits: 3)
+  /accessories/gear p1: +19 new (cat: 19, hits: 17)
+  /accessories/gloves p1: +107 new (cat: 107, hits: 19)
+  /accessories/neck-warmers p1: +8 new (cat: 8, hits: 7)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/activities/_payload.json
+  /activities/alpine-skiing p1: +381 new (cat: 381, hits: 185)
+  /activities/biking p1: +259 new (cat: 259, hits: 56)
+  /activities/camping p1: +471 new (cat: 471, hits: 178)
+  /activities/cross-country-skiing p1: +325 new (cat: 325, hits: 53)
+  /activities/dog-sports p1: +278 new (cat: 278, hits: 124)
+  /activities/fishing p1: +666 new (cat: 666, hits: 66)
+  /activities/hiking p1: +638 new (cat: 638, hits: 743)
+  /activities/hunting-nature-photography p1: +580 new (cat: 580, hits: 81)
+  /activities/trail-running p1: +192 new (cat: 192, hits: 134)
+  /activities/training p1: +252 new (cat: 252, hits: 148)
+  /activities/work-garden p1: +552 new (cat: 552, hits: 63)
+  /back-in-stock p1: +360 new (cat: 360, hits: 9)
+  /bags-backpacks p1: +73 new (cat: 73, hits: 26)
+  /bags-backpacks/backpacks p1: +35 new (cat: 35, hits: 9)
+  /bags-backpacks/bag-accessories p1: +14 new (cat: 14, hits: 5)
+  /bags-backpacks/bags p1: +42 new (cat: 42, hits: 12)
+  /bestsellers p1: +623 new (cat: 623, hits: 171)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/black-friday/_payload.json
+  /clothing p1: +690 new (cat: 690, hits: 1690)
+  /clothing/3-layer-system p1: +493 new (cat: 493, hits: 358)
+  /clothing/base-layers p1: +302 new (cat: 302, hits: 63)
+  /clothing/jackets p1: +528 new (cat: 528, hits: 397)
+  /clothing/tops p1: +608 new (cat: 608, hits: 572)
+  /clothing/trousers p1: +704 new (cat: 704, hits: 596)
+  /clothing/underwear-socks p1: +163 new (cat: 163, hits: 47)
+  /clothing/waterproofs p1: +472 new (cat: 472, hits: 135)
+  /clothing/winter-clothes p1: +405 new (cat: 405, hits: 99)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/discount-code-deals/_payload.json
+  /gift-shop p1: +518 new (cat: 518, hits: 545)
+  /gift-shop/gift-ideas-accessories p1: +133 new (cat: 133, hits: 76)
+  /gift-shop/gift-ideas-for-her p1: +402 new (cat: 402, hits: 120)
+  /gift-shop/gift-ideas-for-him p1: +561 new (cat: 561, hits: 120)
+  /gift-shop/gift-ideas-for-the-camper p1: +385 new (cat: 385, hits: 134)
+  /gift-shop/gift-ideas-for-the-dog-owners p1: +455 new (cat: 455, hits: 81)
+  /gift-shop/gift-ideas-for-the-hiker p1: +352 new (cat: 352, hits: 128)
+  /gift-shop/gift-ideas-for-the-skier p1: +285 new (cat: 285, hits: 67)
+  /men p1: +666 new (cat: 666, hits: 828)
+  /men/base-layers p1: +200 new (cat: 200, hits: 31)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/men/hiball-pro-vent-jacket-men/_payload.json
+  /men/jackets p1: +277 new (cat: 277, hits: 188)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/men/responder-softshell-vest-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/men/thunderball-jacket-men/_payload.json
+  /men/tops p1: +544 new (cat: 544, hits: 278)
+  /men/trousers p1: +655 new (cat: 655, hits: 290)
+  /men/underwear-socks p1: +132 new (cat: 132, hits: 42)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/men/zip-up-pants-men/_payload.json
+  /new-in p1: +404 new (cat: 404, hits: 218)
+  /outlet p1: +422 new (cat: 422, hits: 124)
+  /outlet/jackets p1: +374 new (cat: 374, hits: 34)
+  /outlet/tops p1: +479 new (cat: 479, hits: 47)
+  /outlet/trousers p1: +312 new (cat: 312, hits: 35)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/series/_payload.json
+  /series/accxel p1: +368 new (cat: 368, hits: 30)
+  /series/arcade p1: +147 new (cat: 147, hits: 22)
+  /series/atlas p1: +154 new (cat: 154, hits: 12)
+  /series/cloud p1: +147 new (cat: 147, hits: 21)
+  /series/cyclone p1: +198 new (cat: 198, hits: 23)
+  /series/daytrek p1: +111 new (cat: 111, hits: 17)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/series/hiball/_payload.json
+  /series/nordwand p1: +321 new (cat: 321, hits: 40)
+  /series/pace p1: +115 new (cat: 115, hits: 15)
+  /series/pathfinder p1: +10 new (cat: 10, hits: 10)
+  /series/rambler p1: +232 new (cat: 232, hits: 48)
+  /series/rvrc-gp p1: +350 new (cat: 350, hits: 71)
+  /series/silence p1: +229 new (cat: 229, hits: 31)
+  /series/trailblaze p1: +84 new (cat: 84, hits: 13)
+  /series/vector p1: +216 new (cat: 216, hits: 32)
+  /shoes p1: +275 new (cat: 275, hits: 70)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/daytrek-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/daytrek-walking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/daytrek-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/daytrek-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/ease-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/ease-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/forge-waterproof-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/forge-waterproof-walking-boots-women/_payload.json
+  /shoes/men p1: +239 new (cat: 239, hits: 38)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/phantom-trail-low-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/phantom-trail-low-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/phantom-trail-mid-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/phantom-trail-mid-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/rvrc-slides-unisex/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/trailblaze-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/trailblaze-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/trailblaze-waterproof-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/trailblaze-waterproof-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/trailknit-waterproof-hiking-sneakers-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/trailknit-waterproof-hiking-sneakers-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/trailknit-waterproof-mid-hiking-shoes-men-2-0/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/shoes/trailknit-waterproof-mid-hiking-shoes-women-2-0/_payload.json
+  /shoes/women p1: +216 new (cat: 216, hits: 36)
+  /summer-clothing p1: +499 new (cat: 499, hits: 241)
+  /summer-clothing/shorts p1: +329 new (cat: 329, hits: 58)
+  /summer-clothing/summer-accessories p1: +42 new (cat: 42, hits: 45)
+  /summer-clothing/summer-tops p1: +192 new (cat: 192, hits: 18)
+  /summer-clothing/summer-trousers p1: +284 new (cat: 284, hits: 26)
+  /summer-clothing/t-shirts-vest-tops p1: +392 new (cat: 392, hits: 40)
+  /summer-clothing/zip-off-trousers p1: +117 new (cat: 117, hits: 16)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/ultra/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/ultra/5-layer-system/_payload.json
+  /ultra/products p1: +168 new (cat: 168, hits: 44)
+  /women p1: +509 new (cat: 509, hits: 862)
+  /women/base-layers p1: +194 new (cat: 194, hits: 32)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/women/hiball-pro-vent-jacket-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/women/igloo-pants-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/women/illusion-pants-women/_payload.json
+  /women/jackets p1: +341 new (cat: 341, hits: 191)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/women/radiation-fleece-women/_payload.json
+  /women/tops p1: +408 new (cat: 408, hits: 294)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/women/tornado-pants-women/_payload.json
+  /women/trousers p1: +379 new (cat: 379, hits: 306)
+  /women/underwear-socks p1: +166 new (cat: 166, hits: 53)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.co.uk/women/zip-up-pants-women/_payload.json
+  [UK] 7,895 unique variants | 84 categories w/ products | 40 skipped | status: OK
+  [sitemap] Discovered 115 candidate category paths from https://www.revolutionrace.com
+
+[COM] Discovered 115 category paths from https://www.revolutionrace.com sitemap
+  /accessories p1: +65 new (cat: 65, hits: 168)
+  /accessories/beanies-caps p1: +41 new (cat: 41, hits: 82)
+  /accessories/belts p1: +22 new (cat: 22, hits: 20)
+  /accessories/clothing-care p1: +13 new (cat: 13, hits: 13)
+  /accessories/eyewear p1: +3 new (cat: 3, hits: 3)
+  /accessories/gear p1: +14 new (cat: 14, hits: 14)
+  /accessories/gloves p1: +107 new (cat: 107, hits: 19)
+  /accessories/neck-gaiters p1: +9 new (cat: 9, hits: 9)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/activities/_payload.json
+  /activities/alpine-skiing p1: +449 new (cat: 449, hits: 219)
+  /activities/biking p1: +288 new (cat: 288, hits: 60)
+  /activities/camping p1: +462 new (cat: 462, hits: 159)
+  /activities/cross-country-skiing p1: +309 new (cat: 309, hits: 53)
+  /activities/dog-sports p1: +235 new (cat: 235, hits: 112)
+  /activities/fishing p1: +684 new (cat: 684, hits: 64)
+  /activities/hiking p1: +633 new (cat: 633, hits: 780)
+  /activities/hunting-nature-photography p1: +535 new (cat: 535, hits: 79)
+  /activities/trail-running p1: +192 new (cat: 192, hits: 132)
+  /activities/training p1: +228 new (cat: 228, hits: 148)
+  /activities/work-garden p1: +455 new (cat: 455, hits: 63)
+  /back-in-stock p1: +375 new (cat: 375, hits: 8)
+  /bags-backpacks p1: +10 new (cat: 10, hits: 10)
+  /bags-backpacks/backpacks p1: +10 new (cat: 10, hits: 3)
+  /bestsellers p1: +423 new (cat: 423, hits: 171)
+  /clothing p1: +382 new (cat: 382, hits: 1777)
+  /clothing/3-layer-system p1: +717 new (cat: 717, hits: 368)
+  /clothing/base-layers p1: +272 new (cat: 272, hits: 63)
+  /clothing/jackets p1: +567 new (cat: 567, hits: 429)
+  /clothing/pants p1: +366 new (cat: 366, hits: 631)
+  /clothing/rainwear p1: +486 new (cat: 486, hits: 145)
+  /clothing/tops p1: +664 new (cat: 664, hits: 622)
+  /clothing/underwear-socks p1: +134 new (cat: 134, hits: 48)
+  /clothing/winter-clothing p1: +510 new (cat: 510, hits: 118)
+  /gift-shop p1: +443 new (cat: 443, hits: 540)
+  /gift-shop/gift-ideas-accessories p1: +115 new (cat: 115, hits: 58)
+  /gift-shop/gift-ideas-for-her p1: +413 new (cat: 413, hits: 107)
+  /gift-shop/gift-ideas-for-him p1: +614 new (cat: 614, hits: 108)
+  /gift-shop/gift-ideas-for-the-camper p1: +323 new (cat: 323, hits: 115)
+  /gift-shop/gift-ideas-for-the-dog-owners p1: +500 new (cat: 500, hits: 74)
+  /gift-shop/gift-ideas-for-the-hiker p1: +465 new (cat: 465, hits: 120)
+  /gift-shop/gift-ideas-for-the-skier p1: +367 new (cat: 367, hits: 89)
+  /men p1: +258 new (cat: 258, hits: 873)
+  /men/base-layers p1: +216 new (cat: 216, hits: 31)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/men/hiball-pro-vent-jacket-men/_payload.json
+  /men/jackets p1: +496 new (cat: 496, hits: 204)
+  /men/pants p1: +266 new (cat: 266, hits: 304)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/men/responder-softshell-vest-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/men/thunderball-jacket-men/_payload.json
+  /men/tops p1: +562 new (cat: 562, hits: 292)
+  /men/underwear-socks p1: +120 new (cat: 120, hits: 42)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/men/zip-up-pants-men/_payload.json
+  /new-in p1: +335 new (cat: 335, hits: 218)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/series/_payload.json
+  /series/accxel p1: +368 new (cat: 368, hits: 49)
+  /series/arcade p1: +147 new (cat: 147, hits: 22)
+  /series/atlas p1: +154 new (cat: 154, hits: 22)
+  /series/cloud p1: +147 new (cat: 147, hits: 21)
+  /series/cyclone p1: +198 new (cat: 198, hits: 25)
+  /series/daytrek p1: +111 new (cat: 111, hits: 17)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/series/hiball/_payload.json
+  /series/nordwand p1: +370 new (cat: 370, hits: 40)
+  /series/pace p1: +115 new (cat: 115, hits: 16)
+  /series/pathfinder p1: +10 new (cat: 10, hits: 10)
+  /series/rambler p1: +311 new (cat: 311, hits: 52)
+  /series/rvrc-gp p1: +285 new (cat: 285, hits: 71)
+  /series/silence p1: +229 new (cat: 229, hits: 31)
+  /series/trailblaze p1: +84 new (cat: 84, hits: 13)
+  /series/trekker p1: +8 new (cat: 8, hits: 1)
+  /series/vector p1: +216 new (cat: 216, hits: 32)
+  /shoes p1: +329 new (cat: 329, hits: 71)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/daytrek-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/daytrek-walking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/daytrek-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/daytrek-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/ease-walking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/ease-walking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/forge-waterproof-walking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/forge-waterproof-walking-boots-women/_payload.json
+  /shoes/men p1: +239 new (cat: 239, hits: 39)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/phantom-trail-low-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/phantom-trail-low-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/phantom-trail-mid-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/phantom-trail-mid-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/rvrc-slides-unisex/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/trailblaze-waterproof-hiking-boots-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/trailblaze-waterproof-hiking-boots-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/trailblaze-waterproof-hiking-shoes-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/trailblaze-waterproof-hiking-shoes-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/trailknit-waterproof-hiking-sneakers-men/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/trailknit-waterproof-hiking-sneakers-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/trailknit-waterproof-mid-hiking-shoes-men-2-0/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/shoes/trailknit-waterproof-mid-hiking-shoes-women-2-0/_payload.json
+  /shoes/women p1: +192 new (cat: 192, hits: 36)
+  /summer-clothing p1: +627 new (cat: 627, hits: 225)
+  /summer-clothing/shorts p1: +318 new (cat: 318, hits: 60)
+  /summer-clothing/summer-accessories p1: +27 new (cat: 27, hits: 15)
+  /summer-clothing/summer-pants p1: +284 new (cat: 284, hits: 26)
+  /summer-clothing/summer-tops p1: +192 new (cat: 192, hits: 18)
+  /summer-clothing/t-shirts-tank-tops p1: +432 new (cat: 432, hits: 52)
+  /summer-clothing/zip-off-pants p1: +117 new (cat: 117, hits: 16)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/ultra/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/ultra/5-layer-system/_payload.json
+  /ultra/products p1: +138 new (cat: 138, hits: 44)
+  /women p1: +464 new (cat: 464, hits: 935)
+  /women/base-layers p1: +210 new (cat: 210, hits: 32)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/women/hiball-pro-vent-jacket-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/women/igloo-pants-women/_payload.json
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/women/illusion-pants-women/_payload.json
+  /women/jackets p1: +452 new (cat: 452, hits: 207)
+  /women/pants p1: +401 new (cat: 401, hits: 328)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/women/radiation-fleece-women/_payload.json
+  /women/tops p1: +504 new (cat: 504, hits: 331)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/women/tornado-pants-women/_payload.json
+  /women/underwear-socks p1: +137 new (cat: 137, hits: 57)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.com/women/zip-up-pants-women/_payload.json
+  [COM] 7,669 unique variants | 79 categories w/ products | 36 skipped | status: OK
+
+Total variants fetched across all markets: 40,239
+
+Computing sales delta vs. previous snapshot ...
+  Est. units sold       : 4,262
+  Est. sell revenue     : 4,564,835 SEK
+  Est. list revenue     : 4,565,045 SEK
+  Variants w/ sales     : 1,944 / 40,239
+  [SE] 624 units | 633,636 SEK sell | 633,846 SEK list | 8,682 variants
+  [DE] 1,411 units | 1,490,080 SEK sell | 1,490,080 SEK list | 8,543 variants
+  [NO] 466 units | 519,537 SEK sell | 519,537 SEK list | 7,450 variants
+  [UK] 1,007 units | 1,014,388 SEK sell | 1,014,388 SEK list | 7,895 variants
+  [COM] 754 units | 907,194 SEK sell | 907,194 SEK list | 7,669 variants
+
+  State saved -> rvrc_inventory_state.json
+Writing Excel ...
+  Saved -> C:\Users\JacobBenon\OneDrive - Redeye\Övrigt - Privat\GitHub\Scraper\data\rvrc_inventory.xlsx
+
+Done.
