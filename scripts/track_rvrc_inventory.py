@@ -31,35 +31,22 @@ The payload is a flat-array (@ nuxt/devalue format).  flat[2] is a nav dict that
 contains a key "Elevate Category Products <english-name>" pointing to the index
 of the page object, which holds primaryList → productGroups → products → variants.
 
-Confirmed working category paths
----------------------------------
-SE (all /klader/ superset — covers men + women + unisex):
-  /klader/byxor               610 products  (pants)
-  /klader/jackor              405 products  (jackets)
-  /klader/trojor              582 products  (tops / hoodies / fleece)
-  /klader/lager-pa-lager      360 products  (mid-layer / layering)
-  /klader/regnklader          138 products  (rain gear)
-  /klader/vinterklader        104 products  (winter clothing)
-  /klader/understall           63 products  (base layers)
-  /klader/underklader-strumpor 47 products  (underwear & socks)
+Category discovery
+------------------
+Rather than maintaining hardcoded category lists, the script auto-discovers
+category paths at runtime via discover_category_paths().  For each market a
+set of top-level "path roots" is configured (e.g. "/klader", "/skor",
+"/accessoarer" for SE).  The function fetches /{base_url}/_payload.json and
+regex-extracts all direct child paths under each root, so new categories RVRC
+adds (new product lines, shoe launches, etc.) are automatically included the
+next day.  Hardcoded fallback_paths are used only if discovery fails.
 
-DE (all /bekleidung/ superset — each is a superset of its SE equivalent):
-  /bekleidung/hosen           621 products  (pants)
-  /bekleidung/jacken          412 products  (jackets)
-  /bekleidung/regenbekleidung 142 products  (rain gear)
-  /bekleidung/oberteile       591 products  (tops / hoodies / fleece)
-
-NO (confirmed via /_payload.json):
-  /klaer/bukser                       (pants)
-  /klaer/jakker                       (jackets)
-  /klaer/regntoy                      (rain gear)
-  /klaer/superundertoy-ullundertoy    (base layers / wool underwear)
-
-UK (confirmed via /_payload.json):
-  /clothing/trousers                  (pants)
-  /clothing/jackets                   (jackets)
-  /clothing/waterproofs               (rain gear)
-  /clothing/tops                      (tops)
+Configured path roots per market:
+  SE : /klader, /skor, /accessoarer
+  DE : /bekleidung, /schuhe, /accessoires
+  NO : /klaer, /sko, /tilbehor
+  UK : /clothing, /footwear, /accessories
+  COM: /clothing, /footwear, /accessories
 
 Products appearing in multiple categories (e.g. a fleece jacket in both
 /jackor and /lager-pa-lager, or in both SE and DE) are keyed by variant_key so
@@ -71,6 +58,7 @@ Excel output: data/rvrc_inventory.xlsx
 """
 
 import json
+import re
 import time
 from datetime import date, datetime
 from pathlib import Path
@@ -87,36 +75,42 @@ from openpyxl.utils import get_column_letter
 
 MARKETS: dict[str, dict] = {
     "SE": {
-        "base_url": "https://www.revolutionrace.se",
-        "currency": "SEK",
-        "lang":     "sv-SE",
-        "paths": [
-            "/klader/byxor",                # 610 products
-            "/klader/jackor",               # 405 products
-            "/klader/trojor",               # 582 products
-            "/klader/lager-pa-lager",       # 360 products
-            "/klader/regnklader",           # 138 products
-            "/klader/vinterklader",         # 104 products
-            "/klader/understall",           #  63 products
-            "/klader/underklader-strumpor", #  47 products
+        "base_url":       "https://www.revolutionrace.se",
+        "currency":       "SEK",
+        "lang":           "sv-SE",
+        # Top-level site sections to search for sub-categories.
+        # discover_category_paths() extracts all 2nd-level paths under each root
+        # from the live nav payload — picks up new categories automatically.
+        "path_roots":     ["/klader", "/skor", "/accessoarer"],
+        "fallback_paths": [
+            "/klader/byxor",
+            "/klader/jackor",
+            "/klader/trojor",
+            "/klader/lager-pa-lager",
+            "/klader/regnklader",
+            "/klader/vinterklader",
+            "/klader/understall",
+            "/klader/underklader-strumpor",
         ],
     },
     "DE": {
-        "base_url": "https://www.revolutionrace.de",
-        "currency": "EUR",
-        "lang":     "de-DE",
-        "paths": [
-            "/bekleidung/hosen",            # 621 products (superset of SE /klader/byxor)
-            "/bekleidung/jacken",           # 412 products
-            "/bekleidung/regenbekleidung",  # 142 products
-            "/bekleidung/oberteile",        # 591 products
+        "base_url":       "https://www.revolutionrace.de",
+        "currency":       "EUR",
+        "lang":           "de-DE",
+        "path_roots":     ["/bekleidung", "/schuhe", "/accessoires"],
+        "fallback_paths": [
+            "/bekleidung/hosen",
+            "/bekleidung/jacken",
+            "/bekleidung/regenbekleidung",
+            "/bekleidung/oberteile",
         ],
     },
     "NO": {
-        "base_url": "https://www.revolutionrace.no",
-        "currency": "NOK",
-        "lang":     "nb-NO",
-        "paths": [
+        "base_url":       "https://www.revolutionrace.no",
+        "currency":       "NOK",
+        "lang":           "nb-NO",
+        "path_roots":     ["/klaer", "/sko", "/tilbehor"],
+        "fallback_paths": [
             "/klaer/bukser",
             "/klaer/jakker",
             "/klaer/regntoy",
@@ -124,10 +118,11 @@ MARKETS: dict[str, dict] = {
         ],
     },
     "UK": {
-        "base_url": "https://www.revolutionrace.co.uk",
-        "currency": "GBP",
-        "lang":     "en-GB",
-        "paths": [
+        "base_url":       "https://www.revolutionrace.co.uk",
+        "currency":       "GBP",
+        "lang":           "en-GB",
+        "path_roots":     ["/clothing", "/footwear", "/accessories"],
+        "fallback_paths": [
             "/clothing/trousers",
             "/clothing/jackets",
             "/clothing/waterproofs",
@@ -136,16 +131,15 @@ MARKETS: dict[str, dict] = {
     },
     # 31 remaining countries (AU, CH, FI, DK, FR, NL, CA, US, JP, etc.) all
     # shop via revolutionrace.com — a single shared stock pool for all of them.
-    # Prices are in USD for non-EUR/non-local countries; we convert via EUR as
-    # a proxy (USD ≈ EUR for rough SEK estimates).
     "COM": {
-        "base_url": "https://www.revolutionrace.com",
-        "currency": "EUR",
-        "lang":     "en-US",
-        "paths": [
+        "base_url":       "https://www.revolutionrace.com",
+        "currency":       "EUR",
+        "lang":           "en-US",
+        "path_roots":     ["/clothing", "/footwear", "/accessories"],
+        "fallback_paths": [
             "/clothing/jackets",
             "/clothing/tops",
-            "/clothing",
+            "/clothing/trousers",
             "/clothing/base-layers",
         ],
     },
@@ -412,9 +406,54 @@ def extract_variants(primary_list: dict) -> dict[str, dict]:
     return results
 
 
+def discover_category_paths(base_url: str, lang: str, path_roots: list[str]) -> list[str]:
+    """
+    Auto-discover product-listing category paths for a market.
+
+    For each root in path_roots (e.g. '/klader', '/skor') fetches that root's
+    own page payload ({root}/_payload.json) and regex-extracts all direct child
+    paths of the form '{root}/{slug}'.  Fetching the root page (rather than the
+    homepage) ensures even low-prominence categories are found — the homepage
+    nav omits some sub-categories while the root category page links to all of
+    them in its sidebar/facet nav.
+
+    Returns a deduplicated list of paths, ordered by root then alphabetically.
+    Returns [] on complete failure so the caller can fall back to hardcoded paths.
+    """
+    seen: set[str] = set()
+    paths: list[str] = []
+
+    for root in path_roots:
+        url = f"{base_url}{root}/_payload.json?__idx=0"
+        try:
+            resp = requests.get(url, headers=_make_headers(lang), timeout=(10, 30))
+            resp.raise_for_status()
+        except Exception as exc:
+            print(f"  [discover] {root} payload failed: {exc}")
+            continue
+
+        raw = resp.text
+        escaped = re.escape(root)
+        # Match "{root}/{slug}" with no further slashes — direct children only.
+        pattern = rf'"{escaped}/([a-z0-9][a-z0-9-]*)"'
+        for slug in sorted(set(re.findall(pattern, raw))):
+            full = f"{root}/{slug}"
+            if full not in seen:
+                paths.append(full)
+                seen.add(full)
+
+        time.sleep(REQUEST_DELAY_S)
+
+    return paths
+
+
 def fetch_all_by_market() -> dict[str, dict[str, dict]]:
     """
     Fetch variants for every configured market and category, handling pagination.
+
+    Category paths are discovered dynamically from the live site nav payload
+    (discover_category_paths) so new categories are picked up automatically.
+    Falls back to hardcoded fallback_paths if discovery fails.
 
     Returns
     -------
@@ -425,10 +464,17 @@ def fetch_all_by_market() -> dict[str, dict[str, dict]]:
     for market_code, cfg in MARKETS.items():
         base_url = cfg["base_url"]
         lang     = cfg["lang"]
-        print(f"\n[{market_code}] Scraping {len(cfg['paths'])} categories from {base_url} ...")
+
+        paths = discover_category_paths(base_url, lang, cfg["path_roots"])
+        if paths:
+            print(f"\n[{market_code}] Discovered {len(paths)} categories from {base_url} ...")
+        else:
+            paths = cfg["fallback_paths"]
+            print(f"\n[{market_code}] Discovery failed — using {len(paths)} fallback categories from {base_url} ...")
+
         market_variants: dict[str, dict] = {}
 
-        for path in cfg["paths"]:
+        for path in paths:
             print(f"  {path} ...")
             seen_in_category: set[str] = set()
 
