@@ -1,0 +1,34 @@
+[2026-03-09T11:29:04] RevolutionRace multi-market inventory tracker
+============================================================
+
+Fetching live FX rates ...
+  [FX] {'SEK': 1.0, 'EUR': 10.693, 'GBP': 12.334329184593912, 'NOK': 0.9570821212799284}
+
+Fetching inventory across all markets and categories ...
+  [sitemap] Discovered 129 candidate category paths from https://www.revolutionrace.se
+
+[SE] Discovered 129 category paths from https://www.revolutionrace.se sitemap
+  /accessoarer p1: +94 new (cat: 94, hits: 181)
+  /accessoarer/balten p1: +22 new (cat: 22, hits: 20)
+  /accessoarer/glasogon p1: +16 new (cat: 16, hits: 16)
+  /accessoarer/halsdukar p1: +8 new (cat: 8, hits: 7)
+  /accessoarer/handskar p1: +107 new (cat: 107, hits: 19)
+  /accessoarer/kladvard p1: +13 new (cat: 13, hits: 13)
+  /accessoarer/mossor-kepsar p1: +37 new (cat: 37, hits: 80)
+  /accessoarer/tillbehor p1: +19 new (cat: 19, hits: 17)
+    [WARN] No Elevate primaryList found in https://www.revolutionrace.se/aktiviteter/_payload.json
+  /aktiviteter/arbete-tradgard p1: +499 new (cat: 499, hits: 66)
+  /aktiviteter/camping p1: +445 new (cat: 445, hits: 196)
+  /aktiviteter/cykling p1: +298 new (cat: 298, hits: 65)
+  /aktiviteter/fiske p1: +644 new (cat: 644, hits: 68)
+  /aktiviteter/hundsport p1: +336 new (cat: 336, hits: 121)
+  /aktiviteter/hundsport p2: +176 new (cat: 512, hits: 121)
+  /aktiviteter/jakt-naturfotografering p1: +616 new (cat: 616, hits: 81)
+  /aktiviteter/langdakning p1: +301 new (cat: 301, hits: 56)
+  /aktiviteter/traillopning p1: +192 new (cat: 192, hits: 143)
+  /aktiviteter/traillopning p2: +218 new (cat: 410, hits: 143)
+  /aktiviteter/traning p1: +284 new (cat: 284, hits: 157)
+  /aktiviteter/utforsakning p1: +388 new (cat: 388, hits: 204)
+  /aktiviteter/vandring p1: +845 new (cat: 845, hits: 767)
+  /back-in-stock p1: +380 new (cat: 380, hits: 9)
+  /barn-ungdom p1: +148 new (cat: 148, hits: 45)

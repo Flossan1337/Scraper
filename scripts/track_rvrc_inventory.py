@@ -34,19 +34,19 @@ of the page object, which holds primaryList → productGroups → products → v
 Category discovery
 ------------------
 Rather than maintaining hardcoded category lists, the script auto-discovers
-category paths at runtime via discover_category_paths().  For each market a
-set of top-level "path roots" is configured (e.g. "/klader", "/skor",
-"/accessoarer" for SE).  The function fetches /{base_url}/_payload.json and
-regex-extracts all direct child paths under each root, so new categories RVRC
-adds (new product lines, shoe launches, etc.) are automatically included the
-next day.  Hardcoded fallback_paths are used only if discovery fails.
+category paths at runtime via discover_category_paths_from_sitemap().  For
+each market, the function fetches /sitemap.axd?page=1 (an XML sitemap exposed
+by every RVRC domain) and extracts all depth-1 and depth-2 URL paths.  It
+then filters out known non-product prefixes (customer service, legal pages,
+etc.) and keeps only paths that could carry product listings.  This means
+when RVRC adds a new top-level section, product line, or seasonal collection,
+the script discovers it automatically on the next run.
 
-Configured path roots per market:
-  SE : /klader, /skor, /accessoarer
-  DE : /bekleidung, /schuhe, /accessoires
-  NO : /klaer, /sko, /tilbehor
-  UK : /clothing, /footwear, /accessories
-  COM: /clothing, /footwear, /accessories
+The actual product test happens at fetch time: categories whose /_payload.json
+lacks the "Elevate Category Products" key are silently skipped (1 WARN log).
+
+Fallback: if the sitemap fetch fails entirely, a generous set of hardcoded
+fallback_paths is used so the script still produces a snapshot.
 
 Products appearing in multiple categories (e.g. a fleece jacket in both
 /jackor and /lager-pa-lager, or in both SE and DE) are keyed by variant_key so
@@ -78,55 +78,65 @@ MARKETS: dict[str, dict] = {
         "base_url":       "https://www.revolutionrace.se",
         "currency":       "SEK",
         "lang":           "sv-SE",
-        # Top-level site sections to search for sub-categories.
-        # discover_category_paths() extracts all 2nd-level paths under each root
-        # from the live nav payload — picks up new categories automatically.
-        "path_roots":     ["/klader", "/skor", "/accessoarer"],
         "fallback_paths": [
-            "/klader/byxor",
-            "/klader/jackor",
-            "/klader/trojor",
-            "/klader/lager-pa-lager",
-            "/klader/regnklader",
-            "/klader/vinterklader",
-            "/klader/understall",
-            "/klader/underklader-strumpor",
+            "/klader/byxor", "/klader/jackor", "/klader/trojor",
+            "/klader/lager-pa-lager", "/klader/regnklader", "/klader/vinterklader",
+            "/klader/understall", "/klader/underklader-strumpor",
+            "/dam/byxor", "/dam/jackor", "/dam/trojor", "/dam/understall",
+            "/herr/byxor", "/herr/jackor", "/herr/trojor", "/herr/understall",
+            "/skor/dam", "/skor/herr",
+            "/accessoarer/handskar", "/accessoarer/mossor-kepsar",
+            "/barn-ungdom/byxor", "/barn-ungdom/jackor",
+            "/vaskor-ryggsackar/ryggsackar", "/vaskor-ryggsackar/vaskor",
+            "/outlet-se/byxor", "/outlet-se/jackor",
+            "/sommarklader/shorts", "/sommarklader/sommarbyxor",
+            "/ultra/products",
         ],
     },
     "DE": {
         "base_url":       "https://www.revolutionrace.de",
         "currency":       "EUR",
         "lang":           "de-DE",
-        "path_roots":     ["/bekleidung", "/schuhe", "/accessoires"],
         "fallback_paths": [
-            "/bekleidung/hosen",
-            "/bekleidung/jacken",
-            "/bekleidung/regenbekleidung",
-            "/bekleidung/oberteile",
+            "/bekleidung/hosen", "/bekleidung/jacken",
+            "/bekleidung/regenbekleidung", "/bekleidung/oberteile",
+            "/damen/hosen", "/damen/jacken",
+            "/herren/hosen", "/herren/jacken",
+            "/schuhe/damen", "/schuhe/herren",
+            "/accessoires/handschuhe", "/accessoires/mutzen-caps",
+            "/kinder-teens/hosen", "/kinder-teens/jacken",
+            "/taschen-rucksacke/rucksacke",
+            "/outlet/hosen", "/outlet/jacken",
         ],
     },
     "NO": {
         "base_url":       "https://www.revolutionrace.no",
         "currency":       "NOK",
         "lang":           "nb-NO",
-        "path_roots":     ["/klaer", "/sko", "/tilbehor"],
         "fallback_paths": [
-            "/klaer/bukser",
-            "/klaer/jakker",
-            "/klaer/regntoy",
-            "/klaer/superundertoy-ullundertoy",
+            "/klaer/bukser", "/klaer/jakker",
+            "/klaer/regntoy", "/klaer/superundertoy-ullundertoy",
+            "/dame/bukser", "/dame/jakker",
+            "/herre/bukser", "/herre/jakker",
+            "/sko/dame", "/sko/herre",
+            "/tilbehor/hansker", "/tilbehor/luer-capser",
+            "/barn-junior/bukser", "/barn-junior/jakker",
+            "/vesker-ryggsekker/ryggsekker",
         ],
     },
     "UK": {
         "base_url":       "https://www.revolutionrace.co.uk",
         "currency":       "GBP",
         "lang":           "en-GB",
-        "path_roots":     ["/clothing", "/footwear", "/accessories"],
         "fallback_paths": [
-            "/clothing/trousers",
-            "/clothing/jackets",
-            "/clothing/waterproofs",
-            "/clothing/tops",
+            "/clothing/trousers", "/clothing/jackets",
+            "/clothing/waterproofs", "/clothing/tops",
+            "/women/trousers", "/women/jackets",
+            "/men/trousers", "/men/jackets",
+            "/shoes/women", "/shoes/men",
+            "/accessories/gloves", "/accessories/hats-caps",
+            "/bags-backpacks/backpacks",
+            "/outlet/trousers", "/outlet/jackets",
         ],
     },
     # 31 remaining countries (AU, CH, FI, DK, FR, NL, CA, US, JP, etc.) all
@@ -135,12 +145,14 @@ MARKETS: dict[str, dict] = {
         "base_url":       "https://www.revolutionrace.com",
         "currency":       "EUR",
         "lang":           "en-US",
-        "path_roots":     ["/clothing", "/footwear", "/accessories"],
         "fallback_paths": [
-            "/clothing/jackets",
-            "/clothing/tops",
-            "/clothing/trousers",
-            "/clothing/base-layers",
+            "/clothing/jackets", "/clothing/tops",
+            "/clothing/trousers", "/clothing/base-layers",
+            "/women/trousers", "/women/jackets",
+            "/men/trousers", "/men/jackets",
+            "/shoes/women", "/shoes/men",
+            "/accessories/gloves", "/accessories/hats-caps",
+            "/bags-backpacks/backpacks",
         ],
     },
 }
@@ -406,54 +418,115 @@ def extract_variants(primary_list: dict) -> dict[str, dict]:
     return results
 
 
-def discover_category_paths(base_url: str, lang: str, path_roots: list[str]) -> list[str]:
-    """
-    Auto-discover product-listing category paths for a market.
+# Top-level sitemap prefixes that are known to NEVER contain product listings.
+# Everything not in this set is treated as a potential product category.
+# This is intentionally conservative: unknown new sections are included by
+# default, so we never silently miss a new product line.
+NON_PRODUCT_PREFIXES: set[str] = {
+    # Legal / info pages
+    "/accessibility", "/cookie-policy", "/cookie-richtlinie", "/cookies",
+    "/integritetspolicy", "/datenschutzbestimmungen", "/personvernpolicy",
+    "/privacy-policy",
+    "/allmanna-villkor", "/allgemeine-geschaftsbedingungen",
+    "/generelle-vilkar-og-betingelser", "/general-terms-conditions",
+    # Service / account
+    "/kundservice", "/kundenservice", "/kundeservice", "/customer-service",
+    "/kundrecensioner", "/bewertungen", "/kundeomtaler", "/customer-reviews",
+    "/bli-medlem", "/mitglied-werden", "/welcome-sign-up",
+    "/presentkort", "/geschenkgutschein", "/gift-cards",
+    # Marketing / editorial
+    "/campsite", "/match-with-your-dog", "/mark-billingham",
+    "/esales-ads", "/productpages", "/dynamic-pages", "/storage",
+}
 
-    For each root in path_roots (e.g. '/klader', '/skor') fetches that root's
-    own page payload ({root}/_payload.json) and regex-extracts all direct child
-    paths of the form '{root}/{slug}'.  Fetching the root page (rather than the
-    homepage) ensures even low-prominence categories are found — the homepage
-    nav omits some sub-categories while the root category page links to all of
-    them in its sidebar/facet nav.
 
-    Returns a deduplicated list of paths, ordered by root then alphabetically.
-    Returns [] on complete failure so the caller can fall back to hardcoded paths.
+def discover_category_paths_from_sitemap(
+    base_url: str, lang: str,
+) -> list[str]:
     """
+    Auto-discover ALL product-listing category paths for a market by parsing
+    the site's XML sitemap (sitemap.axd?page=1).
+
+    The sitemap lists every indexable URL on the site.  We extract depth-1 and
+    depth-2 paths, drop non-product prefixes, and return a deduplicated list.
+    Depth-3 paths (individual product pages like /dam/byxor/hyper-pants-women)
+    are skipped because the depth-2 category page already aggregates them.
+
+    Depth-1 paths like /nyheter, /bastsaljare, /back-in-stock (which are root
+    category pages with no sub-paths) are also included — they often carry
+    their own Elevate product list.
+
+    Returns [] on failure so the caller can fall back to hardcoded fallback_paths.
+    """
+    url = f"{base_url}/sitemap.axd?page=1"
+    try:
+        resp = requests.get(url, headers=_make_headers(lang), timeout=(10, 30))
+        resp.raise_for_status()
+    except Exception as exc:
+        print(f"  [sitemap] Failed to fetch {url}: {exc}")
+        return []
+
+    locs = re.findall(r"<loc>(.*?)</loc>", resp.text)
+    if not locs:
+        print(f"  [sitemap] No <loc> entries found in {url}")
+        return []
+
     seen: set[str] = set()
     paths: list[str] = []
 
-    for root in path_roots:
-        url = f"{base_url}{root}/_payload.json?__idx=0"
-        try:
-            resp = requests.get(url, headers=_make_headers(lang), timeout=(10, 30))
-            resp.raise_for_status()
-        except Exception as exc:
-            print(f"  [discover] {root} payload failed: {exc}")
+    for loc in locs:
+        path = loc.replace(base_url, "")
+        parts = path.strip("/").split("/")
+
+        if not parts or not parts[0]:
             continue
 
-        raw = resp.text
-        escaped = re.escape(root)
-        # Match "{root}/{slug}" with no further slashes — direct children only.
-        pattern = rf'"{escaped}/([a-z0-9][a-z0-9-]*)"'
-        for slug in sorted(set(re.findall(pattern, raw))):
-            full = f"{root}/{slug}"
-            if full not in seen:
-                paths.append(full)
-                seen.add(full)
+        top = "/" + parts[0]
 
-        time.sleep(REQUEST_DELAY_S)
+        # Skip known non-product sections
+        if top in NON_PRODUCT_PREFIXES:
+            continue
 
-    return paths
+        if len(parts) == 1:
+            # Depth-1: root category page (e.g. /nyheter, /bastsaljare)
+            candidate = top
+        elif len(parts) == 2:
+            # Depth-2: sub-category (e.g. /klader/byxor, /dam/jackor)
+            candidate = f"/{parts[0]}/{parts[1]}"
+        else:
+            # Depth-3+: individual product page — skip
+            continue
+
+        if candidate not in seen:
+            seen.add(candidate)
+            paths.append(candidate)
+
+    print(f"  [sitemap] Discovered {len(paths)} candidate category paths from {base_url}")
+    return sorted(paths)
+
+
+# Minimum expected unique variants per market.  If a market returns fewer than
+# this after scraping all categories, a loud warning is printed.  This catches
+# silent failures (sitemap gone, site restructured, etc.).
+MIN_EXPECTED_VARIANTS: dict[str, int] = {
+    "SE":  3000,
+    "DE":  3000,
+    "NO":  3000,
+    "UK":  3000,
+    "COM": 3000,
+}
 
 
 def fetch_all_by_market() -> dict[str, dict[str, dict]]:
     """
     Fetch variants for every configured market and category, handling pagination.
 
-    Category paths are discovered dynamically from the live site nav payload
-    (discover_category_paths) so new categories are picked up automatically.
-    Falls back to hardcoded fallback_paths if discovery fails.
+    Category paths are discovered from the site's XML sitemap so new sections,
+    seasonal collections, and product lines are picked up automatically.
+    Falls back to hardcoded fallback_paths only if the sitemap is unreachable.
+
+    After scraping, a validation check warns if the number of variants found
+    is suspiciously low compared to MIN_EXPECTED_VARIANTS.
 
     Returns
     -------
@@ -465,18 +538,20 @@ def fetch_all_by_market() -> dict[str, dict[str, dict]]:
         base_url = cfg["base_url"]
         lang     = cfg["lang"]
 
-        paths = discover_category_paths(base_url, lang, cfg["path_roots"])
+        paths = discover_category_paths_from_sitemap(base_url, lang)
         if paths:
-            print(f"\n[{market_code}] Discovered {len(paths)} categories from {base_url} ...")
+            print(f"\n[{market_code}] Discovered {len(paths)} category paths from {base_url} sitemap")
         else:
             paths = cfg["fallback_paths"]
-            print(f"\n[{market_code}] Discovery failed — using {len(paths)} fallback categories from {base_url} ...")
+            print(f"\n[{market_code}] Sitemap discovery failed — using {len(paths)} fallback paths")
 
         market_variants: dict[str, dict] = {}
+        categories_with_products = 0
+        categories_skipped       = 0
 
         for path in paths:
-            print(f"  {path} ...")
             seen_in_category: set[str] = set()
+            category_had_products = False
 
             for page in range(1, MAX_PAGES + 1):
                 primary_list = fetch_category_page(base_url, lang, path, page)
@@ -492,27 +567,45 @@ def fetch_all_by_market() -> dict[str, dict[str, dict]]:
                 page_variants = extract_variants(primary_list)
                 new_keys = set(page_variants) - seen_in_category
                 if page > 1 and not new_keys:
-                    print(f"    page {page}: no new keys - stopping pagination")
                     break
 
                 seen_in_category.update(page_variants)
                 market_variants.update(page_variants)
+                category_had_products = True
 
                 total_hits = _deref(flat, primary_list.get("totalHits"))
                 print(
-                    f"    page {page}: +{len(new_keys)} new "
-                    f"(category: {len(seen_in_category)}, totalHits: {total_hits})"
+                    f"  {path} p{page}: +{len(new_keys)} new "
+                    f"(cat: {len(seen_in_category)}, hits: {total_hits})"
                 )
 
                 if len(groups) < MIN_GROUPS:
-                    print(f"    page {page}: only {len(groups)} groups — last page")
                     break
 
                 time.sleep(REQUEST_DELAY_S)
 
+            if category_had_products:
+                categories_with_products += 1
+            else:
+                categories_skipped += 1
+
             time.sleep(REQUEST_DELAY_S)
 
-        print(f"  [{market_code}] Total unique variants: {len(market_variants):,}")
+        # Validation gate
+        min_expected = MIN_EXPECTED_VARIANTS.get(market_code, 1000)
+        variant_count = len(market_variants)
+        status = "OK" if variant_count >= min_expected else "LOW"
+        print(
+            f"  [{market_code}] {variant_count:,} unique variants | "
+            f"{categories_with_products} categories w/ products | "
+            f"{categories_skipped} skipped | status: {status}"
+        )
+        if status == "LOW":
+            print(
+                f"  *** WARNING [{market_code}]: Only {variant_count:,} variants found "
+                f"(expected >= {min_expected:,}). Possible site change or fetch failure. ***"
+            )
+
         result[market_code] = market_variants
 
     return result

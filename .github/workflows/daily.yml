@@ -92,7 +92,7 @@ jobs:
 
       - name: Run track_rvrc_inventory.py
         run: python ./scripts/track_rvrc_inventory.py
-        timeout-minutes: 20
+        timeout-minutes: 60
         continue-on-error: true
 
       - name: Commit & push generated data (if any)
