@@ -427,9 +427,11 @@ def compute_sales(
                 continue
             delta = prev["stock"] - curr["stock"]
             if delta < 0:
+                counted_keys.add(key)
                 total_restocks += 1
                 continue
             if delta == 0:
+                counted_keys.add(key)
                 continue
 
             counted_keys.add(key)
@@ -628,7 +630,8 @@ def main() -> None:
     curr_by_market = fetch_all_by_market()
 
     total_variants = sum(len(v) for v in curr_by_market.values())
-    print(f"\nTotal variants fetched across all markets: {total_variants:,}")
+    unique_variants = len({k for m in curr_by_market.values() for k in m})
+    print(f"\nTotal variants fetched across all markets: {total_variants:,} raw ({unique_variants:,} unique)")
 
     if total_variants == 0:
         print("No variants fetched — check URLs and network connectivity.")
