@@ -19,9 +19,11 @@ Each daily run:
   5. Revenue is calculated twice per variant:
        - sell revenue ≈ units × sellingPrice   (customer-facing / post-discount)
        - list revenue ≈ units × listPrice      (full / pre-discount price)
-     Both are converted to SEK via live FX rates (Frankfurter / ECB API).
-  6. Tracks all five markets so products that exist only in DE, NO, UK, or COM
-     are not missed.
+     Revenue is denominated in EUR using DE market prices as the primary source
+     (DACH accounts for ~60 % of RVRC sales).  The live EUR/SEK rate is stored
+     separately so the user can convert to SEK if desired.
+  6. Tracks all five markets to maximise variant coverage and catch products
+     listed only in DE, NO, UK, or COM.
 
 How the data is fetched
 -----------------------
@@ -67,8 +69,12 @@ ELEVATE_LIMIT      = 600  # max allowed by API (1000 returns 400 error)
 ELEVATE_CATEGORIES = ["clothing", "accessories", "shoes"]
 
 # ── Market configuration ───────────────────────────────────────────────────────
-# Each market is fetched independently; variant keys are shared across markets
-# but inventory pools are market-specific (same SKU has separate stock per market).
+# Each market is fetched independently for pricing/currency purposes.
+# NOTE: RVRC uses a single shared central inventory pool via Voyado Elevate —
+# the same variant key with the same stockNumber appears in every market.
+# Sales deltas are therefore deduplicated by variant key in compute_sales()
+# (priority: DE > SE > NO > UK > COM).  DE is listed first so that revenue
+# is naturally denominated in EUR for the vast majority of variants.
 MARKETS: dict[str, dict] = {
     "SE":  {"elevate_market": "SE",  "locale": "sv-SE",  "currency": "SEK"},
     "DE":  {"elevate_market": "DE",  "locale": "de-DE",  "currency": "EUR"},
@@ -93,7 +99,7 @@ XLSX_PATH  = (SCRIPT_DIR / ".." / "data" / "rvrc_inventory.xlsx").resolve()
 
 def load_state() -> dict:
     if STATE_FILE.exists():
-        raw = json.loads(STATE_FILE.read_text(encoding="utf-8"))
+        raw = json.loads(STATE_FILE.read_text(encoding="utf-8-sig"))
         # Migrate old single-market format (has "variants" key instead of "markets")
         snap = raw.get("last_snapshot") or {}
         if snap and "variants" in snap and "markets" not in snap:
@@ -164,6 +170,56 @@ def _get_price(price_raw) -> float:
         return 0.0
 
 
+# Ordered keyword → display-name mapping for _parse_category().
+# Matches against the second segment of the Elevate categorybreadcrumb id,
+# e.g. "Men>Jackets>Waterproof Jackets" → "Jackets" → "Jackets & Vests".
+_CATEGORY_KEYWORDS: list[tuple[str, str]] = [
+    ("jacket",      "Jackets & Vests"),
+    ("vest",        "Jackets & Vests"),
+    ("trouser",     "Trousers & Pants"),
+    ("pant",        "Trousers & Pants"),
+    ("tight",       "Trousers & Pants"),
+    ("fleece",      "Fleece & Midlayer"),
+    ("midlayer",    "Fleece & Midlayer"),
+    ("sweater",     "Fleece & Midlayer"),
+    ("base layer",  "Base Layer"),
+    ("baselayer",   "Base Layer"),
+    ("t-shirt",     "T-Shirts & Tops"),
+    ("shirt",       "T-Shirts & Tops"),
+    ("top",         "T-Shirts & Tops"),
+    ("hoodie",      "Hoodies & Sweatshirts"),
+    ("sweatshirt",  "Hoodies & Sweatshirts"),
+    ("shoe",        "Shoes"),
+    ("boot",        "Shoes"),
+    ("sock",        "Accessories"),
+    ("cap",         "Accessories"),
+    ("hat",         "Accessories"),
+    ("glove",       "Accessories"),
+    ("bag",         "Accessories"),
+    ("backpack",    "Accessories"),
+    ("accessori",   "Accessories"),
+]
+
+
+def _parse_category(breadcrumb_id: str, page_ref: str) -> str:
+    """
+    Derive a clean product category label from an Elevate categorybreadcrumb id
+    (e.g. "Men>Jackets>Waterproof Jackets") or fall back to the top-level page
+    reference ("clothing", "accessories", "shoes").
+    """
+    if breadcrumb_id:
+        parts = [p.strip() for p in breadcrumb_id.split(">")]
+        raw   = parts[1] if len(parts) >= 2 else parts[0]
+        lower = raw.lower()
+        for kw, label in _CATEGORY_KEYWORDS:
+            if kw in lower:
+                return label
+        return raw  # preserve unrecognised breadcrumb segment as-is
+    return {"clothing": "Clothing", "accessories": "Accessories", "shoes": "Shoes"}.get(
+        page_ref, page_ref.capitalize()
+    )
+
+
 def fetch_elevate_page(
     elevate_market: str, locale: str, page_ref: str,
     skip: int = 0, customer_key: str = "", session_key: str = "",
@@ -192,14 +248,14 @@ def fetch_elevate_page(
         return None
 
 
-def extract_variants_from_elevate(data: dict) -> tuple[dict[str, dict], int, int]:
+def extract_variants_from_elevate(data: dict, page_ref: str = "") -> tuple[dict[str, dict], int, int]:
     """
     Extract variant data from an Elevate landing-page response.
 
     Returns
     -------
     (variants_dict, total_hits, group_count)
-    variants_dict: {variant_key: {"stock", "sell_price", "list_price", "title", "size"}}
+    variants_dict: {variant_key: {"stock", "sell_price", "list_price", "title", "size", "category"}}
     total_hits:    totalHits from the API response (used for pagination)
     group_count:   number of productGroups in this page (pagination offset increment)
     """
@@ -212,6 +268,11 @@ def extract_variants_from_elevate(data: dict) -> tuple[dict[str, dict], int, int
             title  = str(product.get("title") or product.get("name") or "")
             p_sell = _get_price(product.get("sellingPrice"))
             p_list = _get_price(product.get("listPrice")) or p_sell
+            # Derive product category from Elevate categorybreadcrumb attribute
+            custom      = product.get("custom") or {}
+            breadcrumbs = custom.get("categorybreadcrumb") or []
+            bc_id       = breadcrumbs[0].get("id", "") if breadcrumbs else ""
+            category    = _parse_category(bc_id, page_ref)
             for variant in product.get("variants") or []:
                 key = variant.get("key")
                 if not key or not isinstance(key, str):
@@ -229,6 +290,7 @@ def extract_variants_from_elevate(data: dict) -> tuple[dict[str, dict], int, int
                     "list_price": list_price,
                     "title":      title,
                     "size":       size,
+                    "category":   category,
                 }
     return variants, total_hits, len(groups)
 
@@ -274,7 +336,7 @@ def fetch_all_by_market() -> dict[str, dict[str, dict]]:
                 )
                 if data is None:
                     break
-                new_v, total_hits, pg_count = extract_variants_from_elevate(data)
+                new_v, total_hits, pg_count = extract_variants_from_elevate(data, cat)
                 market_variants.update(new_v)
                 print(
                     f"  {cat} p{page}: +{len(new_v)} variants "
@@ -306,106 +368,110 @@ def compute_sales(
     prev_snapshot: Optional[dict],
     curr_by_market: dict[str, dict[str, dict]],
     fx_rates: dict[str, float],
-) -> tuple[list[dict], dict, int, float, float, int]:
+) -> tuple[list[dict], dict, int, float, float, int, int]:
     """
     Compare current per-market stock snapshots to the previous ones.
 
-    Logic per variant (within each market):
-    - New variant (not in prev): skip — first sighting, no delta possible.
-    - delta = prev_stock − curr_stock
-      - delta > 0  → estimated units sold = delta
-      - delta <= 0 → restock or unchanged (excluded from sales)
+    Deduplication: RVRC uses a single shared central inventory pool via Voyado
+    Elevate, so the same variant key appears in every market.  Markets are
+    processed in priority order (DE first) and each variant key is counted at
+    most once.  Using DE as the top priority means revenue is denominated in
+    EUR by default; the rare SE-only or NOK/GBP-priced variants are converted
+    to EUR via cross-rates.
 
-    Revenue is estimated at both selling price (post-discount) and list price
-    (full price), then converted to SEK using the supplied FX rates.
+    Revenue is in EUR for all variants:
+      - DE / COM variants (EUR): fx_to_eur = 1.0
+      - Other-currency fallbacks: local_price × (local_ccy/SEK) / (EUR/SEK)
 
     Returns
     -------
-    per_variant  : list of per-variant sale dicts (only variants with sales)
-    market_totals: {market_code: {units, revenue_sell_sek, revenue_list_sek, ...}}
-    total_units  : sum across all markets
-    total_rev_sell_sek: sum across all markets
-    total_rev_list_sek: sum across all markets
-    total_tracked: total variants tracked across all markets
+    per_variant        : list of per-variant sale dicts (only variants with sales)
+    by_category        : {category: {units, revenue_sell_eur, revenue_list_eur,
+                           variants_with_sales}}
+    total_units        : aggregate deduplicated units
+    total_rev_sell_eur : aggregate sell revenue in EUR
+    total_rev_list_eur : aggregate list revenue in EUR
+    total_tracked      : unique variant keys across all markets
+    total_restocks     : total restock events observed
     """
+    eur_sek = fx_rates.get("EUR", 11.5)
+
     if prev_snapshot is None:
         print("  No previous snapshot - recording baseline (sales = 0 today).")
-        total_tracked = sum(len(v) for v in curr_by_market.values())
-        empty_totals = {
-            m: {"units": 0, "revenue_sell_sek": 0.0, "revenue_list_sek": 0.0,
-                "variants_tracked": len(curr_by_market.get(m, {})), "variants_with_sales": 0,
-                "restocks": 0}
-            for m in MARKETS
-        }
-        return [], empty_totals, 0, 0.0, 0.0, total_tracked
+        total_tracked = len({k for m in curr_by_market.values() for k in m})
+        return [], {}, 0, 0.0, 0.0, total_tracked, 0
 
     prev_markets: dict = prev_snapshot.get("markets", {})
     per_variant: list[dict] = []
-    market_totals: dict[str, dict] = {}
+    by_category: dict[str, dict] = {}
 
-    for market_code, curr_variants in curr_by_market.items():
-        currency = MARKETS[market_code]["currency"]
-        fx = fx_rates.get(currency, 1.0)
+    # DE first so revenue is in EUR for the overwhelming majority of variants.
+    MARKET_PRIORITY = ["DE", "SE", "NO", "UK", "COM"]
+    counted_keys: set[str] = set()
+    total_restocks = 0
+
+    for market_code in MARKET_PRIORITY:
+        if market_code not in curr_by_market:
+            continue
+        curr_variants = curr_by_market[market_code]
+        currency  = MARKETS[market_code]["currency"]
+        # Multiply local price by fx_to_eur to get EUR amount
+        fx_to_eur = fx_rates.get(currency, 1.0) / eur_sek
         prev_variants = prev_markets.get(market_code, {})
 
-        m_units = 0
-        m_rev_sell = 0.0
-        m_rev_list = 0.0
-        m_restocks = 0
-
         for key, curr in curr_variants.items():
+            if key in counted_keys:
+                continue
             prev = prev_variants.get(key)
             if prev is None:
                 continue
             delta = prev["stock"] - curr["stock"]
             if delta < 0:
-                # Stock went up — restock event
-                m_restocks += 1
+                total_restocks += 1
                 continue
             if delta == 0:
                 continue
 
-            rev_sell = delta * curr["sell_price"] * fx
-            rev_list = delta * curr["list_price"] * fx
-            m_units    += delta
-            m_rev_sell += rev_sell
-            m_rev_list += rev_list
-
+            counted_keys.add(key)
+            rev_sell_eur = delta * curr["sell_price"] * fx_to_eur
+            rev_list_eur = delta * curr["list_price"] * fx_to_eur
             discount_pct = (
                 round(100.0 * (1.0 - curr["sell_price"] / curr["list_price"]), 1)
                 if curr["list_price"] > 0 else 0.0
             )
+            category = curr.get("category", "Other")
             per_variant.append({
                 "key":              key,
-                "market":           market_code,
+                "category":         category,
                 "title":            curr["title"],
                 "size":             curr["size"],
                 "units":            delta,
-                "sell_price_local": curr["sell_price"],
-                "list_price_local": curr["list_price"],
-                "currency":         currency,
-                "sell_revenue_sek": round(rev_sell, 2),
-                "list_revenue_sek": round(rev_list, 2),
+                "sell_price_eur":   round(curr["sell_price"] * fx_to_eur, 2),
+                "list_price_eur":   round(curr["list_price"] * fx_to_eur, 2),
+                "sell_revenue_eur": round(rev_sell_eur, 2),
+                "list_revenue_eur": round(rev_list_eur, 2),
                 "discount_pct":     discount_pct,
             })
 
-        market_totals[market_code] = {
-            "units":              m_units,
-            "revenue_sell_sek":   round(m_rev_sell, 2),
-            "revenue_list_sek":   round(m_rev_list, 2),
-            "variants_tracked":   len(curr_variants),
-            "variants_with_sales": sum(
-                1 for v in per_variant if v["market"] == market_code
-            ),
-            "restocks":           m_restocks,
-        }
+            cat = by_category.setdefault(category, {
+                "units": 0, "revenue_sell_eur": 0.0,
+                "revenue_list_eur": 0.0, "variants_with_sales": 0,
+            })
+            cat["units"]               += delta
+            cat["revenue_sell_eur"]    += rev_sell_eur
+            cat["revenue_list_eur"]    += rev_list_eur
+            cat["variants_with_sales"] += 1
 
-    total_units     = sum(m["units"] for m in market_totals.values())
-    total_rev_sell  = sum(m["revenue_sell_sek"] for m in market_totals.values())
-    total_rev_list  = sum(m["revenue_list_sek"] for m in market_totals.values())
-    total_tracked   = sum(m["variants_tracked"] for m in market_totals.values())
+    for cat_data in by_category.values():
+        cat_data["revenue_sell_eur"] = round(cat_data["revenue_sell_eur"], 2)
+        cat_data["revenue_list_eur"] = round(cat_data["revenue_list_eur"], 2)
 
-    return per_variant, market_totals, total_units, total_rev_sell, total_rev_list, total_tracked
+    total_units    = sum(v["units"]            for v in by_category.values())
+    total_rev_sell = sum(v["revenue_sell_eur"] for v in by_category.values())
+    total_rev_list = sum(v["revenue_list_eur"] for v in by_category.values())
+    total_tracked  = len({k for m in curr_by_market.values() for k in m})
+
+    return per_variant, by_category, total_units, total_rev_sell, total_rev_list, total_tracked, total_restocks
 
 
 # ── Excel output ───────────────────────────────────────────────────────────────
@@ -448,25 +514,20 @@ def write_excel(state: dict, per_variant_today: list[dict]) -> None:
         _write_headers(ws_sum, [
             "Date",
             "Est. Units Sold",
-            "Est. Revenue Sell (SEK)",
-            "Est. Revenue List (SEK)",
+            "Est. Revenue Sell (EUR)",
+            "Est. Revenue List (EUR)",
             "Avg Discount %",
             "Variants Tracked",
             "Variants w/ Sales",
             "Restock Events",
             "EUR/SEK",
-            "NOK/SEK",
-            "GBP/SEK",
         ])
 
-    rev_sell = today_row.get("estimated_revenue_sell_sek", 0.0)
-    rev_list = today_row.get("estimated_revenue_list_sek", 0.0)
+    rev_sell = today_row.get("estimated_revenue_sell_eur", 0.0)
+    rev_list = today_row.get("estimated_revenue_list_eur", 0.0)
     avg_disc = (
         round(100.0 * (1.0 - rev_sell / rev_list), 1)
         if rev_list > 0 else 0.0
-    )
-    total_restocks = sum(
-        mdata.get("restocks", 0) for mdata in today_row.get("by_market", {}).values()
     )
     ws_sum.append([
         today_row.get("date", ""),
@@ -476,42 +537,36 @@ def write_excel(state: dict, per_variant_today: list[dict]) -> None:
         avg_disc,
         today_row.get("variants_tracked", 0),
         today_row.get("variants_with_sales", 0),
-        total_restocks,
+        today_row.get("restock_events", 0),
         fx_snapshot.get("EUR", ""),
-        fx_snapshot.get("NOK", ""),
-        fx_snapshot.get("GBP", ""),
     ])
     _autofit(ws_sum)
 
-    # ── Sheet 2: By Market (one row per market per run, appended) ────────────
-    by_market_name = "By Market"
-    if by_market_name in wb.sheetnames:
-        ws_mkt = wb[by_market_name]
+    # ── Sheet 2: By Category (one row per category per run, appended) ────────
+    by_cat_name = "By Category"
+    if by_cat_name in wb.sheetnames:
+        ws_cat = wb[by_cat_name]
     else:
-        ws_mkt = wb.create_sheet(by_market_name)
-        _write_headers(ws_mkt, [
+        ws_cat = wb.create_sheet(by_cat_name)
+        _write_headers(ws_cat, [
             "Date",
-            "Market",
+            "Category",
             "Est. Units",
-            "Revenue Sell (SEK)",
-            "Revenue List (SEK)",
-            "Variants Tracked",
+            "Revenue Sell (EUR)",
+            "Revenue List (EUR)",
             "Variants w/ Sales",
-            "Restock Events",
         ])
 
-    for mkt, mdata in today_row.get("by_market", {}).items():
-        ws_mkt.append([
+    for cat_name, cdata in sorted(today_row.get("by_category", {}).items()):
+        ws_cat.append([
             today_row.get("date", ""),
-            mkt,
-            mdata.get("units", 0),
-            round(mdata.get("revenue_sell_sek", 0.0), 0),
-            round(mdata.get("revenue_list_sek", 0.0), 0),
-            mdata.get("variants_tracked", 0),
-            mdata.get("variants_with_sales", 0),
-            mdata.get("restocks", 0),
+            cat_name,
+            cdata.get("units", 0),
+            round(cdata.get("revenue_sell_eur", 0.0), 0),
+            round(cdata.get("revenue_list_eur", 0.0), 0),
+            cdata.get("variants_with_sales", 0),
         ])
-    _autofit(ws_mkt)
+    _autofit(ws_cat)
 
     # ── Sheet 3: Latest Detail (replaced each run) ────────────────────────────
     detail_name = "Latest Detail"
@@ -521,28 +576,26 @@ def write_excel(state: dict, per_variant_today: list[dict]) -> None:
     _write_headers(ws_det, [
         "Variant Key",
         "Product Title",
+        "Category",
         "Size",
-        "Market",
         "Units Sold",
-        "Sell Price (local)",
-        "List Price (local)",
-        "Currency",
-        "Sell Revenue (SEK)",
-        "List Revenue (SEK)",
+        "Sell Price (EUR)",
+        "List Price (EUR)",
+        "Sell Revenue (EUR)",
+        "List Revenue (EUR)",
         "Discount %",
     ])
-    for row in sorted(per_variant_today, key=lambda x: -x["sell_revenue_sek"]):
+    for row in sorted(per_variant_today, key=lambda x: -x["sell_revenue_eur"]):
         ws_det.append([
             row["key"],
             row["title"],
+            row["category"],
             row["size"],
-            row["market"],
             row["units"],
-            row["sell_price_local"],
-            row["list_price_local"],
-            row["currency"],
-            round(row["sell_revenue_sek"], 0),
-            round(row["list_revenue_sek"], 0),
+            row["sell_price_eur"],
+            row["list_price_eur"],
+            round(row["sell_revenue_eur"], 0),
+            round(row["list_revenue_eur"], 0),
             row["discount_pct"],
         ])
     _autofit(ws_det)
@@ -582,20 +635,21 @@ def main() -> None:
         return
 
     print("\nComputing sales delta vs. previous snapshot ...")
-    per_variant, market_totals, total_units, total_rev_sell, total_rev_list, total_tracked = compute_sales(
+    per_variant, by_category, total_units, total_rev_sell, total_rev_list, total_tracked, total_restocks = compute_sales(
         state.get("last_snapshot"),
         curr_by_market,
         fx_rates,
     )
     print(f"  Est. units sold       : {total_units:,}")
-    print(f"  Est. sell revenue     : {total_rev_sell:,.0f} SEK")
-    print(f"  Est. list revenue     : {total_rev_list:,.0f} SEK")
+    print(f"  Est. sell revenue     : {total_rev_sell:,.0f} EUR")
+    print(f"  Est. list revenue     : {total_rev_list:,.0f} EUR")
+    print(f"  EUR/SEK               : {fx_rates.get('EUR', 'n/a')}")
     print(f"  Variants w/ sales     : {len(per_variant):,} / {total_tracked:,}")
-    for mkt, mdata in market_totals.items():
-        print(f"  [{mkt}] {mdata['units']:,} units | "
-              f"{mdata['revenue_sell_sek']:,.0f} SEK sell | "
-              f"{mdata['revenue_list_sek']:,.0f} SEK list | "
-              f"{mdata['variants_tracked']:,} variants")
+    print(f"  Restock events        : {total_restocks:,}")
+    for cat_name, cdata in sorted(by_category.items(), key=lambda x: -x[1]["revenue_sell_eur"]):
+        print(f"  [{cat_name}] {cdata['units']:,} units | "
+              f"{cdata['revenue_sell_eur']:,.0f} EUR sell | "
+              f"{cdata['revenue_list_eur']:,.0f} EUR list")
 
     # Persist new snapshot
     state["last_snapshot"] = {
@@ -616,12 +670,13 @@ def main() -> None:
     state["daily_sales"].append({
         "date":                      today,
         "estimated_units":           total_units,
-        "estimated_revenue_sell_sek": round(total_rev_sell, 2),
-        "estimated_revenue_list_sek": round(total_rev_list, 2),
+        "estimated_revenue_sell_eur": round(total_rev_sell, 2),
+        "estimated_revenue_list_eur": round(total_rev_list, 2),
         "variants_tracked":          total_tracked,
         "variants_with_sales":       len(per_variant),
+        "restock_events":            total_restocks,
         "fx_rates":                  {k: round(v, 4) for k, v in fx_rates.items()},
-        "by_market":                 market_totals,
+        "by_category":               by_category,
     })
 
     save_state(state)
