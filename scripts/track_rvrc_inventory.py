@@ -2,8 +2,8 @@
 """
 track_rvrc_inventory.py
 
-Tracks RevolutionRace inventory at variant (size × colour) level across multiple
-markets (SE, DE, NO, UK, COM) using the Voyado Elevate API directly.
+Tracks RevolutionRace inventory at product-colour level across multiple markets
+(SE, DE, NO, UK, COM) using the Voyado Elevate API directly.
 
 Methodology
 -----------
@@ -11,19 +11,27 @@ Each daily run:
   1. Queries the Voyado Elevate storefront API for every top-level product
      category (clothing, accessories, shoes) in each market, paginating with
      limit=600 until all products are retrieved.
-  2. Extracts per-variant stockNumber, sellingPrice, and listPrice from the
-     structured JSON response (no HTML parsing or payload decoding required).
-  3. Compares against the previous snapshot stored in the state file.
-  4. Estimated units sold per variant = max(0, prev_stock − curr_stock).
-     Stock increases (restocks / new colours) are excluded from the estimate.
-  5. Revenue is calculated twice per variant:
-       - sell revenue ≈ units × sellingPrice   (customer-facing / post-discount)
-       - list revenue ≈ units × listPrice      (full / pre-discount price)
-     Revenue is denominated in EUR using DE market prices as the primary source
-     (DACH accounts for ~60 % of RVRC sales).  The live EUR/SEK rate is stored
-     separately so the user can convert to SEK if desired.
-  6. Tracks all five markets to maximise variant coverage and catch products
-     listed only in DE, NO, UK, or COM.
+  2. Passes the `presentCustom` parameter (the full RVRC E1 attribute list)
+     to unlock the `sale_last_week` and `sale_last_days` custom fields that
+     the RVRC website uses for its own ranking/merchandising.
+  3. Extracts per-variant `sale_last_week`, sellingPrice, and listPrice.
+  4. Groups variants by product-colour key (e.g. "10004_2001") and reads
+     `sale_last_week` — a global 7-day sales counter maintained by RVRC's
+     OMS and exposed through Elevate (same value in every market, every size).
+  5. Estimated daily units per product-colour = sale_last_week / 7.
+     Revenue is denominated in EUR using DE market prices (EUR directly).
+
+Why sale_last_week instead of stock-delta
+-----------------------------------------
+The `stockNumber` field in the Elevate API is an Available-to-Promise (ATP)
+metric that changes due to warehouse transfers, reservation changes, batch
+inventory adjustments, and actual customer sales.  Day-over-day deltas are
+dominated by these non-sale events and grossly over-estimate actual orders
+(observed ~7–20× inflation vs. RVRC's financial scale).
+
+The `sale_last_week` field is RVRC's own sales counter — accurate, stable,
+and globally consistent across all markets.  It requires the `presentCustom`
+URL parameter (discovered via the RVRC website's JS bundle).
 
 How the data is fetched
 -----------------------
@@ -32,12 +40,11 @@ The storefront API is publicly accessible without authentication — customerKey
 and sessionKey are random UUIDs generated fresh each run.
 
 Endpoint: GET https://{cluster}.api.esales.apptus.cloud/api/storefront/v3/queries/landing-page
-Required param: pageReference (e.g. "clothing", "accessories", "shoes")
+Required params: pageReference, presentCustom (pipe-separated E1 attribute list)
 Optional params: limit (max 600), skip (pagination offset), market, locale
 
-The response structure is:
-  {primaryList: {productGroups: [{products: [{variants: [{key, stockNumber,
-   sellingPrice, listPrice, size, label}]}]}], totalHits: N}}
+The response includes variant.custom.sale_last_week = total units sold globally
+across all markets in the trailing 7 days (per product-colour combination).
 
 Pagination uses skip (offset by productGroup count) until skip >= totalHits.
 Typically 5–15 total requests cover all 5 markets, completing in ~30 seconds.
@@ -64,17 +71,29 @@ ELEVATE_BASE_URL   = f"https://{ELEVATE_CLUSTER_ID}.api.esales.apptus.cloud"
 ELEVATE_ENDPOINT   = "/api/storefront/v3/queries/landing-page"
 ELEVATE_LIMIT      = 600  # max allowed by API (1000 returns 400 error)
 
+# Custom attributes to request from Elevate (mirrors the E1 list in RVRC's
+# website JS bundle — BMqHAaDt.js, imported as `c0` / `xo` and passed as
+# `presentCustom` in the landingPage query in DXwsVHXO.js).
+# Passing this param unlocks variant.custom.sale_last_week and
+# variant.custom.sale_last_days — RVRC's own OMS sales counters.
+ELEVATE_PRESENT_CUSTOM = (
+    "allcategories|color_name|features_name|fit_name|gender_name|isdead|"
+    "labeltext_name|googleanalyticsname|ratingcount|totalcolorcount|blobtext_name|"
+    "sustainability|categorybreadcrumb|color|features|fit|gender|labeltext|blobtext|"
+    "variant.campaign_id|variant.campaign_type|variant.campaign_has_conditions|"
+    "variant.sale_last_days|variant.sale_last_week|variant.length_variant|variant.new_in"
+)
+
 # Top-level Elevate category pageReference values covering all RVRC products.
 # clothing ~1,700 products, accessories ~180, shoes ~70 (SE market; similar for others).
 ELEVATE_CATEGORIES = ["clothing", "accessories", "shoes"]
 
 # ── Market configuration ───────────────────────────────────────────────────────
-# Each market is fetched independently for pricing/currency purposes.
-# NOTE: RVRC uses a single shared central inventory pool via Voyado Elevate —
-# the same variant key with the same stockNumber appears in every market.
-# Sales deltas are therefore deduplicated by variant key in compute_sales()
-# (priority: DE > SE > NO > UK > COM).  DE is listed first so that revenue
-# is naturally denominated in EUR for the vast majority of variants.
+# Each market is fetched to maximise product-colour coverage and obtain local
+# pricing.  NOTE: sale_last_week is a GLOBAL counter — the same value is
+# returned in every market for the same product-colour.  compute_daily_from_slw()
+# deduplicates by base_key with MARKET_PRIORITY (DE first so EUR prices are used
+# by default for the majority of product-colour entries).
 MARKETS: dict[str, dict] = {
     "SE":  {"elevate_market": "SE",  "locale": "sv-SE",  "currency": "SEK"},
     "DE":  {"elevate_market": "DE",  "locale": "de-DE",  "currency": "EUR"},
@@ -100,13 +119,9 @@ XLSX_PATH  = (SCRIPT_DIR / ".." / "data" / "rvrc_inventory.xlsx").resolve()
 def load_state() -> dict:
     if STATE_FILE.exists():
         raw = json.loads(STATE_FILE.read_text(encoding="utf-8-sig"))
-        # Migrate old single-market format (has "variants" key instead of "markets")
-        snap = raw.get("last_snapshot") or {}
-        if snap and "variants" in snap and "markets" not in snap:
-            print("  [state] Old single-market format detected — treating as no prior snapshot.")
-            raw["last_snapshot"] = None
+        raw.pop("last_snapshot", None)  # No longer used — drop to reduce file size
         return raw
-    return {"last_snapshot": None, "daily_sales": []}
+    return {"daily_sales": []}
 
 
 def save_state(state: dict) -> None:
@@ -226,14 +241,15 @@ def fetch_elevate_page(
 ) -> Optional[dict]:
     """Fetch one page from the Elevate landing-page API."""
     params = {
-        "market":       elevate_market,
-        "locale":       locale,
-        "customerKey":  customer_key,
-        "sessionKey":   session_key,
-        "touchpoint":   "desktop",
+        "market":        elevate_market,
+        "locale":        locale,
+        "customerKey":   customer_key,
+        "sessionKey":    session_key,
+        "touchpoint":    "desktop",
         "pageReference": page_ref,
-        "limit":        ELEVATE_LIMIT,
-        "skip":         skip,
+        "limit":         ELEVATE_LIMIT,
+        "skip":          skip,
+        "presentCustom": ELEVATE_PRESENT_CUSTOM,
     }
     try:
         resp = requests.get(
@@ -255,7 +271,8 @@ def extract_variants_from_elevate(data: dict, page_ref: str = "") -> tuple[dict[
     Returns
     -------
     (variants_dict, total_hits, group_count)
-    variants_dict: {variant_key: {"stock", "sell_price", "list_price", "title", "size", "category"}}
+    variants_dict: {variant_key: {"stock", "sale_last_week", "sale_last_days",
+                                   "sell_price", "list_price", "title", "size", "category"}}
     total_hits:    totalHits from the API response (used for pagination)
     group_count:   number of productGroups in this page (pagination offset increment)
     """
@@ -284,13 +301,33 @@ def extract_variants_from_elevate(data: dict, page_ref: str = "") -> tuple[dict[
                 sell_price = _get_price(variant.get("sellingPrice")) or p_sell
                 list_price = _get_price(variant.get("listPrice")) or p_list or sell_price
                 size = str(variant.get("size") or variant.get("label") or "")
+                v_custom = variant.get("custom") or {}
+
+                slw_list = v_custom.get("sale_last_week") or []
+                sale_last_week = 0
+                try:
+                    if slw_list:
+                        sale_last_week = int(slw_list[0].get("label") or 0)
+                except (TypeError, ValueError):
+                    pass
+
+                sld_list = v_custom.get("sale_last_days") or []
+                sale_last_days = 0
+                try:
+                    if sld_list:
+                        sale_last_days = int(sld_list[0].get("label") or 0)
+                except (TypeError, ValueError):
+                    pass
+
                 variants[key] = {
-                    "stock":      stock,
-                    "sell_price": sell_price,
-                    "list_price": list_price,
-                    "title":      title,
-                    "size":       size,
-                    "category":   category,
+                    "stock":          stock,
+                    "sale_last_week": sale_last_week,
+                    "sale_last_days": sale_last_days,
+                    "sell_price":     sell_price,
+                    "list_price":     list_price,
+                    "title":          title,
+                    "size":           size,
+                    "category":       category,
                 }
     return variants, total_hits, len(groups)
 
@@ -362,121 +399,123 @@ def fetch_all_by_market() -> dict[str, dict[str, dict]]:
     return result
 
 
-# ── Sales delta calculation ────────────────────────────────────────────────────
+# ── Sales estimation via sale_last_week ───────────────────────────────────────
 
-def compute_sales(
-    prev_snapshot: Optional[dict],
+MARKET_PRIORITY = ["DE", "SE", "NO", "UK", "COM"]
+
+
+def compute_daily_from_slw(
     curr_by_market: dict[str, dict[str, dict]],
     fx_rates: dict[str, float],
-) -> tuple[list[dict], dict, int, float, float, int, int]:
+) -> tuple[list[dict], dict, float, float, float, int]:
     """
-    Compare current per-market stock snapshots to the previous ones.
+    Estimate daily sales using the sale_last_week custom field from Elevate.
 
-    Deduplication: RVRC uses a single shared central inventory pool via Voyado
-    Elevate, so the same variant key appears in every market.  Markets are
-    processed in priority order (DE first) and each variant key is counted at
-    most once.  Using DE as the top priority means revenue is denominated in
-    EUR by default; the rare SE-only or NOK/GBP-priced variants are converted
-    to EUR via cross-rates.
+    sale_last_week is a global 7-day unit sales counter maintained by RVRC's
+    OMS.  It is identical in every market request for the same product-colour,
+    and shared across all size variants of that colour.
 
-    Revenue is in EUR for all variants:
-      - DE / COM variants (EUR): fx_to_eur = 1.0
-      - Other-currency fallbacks: local_price × (local_ccy/SEK) / (EUR/SEK)
+    Algorithm
+    ---------
+    - Group variants by base_key = product_id + "_" + colour_id (key without
+      the trailing "-SIZE" suffix, e.g. "10004_2001" from "10004_2001-M").
+    - For each unique base_key: daily_estimate = max(sale_last_week) / 7  (max
+      across sizes is a safety measure; values should be identical).
+    - Revenue = daily_estimate × price_eur, where price_eur comes from the DE
+      market if available (EUR directly), otherwise converted from local currency.
+    - Each base_key is counted exactly once (MARKET_PRIORITY = DE first).
 
     Returns
     -------
-    per_variant        : list of per-variant sale dicts (only variants with sales)
-    by_category        : {category: {units, revenue_sell_eur, revenue_list_eur,
-                           variants_with_sales}}
-    total_units        : aggregate deduplicated units
-    total_rev_sell_eur : aggregate sell revenue in EUR
-    total_rev_list_eur : aggregate list revenue in EUR
-    total_tracked      : unique variant keys across all markets
-    total_restocks     : total restock events observed
+    per_product_color : list of dicts, one per active product-colour
+    by_category       : {category: {units, revenue_sell_eur, revenue_list_eur, product_colors}}
+    total_units       : total estimated daily units (float)
+    total_rev_sell    : total estimated daily sell revenue in EUR
+    total_rev_list    : total estimated daily list revenue in EUR
+    n_product_colors  : count of product-colours with sale_last_week > 0
     """
     eur_sek = fx_rates.get("EUR", 11.5)
-
-    if prev_snapshot is None:
-        print("  No previous snapshot - recording baseline (sales = 0 today).")
-        total_tracked = len({k for m in curr_by_market.values() for k in m})
-        return [], {}, 0, 0.0, 0.0, total_tracked, 0
-
-    prev_markets: dict = prev_snapshot.get("markets", {})
-    per_variant: list[dict] = []
+    counted_bases: set[str] = set()
+    per_product_color: list[dict] = []
     by_category: dict[str, dict] = {}
-
-    # DE first so revenue is in EUR for the overwhelming majority of variants.
-    MARKET_PRIORITY = ["DE", "SE", "NO", "UK", "COM"]
-    counted_keys: set[str] = set()
-    total_restocks = 0
 
     for market_code in MARKET_PRIORITY:
         if market_code not in curr_by_market:
             continue
         curr_variants = curr_by_market[market_code]
         currency  = MARKETS[market_code]["currency"]
-        # Multiply local price by fx_to_eur to get EUR amount
         fx_to_eur = fx_rates.get(currency, 1.0) / eur_sek
-        prev_variants = prev_markets.get(market_code, {})
 
-        for key, curr in curr_variants.items():
-            if key in counted_keys:
+        # Group variant keys by base_key (product_id_colourId, no size suffix)
+        base_groups: dict[str, list] = {}
+        for key, v in curr_variants.items():
+            base = key.rsplit("-", 1)[0]
+            base_groups.setdefault(base, []).append((key, v))
+
+        for base_key, items in base_groups.items():
+            if base_key in counted_bases:
                 continue
-            prev = prev_variants.get(key)
-            if prev is None:
-                continue
-            delta = prev["stock"] - curr["stock"]
-            if delta < 0:
-                counted_keys.add(key)
-                total_restocks += 1
-                continue
-            if delta == 0:
-                counted_keys.add(key)
+            counted_bases.add(base_key)
+
+            # All sizes share the same sale_last_week; take max for safety
+            slw = max((v.get("sale_last_week", 0) for _, v in items), default=0)
+            if slw <= 0:
                 continue
 
-            counted_keys.add(key)
-            rev_sell_eur = delta * curr["sell_price"] * fx_to_eur
-            rev_list_eur = delta * curr["list_price"] * fx_to_eur
+            daily_units = slw / 7.0
+
+            # Representative variant: prefer one with a positive sell_price
+            rep_v = next((v for _, v in items if v.get("sell_price", 0) > 0), items[0][1])
+            sell_price_eur = rep_v["sell_price"] * fx_to_eur
+            list_price_raw = rep_v.get("list_price") or rep_v["sell_price"]
+            list_price_eur = list_price_raw * fx_to_eur
             discount_pct = (
-                round(100.0 * (1.0 - curr["sell_price"] / curr["list_price"]), 1)
-                if curr["list_price"] > 0 else 0.0
+                round(100.0 * (1.0 - rep_v["sell_price"] / list_price_raw), 1)
+                if list_price_raw > 0 and rep_v["sell_price"] < list_price_raw else 0.0
             )
-            category = curr.get("category", "Other")
-            per_variant.append({
-                "key":              key,
+            category = rep_v.get("category", "Other")
+            title    = rep_v.get("title", "")
+            rev_sell = daily_units * sell_price_eur
+            rev_list = daily_units * list_price_eur
+
+            per_product_color.append({
+                "key":              base_key,
                 "category":         category,
-                "title":            curr["title"],
-                "size":             curr["size"],
-                "units":            delta,
-                "sell_price_eur":   round(curr["sell_price"] * fx_to_eur, 2),
-                "list_price_eur":   round(curr["list_price"] * fx_to_eur, 2),
-                "sell_revenue_eur": round(rev_sell_eur, 2),
-                "list_revenue_eur": round(rev_list_eur, 2),
+                "title":            title,
+                "sale_last_week":   slw,
+                "daily_estimate":   round(daily_units, 1),
+                "sell_price_eur":   round(sell_price_eur, 2),
+                "list_price_eur":   round(list_price_eur, 2),
+                "sell_revenue_eur": round(rev_sell, 2),
+                "list_revenue_eur": round(rev_list, 2),
                 "discount_pct":     discount_pct,
             })
 
             cat = by_category.setdefault(category, {
-                "units": 0, "revenue_sell_eur": 0.0,
-                "revenue_list_eur": 0.0, "variants_with_sales": 0,
+                "units": 0.0, "revenue_sell_eur": 0.0,
+                "revenue_list_eur": 0.0, "product_colors": 0,
             })
-            cat["units"]               += delta
-            cat["revenue_sell_eur"]    += rev_sell_eur
-            cat["revenue_list_eur"]    += rev_list_eur
-            cat["variants_with_sales"] += 1
+            cat["units"]            += daily_units
+            cat["revenue_sell_eur"] += rev_sell
+            cat["revenue_list_eur"] += rev_list
+            cat["product_colors"]   += 1
 
-    for cat_data in by_category.values():
-        cat_data["revenue_sell_eur"] = round(cat_data["revenue_sell_eur"], 2)
-        cat_data["revenue_list_eur"] = round(cat_data["revenue_list_eur"], 2)
+    for c in by_category.values():
+        c["units"]            = round(c["units"], 1)
+        c["revenue_sell_eur"] = round(c["revenue_sell_eur"], 2)
+        c["revenue_list_eur"] = round(c["revenue_list_eur"], 2)
 
-    total_units    = sum(v["units"]            for v in by_category.values())
-    total_rev_sell = sum(v["revenue_sell_eur"] for v in by_category.values())
-    total_rev_list = sum(v["revenue_list_eur"] for v in by_category.values())
-    total_tracked  = len({k for m in curr_by_market.values() for k in m})
+    total_units    = round(sum(v["daily_estimate"] for v in per_product_color), 1)
+    total_rev_sell = sum(v["sell_revenue_eur"] for v in per_product_color)
+    total_rev_list = sum(v["list_revenue_eur"] for v in per_product_color)
+    return (
+        per_product_color, by_category,
+        total_units, total_rev_sell, total_rev_list,
+        len(per_product_color),
+    )
 
-    return per_variant, by_category, total_units, total_rev_sell, total_rev_list, total_tracked, total_restocks
 
 
-# ── Excel output ───────────────────────────────────────────────────────────────
 
 _HDR_FILL = PatternFill("solid", fgColor="1F497D")
 _HDR_FONT = Font(bold=True, color="FFFFFF")
@@ -496,7 +535,7 @@ def _autofit(ws) -> None:
         ws.column_dimensions[get_column_letter(col[0].column)].width = min(max_len + 4, 55)
 
 
-def write_excel(state: dict, per_variant_today: list[dict]) -> None:
+def write_excel(state: dict, per_product_color_today: list[dict]) -> None:
     if XLSX_PATH.exists():
         wb = load_workbook(XLSX_PATH)
     else:
@@ -515,13 +554,11 @@ def write_excel(state: dict, per_variant_today: list[dict]) -> None:
         ws_sum = wb.create_sheet(summary_name)
         _write_headers(ws_sum, [
             "Date",
-            "Est. Units Sold",
-            "Est. Revenue Sell (EUR)",
-            "Est. Revenue List (EUR)",
+            "Est. Daily Units (slw/7)",
+            "Est. Daily Rev Sell (EUR)",
+            "Est. Daily Rev List (EUR)",
             "Avg Discount %",
-            "Variants Tracked",
-            "Variants w/ Sales",
-            "Restock Events",
+            "Product-Colors Active",
             "EUR/SEK",
         ])
 
@@ -533,13 +570,11 @@ def write_excel(state: dict, per_variant_today: list[dict]) -> None:
     )
     ws_sum.append([
         today_row.get("date", ""),
-        today_row.get("estimated_units", 0),
+        today_row.get("estimated_units_daily", 0),
         round(rev_sell, 0),
         round(rev_list, 0),
         avg_disc,
-        today_row.get("variants_tracked", 0),
-        today_row.get("variants_with_sales", 0),
-        today_row.get("restock_events", 0),
+        today_row.get("product_colors_active", 0),
         fx_snapshot.get("EUR", ""),
     ])
     _autofit(ws_sum)
@@ -553,10 +588,10 @@ def write_excel(state: dict, per_variant_today: list[dict]) -> None:
         _write_headers(ws_cat, [
             "Date",
             "Category",
-            "Est. Units",
-            "Revenue Sell (EUR)",
-            "Revenue List (EUR)",
-            "Variants w/ Sales",
+            "Est. Daily Units",
+            "Daily Rev Sell (EUR)",
+            "Daily Rev List (EUR)",
+            "Product-Colors",
         ])
 
     for cat_name, cdata in sorted(today_row.get("by_category", {}).items()):
@@ -566,7 +601,7 @@ def write_excel(state: dict, per_variant_today: list[dict]) -> None:
             cdata.get("units", 0),
             round(cdata.get("revenue_sell_eur", 0.0), 0),
             round(cdata.get("revenue_list_eur", 0.0), 0),
-            cdata.get("variants_with_sales", 0),
+            cdata.get("product_colors", 0),
         ])
     _autofit(ws_cat)
 
@@ -576,24 +611,24 @@ def write_excel(state: dict, per_variant_today: list[dict]) -> None:
         del wb[detail_name]
     ws_det = wb.create_sheet(detail_name)
     _write_headers(ws_det, [
-        "Variant Key",
+        "Product-Color Key",
         "Product Title",
         "Category",
-        "Size",
-        "Units Sold",
+        "Sale Last Week (global)",
+        "Daily Estimate (slw/7)",
         "Sell Price (EUR)",
         "List Price (EUR)",
-        "Sell Revenue (EUR)",
-        "List Revenue (EUR)",
+        "Daily Rev Sell (EUR)",
+        "Daily Rev List (EUR)",
         "Discount %",
     ])
-    for row in sorted(per_variant_today, key=lambda x: -x["sell_revenue_eur"]):
+    for row in sorted(per_product_color_today, key=lambda x: -x["sell_revenue_eur"]):
         ws_det.append([
             row["key"],
             row["title"],
             row["category"],
-            row["size"],
-            row["units"],
+            row["sale_last_week"],
+            row["daily_estimate"],
             row["sell_price_eur"],
             row["list_price_eur"],
             round(row["sell_revenue_eur"], 0),
@@ -612,13 +647,13 @@ def main() -> None:
     today = date.today().isoformat()
     now   = datetime.now().isoformat(timespec="seconds")
 
-    print(f"[{now}] RevolutionRace multi-market inventory tracker")
+    print(f"[{now}] RevolutionRace inventory tracker  ·  sale_last_week methodology")
     print("=" * 60)
 
     state = load_state()
 
     # Guard: skip if already ran today
-    if state["daily_sales"] and state["daily_sales"][-1]["date"] == today:
+    if state.get("daily_sales") and state["daily_sales"][-1]["date"] == today:
         print(f"Already ran today ({today}). Delete the last entry in daily_sales "
               f"from {STATE_FILE.name} to re-run.")
         return
@@ -629,7 +664,7 @@ def main() -> None:
     print("\nFetching inventory across all markets and categories ...")
     curr_by_market = fetch_all_by_market()
 
-    total_variants = sum(len(v) for v in curr_by_market.values())
+    total_variants  = sum(len(v) for v in curr_by_market.values())
     unique_variants = len({k for m in curr_by_market.values() for k in m})
     print(f"\nTotal variants fetched across all markets: {total_variants:,} raw ({unique_variants:,} unique)")
 
@@ -637,56 +672,39 @@ def main() -> None:
         print("No variants fetched — check URLs and network connectivity.")
         return
 
-    print("\nComputing sales delta vs. previous snapshot ...")
-    per_variant, by_category, total_units, total_rev_sell, total_rev_list, total_tracked, total_restocks = compute_sales(
-        state.get("last_snapshot"),
-        curr_by_market,
-        fx_rates,
+    print("\nComputing daily sales estimates from sale_last_week ...")
+    per_product_color, by_category, total_units, total_rev_sell, total_rev_list, n_pc = (
+        compute_daily_from_slw(curr_by_market, fx_rates)
     )
-    print(f"  Est. units sold       : {total_units:,}")
-    print(f"  Est. sell revenue     : {total_rev_sell:,.0f} EUR")
-    print(f"  Est. list revenue     : {total_rev_list:,.0f} EUR")
+    print(f"  Est. daily units      : {total_units:,.1f}")
+    print(f"  Est. sell revenue/day : {total_rev_sell:,.0f} EUR")
+    print(f"  Est. list revenue/day : {total_rev_list:,.0f} EUR")
     print(f"  EUR/SEK               : {fx_rates.get('EUR', 'n/a')}")
-    print(f"  Variants w/ sales     : {len(per_variant):,} / {total_tracked:,}")
-    print(f"  Restock events        : {total_restocks:,}")
+    print(f"  Product-colours active: {n_pc:,}")
     for cat_name, cdata in sorted(by_category.items(), key=lambda x: -x[1]["revenue_sell_eur"]):
-        print(f"  [{cat_name}] {cdata['units']:,} units | "
+        print(f"  [{cat_name}] {cdata['units']:,.1f} units/day | "
               f"{cdata['revenue_sell_eur']:,.0f} EUR sell | "
               f"{cdata['revenue_list_eur']:,.0f} EUR list")
 
-    # Persist new snapshot
-    state["last_snapshot"] = {
-        "date":      today,
-        "timestamp": now,
-        "markets": {
-            mkt: {
-                k: {
-                    "stock":      v["stock"],
-                    "sell_price": v["sell_price"],
-                    "list_price": v["list_price"],
-                }
-                for k, v in variants.items()
-            }
-            for mkt, variants in curr_by_market.items()
-        },
-    }
+    if not state.get("daily_sales"):
+        state["daily_sales"] = []
     state["daily_sales"].append({
-        "date":                      today,
-        "estimated_units":           total_units,
+        "date":                       today,
+        "timestamp":                  now,
+        "method":                     "sale_last_week",
+        "estimated_units_daily":      round(total_units, 1),
         "estimated_revenue_sell_eur": round(total_rev_sell, 2),
         "estimated_revenue_list_eur": round(total_rev_list, 2),
-        "variants_tracked":          total_tracked,
-        "variants_with_sales":       len(per_variant),
-        "restock_events":            total_restocks,
-        "fx_rates":                  {k: round(v, 4) for k, v in fx_rates.items()},
-        "by_category":               by_category,
+        "product_colors_active":      n_pc,
+        "fx_rates":                   {k: round(v, 4) for k, v in fx_rates.items()},
+        "by_category":                by_category,
     })
 
     save_state(state)
     print(f"\n  State saved -> {STATE_FILE.name}")
 
     print("Writing Excel ...")
-    write_excel(state, per_variant)
+    write_excel(state, per_product_color)
 
     print("\nDone.")
 
