@@ -3,7 +3,7 @@ name: Scrape
 on:
   workflow_dispatch: {} # Manuell "Run workflow"-knapp
   schedule:
-    - cron: '0 3 * * *' # Dagligen 03:00 CEST (03:00 UTC)
+    - cron: '0 3 * * *' # Dagligen 03:00 UTC (05:00 CEST / 04:00 CET)
 
 permissions:
   contents: write # krävs för git push med GITHUB_TOKEN
@@ -90,8 +90,8 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
 
-      - name: Run track_rvrc_inventory.py
-        run: python ./scripts/track_rvrc_inventory.py
+      - name: Run track_rvrc_sales.py
+        run: python ./scripts/track_rvrc_sales.py
         timeout-minutes: 10
         continue-on-error: true
 
@@ -149,7 +149,7 @@ jobs:
           DESCR[track_rugvista_daily_sales.py]="Diffs Rugvista top-seller API snapshots to estimate daily unit sales and revenue"
           DESCR[youtube_diy_trends.py]="Counts new 'Gaming PC Build' YouTube uploads in the past 7 days as a PC-demand signal (requires YOUTUBE_API_KEY)"
           DESCR[fetch_ted_procurements.py]="Fetches EU procurement notices for tracked companies from the public TED API; writes one Excel sheet per company"
-          DESCR[track_rvrc_inventory.py]="Diffs RevolutionRace variant-level stock across SE/DE/NO/UK/COM markets via Voyado Elevate API to estimate daily units sold and SEK revenue"
+          DESCR[track_rvrc_sales.py]="Tracks RevolutionRace sale_last_week and sale_last_days counters per product-colour via Voyado Elevate API; computes weekly revenue at sell and list price in EUR"
           DESCR[track_revolutionrace_reviews.py]="Diffs RevolutionRace review counts via GraphQL; estimates sales-activity proxy as price × new reviews"
 
           declare -A OUTFILE
@@ -162,7 +162,7 @@ jobs:
           OUTFILE[track_rugvista_daily_sales.py]="data/rugvista_daily_sales.xlsx"
           OUTFILE[youtube_diy_trends.py]="data/youtube_diy_sentiment.xlsx"
           OUTFILE[fetch_ted_procurements.py]="data/ted_procurements.xlsx"
-          OUTFILE[track_rvrc_inventory.py]="data/rvrc_inventory.xlsx"
+          OUTFILE[track_rvrc_sales.py]="data/rvrc_sales.xlsx"
           OUTFILE[track_revolutionrace_reviews.py]="data/revolutionrace_reviews.xlsx"
 
           METRICS_DIR="scripts/metrics"
@@ -172,7 +172,7 @@ jobs:
           for script in "fetch_kpi.py" "amazon_scape_bought_playwright_us_de.py" "track_combined_prices.py" \
                         "track_fractal_rankings_playwright.py" "track_nelly_aov.py" "track_rugvista_bestsellers.py" \
                         "track_rugvista_daily_sales.py" "youtube_diy_trends.py" "fetch_ted_procurements.py" \
-                        "track_rvrc_inventory.py" "track_revolutionrace_reviews.py"; do
+                        "track_rvrc_sales.py" "track_revolutionrace_reviews.py"; do
             desc="${DESCR[$script]:-—}"
             outfile="${OUTFILE[$script]:-}"
             jsonfile="$METRICS_DIR/${script}.json"
