@@ -432,19 +432,33 @@ def parse_eforms_xml(xml_bytes: bytes, company_name: str) -> list[dict]:
             entry["fa_max_currency"] = fa_max_el.get("currencyID", "")
 
     # 6. Build contract_map: TEN-ID → contract title
+    #    Also detect framework agreements from SettledContract indicators.
     contract_map: dict[str, str] = {}
+    framework_tenders: set[str] = set()  # TEN-IDs linked to framework contracts
     for sc in nr.findall("efac:SettledContract", nsmap):
         title_el = sc.find("cbc:ID", nsmap)
         title_text_el = sc.find("cac:Contract/cbc:Title", nsmap)
         title_text = title_text_el.text if title_text_el is not None else ""
+        fa_indicator = sc.find("efac:ContractFrameworkIndicator", nsmap)
+        # Also check the cbc namespace variant
+        if fa_indicator is None:
+            fa_indicator = sc.find("cbc:ContractFrameworkIndicator", nsmap)
+        is_fa = (fa_indicator is not None and fa_indicator.text
+                 and fa_indicator.text.strip().lower() == "true")
         for lt_ref in sc.findall("efac:LotTender/cbc:ID", nsmap):
             contract_map[lt_ref.text] = title_text or ""
+            if is_fa:
+                framework_tenders.add(lt_ref.text)
 
-    # 7. Count tenders per lot
+    # 7. Count tenders per lot and winners per lot
     tenders_per_lot: dict[str, int] = {}
     for t_info in tender_map.values():
         lid = t_info["lot_id"]
         tenders_per_lot[lid] = tenders_per_lot.get(lid, 0) + 1
+
+    winners_per_lot: dict[str, int] = {}
+    for lid, lr_data in lot_results.items():
+        winners_per_lot[lid] = len(lr_data.get("winner_tender_ids", set()))
 
     # 8. Find our company's org IDs
     our_org_ids: set[str] = set()
@@ -498,12 +512,22 @@ def parse_eforms_xml(xml_bytes: bytes, company_name: str) -> list[dict]:
             except ValueError:
                 pass
 
+        # Detect framework agreement: from SettledContract indicator, or
+        # presence of fa_max_value, or all tenderers being winners
+        is_framework = (
+            ten_id in framework_tenders
+            or lr.get("fa_max_value") is not None
+            or winners_per_lot.get(lot_id, 0) == tenders_per_lot.get(lot_id, 0) > 1
+        )
+
         results.append({
             "lot_id": lot_id,
             "lot_title": lot_title,
             "tender_value": t["value"],
             "currency": t["currency"],
             "result": "Won" if is_winner else "Lost",
+            "is_framework": "Yes" if is_framework else "No",
+            "winners_on_lot": winners_per_lot.get(lot_id, 0),
             "contract_title": contract_map.get(ten_id, ""),
             "num_tenders_on_lot": tenders_per_lot.get(lot_id, 0),
             "fa_max_value": lr.get("fa_max_value"),
@@ -582,6 +606,7 @@ def fetch_lot_details(
         "start_date", "end_date", "duration_years",
         "num_tenders_on_lot", "contract_title",
         "notice_type", "notice_title", "publication_number",
+        "is_framework", "winners_on_lot",
     ]
     col_order = [c for c in col_order if c in df.columns]
     df = df[col_order]
