@@ -63,68 +63,84 @@
       "sld_x_list_eur": 717664.0,
       "product_colors_total": 2204,
       "product_colors_with_sales": 916
+    },
+    {
+      "date": "2026-03-15",
+      "timestamp": "2026-03-15T05:17:02",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.7545,
+        "GBP": 12.4325,
+        "NOK": 0.9638
+      },
+      "slw_x_sell_eur": 7171267.19,
+      "sld_x_sell_eur": 669958.0,
+      "slw_x_list_eur": 8146357.19,
+      "sld_x_list_eur": 734909.0,
+      "product_colors_total": 2166,
+      "product_colors_with_sales": 896
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1467,
-      "date": "2026-03-14"
+      "sale_last_week": 1737,
+      "date": "2026-03-15"
     },
     {
       "base_key": "11144_2001",
       "title": "Rambler Lightweight Pants",
       "sale_last_week": 1412,
-      "date": "2026-03-14"
+      "date": "2026-03-15"
+    },
+    {
+      "base_key": "10003_2851",
+      "title": "Nordwand Pro Trousers",
+      "sale_last_week": 1364,
+      "date": "2026-03-15"
+    },
+    {
+      "base_key": "10004_962",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 1363,
+      "date": "2026-03-15"
     },
     {
       "base_key": "10728_2288",
       "title": "Sherpa Hoodie",
       "sale_last_week": 1271,
-      "date": "2026-03-14"
+      "date": "2026-03-15"
     },
     {
-      "base_key": "10004_962",
+      "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1195,
-      "date": "2026-03-14"
-    },
-    {
-      "base_key": "10003_2851",
-      "title": "Nordwand Pro Pants",
-      "sale_last_week": 1133,
-      "date": "2026-03-14"
+      "sale_last_week": 1176,
+      "date": "2026-03-15"
     },
     {
       "base_key": "10728_2007",
       "title": "Sherpa Hoodie",
       "sale_last_week": 1050,
-      "date": "2026-03-14"
+      "date": "2026-03-15"
     },
     {
       "base_key": "11143_2001",
       "title": "Rambler Lightweight Pants",
       "sale_last_week": 1022,
-      "date": "2026-03-14"
-    },
-    {
-      "base_key": "10004_2243",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 960,
-      "date": "2026-03-14"
+      "date": "2026-03-15"
     },
     {
       "base_key": "10833_2001",
       "title": "Summit Pocket Tights",
-      "sale_last_week": 835,
-      "date": "2026-03-14"
+      "sale_last_week": 1001,
+      "date": "2026-03-15"
     },
     {
-      "base_key": "10106_2003",
-      "title": "Nordwand Pants",
-      "sale_last_week": 835,
-      "date": "2026-03-14"
+      "base_key": "10352_2001",
+      "title": "Embossed Belt",
+      "sale_last_week": 910,
+      "date": "2026-03-15"
     }
   ]
 }
