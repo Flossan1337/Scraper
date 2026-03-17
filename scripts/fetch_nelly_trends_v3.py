@@ -70,7 +70,7 @@ def fetch_country_monthly(geo_code: str, col_suffix: str) -> pd.DataFrame:
             df = df.rename(columns={SEARCH_TERM: f"Nelly_{col_suffix}"})
             
             # Success!
-            return df.resample("M").mean()
+            return df.resample("ME").mean()
 
         except Exception as e:
             attempt += 1
