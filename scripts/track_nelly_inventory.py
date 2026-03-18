@@ -854,13 +854,18 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
         key=lambda c: -latest_by_cat.get(c, {}).get("sell_rev_sek", 0),
     )
 
-    _write_headers(ws_c, ["Date"] + sorted_cats)
+    # Columns: all categories (Sell) sorted by latest sell revenue desc,
+    # then all categories (List) in the same category order.
+    cat_cols = [f"{c} (Sell)" for c in sorted_cats] + [f"{c} (List)" for c in sorted_cats]
+    _write_headers(ws_c, ["Date"] + cat_cols)
     for entry in all_entries:
         by_cat = entry.get("summary", {}).get("by_category", {})
-        ws_c.append(
-            [entry.get("date", "")]
-            + [round(by_cat.get(c, {}).get("sell_rev_sek", 0), 0) for c in sorted_cats]
-        )
+        row: list = [entry.get("date", "")]
+        for c in sorted_cats:
+            row.append(round(by_cat.get(c, {}).get("sell_rev_sek", 0), 0))
+        for c in sorted_cats:
+            row.append(round(by_cat.get(c, {}).get("list_rev_sek", 0), 0))
+        ws_c.append(row)
     _autofit(ws_c)
 
     # ── Sheet 3: By Brand (wide, rebuilt each run) ────────────────────────────
@@ -882,18 +887,18 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
         key=lambda b: -latest_by_br.get(b, {}).get("sell_rev_sek", 0),
     )
 
-    brand_cols: list[str] = []
-    for b in sorted_brands:
-        brand_cols += [f"{b} (Sell)", f"{b} (List)"]
+    # Columns: all brands (Sell) sorted by latest sell revenue desc,
+    # then all brands (List) in the same brand order.
+    brand_cols = [f"{b} (Sell)" for b in sorted_brands] + [f"{b} (List)" for b in sorted_brands]
     _write_headers(ws_b, ["Date"] + brand_cols)
 
     for entry in all_entries:
         by_br = entry.get("summary", {}).get("by_brand", {})
         row: list = [entry.get("date", "")]
         for b in sorted_brands:
-            bdata = by_br.get(b, {})
-            row.append(round(bdata.get("sell_rev_sek", 0), 0))
-            row.append(round(bdata.get("list_rev_sek", 0), 0))
+            row.append(round(by_br.get(b, {}).get("sell_rev_sek", 0), 0))
+        for b in sorted_brands:
+            row.append(round(by_br.get(b, {}).get("list_rev_sek", 0), 0))
         ws_b.append(row)
     _autofit(ws_b)
 
