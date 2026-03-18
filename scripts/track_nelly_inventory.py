@@ -846,7 +846,13 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
     all_cats: set[str] = set()
     for entry in all_entries:
         all_cats.update(entry.get("summary", {}).get("by_category", {}).keys())
-    sorted_cats = sorted(all_cats)
+
+    # Sort categories left-to-right by the most recent day's sell revenue (desc).
+    latest_by_cat = all_entries[-1].get("summary", {}).get("by_category", {}) if all_entries else {}
+    sorted_cats = sorted(
+        all_cats,
+        key=lambda c: -latest_by_cat.get(c, {}).get("sell_rev_sek", 0),
+    )
 
     _write_headers(ws_c, ["Date"] + sorted_cats)
     for entry in all_entries:
@@ -867,7 +873,14 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
     all_brands: set[str] = set()
     for entry in all_entries:
         all_brands.update(entry.get("summary", {}).get("by_brand", {}).keys())
-    sorted_brands = sorted(all_brands)
+
+    # Sort brands left-to-right by the most recent day's sell revenue (desc).
+    # Column order updates automatically each run as relative brand sizes shift.
+    latest_by_br = all_entries[-1].get("summary", {}).get("by_brand", {}) if all_entries else {}
+    sorted_brands = sorted(
+        all_brands,
+        key=lambda b: -latest_by_br.get(b, {}).get("sell_rev_sek", 0),
+    )
 
     brand_cols: list[str] = []
     for b in sorted_brands:
