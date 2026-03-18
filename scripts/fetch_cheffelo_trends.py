@@ -12,7 +12,9 @@ DATA_DIR    = REPO_ROOT / "data"
 DATA_DIR.mkdir(exist_ok=True)
 OUTPUT_XLSX = DATA_DIR / "cheffelo_trends_monthly.xlsx"
 
-START_DATE = "2022-01-01"
+# Fetching from 2019 guarantees a ~7-year window → Google Trends returns
+# native monthly integers (no weekly resampling artefacts, no decimal averages).
+FETCH_START = "2019-01-01"
 
 # Each query: search term (or topic ID), geo code, output column name.
 # Sweden uses the Google Knowledge Graph topic ID for "Linas Matkasse"
@@ -50,7 +52,7 @@ def mk_client():
 
 
 def fetch_monthly(term: str, geo: str, col: str) -> pd.DataFrame:
-    timeframe = f"{START_DATE} {datetime.now():%Y-%m-%d}"
+    timeframe = f"{FETCH_START} {datetime.now():%Y-%m-%d}"
     attempt = 0
     current_backoff = BACKOFF_START
 
@@ -66,7 +68,10 @@ def fetch_monthly(term: str, geo: str, col: str) -> pd.DataFrame:
 
             df = df.drop(columns=["isPartial"], errors="ignore")
             df = df.rename(columns={term: col})
-            return df.resample("ME").mean()
+            # Google returns native monthly integers for a 7-year window.
+            # resample is a no-op on monthly data but harmless; round+int
+            # eliminates any floating-point edge case.
+            return df.resample("ME").mean().round(0).astype(int)
 
         except Exception as e:
             attempt += 1
