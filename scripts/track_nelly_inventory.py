@@ -78,6 +78,10 @@ ELEVATE_ENDPOINT          = "/api/storefront/v3/queries/landing-page"
 ELEVATE_LIMIT             = 600      # max allowed by Elevate API
 ELEVATE_CLUSTER_ID        = "w67a8630f"
 
+# Stock increases below this threshold are treated as customer returns (negative sales).
+# Increases >= this value are treated as true warehouse restocks.
+RESTOCK_MIN_UNITS         = 4
+
 # Extra Elevate params to retrieve price tiers and all custom fields.
 NELLY_PRESENT_PRICES = "member"
 NELLY_PRESENT_CUSTOM = (
@@ -646,10 +650,13 @@ def compute_snapshot_summary(
     by_category:      dict[str, dict] = {}
     by_brand:         dict[str, dict] = {}
 
-    total_products    = 0
-    est_sold_sek      = 0.0
-    est_sold_list_sek = 0.0
-    restocks          = 0
+    total_products        = 0
+    est_sold_sek         = 0.0
+    est_sold_list_sek    = 0.0
+    restocks             = 0
+    returns_count        = 0
+    restock_events_list:  list[dict] = []
+    return_events_list:   list[dict] = []
 
     # Iterate over each site's primary market as the authoritative product list.
     for site, primary_mc in primary_mkt_for.items():
@@ -659,10 +666,32 @@ def compute_snapshot_summary(
             primary_stock = pd["stock"]
             snap_key      = f"{site}/{key}"
 
-            # Sales-delta: stock decrease in primary market since last run.
-            prev_stock = last_snapshot.get(snap_key)
-            est_sold   = max(0, prev_stock - primary_stock) if prev_stock is not None else 0
+            # Sales-delta:
+            #   stock decreased            → units sold (positive est_sold)
+            #   increased by < RESTOCK_MIN_UNITS → customer return (negative est_sold)
+            #   increased by >= RESTOCK_MIN_UNITS → true warehouse restock (est_sold = 0)
+            prev_stock  = last_snapshot.get(snap_key)
+            stock_delta = (primary_stock - prev_stock) if prev_stock is not None else 0
             new_snapshot[snap_key] = primary_stock
+
+            if prev_stock is None or stock_delta >= RESTOCK_MIN_UNITS:
+                est_sold = 0            # no prior data, or true restock
+            elif stock_delta > 0:
+                est_sold = -stock_delta  # small increase = customer return
+                returns_count += 1
+                return_events_list.append({
+                    "key":            key,
+                    "site":           site,
+                    "brand":          pd["brand"],
+                    "title":          pd["title"],
+                    "category":       pd["category"],
+                    "stock_before":   prev_stock,
+                    "stock_after":    primary_stock,
+                    "delta":          stock_delta,
+                    "sell_price_sek": pd["sell_price"],
+                })
+            else:
+                est_sold = -stock_delta  # stock dropped = units sold (positive)
 
             # Availability flags: is this product listed in each non-primary market?
             avail: dict[str, int] = {
@@ -678,9 +707,20 @@ def compute_snapshot_summary(
             list_rev_sek = est_sold * list_sek
             hist_low_sek = pd.get("historic_low", 0.0)
 
-            # Restock detection (stock increased since last run).
-            if prev_stock is not None and primary_stock > prev_stock:
+            # Restock detection: large stock increase = true warehouse restock.
+            if prev_stock is not None and stock_delta >= RESTOCK_MIN_UNITS:
                 restocks += 1
+                restock_events_list.append({
+                    "key":            key,
+                    "site":           site,
+                    "brand":          pd["brand"],
+                    "title":          pd["title"],
+                    "category":       pd["category"],
+                    "stock_before":   prev_stock,
+                    "stock_after":    primary_stock,
+                    "delta":          stock_delta,
+                    "sell_price_sek": sell_sek,
+                })
 
             # Global rollups.
             total_products    += 1
@@ -728,6 +768,9 @@ def compute_snapshot_summary(
         "est_sold_today_sek":      round(est_sold_sek, 0),
         "est_sold_today_list_sek": round(est_sold_list_sek, 0),
         "restocks":                restocks,
+        "returns":                 returns_count,
+        "restock_events":          restock_events_list,
+        "return_events":           return_events_list,
         "by_category":             by_category,
         "by_brand":                by_brand,
     }
@@ -779,6 +822,7 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
         "Date",
         "Est. Sales (sell price SEK)",
         "Est. Sales (list price SEK)",
+        "Est. Returns (units)",
         "Restocks",
     ])
     for entry in all_entries:
@@ -787,6 +831,7 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
             entry.get("date", ""),
             s.get("est_sold_today_sek",    0),
             s.get("est_sold_today_list_sek", 0),
+            s.get("returns",               0),
             s.get("restocks",              0),
         ])
     _autofit(ws)
@@ -839,7 +884,67 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
         ws_b.append(row)
     _autofit(ws_b)
 
-    # ── Sheet 4: Latest Detail (replaced each run) ────────────────────────────
+    # ── Sheet 4: Restocks (rebuilt each run, one row per event) ───────────────
+    restock_sheet = "Restocks"
+    if restock_sheet in wb.sheetnames:
+        del wb[restock_sheet]
+    ws_r = wb.create_sheet(restock_sheet)
+    _write_headers(ws_r, [
+        "Date", "Site", "Product Key", "Brand", "Title", "Category",
+        "Stock Before", "Stock After", "Delta", "Sell Price (SEK)",
+        "Est. Restock Value (SEK)",
+    ])
+    for entry in all_entries:
+        d = entry.get("date", "")
+        for ev in entry.get("summary", {}).get("restock_events", []):
+            delta     = ev.get("delta", 0)
+            sell_price = ev.get("sell_price_sek", 0)
+            ws_r.append([
+                d,
+                ev.get("site", ""),
+                ev.get("key", ""),
+                ev.get("brand", ""),
+                ev.get("title", ""),
+                ev.get("category", ""),
+                ev.get("stock_before", 0),
+                ev.get("stock_after", 0),
+                delta,
+                round(sell_price, 0),
+                round(delta * sell_price, 0),
+            ])
+    _autofit(ws_r)
+
+    # ── Sheet 5: Returns Detail (rebuilt each run, one row per return event) ──
+    ret_sheet = "Returns Detail"
+    if ret_sheet in wb.sheetnames:
+        del wb[ret_sheet]
+    ws_ret = wb.create_sheet(ret_sheet)
+    _write_headers(ws_ret, [
+        "Date", "Site", "Product Key", "Brand", "Title", "Category",
+        "Stock Before", "Stock After", "Units Returned", "Sell Price (SEK)",
+        "Est. Return Value (SEK)",
+    ])
+    for entry in all_entries:
+        d = entry.get("date", "")
+        for ev in entry.get("summary", {}).get("return_events", []):
+            delta      = ev.get("delta", 0)
+            sell_price = ev.get("sell_price_sek", 0)
+            ws_ret.append([
+                d,
+                ev.get("site", ""),
+                ev.get("key", ""),
+                ev.get("brand", ""),
+                ev.get("title", ""),
+                ev.get("category", ""),
+                ev.get("stock_before", 0),
+                ev.get("stock_after", 0),
+                delta,
+                round(sell_price, 0),
+                round(delta * sell_price, 0),
+            ])
+    _autofit(ws_ret)
+
+    # ── Sheet 6: Latest Detail (replaced each run) ────────────────────────────
     det_sheet = "Latest Detail"
     if det_sheet in wb.sheetnames:
         del wb[det_sheet]
@@ -940,7 +1045,8 @@ def main() -> None:
     print(f"  Est. sold today (units)        : {summary['est_sold_today_units']:,}")
     print(f"  Est. sold today (SEK)          : {summary['est_sold_today_sek']:,.0f}")
     print(f"  Est. sold at list price (SEK)  : {summary['est_sold_today_list_sek']:,.0f}")
-    print(f"  Restocks                       : {summary['restocks']:,}")
+    print(f"  Est. customer returns (units)  : {summary.get('returns', 0):,}")
+    print(f"  Restocks (≥{RESTOCK_MIN_UNITS} units)              : {summary['restocks']:,}")
 
     print("\n  Top 10 categories by est. revenue (SEK):")
     top_cats = sorted(
