@@ -257,9 +257,10 @@ def load_state() -> dict:
         raw = json.loads(STATE_FILE.read_text(encoding="utf-8-sig"))
         return raw
     return {
-        "cluster_id":    "",
-        "daily_summary": [],
-        "last_snapshot": {},   # {"<market_key>/<product_colour_key>": stock}
+        "cluster_id":      "",
+        "daily_summary":   [],
+        "last_snapshot":   {},   # {"<site>/<product_colour_key>": stock}
+        "product_catalog": {},   # {"<site>/<product_colour_key>": {brand, title, category, prices}}
     }
 
 
@@ -607,7 +608,7 @@ def fetch_all_by_market(cluster_id: str) -> dict[str, dict[str, dict]]:
 def compute_snapshot_summary(
     curr_by_market: dict[str, dict[str, dict]],
     last_snapshot:  dict[str, int],    # "{site}/{key}": primary_stock_int
-) -> tuple[dict, list[dict], dict]:
+) -> tuple[dict, list[dict], dict, dict]:
     """
     Compute a daily summary from the current multi-market snapshot.
 
@@ -647,6 +648,7 @@ def compute_snapshot_summary(
 
     detail_rows:      list[dict] = []
     new_snapshot:     dict[str, int]  = {}
+    product_catalog:  dict[str, dict] = {}  # snap_key → latest metadata
     by_category:      dict[str, dict] = {}
     by_brand:         dict[str, dict] = {}
     by_site:          dict[str, dict] = {}
@@ -674,6 +676,16 @@ def compute_snapshot_summary(
             prev_stock  = last_snapshot.get(snap_key)
             stock_delta = (primary_stock - prev_stock) if prev_stock is not None else 0
             new_snapshot[snap_key] = primary_stock
+
+            # Always update the catalog with latest metadata.
+            product_catalog[snap_key] = {
+                "brand":         pd["brand"],
+                "title":         pd["title"],
+                "category":      pd["category"],
+                "sell_price_sek": pd["sell_price"],
+                "list_price_sek": pd["list_price"],
+                "site":          site,
+            }
 
             if prev_stock is None or stock_delta >= RESTOCK_MIN_UNITS:
                 est_sold = 0            # no prior data, or true restock
@@ -791,7 +803,7 @@ def compute_snapshot_summary(
         "by_site":                 by_site,
     }
 
-    return summary, detail_rows, new_snapshot
+    return summary, detail_rows, new_snapshot, product_catalog
 
 
 # ── Excel writer ──────────────────────────────────────────────────────────────
@@ -1097,7 +1109,7 @@ def main() -> None:
     last_snapshot = state.get("last_snapshot") or {}
     is_first_run  = not last_snapshot
 
-    summary, detail_rows, new_snapshot = compute_snapshot_summary(
+    summary, detail_rows, new_snapshot, product_catalog = compute_snapshot_summary(
         curr_by_market, last_snapshot
     )
 
@@ -1135,7 +1147,8 @@ def main() -> None:
         "timestamp": now,
         "summary":   summary,
     })
-    state["last_snapshot"] = new_snapshot
+    state["last_snapshot"]   = new_snapshot
+    state["product_catalog"] = product_catalog
 
     save_state(state)
     print(f"\n  State saved -> {STATE_FILE.name}")
