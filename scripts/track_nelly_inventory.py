@@ -101,7 +101,7 @@ MARKETS: dict[str, dict] = {
         "elevate_market": "Nelly_Sweden",
         "locale": "sv-SE", "currency": "SEK",
         "primary": True,   # source of truth for Nelly stock & sales delta
-        "categories": ["/klader/", "/skor/", "/accessoarer/"],
+        "categories": ["/klader/", "/skor/", "/accessoarer/", "/badklader/"],
     },
     "W_NO": {
         "site": "Nelly", "country": "NO",
@@ -120,19 +120,19 @@ MARKETS: dict[str, dict] = {
         "site": "Nelly", "country": "DK",
         "elevate_market": "Nelly_Denmark",
         "locale": "da-DK", "currency": "DKK",
-        "categories": ["/toj/", "/sko/", "/accessories/"],
+        "categories": ["/toj/", "/sko/", "/accessories/", "/badetoj/"],
     },
     "W_FI": {
         "site": "Nelly", "country": "FI",
         "elevate_market": "Nelly_Finland",
         "locale": "fi-FI", "currency": "EUR",
-        "categories": ["/vaatteet/", "/kengat/", "/asusteet/"],
+        "categories": ["/vaatteet/", "/kengat/", "/asusteet/", "/uimapuvut/"],
     },
     "W_NL": {
         "site": "Nelly", "country": "NL",
         "elevate_market": "Nelly_Netherlands",
         "locale": "en-US", "currency": "EUR",
-        "categories": ["/clothes/", "/shoes/", "/accessories/"],
+        "categories": ["/clothes/", "/shoes/", "/accessories/", "/beachwear/"],
     },
     "W_DE": {
         "site": "Nelly", "country": "DE",
@@ -170,7 +170,7 @@ MARKETS: dict[str, dict] = {
         "elevate_market": "NlyMan_Sweden",
         "locale": "sv-SE", "currency": "SEK",
         "primary": True,   # source of truth for NlyMan stock & sales delta
-        "categories": ["/klader/", "/skor/", "/accessoarer/"],
+        "categories": ["/klader/", "/skor/", "/accessoarer/", "/badklader/"],
     },
     "M_NO": {
         "site": "NlyMan", "country": "NO",
@@ -188,7 +188,7 @@ MARKETS: dict[str, dict] = {
         "site": "NlyMan", "country": "DK",
         "elevate_market": "NlyMan_Denmark",
         "locale": "da-DK", "currency": "DKK",
-        "categories": ["/toj/", "/sko/", "/accessories/"],
+        "categories": ["/toj/", "/sko/", "/accessories/", "/badetoj/"],
     },
     "M_FI": {
         "site": "NlyMan", "country": "FI",
@@ -649,6 +649,7 @@ def compute_snapshot_summary(
     new_snapshot:     dict[str, int]  = {}
     by_category:      dict[str, dict] = {}
     by_brand:         dict[str, dict] = {}
+    by_site:          dict[str, dict] = {}
 
     total_products        = 0
     est_sold_sek         = 0.0
@@ -727,6 +728,20 @@ def compute_snapshot_summary(
             est_sold_sek      += rev_sek
             est_sold_list_sek += list_rev_sek
 
+            # Site rollup.
+            site_data = by_site.setdefault(site, {
+                "est_sold_units": 0, "sell_rev_sek": 0.0, "list_rev_sek": 0.0,
+                "restocks": 0, "returns": 0,
+            })
+            site_data["est_sold_units"] += est_sold
+            site_data["sell_rev_sek"]   += rev_sek
+            site_data["list_rev_sek"]   += list_rev_sek
+            if prev_stock is not None:
+                if stock_delta >= RESTOCK_MIN_UNITS:
+                    site_data["restocks"] += 1
+                elif stock_delta > 0:
+                    site_data["returns"]  += 1
+
             # Category rollup — grouped to 2 levels (e.g. 'Kläder>Jeans').
             grouped_cat = _group_category(pd["category"])
             cat_data = by_category.setdefault(grouped_cat, {
@@ -773,6 +788,7 @@ def compute_snapshot_summary(
         "return_events":           return_events_list,
         "by_category":             by_category,
         "by_brand":                by_brand,
+        "by_site":                 by_site,
     }
 
     return summary, detail_rows, new_snapshot
@@ -807,7 +823,7 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
             del wb[name]
 
     # Remove obsolete sheets if present.
-    for _obs in ("By Market", "By Site"):
+    for _obs in ("By Market",):
         if _obs in wb.sheetnames:
             del wb[_obs]
 
@@ -901,6 +917,35 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
             row.append(round(by_br.get(b, {}).get("list_rev_sek", 0), 0))
         ws_b.append(row)
     _autofit(ws_b)
+
+    # ── Sheet 3b: By Site (wide, rebuilt each run) ───────────────────────────
+    site_sheet = "By Site"
+    if site_sheet in wb.sheetnames:
+        del wb[site_sheet]
+    ws_s = wb.create_sheet(site_sheet)
+
+    all_sites: set[str] = set()
+    for entry in all_entries:
+        all_sites.update(entry.get("summary", {}).get("by_site", {}).keys())
+    sorted_sites = sorted(all_sites)
+
+    site_cols = (
+        [f"{s} (Sell)"  for s in sorted_sites]
+        + [f"{s} (List)"  for s in sorted_sites]
+        + [f"{s} (Units)" for s in sorted_sites]
+    )
+    _write_headers(ws_s, ["Date"] + site_cols)
+    for entry in all_entries:
+        by_s = entry.get("summary", {}).get("by_site", {})
+        row: list = [entry.get("date", "")]
+        for s in sorted_sites:
+            row.append(round(by_s.get(s, {}).get("sell_rev_sek", 0), 0))
+        for s in sorted_sites:
+            row.append(round(by_s.get(s, {}).get("list_rev_sek", 0), 0))
+        for s in sorted_sites:
+            row.append(by_s.get(s, {}).get("est_sold_units", 0))
+        ws_s.append(row)
+    _autofit(ws_s)
 
     # ── Sheet 4: Restocks (rebuilt each run, one row per event) ───────────────
     restock_sheet = "Restocks"
@@ -1073,6 +1118,13 @@ def main() -> None:
     )[:10]
     for cat_name, cdata in top_cats:
         print(f"    [{cat_name}] {cdata.get('sell_rev_sek', 0):,.0f} SEK")
+
+    print("\n  Est. sales by site:")
+    for site_name, sdata in sorted(summary.get("by_site", {}).items()):
+        print(f"    [{site_name}] {sdata.get('sell_rev_sek', 0):,.0f} SEK  "
+              f"({sdata.get('est_sold_units', 0):,} units, "
+              f"restocks: {sdata.get('restocks', 0)}, "
+              f"returns: {sdata.get('returns', 0)})")
 
     # ── Step 5: Update state ─────────────────────────────────────────────────
     if not isinstance(state.get("daily_summary"), list):
