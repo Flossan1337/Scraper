@@ -127,68 +127,84 @@
       "sld_x_list_eur": 4335.0,
       "product_colors_total": 2179,
       "product_colors_with_sales": 881
+    },
+    {
+      "date": "2026-03-19",
+      "timestamp": "2026-03-19T05:06:41",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.7778,
+        "GBP": 12.4753,
+        "NOK": 0.978
+      },
+      "slw_x_sell_eur": 6437453.7,
+      "sld_x_sell_eur": 14130.0,
+      "slw_x_list_eur": 8125151.7,
+      "sld_x_list_eur": 16542.0,
+      "product_colors_total": 2207,
+      "product_colors_with_sales": 879
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1673,
-      "date": "2026-03-18"
+      "sale_last_week": 1619,
+      "date": "2026-03-19"
     },
     {
       "base_key": "10003_2851",
       "title": "Nordwand Pro Pants",
-      "sale_last_week": 1545,
-      "date": "2026-03-18"
+      "sale_last_week": 1514,
+      "date": "2026-03-19"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1465,
-      "date": "2026-03-18"
+      "sale_last_week": 1483,
+      "date": "2026-03-19"
     },
     {
       "base_key": "10728_2288",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 1427,
-      "date": "2026-03-18"
+      "sale_last_week": 1363,
+      "date": "2026-03-19"
     },
     {
       "base_key": "10106_2003",
       "title": "Nordwand Pants",
-      "sale_last_week": 1296,
-      "date": "2026-03-18"
+      "sale_last_week": 1328,
+      "date": "2026-03-19"
     },
     {
       "base_key": "10728_2007",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 1111,
-      "date": "2026-03-18"
-    },
-    {
-      "base_key": "11144_2001",
-      "title": "Rambler Lightweight Pants",
-      "sale_last_week": 1064,
-      "date": "2026-03-18"
+      "sale_last_week": 1130,
+      "date": "2026-03-19"
     },
     {
       "base_key": "10833_2001",
       "title": "Summit Pocket Tights",
-      "sale_last_week": 1012,
-      "date": "2026-03-18"
-    },
-    {
-      "base_key": "10352_2001",
-      "title": "Embossed Belt",
-      "sale_last_week": 992,
-      "date": "2026-03-18"
+      "sale_last_week": 1022,
+      "date": "2026-03-19"
     },
     {
       "base_key": "10728_2891",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 956,
-      "date": "2026-03-18"
+      "sale_last_week": 987,
+      "date": "2026-03-19"
+    },
+    {
+      "base_key": "10352_2001",
+      "title": "Embossed Belt",
+      "sale_last_week": 951,
+      "date": "2026-03-19"
+    },
+    {
+      "base_key": "10009_2179",
+      "title": "Nordwand Pants",
+      "sale_last_week": 944,
+      "date": "2026-03-19"
     }
   ]
 }
