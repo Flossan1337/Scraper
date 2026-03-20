@@ -101,7 +101,7 @@ MARKETS: dict[str, dict] = {
         "elevate_market": "Nelly_Sweden",
         "locale": "sv-SE", "currency": "SEK",
         "primary": True,   # source of truth for Nelly stock & sales delta
-        "categories": ["/klader/", "/skor/", "/accessoarer/", "/badklader/"],
+        "categories": ["/klader/", "/skor/", "/accessoarer/", "/badklader/", "/sport/"],
     },
     "W_NO": {
         "site": "Nelly", "country": "NO",
