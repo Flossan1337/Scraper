@@ -84,7 +84,7 @@ def fetch_group(py: TrendReq, keywords):
     tf = f"2016-01-01 {datetime.now():%Y-%m-%d}"
     py.build_payload(keywords, timeframe=tf)
     df = iot_with_retry(py).drop(columns=["isPartial"], errors="ignore")
-    return df.resample("M").mean()  # månadsmedel
+    return df.resample("ME").mean()  # månadsmedel
 
 
 def main():
