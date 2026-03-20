@@ -80,7 +80,7 @@ ELEVATE_CLUSTER_ID        = "w67a8630f"
 
 # Stock increases below this threshold are treated as customer returns (negative sales).
 # Increases >= this value are treated as true warehouse restocks.
-RESTOCK_MIN_UNITS         = 4
+RESTOCK_MIN_UNITS         = 10
 
 # Extra Elevate params to retrieve price tiers and all custom fields.
 NELLY_PRESENT_PRICES = "member"
@@ -425,26 +425,30 @@ def fetch_elevate_page(
 
 def extract_products_from_page(data: dict, page_ref: str = "") -> tuple[dict[str, dict], int, int]:
     """
-    Extract product-colour level data from an Elevate landing-page response.
+    Extract size-level (variant) data from an Elevate landing-page response.
 
     Returns
     -------
-    (products_dict, total_hits, group_count)
+    (variants_dict, total_hits, group_count)
 
-    products_dict keyed by product_colour_key (e.g. "262438-6915"):
+    variants_dict keyed by variant_key (e.g. "262438-6915-251"):
         {
-            "stock":         int,   total stock across all sizes in this market
-            "sizes_in_stock": int,  number of sizes with stockNumber > 0
-            "sell_price":    float, representative selling price
-            "list_price":    float, representative list price
-            "discount_pct":  float, discount as % of list price (0 if no discount)
-            "brand":         str,
-            "title":         str,
-            "category":      str,
-            "in_stock":      bool,
+            "stock":       int,   stock for this specific size
+            "sell_price":  float, selling price
+            "list_price":  float, list price
+            "discount_pct": float, discount as % of list price (0 if no discount)
+            "historic_low": float, historic lowest selling price
+            "brand":       str,
+            "title":       str,
+            "category":    str,
+            "size":        str,   e.g. "EU 32"
+            "product_key": str,   parent product-colour key e.g. "262438-6915"
+            "in_stock":    bool,
+            "is_new":      bool,
+            "has_discount": bool,
         }
     """
-    products: dict[str, dict] = {}
+    variants: dict[str, dict] = {}
     pl = data.get("primaryList") or {}
     total_hits = int(pl.get("totalHits") or 0)
     groups = pl.get("productGroups") or []
@@ -457,7 +461,6 @@ def extract_products_from_page(data: dict, page_ref: str = "") -> tuple[dict[str
 
             brand    = str(product.get("brand") or "")
             title    = str(product.get("title") or product.get("name") or "")
-            in_stock = bool(product.get("inStock"))
             category = _parse_category(product)
 
             # Badges: check for discount/sale badges
@@ -474,71 +477,51 @@ def extract_products_from_page(data: dict, page_ref: str = "") -> tuple[dict[str
                 for b in badges_all
             )
 
-            # Aggregate variant-level stock and price
-            total_stock    = 0
-            sizes_in_stock = 0
-            sell_prices:   list[float] = []
-            list_prices:   list[float] = []
-
-            hist_low_sell: list[float] = []
-
             for variant in product.get("variants") or []:
+                variant_key = str(variant.get("key") or "")
+                if not variant_key:
+                    continue
+
                 try:
                     stock = int(variant.get("stockNumber") or 0)
                 except (TypeError, ValueError):
                     stock = 0
-                total_stock += stock
-                if stock > 0:
-                    sizes_in_stock += 1
 
-                sp = _get_price(variant.get("sellingPrice"))
-                lp = _get_price(variant.get("listPrice")) or sp
-                if sp > 0:
-                    sell_prices.append(sp)
-                if lp > 0:
-                    list_prices.append(lp)
+                size = str(variant.get("label") or variant.get("size") or "")
 
-                # Historic lowest price (from presentCustom)
+                sp = _get_price(variant.get("sellingPrice")) or _get_price(product.get("sellingPrice"))
+                lp = _get_price(variant.get("listPrice")) or _get_price(product.get("listPrice")) or sp
+                discount_pct = (
+                    round(100.0 * (1.0 - sp / lp), 1)
+                    if lp > 0 and sp < lp else 0.0
+                )
+
                 v_custom = variant.get("custom") or {}
                 hlsp = v_custom.get("historic_lowest_selling_price")
+                historic_low = 0.0
                 if hlsp:
                     try:
-                        hist_low_sell.append(float(hlsp))
+                        historic_low = float(hlsp)
                     except (TypeError, ValueError):
                         pass
 
-            # Use median prices to handle weird outliers
-            def _median_inner(lst: list) -> float:
-                if not lst:
-                    return 0.0
-                s = sorted(lst)
-                m = len(s) // 2
-                return s[m] if len(s) % 2 else (s[m - 1] + s[m]) / 2.0
+                variants[variant_key] = {
+                    "stock":        stock,
+                    "sell_price":   round(sp, 2),
+                    "list_price":   round(lp, 2),
+                    "discount_pct": discount_pct,
+                    "historic_low": round(historic_low, 2),
+                    "brand":        brand,
+                    "title":        title,
+                    "category":     category,
+                    "size":         size,
+                    "product_key":  product_key,
+                    "in_stock":     stock > 0,
+                    "is_new":       is_new,
+                    "has_discount": has_discount_badge,
+                }
 
-            sell_price = _median_inner(sell_prices) or _get_price(product.get("sellingPrice"))
-            list_price = _median_inner(list_prices) or _get_price(product.get("listPrice")) or sell_price
-            discount_pct = (
-                round(100.0 * (1.0 - sell_price / list_price), 1)
-                if list_price > 0 and sell_price < list_price else 0.0
-            )
-            historic_low = _median_inner(hist_low_sell) if hist_low_sell else 0.0
-
-            products[product_key] = {
-                "stock":          total_stock,
-                "sizes_in_stock": sizes_in_stock,
-                "sell_price":     round(sell_price, 2),
-                "list_price":     round(list_price, 2),
-                "discount_pct":   discount_pct,
-                "historic_low":   round(historic_low, 2),
-                "brand":          brand,
-                "title":          title,
-                "category":       category,
-                "in_stock":       in_stock,
-                "has_discount":   has_discount_badge,
-                "is_new":         is_new,
-            }
-
-    return products, total_hits, len(groups)
+    return variants, total_hits, len(groups)
 
 
 def fetch_all_by_market(cluster_id: str) -> dict[str, dict[str, dict]]:
@@ -554,6 +537,8 @@ def fetch_all_by_market(cluster_id: str) -> dict[str, dict[str, dict]]:
     result: dict[str, dict[str, dict]] = {}
 
     for market_code, cfg in MARKETS.items():
+        if not cfg.get("primary"):
+            continue  # only fetch primary markets (W_SE, M_SE) — shared stock pool
         elevate_market = cfg["elevate_market"]
         locale         = cfg["locale"]
         categories     = cfg["categories"]
@@ -682,6 +667,7 @@ def compute_snapshot_summary(
                 "brand":         pd["brand"],
                 "title":         pd["title"],
                 "category":      pd["category"],
+                "size":          pd.get("size", ""),
                 "sell_price_sek": pd["sell_price"],
                 "list_price_sek": pd["list_price"],
                 "site":          site,
@@ -698,6 +684,7 @@ def compute_snapshot_summary(
                     "brand":          pd["brand"],
                     "title":          pd["title"],
                     "category":       pd["category"],
+                    "size":           pd.get("size", ""),
                     "stock_before":   prev_stock,
                     "stock_after":    primary_stock,
                     "delta":          stock_delta,
@@ -729,6 +716,7 @@ def compute_snapshot_summary(
                     "brand":          pd["brand"],
                     "title":          pd["title"],
                     "category":       pd["category"],
+                    "size":           pd.get("size", ""),
                     "stock_before":   prev_stock,
                     "stock_after":    primary_stock,
                     "delta":          stock_delta,
@@ -835,7 +823,7 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
             del wb[name]
 
     # Remove obsolete sheets if present.
-    for _obs in ("By Market",):
+    for _obs in ("By Market", "Latest Detail"):
         if _obs in wb.sheetnames:
             del wb[_obs]
 
@@ -965,7 +953,7 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
         del wb[restock_sheet]
     ws_r = wb.create_sheet(restock_sheet)
     _write_headers(ws_r, [
-        "Date", "Site", "Product Key", "Brand", "Title", "Category",
+        "Date", "Site", "Product Key", "Size", "Brand", "Title", "Category",
         "Stock Before", "Stock After", "Delta", "Sell Price (SEK)",
         "Est. Restock Value (SEK)",
     ])
@@ -978,6 +966,7 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
                 d,
                 ev.get("site", ""),
                 ev.get("key", ""),
+                ev.get("size", ""),
                 ev.get("brand", ""),
                 ev.get("title", ""),
                 ev.get("category", ""),
@@ -995,7 +984,7 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
         del wb[ret_sheet]
     ws_ret = wb.create_sheet(ret_sheet)
     _write_headers(ws_ret, [
-        "Date", "Site", "Product Key", "Brand", "Title", "Category",
+        "Date", "Site", "Product Key", "Size", "Brand", "Title", "Category",
         "Stock Before", "Stock After", "Units Returned", "Sell Price (SEK)",
         "Est. Return Value (SEK)",
     ])
@@ -1008,6 +997,7 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
                 d,
                 ev.get("site", ""),
                 ev.get("key", ""),
+                ev.get("size", ""),
                 ev.get("brand", ""),
                 ev.get("title", ""),
                 ev.get("category", ""),
@@ -1018,49 +1008,6 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
                 round(delta * sell_price, 0),
             ])
     _autofit(ws_ret)
-
-    # ── Sheet 6: Latest Detail (replaced each run) ────────────────────────────
-    det_sheet = "Latest Detail"
-    if det_sheet in wb.sheetnames:
-        del wb[det_sheet]
-    ws_d = wb.create_sheet(det_sheet)
-    _write_headers(ws_d, [
-        "Product-Colour Key", "Site", "Brand", "Title", "Category",
-        "Sell Price (SEK)", "List Price (SEK)", "Historic Low (SEK)",
-        "Discount %", "New?", "Est. Sold Today",
-        # Primary-market stock (single shared pool per site)
-        "Stock W_SE", "Stock M_SE",
-        # Nelly availability markets (1 = listed, 0 = not listed, blank = N/A)
-        "Avail W_NO", "Avail W_DK", "Avail W_FI", "Avail W_NL",
-        "Avail W_DE", "Avail W_BE", "Avail W_PL", "Avail W_FR", "Avail W_AT",
-        # NlyMan availability markets
-        "Avail M_NO", "Avail M_DK", "Avail M_FI", "Avail M_NL",
-        "Avail M_DE", "Avail M_BE", "Avail M_PL", "Avail M_FR", "Avail M_AT",
-        "Total Stock", "Markets Listed",
-    ])
-    for row in sorted(detail_rows, key=lambda x: -x["primary_stock"]):
-        ws_d.append([
-            row["key"], row["site"], row["brand"], row["title"], row["category"],
-            row["sell_price_sek"], row["list_price_sek"],
-            row.get("historic_low_sek", 0),
-            row["discount_pct"], "Yes" if row["is_new"] else "",
-            row["est_sold_today"],
-            row.get("stk_W_SE", ""), row.get("stk_M_SE", ""),
-            # Nelly avail
-            row.get("avl_W_NO", ""), row.get("avl_W_DK", ""),
-            row.get("avl_W_FI", ""), row.get("avl_W_NL", ""),
-            row.get("avl_W_DE", ""), row.get("avl_W_BE", ""),
-            row.get("avl_W_PL", ""), row.get("avl_W_FR", ""),
-            row.get("avl_W_AT", ""),
-            # NlyMan avail
-            row.get("avl_M_NO", ""), row.get("avl_M_DK", ""),
-            row.get("avl_M_FI", ""), row.get("avl_M_NL", ""),
-            row.get("avl_M_DE", ""), row.get("avl_M_BE", ""),
-            row.get("avl_M_PL", ""), row.get("avl_M_FR", ""),
-            row.get("avl_M_AT", ""),
-            row["primary_stock"], row["listed_count"],
-        ])
-    _autofit(ws_d)
 
     wb.save(XLSX_PATH)
     print(f"  Saved -> {XLSX_PATH}")
