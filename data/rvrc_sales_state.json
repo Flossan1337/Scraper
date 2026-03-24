@@ -207,68 +207,84 @@
       "sld_x_list_eur": 43572.0,
       "product_colors_total": 2149,
       "product_colors_with_sales": 1273
+    },
+    {
+      "date": "2026-03-24",
+      "timestamp": "2026-03-24T05:05:44",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.8328,
+        "GBP": 12.5351,
+        "NOK": 0.9599
+      },
+      "slw_x_sell_eur": 5153260.45,
+      "sld_x_sell_eur": 2525.0,
+      "slw_x_list_eur": 6407240.45,
+      "sld_x_list_eur": 3475.0,
+      "product_colors_total": 2168,
+      "product_colors_with_sales": 1043
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1537,
-      "date": "2026-03-23"
+      "sale_last_week": 1314,
+      "date": "2026-03-24"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1315,
-      "date": "2026-03-23"
+      "sale_last_week": 1106,
+      "date": "2026-03-24"
     },
     {
-      "base_key": "10728_2288",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 1110,
-      "date": "2026-03-23"
+      "base_key": "10003_2851",
+      "title": "Nordwand Pro Trousers",
+      "sale_last_week": 1057,
+      "date": "2026-03-24"
+    },
+    {
+      "base_key": "10106_2003",
+      "title": "Nordwand Pants",
+      "sale_last_week": 990,
+      "date": "2026-03-24"
     },
     {
       "base_key": "10833_2001",
       "title": "Summit Pocket Tights",
-      "sale_last_week": 1029,
-      "date": "2026-03-23"
+      "sale_last_week": 863,
+      "date": "2026-03-24"
+    },
+    {
+      "base_key": "10728_2288",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 823,
+      "date": "2026-03-24"
     },
     {
       "base_key": "10728_2007",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 937,
-      "date": "2026-03-23"
-    },
-    {
-      "base_key": "11189_2001",
-      "title": "Flow High-waisted Leggings",
-      "sale_last_week": 890,
-      "date": "2026-03-23"
-    },
-    {
-      "base_key": "10352_2001",
-      "title": "Embossed Belt",
-      "sale_last_week": 890,
-      "date": "2026-03-23"
-    },
-    {
-      "base_key": "10352_2179",
-      "title": "Embossed Belt",
-      "sale_last_week": 853,
-      "date": "2026-03-23"
+      "sale_last_week": 759,
+      "date": "2026-03-24"
     },
     {
       "base_key": "10009_2179",
       "title": "Nordwand Pants",
-      "sale_last_week": 852,
-      "date": "2026-03-23"
+      "sale_last_week": 739,
+      "date": "2026-03-24"
     },
     {
-      "base_key": "11144_2001",
-      "title": "Rambler Lightweight Pants",
-      "sale_last_week": 825,
-      "date": "2026-03-23"
+      "base_key": "10352_2001",
+      "title": "Embossed Belt",
+      "sale_last_week": 735,
+      "date": "2026-03-24"
+    },
+    {
+      "base_key": "11189_2001",
+      "title": "Flow High-waisted Leggings",
+      "sale_last_week": 722,
+      "date": "2026-03-24"
     }
   ]
 }
