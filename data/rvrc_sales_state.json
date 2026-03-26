@@ -239,68 +239,84 @@
       "sld_x_list_eur": 36003.0,
       "product_colors_total": 2163,
       "product_colors_with_sales": 1136
+    },
+    {
+      "date": "2026-03-26",
+      "timestamp": "2026-03-26T05:21:45",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.5,
+        "GBP": 13.0,
+        "NOK": 0.97
+      },
+      "slw_x_sell_eur": 5666954.41,
+      "sld_x_sell_eur": 12836.0,
+      "slw_x_list_eur": 6953948.41,
+      "sld_x_list_eur": 13160.0,
+      "product_colors_total": 2194,
+      "product_colors_with_sales": 1123
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1471,
-      "date": "2026-03-25"
+      "sale_last_week": 1338,
+      "date": "2026-03-26"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1254,
-      "date": "2026-03-25"
+      "sale_last_week": 1100,
+      "date": "2026-03-26"
+    },
+    {
+      "base_key": "10106_2003",
+      "title": "Nordwand Pants",
+      "sale_last_week": 1053,
+      "date": "2026-03-26"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1076,
-      "date": "2026-03-25"
-    },
-    {
-      "base_key": "10833_2001",
-      "title": "Summit Pocket Tights",
-      "sale_last_week": 954,
-      "date": "2026-03-25"
+      "sale_last_week": 1004,
+      "date": "2026-03-26"
     },
     {
       "base_key": "10352_2001",
       "title": "Embossed Belt",
-      "sale_last_week": 926,
-      "date": "2026-03-25"
+      "sale_last_week": 850,
+      "date": "2026-03-26"
     },
     {
-      "base_key": "11189_2001",
-      "title": "Flow High-waisted Leggings",
-      "sale_last_week": 871,
-      "date": "2026-03-25"
+      "base_key": "10833_2001",
+      "title": "Summit Pocket Tights",
+      "sale_last_week": 806,
+      "date": "2026-03-26"
     },
     {
       "base_key": "10352_2179",
       "title": "Embossed Belt",
-      "sale_last_week": 838,
-      "date": "2026-03-25"
+      "sale_last_week": 752,
+      "date": "2026-03-26"
+    },
+    {
+      "base_key": "11189_2001",
+      "title": "Flow High-waisted Leggings",
+      "sale_last_week": 746,
+      "date": "2026-03-26"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 828,
-      "date": "2026-03-25"
+      "sale_last_week": 742,
+      "date": "2026-03-26"
     },
     {
       "base_key": "10728_2007",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 798,
-      "date": "2026-03-25"
-    },
-    {
-      "base_key": "10338_2002",
-      "title": "Descent Seamless Tights",
-      "sale_last_week": 771,
-      "date": "2026-03-25"
+      "sale_last_week": 728,
+      "date": "2026-03-26"
     }
   ]
 }
