@@ -100,6 +100,11 @@ jobs:
         timeout-minutes: 30
         continue-on-error: true
 
+      - name: Run fetch_plejd_sensortower_rankings.py
+        run: python ./scripts/fetch_plejd_sensortower_rankings.py
+        timeout-minutes: 10
+        continue-on-error: true
+
       - name: Commit & push generated data (if any)
         shell: bash
         run: |
