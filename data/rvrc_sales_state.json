@@ -383,68 +383,84 @@
       "sld_x_list_eur": 7599.0,
       "product_colors_total": 2088,
       "product_colors_with_sales": 593
+    },
+    {
+      "date": "2026-04-04",
+      "timestamp": "2026-04-04T05:03:22",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.948,
+        "GBP": 12.5474,
+        "NOK": 0.975
+      },
+      "slw_x_sell_eur": 2095174.58,
+      "sld_x_sell_eur": 3213.0,
+      "slw_x_list_eur": 2133897.58,
+      "sld_x_list_eur": 3213.0,
+      "product_colors_total": 2081,
+      "product_colors_with_sales": 618
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 477,
-      "date": "2026-04-03"
+      "sale_last_week": 492,
+      "date": "2026-04-04"
     },
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 448,
-      "date": "2026-04-03"
+      "sale_last_week": 446,
+      "date": "2026-04-04"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 330,
-      "date": "2026-04-03"
+      "sale_last_week": 372,
+      "date": "2026-04-04"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 290,
-      "date": "2026-04-03"
-    },
-    {
-      "base_key": "11144_2001",
-      "title": "Rambler Lightweight Pants",
-      "sale_last_week": 288,
-      "date": "2026-04-03"
+      "sale_last_week": 315,
+      "date": "2026-04-04"
     },
     {
       "base_key": "10352_2001",
       "title": "Embossed Belt",
-      "sale_last_week": 276,
-      "date": "2026-04-03"
+      "sale_last_week": 299,
+      "date": "2026-04-04"
     },
     {
-      "base_key": "11161_4216",
-      "title": "Canyon Half-zip Pile Fleece",
-      "sale_last_week": 264,
-      "date": "2026-04-03"
+      "base_key": "11144_2001",
+      "title": "Rambler Lightweight Pants",
+      "sale_last_week": 295,
+      "date": "2026-04-04"
     },
     {
       "base_key": "10134_2179",
       "title": "Stretch Belt",
-      "sale_last_week": 258,
-      "date": "2026-04-03"
+      "sale_last_week": 280,
+      "date": "2026-04-04"
     },
     {
       "base_key": "10352_2179",
       "title": "Embossed Belt",
-      "sale_last_week": 246,
-      "date": "2026-04-03"
+      "sale_last_week": 245,
+      "date": "2026-04-04"
     },
     {
-      "base_key": "10711_4100",
-      "title": "Silence Proshell 3L Jacket",
-      "sale_last_week": 206,
-      "date": "2026-04-03"
+      "base_key": "11161_4216",
+      "title": "Canyon Half-zip Pile Fleece",
+      "sale_last_week": 243,
+      "date": "2026-04-04"
+    },
+    {
+      "base_key": "10728_2288",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 232,
+      "date": "2026-04-04"
     }
   ]
 }
