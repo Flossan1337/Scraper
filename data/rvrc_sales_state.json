@@ -431,68 +431,84 @@
       "sld_x_list_eur": 258448.0,
       "product_colors_total": 2067,
       "product_colors_with_sales": 610
+    },
+    {
+      "date": "2026-04-07",
+      "timestamp": "2026-04-07T05:23:14",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.948,
+        "GBP": 12.5474,
+        "NOK": 0.975
+      },
+      "slw_x_sell_eur": 1907383.24,
+      "sld_x_sell_eur": 3350.0,
+      "slw_x_list_eur": 1969143.24,
+      "sld_x_list_eur": 4475.0,
+      "product_colors_total": 2060,
+      "product_colors_with_sales": 580
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 463,
-      "date": "2026-04-06"
+      "sale_last_week": 439,
+      "date": "2026-04-07"
     },
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 422,
-      "date": "2026-04-06"
+      "sale_last_week": 404,
+      "date": "2026-04-07"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 334,
-      "date": "2026-04-06"
-    },
-    {
-      "base_key": "10004_2003",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 279,
-      "date": "2026-04-06"
-    },
-    {
-      "base_key": "10352_2001",
-      "title": "Embossed Belt",
-      "sale_last_week": 274,
-      "date": "2026-04-06"
-    },
-    {
-      "base_key": "11144_2001",
-      "title": "Rambler Lightweight Pants",
-      "sale_last_week": 269,
-      "date": "2026-04-06"
+      "sale_last_week": 295,
+      "date": "2026-04-07"
     },
     {
       "base_key": "10728_2288",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 242,
-      "date": "2026-04-06"
+      "sale_last_week": 273,
+      "date": "2026-04-07"
     },
     {
-      "base_key": "10134_2179",
-      "title": "Stretch Belt",
-      "sale_last_week": 241,
-      "date": "2026-04-06"
+      "base_key": "10352_2001",
+      "title": "Embossed Belt",
+      "sale_last_week": 252,
+      "date": "2026-04-07"
+    },
+    {
+      "base_key": "10004_2003",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 248,
+      "date": "2026-04-07"
+    },
+    {
+      "base_key": "11144_2001",
+      "title": "Rambler Lightweight Pants",
+      "sale_last_week": 244,
+      "date": "2026-04-07"
     },
     {
       "base_key": "10352_2179",
       "title": "Embossed Belt",
-      "sale_last_week": 237,
-      "date": "2026-04-06"
+      "sale_last_week": 212,
+      "date": "2026-04-07"
+    },
+    {
+      "base_key": "10134_2179",
+      "title": "Stretch Belt",
+      "sale_last_week": 207,
+      "date": "2026-04-07"
     },
     {
       "base_key": "10711_4100",
       "title": "Silence Proshell 3L Jacket",
-      "sale_last_week": 214,
-      "date": "2026-04-06"
+      "sale_last_week": 203,
+      "date": "2026-04-07"
     }
   ]
 }
