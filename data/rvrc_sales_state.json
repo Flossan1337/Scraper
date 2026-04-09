@@ -463,68 +463,84 @@
       "sld_x_list_eur": 16573.0,
       "product_colors_total": 2065,
       "product_colors_with_sales": 586
+    },
+    {
+      "date": "2026-04-09",
+      "timestamp": "2026-04-09T05:25:15",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.784,
+        "GBP": 12.4107,
+        "NOK": 0.9669
+      },
+      "slw_x_sell_eur": 1872110.89,
+      "sld_x_sell_eur": 3459.0,
+      "slw_x_list_eur": 1945600.89,
+      "sld_x_list_eur": 4344.0,
+      "product_colors_total": 2074,
+      "product_colors_with_sales": 577
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 634,
-      "date": "2026-04-08"
-    },
-    {
-      "base_key": "10004_2243",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 314,
-      "date": "2026-04-08"
+      "sale_last_week": 485,
+      "date": "2026-04-09"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 284,
-      "date": "2026-04-08"
+      "sale_last_week": 289,
+      "date": "2026-04-09"
     },
     {
       "base_key": "10728_2288",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 279,
-      "date": "2026-04-08"
+      "sale_last_week": 267,
+      "date": "2026-04-09"
+    },
+    {
+      "base_key": "10004_2243",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 260,
+      "date": "2026-04-09"
     },
     {
       "base_key": "10352_2001",
       "title": "Embossed Belt",
-      "sale_last_week": 272,
-      "date": "2026-04-08"
+      "sale_last_week": 253,
+      "date": "2026-04-09"
     },
     {
       "base_key": "11144_2001",
       "title": "Rambler Lightweight Pants",
-      "sale_last_week": 259,
-      "date": "2026-04-08"
+      "sale_last_week": 245,
+      "date": "2026-04-09"
     },
     {
       "base_key": "10352_2179",
       "title": "Embossed Belt",
-      "sale_last_week": 243,
-      "date": "2026-04-08"
+      "sale_last_week": 228,
+      "date": "2026-04-09"
     },
     {
       "base_key": "10134_2179",
       "title": "Stretch Belt",
-      "sale_last_week": 214,
-      "date": "2026-04-08"
+      "sale_last_week": 215,
+      "date": "2026-04-09"
     },
     {
-      "base_key": "10711_4100",
-      "title": "Silence Proshell 3L Jacket",
-      "sale_last_week": 197,
-      "date": "2026-04-08"
+      "base_key": "10728_2007",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 195,
+      "date": "2026-04-09"
     },
     {
-      "base_key": "10004_2003",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 189,
-      "date": "2026-04-08"
+      "base_key": "10088_2370",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 188,
+      "date": "2026-04-09"
     }
   ]
 }
