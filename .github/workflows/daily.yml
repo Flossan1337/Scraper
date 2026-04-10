@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write # krävs för git push med GITHUB_TOKEN
+  issues: write  # krävs för att öppna issues via gh CLI
 
 jobs:
   run-scripts:
@@ -104,6 +105,26 @@ jobs:
         run: python ./scripts/fetch_plejd_sensortower_rankings.py
         timeout-minutes: 10
         continue-on-error: true
+
+      - name: Run track_tu_brands.py
+        run: python ./scripts/track_tu_brands.py
+        timeout-minutes: 10
+        continue-on-error: true
+
+      - name: Open GitHub issue for new TU brands
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ALERT="${RUNNER_TEMP}/tu_brands_alert.json"
+          if [ -f "$ALERT" ]; then
+            TITLE=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(d['title'])" "$ALERT")
+            BODY=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(d['body'])" "$ALERT")
+            gh issue create \
+              --repo "${{ github.repository }}" \
+              --title "$TITLE" \
+              --body "$BODY"
+          fi
 
       - name: Commit & push generated data (if any)
         shell: bash
