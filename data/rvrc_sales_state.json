@@ -511,68 +511,84 @@
       "sld_x_list_eur": 74924.0,
       "product_colors_total": 2076,
       "product_colors_with_sales": 438
+    },
+    {
+      "date": "2026-04-12",
+      "timestamp": "2026-04-12T05:35:09",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.836,
+        "GBP": 12.4402,
+        "NOK": 0.9748
+      },
+      "slw_x_sell_eur": 2191526.82,
+      "sld_x_sell_eur": 56130.0,
+      "slw_x_list_eur": 2421992.82,
+      "sld_x_list_eur": 67529.0,
+      "product_colors_total": 2067,
+      "product_colors_with_sales": 437
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1268,
-      "date": "2026-04-11"
+      "sale_last_week": 1494,
+      "date": "2026-04-12"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 1032,
-      "date": "2026-04-11"
-    },
-    {
-      "base_key": "10004_2243",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 645,
-      "date": "2026-04-11"
+      "sale_last_week": 963,
+      "date": "2026-04-12"
     },
     {
       "base_key": "10004_2239",
       "title": "RVRC GP Pants",
-      "sale_last_week": 511,
-      "date": "2026-04-11"
+      "sale_last_week": 615,
+      "date": "2026-04-12"
+    },
+    {
+      "base_key": "10004_2243",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 600,
+      "date": "2026-04-12"
     },
     {
       "base_key": "11028_5034",
       "title": "Nordwand Pro Pants",
-      "sale_last_week": 500,
-      "date": "2026-04-11"
+      "sale_last_week": 580,
+      "date": "2026-04-12"
     },
     {
       "base_key": "10004_4768",
       "title": "RVRC GP Pants",
-      "sale_last_week": 409,
-      "date": "2026-04-11"
+      "sale_last_week": 471,
+      "date": "2026-04-12"
     },
     {
       "base_key": "11031_2001",
       "title": "Nordwand Pants",
-      "sale_last_week": 378,
-      "date": "2026-04-11"
+      "sale_last_week": 381,
+      "date": "2026-04-12"
     },
     {
       "base_key": "10134_2001",
       "title": "Stretch Belt",
-      "sale_last_week": 369,
-      "date": "2026-04-11"
+      "sale_last_week": 380,
+      "date": "2026-04-12"
     },
     {
       "base_key": "10728_2288",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 338,
-      "date": "2026-04-11"
+      "sale_last_week": 321,
+      "date": "2026-04-12"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 330,
-      "date": "2026-04-11"
+      "sale_last_week": 308,
+      "date": "2026-04-12"
     }
   ]
 }
