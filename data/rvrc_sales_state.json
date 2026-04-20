@@ -639,68 +639,84 @@
       "sld_x_list_eur": 230417.0,
       "product_colors_total": 2057,
       "product_colors_with_sales": 446
+    },
+    {
+      "date": "2026-04-20",
+      "timestamp": "2026-04-20T05:52:23",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.803,
+        "GBP": 12.3933,
+        "NOK": 0.9806
+      },
+      "slw_x_sell_eur": 2228705.36,
+      "sld_x_sell_eur": 471726.6,
+      "slw_x_list_eur": 2638520.36,
+      "sld_x_list_eur": 603004.6,
+      "product_colors_total": 2047,
+      "product_colors_with_sales": 461
     }
   ],
   "reference_products": [
     {
       "base_key": "10088_2817",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 1086,
-      "date": "2026-04-19"
-    },
-    {
-      "base_key": "10004_2001",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 924,
-      "date": "2026-04-19"
+      "sale_last_week": 1213,
+      "date": "2026-04-20"
     },
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 819,
-      "date": "2026-04-19"
+      "sale_last_week": 823,
+      "date": "2026-04-20"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 795,
-      "date": "2026-04-19"
+      "sale_last_week": 779,
+      "date": "2026-04-20"
     },
     {
       "base_key": "10088_2801",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 754,
-      "date": "2026-04-19"
-    },
-    {
-      "base_key": "10067_2001",
-      "title": "RVRC GP Shorts",
-      "sale_last_week": 711,
-      "date": "2026-04-19"
+      "sale_last_week": 750,
+      "date": "2026-04-20"
     },
     {
       "base_key": "10088_2686",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 661,
-      "date": "2026-04-19"
+      "sale_last_week": 675,
+      "date": "2026-04-20"
     },
     {
-      "base_key": "11034_2001",
-      "title": "Nordwand Stretch Shorts",
-      "sale_last_week": 605,
-      "date": "2026-04-19"
+      "base_key": "10004_2001",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 625,
+      "date": "2026-04-20"
     },
     {
-      "base_key": "10169_2798",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 571,
-      "date": "2026-04-19"
+      "base_key": "10067_2001",
+      "title": "RVRC GP Shorts",
+      "sale_last_week": 598,
+      "date": "2026-04-20"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 525,
-      "date": "2026-04-19"
+      "sale_last_week": 595,
+      "date": "2026-04-20"
+    },
+    {
+      "base_key": "11034_2001",
+      "title": "Nordwand Stretch Shorts",
+      "sale_last_week": 581,
+      "date": "2026-04-20"
+    },
+    {
+      "base_key": "10169_2798",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 526,
+      "date": "2026-04-20"
     }
   ]
 }
