@@ -703,68 +703,84 @@
       "sld_x_list_eur": 218820.7,
       "product_colors_total": 2059,
       "product_colors_with_sales": 458
+    },
+    {
+      "date": "2026-04-24",
+      "timestamp": "2026-04-24T05:47:11",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.7795,
+        "GBP": 12.4511,
+        "NOK": 0.9878
+      },
+      "slw_x_sell_eur": 2601279.91,
+      "sld_x_sell_eur": 352860.0,
+      "slw_x_list_eur": 2983541.91,
+      "sld_x_list_eur": 398908.0,
+      "product_colors_total": 2043,
+      "product_colors_with_sales": 480
     }
   ],
   "reference_products": [
     {
       "base_key": "10088_2817",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 951,
-      "date": "2026-04-23"
+      "sale_last_week": 815,
+      "date": "2026-04-24"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 699,
-      "date": "2026-04-23"
+      "sale_last_week": 719,
+      "date": "2026-04-24"
     },
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 683,
-      "date": "2026-04-23"
+      "sale_last_week": 658,
+      "date": "2026-04-24"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 597,
-      "date": "2026-04-23"
-    },
-    {
-      "base_key": "10088_2686",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 575,
-      "date": "2026-04-23"
-    },
-    {
-      "base_key": "10088_2801",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 553,
-      "date": "2026-04-23"
-    },
-    {
-      "base_key": "11034_2001",
-      "title": "Nordwand Stretch Shorts",
-      "sale_last_week": 470,
-      "date": "2026-04-23"
+      "sale_last_week": 626,
+      "date": "2026-04-24"
     },
     {
       "base_key": "10712_2891",
       "title": "Silence Proshell 3L Pants",
-      "sale_last_week": 463,
-      "date": "2026-04-23"
+      "sale_last_week": 557,
+      "date": "2026-04-24"
     },
     {
-      "base_key": "14516_2001",
-      "title": "Zenith Wide Leg Pants",
-      "sale_last_week": 462,
-      "date": "2026-04-23"
+      "base_key": "10088_2686",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 545,
+      "date": "2026-04-24"
     },
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 453,
-      "date": "2026-04-23"
+      "sale_last_week": 512,
+      "date": "2026-04-24"
+    },
+    {
+      "base_key": "14516_2001",
+      "title": "Zenith Wide Leg Pants",
+      "sale_last_week": 510,
+      "date": "2026-04-24"
+    },
+    {
+      "base_key": "10088_2801",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 484,
+      "date": "2026-04-24"
+    },
+    {
+      "base_key": "10713_4100",
+      "title": "Silence Proshell 3L Jacket",
+      "sale_last_week": 465,
+      "date": "2026-04-24"
     }
   ]
 }
