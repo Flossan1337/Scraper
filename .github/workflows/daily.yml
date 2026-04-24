@@ -111,6 +111,16 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
 
+      - name: Run fetch_anoto_amazon_data.py
+        run: python ./scripts/fetch_anoto_amazon_data.py
+        timeout-minutes: 10
+        continue-on-error: true
+
+      - name: Run track_anoto_inventory.py
+        run: python ./scripts/track_anoto_inventory.py
+        timeout-minutes: 10
+        continue-on-error: true
+
       - name: Open GitHub issue for new TU brands
         if: always()
         env:
@@ -183,6 +193,8 @@ jobs:
           DESCR[track_rvrc_sales.py]="Tracks RevolutionRace sale_last_week and sale_last_days counters per product-colour via Voyado Elevate API; computes weekly revenue at sell and list price in EUR"
           DESCR[track_revolutionrace_reviews.py]="Diffs RevolutionRace review counts via GraphQL; estimates sales-activity proxy as price × new reviews"
           DESCR[track_nelly_inventory.py]="Tracks Nelly.com + NlyMan inventory at product-colour level across 20 markets via Voyado Elevate API; estimates daily unit sales and revenue via stock delta"
+          DESCR[fetch_anoto_amazon_data.py]="Scrapes Amazon US for 'bought in past month' count and Best Sellers Rank for the Anoto inq Smart Writing Set"
+          DESCR[track_anoto_inventory.py]="Tracks inq.shop per-variant inventory via Shopify page JSON; estimates daily unit sales and revenue (USD) via stock delta"
 
           declare -A OUTFILE
           OUTFILE[fetch_kpi.py]="data/kpi-history.xlsx"
@@ -197,6 +209,8 @@ jobs:
           OUTFILE[track_rvrc_sales.py]="data/rvrc_sales.xlsx"
           OUTFILE[track_revolutionrace_reviews.py]="data/revolutionrace_reviews.xlsx"
           OUTFILE[track_nelly_inventory.py]="data/nelly_inventory.xlsx"
+          OUTFILE[fetch_anoto_amazon_data.py]="data/anoto_amazon_data.xlsx"
+          OUTFILE[track_anoto_inventory.py]="data/anoto_inventory.xlsx"
 
           METRICS_DIR="scripts/metrics"
           mkdir -p "$METRICS_DIR"
@@ -205,7 +219,8 @@ jobs:
           for script in "fetch_kpi.py" "amazon_scape_bought_playwright_us_de.py" "track_combined_prices.py" \
                         "track_fractal_rankings_playwright.py" "track_nelly_aov.py" "track_rugvista_bestsellers.py" \
                         "track_rugvista_daily_sales.py" "youtube_diy_trends.py" "fetch_ted_procurements.py" \
-                        "track_rvrc_sales.py" "track_revolutionrace_reviews.py" "track_nelly_inventory.py"; do
+                        "track_rvrc_sales.py" "track_revolutionrace_reviews.py" "track_nelly_inventory.py" \
+                        "fetch_anoto_amazon_data.py" "track_anoto_inventory.py"; do
             desc="${DESCR[$script]:-—}"
             outfile="${OUTFILE[$script]:-}"
             jsonfile="$METRICS_DIR/${script}.json"
