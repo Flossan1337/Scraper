@@ -863,68 +863,84 @@
       "sld_x_list_eur": 116440.03,
       "product_colors_total": 2013,
       "product_colors_with_sales": 471
+    },
+    {
+      "date": "2026-05-04",
+      "timestamp": "2026-05-04T06:25:16",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.8555,
+        "GBP": 12.5316,
+        "NOK": 0.9948
+      },
+      "slw_x_sell_eur": 2072639.93,
+      "sld_x_sell_eur": 813971.52,
+      "slw_x_list_eur": 2728276.93,
+      "sld_x_list_eur": 1303678.52,
+      "product_colors_total": 2002,
+      "product_colors_with_sales": 555
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 604,
-      "date": "2026-05-03"
+      "sale_last_week": 453,
+      "date": "2026-05-04"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 546,
-      "date": "2026-05-03"
-    },
-    {
-      "base_key": "10004_2001",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 435,
-      "date": "2026-05-03"
-    },
-    {
-      "base_key": "10712_2891",
-      "title": "Silence Proshell 3L Pants",
-      "sale_last_week": 427,
-      "date": "2026-05-03"
-    },
-    {
-      "base_key": "10004_2003",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 411,
-      "date": "2026-05-03"
+      "sale_last_week": 444,
+      "date": "2026-05-04"
     },
     {
       "base_key": "10134_2001",
       "title": "Stretch Belt",
-      "sale_last_week": 364,
-      "date": "2026-05-03"
+      "sale_last_week": 403,
+      "date": "2026-05-04"
     },
     {
-      "base_key": "10004_962",
+      "base_key": "11074_4106",
+      "title": "Daytrek Walking Shoes",
+      "sale_last_week": 390,
+      "date": "2026-05-04"
+    },
+    {
+      "base_key": "10728_2380",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 386,
+      "date": "2026-05-04"
+    },
+    {
+      "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 355,
-      "date": "2026-05-03"
+      "sale_last_week": 304,
+      "date": "2026-05-04"
     },
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 324,
-      "date": "2026-05-03"
+      "sale_last_week": 301,
+      "date": "2026-05-04"
     },
     {
-      "base_key": "11031_2001",
-      "title": "Nordwand Pants",
-      "sale_last_week": 319,
-      "date": "2026-05-03"
+      "base_key": "10066_2001",
+      "title": "RVRC GP Pro Zip-off Pants",
+      "sale_last_week": 292,
+      "date": "2026-05-04"
     },
     {
-      "base_key": "11027_2001",
-      "title": "Nordwand Pants",
-      "sale_last_week": 319,
-      "date": "2026-05-03"
+      "base_key": "10712_2891",
+      "title": "Silence Proshell 3L Pants",
+      "sale_last_week": 289,
+      "date": "2026-05-04"
+    },
+    {
+      "base_key": "10004_962",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 277,
+      "date": "2026-05-04"
     }
   ]
 }
