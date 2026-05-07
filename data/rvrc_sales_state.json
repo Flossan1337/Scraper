@@ -911,68 +911,84 @@
       "sld_x_list_eur": 607147.32,
       "product_colors_total": 2008,
       "product_colors_with_sales": 539
+    },
+    {
+      "date": "2026-05-07",
+      "timestamp": "2026-05-07T06:21:14",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.8335,
+        "GBP": 12.5431,
+        "NOK": 0.9941
+      },
+      "slw_x_sell_eur": 2638254.52,
+      "sld_x_sell_eur": 317769.64,
+      "slw_x_list_eur": 3991629.52,
+      "sld_x_list_eur": 507987.64,
+      "product_colors_total": 1988,
+      "product_colors_with_sales": 538
     }
   ],
   "reference_products": [
     {
       "base_key": "11074_4106",
       "title": "Daytrek Walking Shoes",
-      "sale_last_week": 879,
-      "date": "2026-05-06"
+      "sale_last_week": 1052,
+      "date": "2026-05-07"
     },
     {
       "base_key": "10728_2380",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 680,
-      "date": "2026-05-06"
-    },
-    {
-      "base_key": "10134_2001",
-      "title": "Stretch Belt",
-      "sale_last_week": 551,
-      "date": "2026-05-06"
+      "sale_last_week": 734,
+      "date": "2026-05-07"
     },
     {
       "base_key": "11075_4106",
       "title": "Daytrek Walking Shoes",
-      "sale_last_week": 482,
-      "date": "2026-05-06"
+      "sale_last_week": 600,
+      "date": "2026-05-07"
+    },
+    {
+      "base_key": "10134_2001",
+      "title": "Stretch Belt",
+      "sale_last_week": 596,
+      "date": "2026-05-07"
     },
     {
       "base_key": "10066_2001",
       "title": "RVRC GP Pro Zip-off Pants",
-      "sale_last_week": 398,
-      "date": "2026-05-06"
-    },
-    {
-      "base_key": "10890_2798",
-      "title": "Easy Graphic Logo T-Shirt",
-      "sale_last_week": 395,
-      "date": "2026-05-06"
-    },
-    {
-      "base_key": "11213_2018",
-      "title": "Rise 2-in-1 Shorts",
-      "sale_last_week": 391,
-      "date": "2026-05-06"
+      "sale_last_week": 456,
+      "date": "2026-05-07"
     },
     {
       "base_key": "11029_2001",
       "title": "Nordwand Pro Zip-off Pants",
-      "sale_last_week": 379,
-      "date": "2026-05-06"
+      "sale_last_week": 446,
+      "date": "2026-05-07"
+    },
+    {
+      "base_key": "10890_2798",
+      "title": "Easy Graphic Logo T-Shirt",
+      "sale_last_week": 443,
+      "date": "2026-05-07"
     },
     {
       "base_key": "10069_2199",
       "title": "RVRC GP Pro Zip-off Pants",
-      "sale_last_week": 355,
-      "date": "2026-05-06"
+      "sale_last_week": 437,
+      "date": "2026-05-07"
     },
     {
-      "base_key": "11035_2001",
-      "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 354,
-      "date": "2026-05-06"
+      "base_key": "10833_2001",
+      "title": "Summit Pocket Tights",
+      "sale_last_week": 415,
+      "date": "2026-05-07"
+    },
+    {
+      "base_key": "11074_2143",
+      "title": "Daytrek Walking Shoes",
+      "sale_last_week": 402,
+      "date": "2026-05-07"
     }
   ]
 }
