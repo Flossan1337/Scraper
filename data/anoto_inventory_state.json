@@ -9450,12 +9450,418 @@
           "is_restock": false
         }
       ]
+    },
+    {
+      "date": "2026-05-11",
+      "timestamp": "2026-05-11T06:54:43",
+      "summary": {
+        "total_variants": 24,
+        "est_sold_units": 6,
+        "est_revenue": 90000.0,
+        "currency": "USD",
+        "restocks": 0,
+        "by_product": {
+          "inq Student Kit": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Extra inq pen": {
+            "est_sold_units": 6,
+            "est_rev": 90000.0,
+            "restocks": 0
+          },
+          "inq PENCIL Kit - 5-Pack D1 Refills": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "inq PEN Kit - 5-pack D1 Refills": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Hardcover Notebook A5 5.8\" x 8.3\" 190 pages": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Spiral Notebook A5 5.8\" x 8.3\" 156 Pages (Black)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Spiral Notebook A5 5.8\" x 8.3\" 156 Pages (White)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Spiral Notebook 3-Pack A5 5.8\" x 8.3\" 156 Pages (Black)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (Black)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (White)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (Orange)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          }
+        }
+      },
+      "detail_rows": [
+        {
+          "variant_id": "43436931350611",
+          "product_title": "Extra inq pen",
+          "variant_title": "Black Velvet",
+          "sku": "INQ-001-BLK",
+          "price": 15000.0,
+          "currency": "USD",
+          "stock_prev": 2227,
+          "stock_curr": 2223,
+          "delta": -4,
+          "est_sold": 4,
+          "est_rev": 60000.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "43436931383379",
+          "product_title": "Extra inq pen",
+          "variant_title": "Moon White",
+          "sku": "INQ-001-WHT",
+          "price": 15000.0,
+          "currency": "USD",
+          "stock_prev": 889,
+          "stock_curr": 887,
+          "delta": -2,
+          "est_sold": 2,
+          "est_rev": 30000.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42648052400211",
+          "product_title": "Hardcover Notebook A5 5.8\" x 8.3\" 190 pages",
+          "variant_title": "Linen Black",
+          "sku": "",
+          "price": 3300.0,
+          "currency": "USD",
+          "stock_prev": 0,
+          "stock_curr": 0,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42648052465747",
+          "product_title": "Hardcover Notebook A5 5.8\" x 8.3\" 190 pages",
+          "variant_title": "Linen Light Grey",
+          "sku": "",
+          "price": 3300.0,
+          "currency": "USD",
+          "stock_prev": 0,
+          "stock_curr": 0,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42616510382163",
+          "product_title": "Spiral Notebook 3-Pack A5 5.8\" x 8.3\" 156 Pages (Black)",
+          "variant_title": "Default Title",
+          "sku": "INQ-A5-SP01-BLK-V123",
+          "price": 2250.0,
+          "currency": "USD",
+          "stock_prev": 180,
+          "stock_curr": 180,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42619984511059",
+          "product_title": "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (Black)",
+          "variant_title": "1",
+          "sku": "INQ-USL-SP01-BLK-V1",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 822,
+          "stock_curr": 822,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42619984543827",
+          "product_title": "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (Black)",
+          "variant_title": "2",
+          "sku": "INQ-USL-SP01-BLK-V2",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 966,
+          "stock_curr": 966,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42619984576595",
+          "product_title": "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (Black)",
+          "variant_title": "3",
+          "sku": "INQ-USL-SP01-BLK-V3",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 940,
+          "stock_curr": 940,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42619974746195",
+          "product_title": "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (Orange)",
+          "variant_title": "1",
+          "sku": "INQ-USL-SP01-ORG-V1",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 359,
+          "stock_curr": 359,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42619974778963",
+          "product_title": "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (Orange)",
+          "variant_title": "2",
+          "sku": "INQ-USL-SP01-ORG-V2",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 479,
+          "stock_curr": 479,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42619974811731",
+          "product_title": "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (Orange)",
+          "variant_title": "3",
+          "sku": "INQ-USL-SP01-ORG-V3",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 484,
+          "stock_curr": 484,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42619982446675",
+          "product_title": "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (White)",
+          "variant_title": "1",
+          "sku": "INQ-USL-SP01-WHT-V1",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 342,
+          "stock_curr": 342,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42619982479443",
+          "product_title": "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (White)",
+          "variant_title": "2",
+          "sku": "INQ-USL-SP01-WHT-V2",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 481,
+          "stock_curr": 481,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42619982512211",
+          "product_title": "Spiral Notebook 8.5\" x 11\" College Ruled 190 Pages (White)",
+          "variant_title": "3",
+          "sku": "INQ-USL-SP01-WHT-V3",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 483,
+          "stock_curr": 483,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42620007055443",
+          "product_title": "Spiral Notebook A5 5.8\" x 8.3\" 156 Pages (Black)",
+          "variant_title": "1",
+          "sku": "INQ-A5-SP01-BLK-V1",
+          "price": 900.0,
+          "currency": "USD",
+          "stock_prev": 371,
+          "stock_curr": 371,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42620007088211",
+          "product_title": "Spiral Notebook A5 5.8\" x 8.3\" 156 Pages (Black)",
+          "variant_title": "2",
+          "sku": "INQ-A5-SP01-BLK-V2",
+          "price": 900.0,
+          "currency": "USD",
+          "stock_prev": 494,
+          "stock_curr": 494,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42620007120979",
+          "product_title": "Spiral Notebook A5 5.8\" x 8.3\" 156 Pages (Black)",
+          "variant_title": "3",
+          "sku": "INQ-A5-SP01-BLK-V3",
+          "price": 900.0,
+          "currency": "USD",
+          "stock_prev": 477,
+          "stock_curr": 477,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42620035596371",
+          "product_title": "Spiral Notebook A5 5.8\" x 8.3\" 156 Pages (White)",
+          "variant_title": "1",
+          "sku": "INQ-A5-SP01-WHT-V1",
+          "price": 900.0,
+          "currency": "USD",
+          "stock_prev": 693,
+          "stock_curr": 693,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42620035629139",
+          "product_title": "Spiral Notebook A5 5.8\" x 8.3\" 156 Pages (White)",
+          "variant_title": "2",
+          "sku": "INQ-A5-SP01-WHT-V2",
+          "price": 900.0,
+          "currency": "USD",
+          "stock_prev": 941,
+          "stock_curr": 941,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42620035661907",
+          "product_title": "Spiral Notebook A5 5.8\" x 8.3\" 156 Pages (White)",
+          "variant_title": "3",
+          "sku": "INQ-A5-SP01-WHT-V3",
+          "price": 900.0,
+          "currency": "USD",
+          "stock_prev": 953,
+          "stock_curr": 953,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42903127785555",
+          "product_title": "inq PEN Kit - 5-pack D1 Refills",
+          "variant_title": "Black",
+          "sku": "INQ-RFL-BLK-05",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": -1,
+          "stock_curr": -1,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "42903127818323",
+          "product_title": "inq PEN Kit - 5-pack D1 Refills",
+          "variant_title": "Blue",
+          "sku": "INQ-RFL-BLU-05",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 259,
+          "stock_curr": 259,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "43270719635539",
+          "product_title": "inq PENCIL Kit - 5-Pack D1 Refills",
+          "variant_title": "Default Title",
+          "sku": "INQ-RFL-PCL-01",
+          "price": 1000.0,
+          "currency": "USD",
+          "stock_prev": 170,
+          "stock_curr": 170,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "43323621539923",
+          "product_title": "inq Student Kit",
+          "variant_title": "Default Title",
+          "sku": "BINQ-STUDENTKIT-LTR-MX1",
+          "price": 19000.0,
+          "currency": "USD",
+          "stock_prev": 259,
+          "stock_curr": 259,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        }
+      ]
     }
   ],
   "last_snapshot": {
     "43323621539923": 259,
-    "43436931350611": 2227,
-    "43436931383379": 889,
+    "43436931350611": 2223,
+    "43436931383379": 887,
     "43270719635539": 170,
     "42903127785555": -1,
     "42903127818323": 259,
@@ -9476,18 +9882,7 @@
     "42619982512211": 483,
     "42619974746195": 359,
     "42619974778963": 479,
-    "42619974811731": 484,
-    "42616557535315": 391,
-    "42610347311187": 361,
-    "42610347343955": 483,
-    "42610347376723": 483,
-    "42610229215315": 758,
-    "42610229149779": 322,
-    "42610469994579": 361,
-    "42610470027347": 483,
-    "42610470060115": 483,
-    "42610469896275": 758,
-    "42610469929043": 322
+    "42619974811731": 484
   },
   "product_catalog": {
     "43323621539923": {
