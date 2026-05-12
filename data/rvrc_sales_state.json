@@ -991,68 +991,84 @@
       "sld_x_list_eur": 656731.4,
       "product_colors_total": 1985,
       "product_colors_with_sales": 536
+    },
+    {
+      "date": "2026-05-12",
+      "timestamp": "2026-05-12T06:24:53",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.8765,
+        "GBP": 12.5757,
+        "NOK": 1.0045
+      },
+      "slw_x_sell_eur": 2852325.75,
+      "sld_x_sell_eur": 260774.52,
+      "slw_x_list_eur": 4124998.75,
+      "sld_x_list_eur": 354793.52,
+      "product_colors_total": 1997,
+      "product_colors_with_sales": 527
     }
   ],
   "reference_products": [
     {
       "base_key": "11074_4106",
       "title": "Daytrek Walking Shoes",
-      "sale_last_week": 1290,
-      "date": "2026-05-11"
+      "sale_last_week": 1082,
+      "date": "2026-05-12"
     },
     {
       "base_key": "11075_4106",
       "title": "Daytrek Walking Shoes",
-      "sale_last_week": 924,
-      "date": "2026-05-11"
+      "sale_last_week": 850,
+      "date": "2026-05-12"
     },
     {
       "base_key": "10833_2001",
       "title": "Summit Pocket Tights",
-      "sale_last_week": 649,
-      "date": "2026-05-11"
+      "sale_last_week": 627,
+      "date": "2026-05-12"
     },
     {
       "base_key": "10134_2001",
       "title": "Stretch Belt",
-      "sale_last_week": 649,
-      "date": "2026-05-11"
+      "sale_last_week": 593,
+      "date": "2026-05-12"
     },
     {
       "base_key": "11074_2143",
       "title": "Daytrek Walking Shoes",
-      "sale_last_week": 622,
-      "date": "2026-05-11"
-    },
-    {
-      "base_key": "10890_2798",
-      "title": "Easy Graphic Logo T-Shirt",
-      "sale_last_week": 568,
-      "date": "2026-05-11"
+      "sale_last_week": 556,
+      "date": "2026-05-12"
     },
     {
       "base_key": "11029_2001",
       "title": "Nordwand Pro Zip-off Pants",
-      "sale_last_week": 545,
-      "date": "2026-05-11"
+      "sale_last_week": 532,
+      "date": "2026-05-12"
     },
     {
-      "base_key": "11074_2679",
-      "title": "Daytrek Walking Shoes",
-      "sale_last_week": 543,
-      "date": "2026-05-11"
+      "base_key": "10890_2798",
+      "title": "Easy Graphic Logo T-Shirt",
+      "sale_last_week": 532,
+      "date": "2026-05-12"
     },
     {
       "base_key": "10888_2179",
       "title": "Easy Graphic Logo T-shirt Slim Fit",
-      "sale_last_week": 543,
-      "date": "2026-05-11"
+      "sale_last_week": 521,
+      "date": "2026-05-12"
     },
     {
       "base_key": "10066_2001",
       "title": "RVRC GP Pro Zip-off Pants",
-      "sale_last_week": 540,
-      "date": "2026-05-11"
+      "sale_last_week": 513,
+      "date": "2026-05-12"
+    },
+    {
+      "base_key": "14436_2001",
+      "title": "Aero Pocket Running Leggings",
+      "sale_last_week": 512,
+      "date": "2026-05-12"
     }
   ]
 }
