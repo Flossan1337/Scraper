@@ -1039,68 +1039,84 @@
       "sld_x_list_eur": 226428.39,
       "product_colors_total": 1994,
       "product_colors_with_sales": 535
+    },
+    {
+      "date": "2026-05-15",
+      "timestamp": "2026-05-15T06:43:57",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.9145,
+        "GBP": 12.6007,
+        "NOK": 1.0108
+      },
+      "slw_x_sell_eur": 2316625.5,
+      "sld_x_sell_eur": 250473.41,
+      "slw_x_list_eur": 3306366.5,
+      "sld_x_list_eur": 363249.41,
+      "product_colors_total": 1989,
+      "product_colors_with_sales": 534
     }
   ],
   "reference_products": [
     {
-      "base_key": "11074_4106",
-      "title": "Daytrek Walking Shoes",
-      "sale_last_week": 787,
-      "date": "2026-05-14"
-    },
-    {
       "base_key": "11075_4106",
       "title": "Daytrek Walking Shoes",
-      "sale_last_week": 727,
-      "date": "2026-05-14"
+      "sale_last_week": 642,
+      "date": "2026-05-15"
+    },
+    {
+      "base_key": "11074_4106",
+      "title": "Daytrek Walking Shoes",
+      "sale_last_week": 551,
+      "date": "2026-05-15"
     },
     {
       "base_key": "10833_2001",
       "title": "Summit Pocket Tights",
-      "sale_last_week": 578,
-      "date": "2026-05-14"
+      "sale_last_week": 550,
+      "date": "2026-05-15"
     },
     {
       "base_key": "10890_2798",
       "title": "Easy Graphic Logo T-Shirt",
-      "sale_last_week": 525,
-      "date": "2026-05-14"
+      "sale_last_week": 536,
+      "date": "2026-05-15"
     },
     {
       "base_key": "11029_2001",
       "title": "Nordwand Pro Zip-off Pants",
-      "sale_last_week": 499,
-      "date": "2026-05-14"
-    },
-    {
-      "base_key": "11074_2143",
-      "title": "Daytrek Walking Shoes",
-      "sale_last_week": 465,
-      "date": "2026-05-14"
-    },
-    {
-      "base_key": "10134_2001",
-      "title": "Stretch Belt",
-      "sale_last_week": 455,
-      "date": "2026-05-14"
-    },
-    {
-      "base_key": "14436_2001",
-      "title": "Aero Pocket Running Leggings",
-      "sale_last_week": 446,
-      "date": "2026-05-14"
+      "sale_last_week": 485,
+      "date": "2026-05-15"
     },
     {
       "base_key": "11143_4996",
       "title": "Rambler Lightweight Pants",
-      "sale_last_week": 424,
-      "date": "2026-05-14"
+      "sale_last_week": 443,
+      "date": "2026-05-15"
     },
     {
-      "base_key": "10837_2179",
-      "title": "Elevate Pro Hiking Pants",
-      "sale_last_week": 408,
-      "date": "2026-05-14"
+      "base_key": "14436_2001",
+      "title": "Aero Pocket Running Leggings",
+      "sale_last_week": 427,
+      "date": "2026-05-15"
+    },
+    {
+      "base_key": "10134_2179",
+      "title": "Stretch Belt",
+      "sale_last_week": 399,
+      "date": "2026-05-15"
+    },
+    {
+      "base_key": "10134_2001",
+      "title": "Stretch Belt",
+      "sale_last_week": 392,
+      "date": "2026-05-15"
+    },
+    {
+      "base_key": "14401_4754",
+      "title": "7-pack Ultimate Soft Boxer",
+      "sale_last_week": 381,
+      "date": "2026-05-15"
     }
   ]
 }
