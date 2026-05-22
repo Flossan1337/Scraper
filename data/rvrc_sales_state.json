@@ -1151,6 +1151,22 @@
       "sld_x_list_eur": 82527.91,
       "product_colors_total": 2003,
       "product_colors_with_sales": 523
+    },
+    {
+      "date": "2026-05-22",
+      "timestamp": "2026-05-22T06:59:23",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.8615,
+        "GBP": 12.5664,
+        "NOK": 1.0144
+      },
+      "slw_x_sell_eur": 2546261.09,
+      "sld_x_sell_eur": 76766.03,
+      "slw_x_list_eur": 2638456.23,
+      "sld_x_list_eur": 82258.03,
+      "product_colors_total": 2010,
+      "product_colors_with_sales": 524
     }
   ],
   "reference_products": [
@@ -1158,61 +1174,61 @@
       "base_key": "10134_2179",
       "title": "Stretch Belt",
       "sale_last_week": 458,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     },
     {
       "base_key": "10890_2798",
       "title": "Easy Graphic Logo T-Shirt",
       "sale_last_week": 444,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     },
     {
       "base_key": "10833_2001",
       "title": "Summit Pocket Tights",
       "sale_last_week": 378,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     },
     {
       "base_key": "11029_2001",
       "title": "Nordwand Pro Zip-off Pants",
       "sale_last_week": 363,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     },
     {
       "base_key": "11075_4106",
       "title": "Daytrek Walking Shoes",
       "sale_last_week": 358,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     },
     {
       "base_key": "11143_4996",
       "title": "Rambler Lightweight Pants",
       "sale_last_week": 346,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     },
     {
       "base_key": "10905_2001",
       "title": "Rapid Pocket Leggings",
       "sale_last_week": 335,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     },
     {
       "base_key": "10767_2001",
       "title": "RVRC GP Pro Stretch Pants",
       "sale_last_week": 310,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     },
     {
       "base_key": "10066_962",
       "title": "RVRC GP Pro Zip-off Pants",
       "sale_last_week": 295,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     },
     {
       "base_key": "10766_2001",
       "title": "RVRC GP Pro Stretch Zip-off Pants",
       "sale_last_week": 274,
-      "date": "2026-05-21"
+      "date": "2026-05-22"
     }
   ]
 }
