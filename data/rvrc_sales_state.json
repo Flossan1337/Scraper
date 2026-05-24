@@ -1183,68 +1183,84 @@
       "sld_x_list_eur": 53329.0,
       "product_colors_total": 2010,
       "product_colors_with_sales": 495
+    },
+    {
+      "date": "2026-05-24",
+      "timestamp": "2026-05-24T06:47:55",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.8695,
+        "GBP": 12.5778,
+        "NOK": 1.013
+      },
+      "slw_x_sell_eur": 1631583.8,
+      "sld_x_sell_eur": 77138.0,
+      "slw_x_list_eur": 1743609.2,
+      "sld_x_list_eur": 85619.64,
+      "product_colors_total": 2003,
+      "product_colors_with_sales": 468
     }
   ],
   "reference_products": [
     {
       "base_key": "10134_2179",
       "title": "Stretch Belt",
-      "sale_last_week": 355,
-      "date": "2026-05-23"
-    },
-    {
-      "base_key": "10890_2798",
-      "title": "Easy Graphic Logo T-Shirt",
-      "sale_last_week": 322,
-      "date": "2026-05-23"
-    },
-    {
-      "base_key": "10004_2001",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 261,
-      "date": "2026-05-23"
-    },
-    {
-      "base_key": "11029_2001",
-      "title": "Nordwand Pro Zip-off Pants",
-      "sale_last_week": 255,
-      "date": "2026-05-23"
+      "sale_last_week": 287,
+      "date": "2026-05-24"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 253,
-      "date": "2026-05-23"
+      "sale_last_week": 252,
+      "date": "2026-05-24"
     },
     {
-      "base_key": "10833_2001",
-      "title": "Summit Pocket Tights",
-      "sale_last_week": 247,
-      "date": "2026-05-23"
+      "base_key": "10890_2798",
+      "title": "Easy Graphic Logo T-Shirt",
+      "sale_last_week": 244,
+      "date": "2026-05-24"
     },
     {
-      "base_key": "10905_2001",
-      "title": "Rapid Pocket Leggings",
-      "sale_last_week": 231,
-      "date": "2026-05-23"
+      "base_key": "10004_2001",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 240,
+      "date": "2026-05-24"
+    },
+    {
+      "base_key": "10088_2001",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 226,
+      "date": "2026-05-24"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 225,
-      "date": "2026-05-23"
-    },
-    {
-      "base_key": "10004_2243",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 225,
-      "date": "2026-05-23"
+      "sale_last_week": 211,
+      "date": "2026-05-24"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 219,
-      "date": "2026-05-23"
+      "sale_last_week": 204,
+      "date": "2026-05-24"
+    },
+    {
+      "base_key": "10004_2243",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 204,
+      "date": "2026-05-24"
+    },
+    {
+      "base_key": "10461_962",
+      "title": "Phantom Trail Low Hiking Shoes",
+      "sale_last_week": 199,
+      "date": "2026-05-24"
+    },
+    {
+      "base_key": "11031_2001",
+      "title": "Nordwand Pants",
+      "sale_last_week": 186,
+      "date": "2026-05-24"
     }
   ]
 }
