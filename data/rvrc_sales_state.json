@@ -1199,6 +1199,22 @@
       "sld_x_list_eur": 85619.64,
       "product_colors_total": 2003,
       "product_colors_with_sales": 468
+    },
+    {
+      "date": "2026-05-25",
+      "timestamp": "2026-05-25T07:26:49",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.8695,
+        "GBP": 12.5778,
+        "NOK": 1.013
+      },
+      "slw_x_sell_eur": 1626915.56,
+      "sld_x_sell_eur": 77996.23,
+      "slw_x_list_eur": 1729495.12,
+      "sld_x_list_eur": 85344.43,
+      "product_colors_total": 1987,
+      "product_colors_with_sales": 466
     }
   ],
   "reference_products": [
@@ -1206,61 +1222,61 @@
       "base_key": "10134_2179",
       "title": "Stretch Belt",
       "sale_last_week": 287,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
       "sale_last_week": 252,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     },
     {
       "base_key": "10890_2798",
       "title": "Easy Graphic Logo T-Shirt",
       "sale_last_week": 244,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     },
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
       "sale_last_week": 240,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     },
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 226,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
       "sale_last_week": 211,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
       "sale_last_week": 204,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
       "sale_last_week": 204,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     },
     {
       "base_key": "10461_962",
       "title": "Phantom Trail Low Hiking Shoes",
       "sale_last_week": 199,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     },
     {
       "base_key": "11031_2001",
       "title": "Nordwand Pants",
       "sale_last_week": 186,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     }
   ]
 }
