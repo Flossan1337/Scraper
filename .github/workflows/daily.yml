@@ -3,7 +3,7 @@ name: Scrape
 on:
   workflow_dispatch: {} # Manuell "Run workflow"-knapp
   schedule:
-    - cron: '0 3 * * *' # Dagligen 03:00 UTC (05:00 CEST / 04:00 CET)
+    - cron: '0 1 * * *' # Dagligen 01:00 UTC (03:00 CEST / 02:00 CET)
 
 permissions:
   contents: write # krävs för git push med GITHUB_TOKEN
@@ -121,6 +121,11 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
 
+      - name: Run track_ahlsell_plejd_inventory.py
+        run: python ./scripts/track_ahlsell_plejd_inventory.py
+        timeout-minutes: 15
+        continue-on-error: true
+
       - name: Open GitHub issue for new TU brands
         if: always()
         env:
@@ -195,6 +200,7 @@ jobs:
           DESCR[track_nelly_inventory.py]="Tracks Nelly.com + NlyMan inventory at product-colour level across 20 markets via Voyado Elevate API; estimates daily unit sales and revenue via stock delta"
           DESCR[fetch_anoto_amazon_data.py]="Scrapes Amazon US for 'bought in past month' count and Best Sellers Rank for the Anoto inq Smart Writing Set"
           DESCR[track_anoto_inventory.py]="Tracks inq.shop per-variant inventory via Shopify page JSON; estimates daily unit sales and revenue (USD) via stock delta"
+          DESCR[track_ahlsell_plejd_inventory.py]="Tracks Plejd product inventory at Ahlsell.se per store and article; computes daily sales-out (customers buying from Ahlsell) and sales-in (Plejd restocking Ahlsell)"
 
           declare -A OUTFILE
           OUTFILE[fetch_kpi.py]="data/kpi-history.xlsx"
@@ -211,6 +217,7 @@ jobs:
           OUTFILE[track_nelly_inventory.py]="data/nelly_inventory.xlsx"
           OUTFILE[fetch_anoto_amazon_data.py]="data/anoto_amazon_data.xlsx"
           OUTFILE[track_anoto_inventory.py]="data/anoto_inventory.xlsx"
+          OUTFILE[track_ahlsell_plejd_inventory.py]="data/ahlsell_plejd_inventory.xlsx"
 
           METRICS_DIR="scripts/metrics"
           mkdir -p "$METRICS_DIR"
@@ -220,7 +227,8 @@ jobs:
                         "track_fractal_rankings_playwright.py" "track_nelly_aov.py" "track_rugvista_bestsellers.py" \
                         "track_rugvista_daily_sales.py" "youtube_diy_trends.py" "fetch_ted_procurements.py" \
                         "track_rvrc_sales.py" "track_revolutionrace_reviews.py" "track_nelly_inventory.py" \
-                        "fetch_anoto_amazon_data.py" "track_anoto_inventory.py"; do
+                        "fetch_anoto_amazon_data.py" "track_anoto_inventory.py" \
+                        "track_ahlsell_plejd_inventory.py"; do
             desc="${DESCR[$script]:-—}"
             outfile="${OUTFILE[$script]:-}"
             jsonfile="$METRICS_DIR/${script}.json"
