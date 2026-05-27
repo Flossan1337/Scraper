@@ -1231,68 +1231,84 @@
       "sld_x_list_eur": 109900.85,
       "product_colors_total": 1999,
       "product_colors_with_sales": 365
+    },
+    {
+      "date": "2026-05-27",
+      "timestamp": "2026-05-27T07:15:37",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.8245,
+        "GBP": 12.532,
+        "NOK": 1.0049
+      },
+      "slw_x_sell_eur": 1110286.78,
+      "sld_x_sell_eur": 89506.1,
+      "slw_x_list_eur": 1167141.78,
+      "sld_x_list_eur": 89506.1,
+      "product_colors_total": 2010,
+      "product_colors_with_sales": 343
     }
   ],
   "reference_products": [
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 314,
-      "date": "2026-05-26"
-    },
-    {
-      "base_key": "10461_962",
-      "title": "Phantom Trail Low Hiking Shoes",
-      "sale_last_week": 275,
-      "date": "2026-05-26"
-    },
-    {
-      "base_key": "11035_2001",
-      "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 251,
-      "date": "2026-05-26"
+      "sale_last_week": 416,
+      "date": "2026-05-27"
     },
     {
       "base_key": "10771_2001",
       "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 244,
-      "date": "2026-05-26"
+      "sale_last_week": 283,
+      "date": "2026-05-27"
     },
     {
       "base_key": "10169_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 227,
-      "date": "2026-05-26"
-    },
-    {
-      "base_key": "10067_2003",
-      "title": "RVRC GP Shorts",
-      "sale_last_week": 223,
-      "date": "2026-05-26"
+      "sale_last_week": 268,
+      "date": "2026-05-27"
     },
     {
       "base_key": "10088_2686",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 212,
-      "date": "2026-05-26"
+      "sale_last_week": 262,
+      "date": "2026-05-27"
+    },
+    {
+      "base_key": "11035_2001",
+      "title": "Nordwand Stretch High-waist Pants",
+      "sale_last_week": 261,
+      "date": "2026-05-27"
+    },
+    {
+      "base_key": "10067_2003",
+      "title": "RVRC GP Shorts",
+      "sale_last_week": 250,
+      "date": "2026-05-27"
+    },
+    {
+      "base_key": "10461_962",
+      "title": "Phantom Trail Low Hiking Shoes",
+      "sale_last_week": 247,
+      "date": "2026-05-27"
     },
     {
       "base_key": "11034_2001",
       "title": "Nordwand Stretch Shorts",
-      "sale_last_week": 203,
-      "date": "2026-05-26"
+      "sale_last_week": 233,
+      "date": "2026-05-27"
     },
     {
       "base_key": "10067_962",
       "title": "RVRC GP Shorts",
-      "sale_last_week": 200,
-      "date": "2026-05-26"
+      "sale_last_week": 231,
+      "date": "2026-05-27"
     },
     {
-      "base_key": "10804_2001",
-      "title": "Flatter Insulated Jacket",
-      "sale_last_week": 185,
-      "date": "2026-05-26"
+      "base_key": "10088_2370",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 226,
+      "date": "2026-05-27"
     }
   ]
 }
