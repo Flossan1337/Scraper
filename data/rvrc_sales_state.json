@@ -1279,68 +1279,84 @@
       "sld_x_list_eur": 289701.22,
       "product_colors_total": 2000,
       "product_colors_with_sales": 370
+    },
+    {
+      "date": "2026-05-30",
+      "timestamp": "2026-05-30T05:00:12",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.772,
+        "GBP": 12.4212,
+        "NOK": 0.9999
+      },
+      "slw_x_sell_eur": 1395031.79,
+      "sld_x_sell_eur": 141033.0,
+      "slw_x_list_eur": 1435206.79,
+      "sld_x_list_eur": 141033.0,
+      "product_colors_total": 1998,
+      "product_colors_with_sales": 378
     }
   ],
   "reference_products": [
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 593,
-      "date": "2026-05-29"
+      "sale_last_week": 657,
+      "date": "2026-05-30"
     },
     {
       "base_key": "10771_2001",
       "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 409,
-      "date": "2026-05-29"
-    },
-    {
-      "base_key": "10088_2686",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 388,
-      "date": "2026-05-29"
-    },
-    {
-      "base_key": "10169_2001",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 385,
-      "date": "2026-05-29"
+      "sale_last_week": 459,
+      "date": "2026-05-30"
     },
     {
       "base_key": "10067_2003",
       "title": "RVRC GP Shorts",
-      "sale_last_week": 368,
-      "date": "2026-05-29"
+      "sale_last_week": 442,
+      "date": "2026-05-30"
+    },
+    {
+      "base_key": "10088_2686",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 437,
+      "date": "2026-05-30"
+    },
+    {
+      "base_key": "10169_2001",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 424,
+      "date": "2026-05-30"
     },
     {
       "base_key": "10067_962",
       "title": "RVRC GP Shorts",
-      "sale_last_week": 312,
-      "date": "2026-05-29"
+      "sale_last_week": 363,
+      "date": "2026-05-30"
     },
     {
       "base_key": "10088_2702",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 309,
-      "date": "2026-05-29"
-    },
-    {
-      "base_key": "11034_2001",
-      "title": "Nordwand Stretch Shorts",
-      "sale_last_week": 298,
-      "date": "2026-05-29"
+      "sale_last_week": 354,
+      "date": "2026-05-30"
     },
     {
       "base_key": "10088_2370",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 287,
-      "date": "2026-05-29"
+      "sale_last_week": 320,
+      "date": "2026-05-30"
+    },
+    {
+      "base_key": "11034_2001",
+      "title": "Nordwand Stretch Shorts",
+      "sale_last_week": 314,
+      "date": "2026-05-30"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 281,
-      "date": "2026-05-29"
+      "sale_last_week": 288,
+      "date": "2026-05-30"
     }
   ]
 }
