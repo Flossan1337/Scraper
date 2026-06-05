@@ -1375,68 +1375,84 @@
       "sld_x_list_eur": 31642.3,
       "product_colors_total": 2051,
       "product_colors_with_sales": 400
+    },
+    {
+      "date": "2026-06-05",
+      "timestamp": "2026-06-05T01:55:38",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.8803,
+        "GBP": 12.5798,
+        "NOK": 1.0033
+      },
+      "slw_x_sell_eur": 1449450.61,
+      "sld_x_sell_eur": 167709.11,
+      "slw_x_list_eur": 1589644.61,
+      "sld_x_list_eur": 232214.11,
+      "product_colors_total": 2015,
+      "product_colors_with_sales": 394
     }
   ],
   "reference_products": [
     {
-      "base_key": "10088_2001",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 554,
-      "date": "2026-06-04"
-    },
-    {
-      "base_key": "10067_2003",
-      "title": "RVRC GP Shorts",
-      "sale_last_week": 535,
-      "date": "2026-06-04"
-    },
-    {
-      "base_key": "10771_2001",
-      "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 517,
-      "date": "2026-06-04"
-    },
-    {
       "base_key": "10088_2686",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 477,
-      "date": "2026-06-04"
-    },
-    {
-      "base_key": "10067_962",
-      "title": "RVRC GP Shorts",
-      "sale_last_week": 472,
-      "date": "2026-06-04"
-    },
-    {
-      "base_key": "10169_2001",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 461,
-      "date": "2026-06-04"
+      "sale_last_week": 515,
+      "date": "2026-06-05"
     },
     {
       "base_key": "10088_2702",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 459,
-      "date": "2026-06-04"
+      "sale_last_week": 501,
+      "date": "2026-06-05"
+    },
+    {
+      "base_key": "10771_2001",
+      "title": "Rambler Lightweight Pro Shorts",
+      "sale_last_week": 499,
+      "date": "2026-06-05"
+    },
+    {
+      "base_key": "10088_2001",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 498,
+      "date": "2026-06-05"
+    },
+    {
+      "base_key": "10067_2003",
+      "title": "RVRC GP Shorts",
+      "sale_last_week": 492,
+      "date": "2026-06-05"
+    },
+    {
+      "base_key": "10067_962",
+      "title": "RVRC GP Shorts",
+      "sale_last_week": 489,
+      "date": "2026-06-05"
+    },
+    {
+      "base_key": "10771_2613",
+      "title": "Rambler Lightweight Pro Shorts",
+      "sale_last_week": 477,
+      "date": "2026-06-05"
+    },
+    {
+      "base_key": "10169_2001",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 429,
+      "date": "2026-06-05"
+    },
+    {
+      "base_key": "10088_2370",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 348,
+      "date": "2026-06-05"
     },
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 357,
-      "date": "2026-06-04"
-    },
-    {
-      "base_key": "10004_2001",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 342,
-      "date": "2026-06-04"
-    },
-    {
-      "base_key": "10004_2003",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 330,
-      "date": "2026-06-04"
+      "sale_last_week": 317,
+      "date": "2026-06-05"
     }
   ]
 }
