@@ -1535,6 +1535,22 @@
       "sld_x_list_eur": 71664.0,
       "product_colors_total": 2000,
       "product_colors_with_sales": 304
+    },
+    {
+      "date": "2026-06-15",
+      "timestamp": "2026-06-15T02:02:35",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.928,
+        "GBP": 12.6621,
+        "NOK": 0.9912
+      },
+      "slw_x_sell_eur": 957134.45,
+      "sld_x_sell_eur": 55175.0,
+      "slw_x_list_eur": 1145099.45,
+      "sld_x_list_eur": 71664.0,
+      "product_colors_total": 1991,
+      "product_colors_with_sales": 304
     }
   ],
   "reference_products": [
@@ -1542,61 +1558,61 @@
       "base_key": "10771_2613",
       "title": "Rambler Lightweight Pro Shorts",
       "sale_last_week": 762,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     },
     {
       "base_key": "10771_2001",
       "title": "Rambler Lightweight Pro Shorts",
       "sale_last_week": 498,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     },
     {
       "base_key": "10088_2686",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 412,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     },
     {
       "base_key": "10088_2702",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 374,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     },
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 347,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     },
     {
       "base_key": "10765_4774",
       "title": "Range Pro Stretch T Zip-off Pants",
       "sale_last_week": 336,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     },
     {
       "base_key": "10169_2001",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 330,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     },
     {
       "base_key": "10067_962",
       "title": "RVRC GP Shorts",
       "sale_last_week": 319,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     },
     {
       "base_key": "10088_2370",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 264,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     },
     {
       "base_key": "10772_2001",
       "title": "Rambler Lightweight Pro Shorts",
       "sale_last_week": 261,
-      "date": "2026-06-14"
+      "date": "2026-06-15"
     }
   ]
 }
