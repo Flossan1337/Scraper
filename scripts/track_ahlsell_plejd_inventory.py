@@ -248,6 +248,8 @@ def categorize(article: str, product_name: str) -> str:
     name = product_name.lower()
     if "dimmer" in name:
         return "Dimmer"
+    if "led-panel" in name or "led panel" in name:
+        return "LED-Panel"
     if any(w in name for w in ("downlight", "plafond", "väggarmatur")):
         return "Armaturer"
     if "termostat" in name:
