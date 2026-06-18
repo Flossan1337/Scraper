@@ -1583,68 +1583,84 @@
       "sld_x_list_eur": 128699.64,
       "product_colors_total": 2002,
       "product_colors_with_sales": 287
+    },
+    {
+      "date": "2026-06-18",
+      "timestamp": "2026-06-18T02:03:01",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.891,
+        "GBP": 12.5961,
+        "NOK": 0.9894
+      },
+      "slw_x_sell_eur": 1031975.28,
+      "sld_x_sell_eur": 29253.0,
+      "slw_x_list_eur": 1041615.28,
+      "sld_x_list_eur": 29253.0,
+      "product_colors_total": 2017,
+      "product_colors_with_sales": 281
     }
   ],
   "reference_products": [
     {
       "base_key": "10771_2001",
       "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 492,
-      "date": "2026-06-17"
+      "sale_last_week": 473,
+      "date": "2026-06-18"
     },
     {
       "base_key": "10088_2686",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 453,
-      "date": "2026-06-17"
+      "sale_last_week": 412,
+      "date": "2026-06-18"
     },
     {
       "base_key": "10088_2702",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 335,
-      "date": "2026-06-17"
+      "sale_last_week": 321,
+      "date": "2026-06-18"
     },
     {
       "base_key": "10067_962",
       "title": "RVRC GP Shorts",
-      "sale_last_week": 323,
-      "date": "2026-06-17"
-    },
-    {
-      "base_key": "10771_2613",
-      "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 309,
-      "date": "2026-06-17"
+      "sale_last_week": 310,
+      "date": "2026-06-18"
     },
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 300,
-      "date": "2026-06-17"
+      "sale_last_week": 281,
+      "date": "2026-06-18"
     },
     {
       "base_key": "11027_4722",
       "title": "Nordwand Pants",
-      "sale_last_week": 293,
-      "date": "2026-06-17"
+      "sale_last_week": 272,
+      "date": "2026-06-18"
     },
     {
       "base_key": "10088_2370",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 276,
-      "date": "2026-06-17"
+      "sale_last_week": 266,
+      "date": "2026-06-18"
     },
     {
       "base_key": "10169_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 276,
-      "date": "2026-06-17"
+      "sale_last_week": 260,
+      "date": "2026-06-18"
     },
     {
       "base_key": "14363_2001",
       "title": "Breezy Outdoor Stretch Pants",
-      "sale_last_week": 257,
-      "date": "2026-06-17"
+      "sale_last_week": 240,
+      "date": "2026-06-18"
+    },
+    {
+      "base_key": "10771_2613",
+      "title": "Rambler Lightweight Pro Shorts",
+      "sale_last_week": 225,
+      "date": "2026-06-18"
     }
   ]
 }
