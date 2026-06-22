@@ -46,6 +46,7 @@ from openpyxl import Workbook, load_workbook
 
 # ── Configuration ──────────────────────────────────────────────────────────────
 BRANDS_URL      = "https://www.c.technischeunie.nl/merken-overzicht.html"
+BRANDS_LIST_URL = "https://www.c.technischeunie.nl/merken-overzicht-lijst.html"
 BRAND_PAGE_TPL  = "https://www.c.technischeunie.nl/merken-overzicht/{slug}.html"
 
 HEADERS = {
@@ -80,8 +81,11 @@ def extract_all_brands(html: str) -> set[str]:
 
 
 def extract_featured_slugs(html: str) -> set[str]:
-    """Return slugs of brands that have a dedicated /merken-overzicht/<slug>.html page."""
-    return set(re.findall(r'/merken-overzicht/([A-Za-z0-9][A-Za-z0-9-]+)\.html', html))
+    """Return slugs of brands that have a dedicated /merken-overzicht/<slug> page."""
+    # Match both /merken-overzicht/slug.html and /merken-overzicht/slug (without .html)
+    with_html    = set(re.findall(r'/merken-overzicht/([A-Za-z0-9][A-Za-z0-9-]+)\.html', html))
+    without_html = set(re.findall(r'/merken-overzicht/([A-Za-z0-9][A-Za-z0-9-]+)(?=["\s])', html))
+    return with_html | without_html
 
 
 def get_brand_categories(slug: str) -> list[str]:
@@ -180,8 +184,10 @@ def append_to_excel(run_date: str, new_brands_data: list[tuple[str, list[str]]])
 def main() -> None:
     print("Fetching Technische Unie brands overview page…")
     html = fetch_html(BRANDS_URL)
+    print("Fetching Technische Unie full brands list page…")
+    list_html = fetch_html(BRANDS_LIST_URL)
 
-    current_brands         = extract_all_brands(html)
+    current_brands         = extract_all_brands(list_html)
     current_featured_slugs = extract_featured_slugs(html)
 
     print(
