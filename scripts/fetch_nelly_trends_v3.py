@@ -21,13 +21,14 @@ SEARCH_TERM = "nelly"
 START_DATE  = datetime(2016, 1, 1)
 
 # ── TUNABLES ──
-CHUNK_MONTHS   = 12      # months per request (shorter = less suspicious)
-OVERLAP_MONTHS = 2       # overlap used for inter-chunk normalisation
-BASE_SLEEP     = 60.0    # seconds between chunks/countries
-MAX_RETRIES    = 6
-BACKOFF_START  = 120.0   # first 429 back-off in seconds
-BACKOFF_MAX    = 900.0   # cap at 15 minutes
-BACKOFF_MULT   = 2.0
+CHUNK_MONTHS        = 12    # months per request
+OVERLAP_MONTHS      = 2     # overlap used for inter-chunk normalisation
+CHUNK_SLEEP         = 8.0   # seconds between chunks within the same country
+COUNTRY_SLEEP       = 45.0  # seconds between countries (longer cool-down)
+MAX_RETRIES         = 6
+BACKOFF_START       = 90.0  # first 429 back-off in seconds
+BACKOFF_MAX         = 600.0 # cap at 10 minutes
+BACKOFF_MULT        = 2.0
 
 # Optional proxy list – leave empty to use no proxy.
 # Format: ["http://user:pass@host:port", ...]
@@ -150,7 +151,7 @@ def fetch_country_monthly(geo: str, col_suffix: str) -> pd.DataFrame:
         chunk_end = min(chunk_start + relativedelta(months=CHUNK_MONTHS), end_date)
 
         if chunk_index > 0:
-            sleep_s = BASE_SLEEP + random.uniform(10, 30)
+            sleep_s = CHUNK_SLEEP + random.uniform(2, 6)
             print(f"  [{geo}] Sleeping {sleep_s:.0f}s before next chunk …")
             time.sleep(sleep_s)
 
@@ -206,7 +207,7 @@ def main():
             df = _df_from_cache(cache[col])
         else:
             if master is not None:
-                sleep_s = BASE_SLEEP + random.uniform(15, 45)
+                sleep_s = COUNTRY_SLEEP + random.uniform(10, 20)
                 print(f"[{geo}] Sleeping {sleep_s:.0f}s before next country …")
                 time.sleep(sleep_s)
 
