@@ -1711,6 +1711,22 @@
       "sld_x_list_eur": 176956.0,
       "product_colors_total": 1976,
       "product_colors_with_sales": 397
+    },
+    {
+      "date": "2026-06-26",
+      "timestamp": "2026-06-26T01:54:30",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.069,
+        "GBP": 12.8436,
+        "NOK": 0.9868
+      },
+      "slw_x_sell_eur": 1155698.22,
+      "sld_x_sell_eur": 101894.0,
+      "slw_x_list_eur": 1819054.22,
+      "sld_x_list_eur": 160872.0,
+      "product_colors_total": 1977,
+      "product_colors_with_sales": 411
     }
   ],
   "reference_products": [
@@ -1718,61 +1734,61 @@
       "base_key": "14355_2001",
       "title": "Twig High-waist Pants",
       "sale_last_week": 468,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     },
     {
       "base_key": "10771_2883",
       "title": "Rambler Lightweight Pro Shorts",
       "sale_last_week": 445,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     },
     {
       "base_key": "10169_2317",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 392,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     },
     {
       "base_key": "10771_2283",
       "title": "Rambler Lightweight Pro Shorts",
       "sale_last_week": 378,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     },
     {
       "base_key": "10771_4840",
       "title": "Rambler Lightweight Pro Shorts",
       "sale_last_week": 373,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     },
     {
       "base_key": "14486_2800",
       "title": "Easy 2 Pack T-shirt",
       "sale_last_week": 347,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     },
     {
       "base_key": "10774_4823",
       "title": "Adventure Cargo Stretch Shorts",
       "sale_last_week": 319,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     },
     {
       "base_key": "10088_2686",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 311,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     },
     {
       "base_key": "11201_2001",
       "title": "RVRC Sweat Shorts",
       "sale_last_week": 286,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     },
     {
       "base_key": "10066_2001",
       "title": "RVRC GP Pro Zip-off Pants",
       "sale_last_week": 270,
-      "date": "2026-06-25"
+      "date": "2026-06-26"
     }
   ]
 }
