@@ -8,7 +8,7 @@ from requests.exceptions import RequestException
 import os
 from pathlib import Path
 
-# ── OUTPUT to Scripts/data ──
+# -- OUTPUT to Scripts/data --
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR  = REPO_ROOT / "data"
 DATA_DIR.mkdir(exist_ok=True)
@@ -27,7 +27,7 @@ COUNTRIES = [
 ]
 SEARCH_TERM = "Plejd"
 
-# ── TUNABLES ──
+# -- TUNABLES --
 BASE_SLEEP    = 15.0
 MAX_RETRIES   = 5
 BACKOFF_START = 60.0
