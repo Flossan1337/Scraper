@@ -1823,6 +1823,22 @@
       "sld_x_list_eur": 118832.0,
       "product_colors_total": 1957,
       "product_colors_with_sales": 393
+    },
+    {
+      "date": "2026-07-03",
+      "timestamp": "2026-07-03T01:43:59",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.0775,
+        "GBP": 12.9312,
+        "NOK": 0.9813
+      },
+      "slw_x_sell_eur": 1107105.14,
+      "sld_x_sell_eur": 82207.0,
+      "slw_x_list_eur": 1723458.14,
+      "sld_x_list_eur": 122302.0,
+      "product_colors_total": 1965,
+      "product_colors_with_sales": 395
     }
   ],
   "reference_products": [
@@ -1830,61 +1846,61 @@
       "base_key": "14355_2001",
       "title": "Twig High-waist Pants",
       "sale_last_week": 537,
-      "date": "2026-07-02"
+      "date": "2026-07-03"
     },
     {
       "base_key": "10771_2883",
       "title": "Rambler Lightweight Pro Shorts",
       "sale_last_week": 486,
-      "date": "2026-07-02"
+      "date": "2026-07-03"
     },
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 461,
-      "date": "2026-07-02"
+      "date": "2026-07-03"
     },
     {
       "base_key": "14354_2001",
       "title": "Twig Pants",
       "sale_last_week": 376,
-      "date": "2026-07-02"
+      "date": "2026-07-03"
     },
     {
       "base_key": "10771_2283",
       "title": "Rambler Lightweight Pro Shorts",
       "sale_last_week": 373,
-      "date": "2026-07-02"
+      "date": "2026-07-03"
     },
     {
       "base_key": "14175_2001",
       "title": "Direction Active Tank Top",
       "sale_last_week": 364,
-      "date": "2026-07-02"
+      "date": "2026-07-03"
     },
     {
       "base_key": "10070_2884",
       "title": "RVRC GP Shorts",
-      "sale_last_week": 355,
-      "date": "2026-07-02"
+      "sale_last_week": 353,
+      "date": "2026-07-03"
     },
     {
       "base_key": "11201_2001",
       "title": "RVRC Sweat Shorts",
       "sale_last_week": 347,
-      "date": "2026-07-02"
-    },
-    {
-      "base_key": "10774_4823",
-      "title": "Adventure Cargo Stretch Shorts",
-      "sale_last_week": 335,
-      "date": "2026-07-02"
+      "date": "2026-07-03"
     },
     {
       "base_key": "10864_2640",
       "title": "Easy T-shirt",
-      "sale_last_week": 304,
-      "date": "2026-07-02"
+      "sale_last_week": 293,
+      "date": "2026-07-03"
+    },
+    {
+      "base_key": "10774_4823",
+      "title": "Adventure Cargo Stretch Shorts",
+      "sale_last_week": 275,
+      "date": "2026-07-03"
     }
   ]
 }
