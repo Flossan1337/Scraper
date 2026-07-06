@@ -1871,68 +1871,84 @@
       "sld_x_list_eur": 143293.0,
       "product_colors_total": 1961,
       "product_colors_with_sales": 386
+    },
+    {
+      "date": "2026-07-06",
+      "timestamp": "2026-07-06T01:43:44",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.0315,
+        "GBP": 12.8692,
+        "NOK": 0.9789
+      },
+      "slw_x_sell_eur": 1057435.75,
+      "sld_x_sell_eur": 100464.0,
+      "slw_x_list_eur": 1589655.75,
+      "sld_x_list_eur": 147532.0,
+      "product_colors_total": 1955,
+      "product_colors_with_sales": 380
     }
   ],
   "reference_products": [
     {
       "base_key": "14355_2001",
       "title": "Twig High-waist Pants",
-      "sale_last_week": 533,
-      "date": "2026-07-05"
-    },
-    {
-      "base_key": "10088_2001",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 445,
-      "date": "2026-07-05"
+      "sale_last_week": 534,
+      "date": "2026-07-06"
     },
     {
       "base_key": "14354_2001",
       "title": "Twig Pants",
-      "sale_last_week": 441,
-      "date": "2026-07-05"
+      "sale_last_week": 454,
+      "date": "2026-07-06"
+    },
+    {
+      "base_key": "10088_2001",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 430,
+      "date": "2026-07-06"
     },
     {
       "base_key": "10771_2883",
       "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 428,
-      "date": "2026-07-05"
-    },
-    {
-      "base_key": "14175_2001",
-      "title": "Direction Active Tank Top",
-      "sale_last_week": 345,
-      "date": "2026-07-05"
+      "sale_last_week": 376,
+      "date": "2026-07-06"
     },
     {
       "base_key": "10771_2283",
       "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 340,
-      "date": "2026-07-05"
+      "sale_last_week": 315,
+      "date": "2026-07-06"
+    },
+    {
+      "base_key": "14175_2001",
+      "title": "Direction Active Tank Top",
+      "sale_last_week": 304,
+      "date": "2026-07-06"
     },
     {
       "base_key": "10070_2884",
       "title": "RVRC GP Shorts",
-      "sale_last_week": 307,
-      "date": "2026-07-05"
+      "sale_last_week": 290,
+      "date": "2026-07-06"
     },
     {
       "base_key": "14354_2891",
       "title": "Twig Pants",
-      "sale_last_week": 269,
-      "date": "2026-07-05"
+      "sale_last_week": 284,
+      "date": "2026-07-06"
     },
     {
       "base_key": "10169_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 256,
-      "date": "2026-07-05"
+      "sale_last_week": 246,
+      "date": "2026-07-06"
     },
     {
       "base_key": "10066_2001",
       "title": "RVRC GP Pro Zip-off Pants",
-      "sale_last_week": 244,
-      "date": "2026-07-05"
+      "sale_last_week": 234,
+      "date": "2026-07-06"
     }
   ]
 }
