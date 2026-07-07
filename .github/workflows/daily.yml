@@ -109,6 +109,11 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
 
+      - name: Run track_ahlsell_led_panel_inventory.py
+        run: python ./scripts/track_ahlsell_led_panel_inventory.py
+        timeout-minutes: 15
+        continue-on-error: true
+
       - name: Open GitHub issue for new TU brands
         if: always()
         env:
@@ -183,6 +188,7 @@ jobs:
           DESCR[fetch_anoto_amazon_data.py]="Scrapes Amazon US for 'bought in past month' count and Best Sellers Rank for the Anoto inq Smart Writing Set"
           DESCR[track_anoto_inventory.py]="Tracks inq.shop per-variant inventory via Shopify page JSON; estimates daily unit sales and revenue (USD) via stock delta"
           DESCR[track_ahlsell_plejd_inventory.py]="Tracks Plejd product inventory at Ahlsell.se per store and article; computes daily sales-out (customers buying from Ahlsell) and sales-in (Plejd restocking Ahlsell)"
+          DESCR[track_ahlsell_led_panel_inventory.py]="Tracks total inventory levels for all recessed LED panel brands at Ahlsell.se; time-series by brand (Plejd vs competitors)"
 
           declare -A OUTFILE
           OUTFILE[fetch_kpi.py]="data/kpi-history.xlsx"
@@ -199,6 +205,7 @@ jobs:
           OUTFILE[fetch_anoto_amazon_data.py]="data/anoto_amazon_data.xlsx"
           OUTFILE[track_anoto_inventory.py]="data/anoto_inventory.xlsx"
           OUTFILE[track_ahlsell_plejd_inventory.py]="data/ahlsell_plejd_inventory.xlsx"
+          OUTFILE[track_ahlsell_led_panel_inventory.py]="data/ahlsell_led_panel_inventory.xlsx"
 
           METRICS_DIR="scripts/metrics"
           mkdir -p "$METRICS_DIR"
@@ -209,7 +216,8 @@ jobs:
                         "track_rugvista_daily_sales.py" "youtube_diy_trends.py" "fetch_ted_procurements.py" \
                         "track_rvrc_sales.py" "track_nelly_inventory.py" \
                         "fetch_anoto_amazon_data.py" "track_anoto_inventory.py" \
-                        "track_ahlsell_plejd_inventory.py"; do
+                        "track_ahlsell_plejd_inventory.py" \
+                        "track_ahlsell_led_panel_inventory.py"; do
             desc="${DESCR[$script]:-—}"
             outfile="${OUTFILE[$script]:-}"
             jsonfile="$METRICS_DIR/${script}.json"
