@@ -1951,68 +1951,84 @@
       "sld_x_list_eur": 125122.0,
       "product_colors_total": 1985,
       "product_colors_with_sales": 383
+    },
+    {
+      "date": "2026-07-11",
+      "timestamp": "2026-07-11T01:43:32",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.0145,
+        "GBP": 12.9346,
+        "NOK": 0.988
+      },
+      "slw_x_sell_eur": 1245016.63,
+      "sld_x_sell_eur": 105996.0,
+      "slw_x_list_eur": 1749048.63,
+      "sld_x_list_eur": 149591.0,
+      "product_colors_total": 2018,
+      "product_colors_with_sales": 401
     }
   ],
   "reference_products": [
     {
       "base_key": "14355_2001",
       "title": "Twig High-waist Pants",
-      "sale_last_week": 603,
-      "date": "2026-07-10"
+      "sale_last_week": 584,
+      "date": "2026-07-11"
     },
     {
       "base_key": "14354_2001",
       "title": "Twig Pants",
-      "sale_last_week": 523,
-      "date": "2026-07-10"
+      "sale_last_week": 488,
+      "date": "2026-07-11"
     },
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 396,
-      "date": "2026-07-10"
+      "sale_last_week": 391,
+      "date": "2026-07-11"
     },
     {
       "base_key": "14354_2891",
       "title": "Twig Pants",
-      "sale_last_week": 344,
-      "date": "2026-07-10"
+      "sale_last_week": 334,
+      "date": "2026-07-11"
     },
     {
       "base_key": "10848_2001",
       "title": "Arcade 3L Lightweight Jacket",
-      "sale_last_week": 324,
-      "date": "2026-07-10"
+      "sale_last_week": 317,
+      "date": "2026-07-11"
     },
     {
       "base_key": "10169_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 275,
-      "date": "2026-07-10"
+      "sale_last_week": 276,
+      "date": "2026-07-11"
     },
     {
       "base_key": "11029_2001",
       "title": "Nordwand Pro Zip-off Pants",
-      "sale_last_week": 255,
-      "date": "2026-07-10"
-    },
-    {
-      "base_key": "10849_2001",
-      "title": "Arcade 3L Lightweight Jacket",
-      "sale_last_week": 249,
-      "date": "2026-07-10"
+      "sale_last_week": 252,
+      "date": "2026-07-11"
     },
     {
       "base_key": "10888_2798",
       "title": "Easy Graphic Logo T-shirt Slim Fit",
-      "sale_last_week": 242,
-      "date": "2026-07-10"
+      "sale_last_week": 243,
+      "date": "2026-07-11"
     },
     {
-      "base_key": "10066_2001",
-      "title": "RVRC GP Pro Zip-off Pants",
-      "sale_last_week": 231,
-      "date": "2026-07-10"
+      "base_key": "10849_2001",
+      "title": "Arcade 3L Lightweight Jacket",
+      "sale_last_week": 229,
+      "date": "2026-07-11"
+    },
+    {
+      "base_key": "10771_2883",
+      "title": "Rambler Lightweight Pro Shorts",
+      "sale_last_week": 225,
+      "date": "2026-07-11"
     }
   ]
 }
