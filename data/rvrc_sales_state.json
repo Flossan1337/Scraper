@@ -2015,6 +2015,22 @@
       "sld_x_list_eur": 155912.0,
       "product_colors_total": 2004,
       "product_colors_with_sales": 375
+    },
+    {
+      "date": "2026-07-15",
+      "timestamp": "2026-07-15T01:42:28",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.036,
+        "GBP": 12.9508,
+        "NOK": 0.9963
+      },
+      "slw_x_sell_eur": 1051836.8,
+      "sld_x_sell_eur": 112753.0,
+      "slw_x_list_eur": 1453760.8,
+      "sld_x_list_eur": 155912.0,
+      "product_colors_total": 2015,
+      "product_colors_with_sales": 375
     }
   ],
   "reference_products": [
@@ -2022,61 +2038,61 @@
       "base_key": "14355_2001",
       "title": "Twig High-waist Pants",
       "sale_last_week": 345,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     },
     {
       "base_key": "10088_2001",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 339,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     },
     {
       "base_key": "10169_2001",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 295,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     },
     {
       "base_key": "14354_2001",
       "title": "Twig Pants",
       "sale_last_week": 267,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     },
     {
       "base_key": "14354_2891",
       "title": "Twig Pants",
       "sale_last_week": 256,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     },
     {
       "base_key": "10848_2001",
       "title": "Arcade 3L Lightweight Jacket",
       "sale_last_week": 243,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     },
     {
       "base_key": "10066_962",
       "title": "RVRC GP Pro Zip-off Pants",
       "sale_last_week": 214,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     },
     {
       "base_key": "10771_2883",
       "title": "Rambler Lightweight Pro Shorts",
       "sale_last_week": 207,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     },
     {
       "base_key": "10066_2001",
       "title": "RVRC GP Pro Zip-off Pants",
       "sale_last_week": 206,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     },
     {
       "base_key": "10888_2798",
       "title": "Easy Graphic Logo T-shirt Slim Fit",
       "sale_last_week": 206,
-      "date": "2026-07-14"
+      "date": "2026-07-15"
     }
   ]
 }

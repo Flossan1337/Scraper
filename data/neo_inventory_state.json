@@ -16421,6 +16421,788 @@
           "is_restock": false
         }
       ]
+    },
+    {
+      "date": "2026-07-15",
+      "timestamp": "2026-07-15T01:44:59",
+      "summary": {
+        "total_variants": 43,
+        "est_sold_units": 1,
+        "est_revenue": 129.0,
+        "currency": "USD",
+        "restocks": 0,
+        "by_product": {
+          "NEO SMART PLANNER 2026 Pro": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "N HANDY NOTEBOOK (BLUE)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "A1 GEL CUSTOM PEN REFILL PACK OF 3 (MULTICOLOR RED/BLUE/BLACK)-0.5mm": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "LAMY DIGITAL PAPER": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Lamy Safari Black PenCap": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "A1 PenCap": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "R1 PenCap": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "D1 Refill  X 3 for Neo Smartpens (Dingshen)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Stylus Pen Tip for Smart Plate": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "LAMY M 21 Ballpoint Pen Refill x 3": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "A1 Gel Custom Pen Refill Pack of 3 (0.5mm)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Smart Plate +": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "M1+ PenCap": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "Dimo PenCap": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "BUNDLE: NCODE A4, PAPERTUBE CONTROLLER,VIDEO-MAKING KIT": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "SMART CLASS NOTE": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "N MEMO NOTEBOOKS (5 PACK)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "N LABORATORY NOTEBOOK (NAVY)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "N POCKET NOTEBOOKS (5 PACK)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "100 DAY COUNTDOWN PLANNER": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "DOUBLE SQUARE NOTEBOOK": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "WRITER'S NOTEBOOK (LINED/PLAIN)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "MINI N IDEA PADS (5 PACK)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "N IDEA PADS (5 PACK)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "N RING NOTEBOOK (5 PACK)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "N COLLEGE NOTEBOOKS (3 PACK)": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "N MOLESKINE NOTEBOOK": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "NEO SMARTPEN DIMO": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "NEO SMARTPEN R1": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "NEO SMARTPEN M1 PLUS+.": {
+            "est_sold_units": 1,
+            "est_rev": 129.0,
+            "restocks": 0
+          },
+          "NEO SMARTPEN A1": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "LAMY SAFARI ALL BLACK NCODE": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          },
+          "N PROFESSIONAL NOTEBOOK": {
+            "est_sold_units": 0,
+            "est_rev": 0.0,
+            "restocks": 0
+          }
+        }
+      },
+      "detail_rows": [
+        {
+          "variant_id": "50518803939606",
+          "product_title": "100 DAY COUNTDOWN PLANNER",
+          "variant_title": "Black",
+          "sku": "NC-P0258A",
+          "price": 9.5,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249653354774",
+          "product_title": "100 DAY COUNTDOWN PLANNER",
+          "variant_title": "White",
+          "sku": "NC-P0259A",
+          "price": 9.5,
+          "currency": "USD",
+          "stock_prev": 0,
+          "stock_curr": 0,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "49211023393046",
+          "product_title": "A1 GEL CUSTOM PEN REFILL PACK OF 3 (MULTICOLOR RED/BLUE/BLACK)-0.5mm",
+          "variant_title": "Default Title",
+          "sku": "NC98-0059A-1",
+          "price": 10.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506153394454",
+          "product_title": "A1 Gel Custom Pen Refill Pack of 3 (0.5mm)",
+          "variant_title": "Default Title",
+          "sku": "NC98-0059A",
+          "price": 10.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50502331203862",
+          "product_title": "A1 PenCap",
+          "variant_title": "Default Title",
+          "sku": "F151-A001A",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249655157014",
+          "product_title": "BUNDLE: NCODE A4, PAPERTUBE CONTROLLER,VIDEO-MAKING KIT",
+          "variant_title": "Default Title",
+          "sku": "NC-P0081E",
+          "price": 9.99,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506158965014",
+          "product_title": "D1 Refill  X 3 for Neo Smartpens (Dingshen)",
+          "variant_title": "Default Title",
+          "sku": "NC98-0061B",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249653158166",
+          "product_title": "DOUBLE SQUARE NOTEBOOK",
+          "variant_title": "Default Title",
+          "sku": "NC-P0254A",
+          "price": 8.0,
+          "currency": "USD",
+          "stock_prev": 11,
+          "stock_curr": 11,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506123706646",
+          "product_title": "Dimo PenCap",
+          "variant_title": "Black",
+          "sku": "F30-P011A-B0",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506123739414",
+          "product_title": "Dimo PenCap",
+          "variant_title": "Pink",
+          "sku": "F30-P011A-P0",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 0,
+          "stock_curr": 0,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "39587160752237",
+          "product_title": "LAMY DIGITAL PAPER",
+          "variant_title": "Default Title",
+          "sku": "NC-P0198E",
+          "price": 27.0,
+          "currency": "USD",
+          "stock_prev": 21,
+          "stock_curr": 21,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506154246422",
+          "product_title": "LAMY M 21 Ballpoint Pen Refill x 3",
+          "variant_title": "Default Title",
+          "sku": "NC98-055A",
+          "price": 8.25,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249482862870",
+          "product_title": "LAMY SAFARI ALL BLACK NCODE",
+          "variant_title": "With Notebook",
+          "sku": "NWP-F80-NC-PK-BK",
+          "price": 189.0,
+          "currency": "USD",
+          "stock_prev": 33,
+          "stock_curr": 33,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249482895638",
+          "product_title": "LAMY SAFARI ALL BLACK NCODE",
+          "variant_title": "Without Notebook",
+          "sku": "NWP-F80-NC-BK",
+          "price": 169.0,
+          "currency": "USD",
+          "stock_prev": 13,
+          "stock_curr": 13,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50502611763478",
+          "product_title": "Lamy Safari Black PenCap",
+          "variant_title": "Default Title",
+          "sku": "NDO-AC106-LM",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 23,
+          "stock_curr": 23,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506127802646",
+          "product_title": "M1+ PenCap",
+          "variant_title": "Black",
+          "sku": "M1+-Black-PENCAP",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506127769878",
+          "product_title": "M1+ PenCap",
+          "variant_title": "Grey",
+          "sku": "M1+-Grey-PENCAP",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506127835414",
+          "product_title": "M1+ PenCap",
+          "variant_title": "Navy",
+          "sku": "M1+-Navy-PENCAP",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249652699414",
+          "product_title": "MINI N IDEA PADS (5 PACK)",
+          "variant_title": "Default Title",
+          "sku": "NC-P0155A",
+          "price": 15.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249650635030",
+          "product_title": "N COLLEGE NOTEBOOKS (3 PACK)",
+          "variant_title": "Assorted Colors (Purple / Blue / Gray)",
+          "sku": "NC-P0055H",
+          "price": 16.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249651781910",
+          "product_title": "N HANDY NOTEBOOK (BLUE)",
+          "variant_title": "sky blue",
+          "sku": "NC-P0078E",
+          "price": 15.0,
+          "currency": "USD",
+          "stock_prev": 29,
+          "stock_curr": 29,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249652011286",
+          "product_title": "N IDEA PADS (5 PACK)",
+          "variant_title": "Default Title",
+          "sku": "NC-P0154A",
+          "price": 21.9,
+          "currency": "USD",
+          "stock_prev": 29,
+          "stock_curr": 29,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249653616918",
+          "product_title": "N LABORATORY NOTEBOOK (NAVY)",
+          "variant_title": "Default Title",
+          "sku": "NC-P0091A",
+          "price": 19.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249654206742",
+          "product_title": "N MEMO NOTEBOOKS (5 PACK)",
+          "variant_title": "Default Title",
+          "sku": "NC-P0156B",
+          "price": 14.9,
+          "currency": "USD",
+          "stock_prev": 25,
+          "stock_curr": 25,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249650372886",
+          "product_title": "N MOLESKINE NOTEBOOK",
+          "variant_title": "Default Title",
+          "sku": "NC-00065C",
+          "price": 29.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249653518614",
+          "product_title": "N POCKET NOTEBOOKS (5 PACK)",
+          "variant_title": "Default Title",
+          "sku": "NC-P0049D",
+          "price": 14.9,
+          "currency": "USD",
+          "stock_prev": 34,
+          "stock_curr": 34,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50518795288854",
+          "product_title": "N PROFESSIONAL NOTEBOOK",
+          "variant_title": "Grey",
+          "sku": "NC-P0191A",
+          "price": 19.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249651061014",
+          "product_title": "N RING NOTEBOOK (5 PACK)",
+          "variant_title": "Default Title",
+          "sku": "NC-P0048G",
+          "price": 19.9,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "51172383392022",
+          "product_title": "NEO SMART PLANNER 2026 Pro",
+          "variant_title": "Default Title",
+          "sku": "NC-P0295A",
+          "price": 10.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249661120790",
+          "product_title": "NEO SMARTPEN A1",
+          "variant_title": "Black",
+          "sku": "NWP-F151-NC-BK",
+          "price": 139.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249648505110",
+          "product_title": "NEO SMARTPEN DIMO",
+          "variant_title": "Black",
+          "sku": "NWP-F30-NC-BK-G",
+          "price": 59.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249648537878",
+          "product_title": "NEO SMARTPEN DIMO",
+          "variant_title": "Pink",
+          "sku": "NWP-F30-NC-PK-G",
+          "price": 59.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249644933398",
+          "product_title": "NEO SMARTPEN M1 PLUS+.",
+          "variant_title": "Black",
+          "sku": "NWP-F55-NC-BK-G",
+          "price": 129.0,
+          "currency": "USD",
+          "stock_prev": 35,
+          "stock_curr": 34,
+          "delta": -1,
+          "est_sold": 1,
+          "est_rev": 129.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249644966166",
+          "product_title": "NEO SMARTPEN M1 PLUS+.",
+          "variant_title": "Grey",
+          "sku": "NWP-F51-NC-GS-G",
+          "price": 129.0,
+          "currency": "USD",
+          "stock_prev": -6,
+          "stock_curr": -6,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249644998934",
+          "product_title": "NEO SMARTPEN M1 PLUS+.",
+          "variant_title": "Navy",
+          "sku": "NWP-F51-NC-NY-G",
+          "price": 129.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249647784214",
+          "product_title": "NEO SMARTPEN R1",
+          "variant_title": "Black",
+          "sku": "NWP-F45-NC-BK",
+          "price": 89.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249647816982",
+          "product_title": "NEO SMARTPEN R1",
+          "variant_title": "Sky Blue",
+          "sku": "NWP-F45-NC-SB",
+          "price": 89.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50502663864598",
+          "product_title": "R1 PenCap",
+          "variant_title": "Default Title",
+          "sku": "F45-P004A-B0-F",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 40,
+          "stock_curr": 40,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249654468886",
+          "product_title": "SMART CLASS NOTE",
+          "variant_title": "Default Title",
+          "sku": "NC-P0143A",
+          "price": 7.0,
+          "currency": "USD",
+          "stock_prev": 39,
+          "stock_curr": 39,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506150347030",
+          "product_title": "Smart Plate +",
+          "variant_title": "Default Title",
+          "sku": "NC99-0024A",
+          "price": 39.0,
+          "currency": "USD",
+          "stock_prev": 37,
+          "stock_curr": 37,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50506155262230",
+          "product_title": "Stylus Pen Tip for Smart Plate",
+          "variant_title": "Default Title",
+          "sku": "NC98-0032A",
+          "price": 5.0,
+          "currency": "USD",
+          "stock_prev": 9,
+          "stock_curr": 9,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249652961558",
+          "product_title": "WRITER'S NOTEBOOK (LINED/PLAIN)",
+          "variant_title": "Thing(Plain Black Spine)",
+          "sku": "NC-P0127A",
+          "price": 18.0,
+          "currency": "USD",
+          "stock_prev": 29,
+          "stock_curr": 29,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        },
+        {
+          "variant_id": "50249652928790",
+          "product_title": "WRITER'S NOTEBOOK (LINED/PLAIN)",
+          "variant_title": "Write(Lined Orange Spine)",
+          "sku": "NC-P0129A",
+          "price": 18.0,
+          "currency": "USD",
+          "stock_prev": 0,
+          "stock_curr": 0,
+          "delta": 0,
+          "est_sold": 0,
+          "est_rev": 0.0,
+          "is_restock": false
+        }
+      ]
     }
   ],
   "last_snapshot": {
@@ -16460,7 +17242,7 @@
     "50249648537878": 40,
     "50249647784214": 40,
     "50249647816982": 40,
-    "50249644933398": 35,
+    "50249644933398": 34,
     "50249644966166": -6,
     "50249644998934": 40,
     "50249661120790": 40,
