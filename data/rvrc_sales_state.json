@@ -2063,68 +2063,84 @@
       "sld_x_list_eur": 124575.0,
       "product_colors_total": 2013,
       "product_colors_with_sales": 354
+    },
+    {
+      "date": "2026-07-18",
+      "timestamp": "2026-07-18T01:42:54",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.0405,
+        "GBP": 12.9739,
+        "NOK": 1.0001
+      },
+      "slw_x_sell_eur": 1243964.97,
+      "sld_x_sell_eur": 142217.0,
+      "slw_x_list_eur": 1251223.97,
+      "sld_x_list_eur": 142217.0,
+      "product_colors_total": 2042,
+      "product_colors_with_sales": 351
     }
   ],
   "reference_products": [
     {
-      "base_key": "10088_2001",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 304,
-      "date": "2026-07-17"
-    },
-    {
       "base_key": "10169_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 289,
-      "date": "2026-07-17"
+      "sale_last_week": 284,
+      "date": "2026-07-18"
+    },
+    {
+      "base_key": "10088_2001",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 275,
+      "date": "2026-07-18"
     },
     {
       "base_key": "10771_2883",
       "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 234,
-      "date": "2026-07-17"
+      "sale_last_week": 229,
+      "date": "2026-07-18"
     },
     {
       "base_key": "11002_2001",
       "title": "Rush Pro Shorts",
-      "sale_last_week": 220,
-      "date": "2026-07-17"
-    },
-    {
-      "base_key": "10888_2798",
-      "title": "Easy Graphic Logo T-shirt Slim Fit",
-      "sale_last_week": 212,
-      "date": "2026-07-17"
-    },
-    {
-      "base_key": "10088_2370",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 206,
-      "date": "2026-07-17"
+      "sale_last_week": 218,
+      "date": "2026-07-18"
     },
     {
       "base_key": "14355_2001",
       "title": "Twig High-waist Pants",
-      "sale_last_week": 202,
-      "date": "2026-07-17"
-    },
-    {
-      "base_key": "10066_962",
-      "title": "RVRC GP Pro Zip-off Pants",
-      "sale_last_week": 198,
-      "date": "2026-07-17"
-    },
-    {
-      "base_key": "14354_2891",
-      "title": "Twig Pants",
-      "sale_last_week": 197,
-      "date": "2026-07-17"
+      "sale_last_week": 213,
+      "date": "2026-07-18"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 195,
-      "date": "2026-07-17"
+      "sale_last_week": 211,
+      "date": "2026-07-18"
+    },
+    {
+      "base_key": "10888_2798",
+      "title": "Easy Graphic Logo T-shirt Slim Fit",
+      "sale_last_week": 211,
+      "date": "2026-07-18"
+    },
+    {
+      "base_key": "10088_2370",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 197,
+      "date": "2026-07-18"
+    },
+    {
+      "base_key": "10069_2003",
+      "title": "RVRC GP Pro Zip-off Pants",
+      "sale_last_week": 193,
+      "date": "2026-07-18"
+    },
+    {
+      "base_key": "10066_962",
+      "title": "RVRC GP Pro Zip-off Pants",
+      "sale_last_week": 192,
+      "date": "2026-07-18"
     }
   ]
 }
