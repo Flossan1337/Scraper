@@ -2159,68 +2159,84 @@
       "sld_x_list_eur": 179219.0,
       "product_colors_total": 2048,
       "product_colors_with_sales": 338
+    },
+    {
+      "date": "2026-07-24",
+      "timestamp": "2026-07-24T01:43:02",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.0955,
+        "GBP": 13.0049,
+        "NOK": 1.0131
+      },
+      "slw_x_sell_eur": 1067312.52,
+      "sld_x_sell_eur": 122993.7,
+      "slw_x_list_eur": 1367828.52,
+      "sld_x_list_eur": 173680.7,
+      "product_colors_total": 2052,
+      "product_colors_with_sales": 323
     }
   ],
   "reference_products": [
     {
-      "base_key": "10169_2001",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 412,
-      "date": "2026-07-23"
-    },
-    {
       "base_key": "10088_2370",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 409,
-      "date": "2026-07-23"
+      "sale_last_week": 448,
+      "date": "2026-07-24"
     },
     {
       "base_key": "11030_4170",
       "title": "Nordwand Shorts",
-      "sale_last_week": 354,
-      "date": "2026-07-23"
+      "sale_last_week": 415,
+      "date": "2026-07-24"
+    },
+    {
+      "base_key": "10169_2001",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 410,
+      "date": "2026-07-24"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 301,
-      "date": "2026-07-23"
-    },
-    {
-      "base_key": "10772_2001",
-      "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 259,
-      "date": "2026-07-23"
-    },
-    {
-      "base_key": "11035_2001",
-      "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 251,
-      "date": "2026-07-23"
+      "sale_last_week": 352,
+      "date": "2026-07-24"
     },
     {
       "base_key": "10461_962",
       "title": "Phantom Trail Low Hiking Shoes",
-      "sale_last_week": 249,
-      "date": "2026-07-23"
+      "sale_last_week": 325,
+      "date": "2026-07-24"
+    },
+    {
+      "base_key": "10772_2001",
+      "title": "Rambler Lightweight Pro Shorts",
+      "sale_last_week": 302,
+      "date": "2026-07-24"
     },
     {
       "base_key": "14357_2001",
       "title": "Twig High-waist Shorts",
-      "sale_last_week": 244,
-      "date": "2026-07-23"
+      "sale_last_week": 282,
+      "date": "2026-07-24"
     },
     {
       "base_key": "10716_2001",
       "title": "3-pack Ultimate Soft Boxers",
-      "sale_last_week": 218,
-      "date": "2026-07-23"
+      "sale_last_week": 262,
+      "date": "2026-07-24"
     },
     {
-      "base_key": "10771_2001",
-      "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 209,
-      "date": "2026-07-23"
+      "base_key": "11035_2001",
+      "title": "Nordwand Stretch High-waist Pants",
+      "sale_last_week": 249,
+      "date": "2026-07-24"
+    },
+    {
+      "base_key": "10005_2001",
+      "title": "RVRC GP Pro Pants",
+      "sale_last_week": 239,
+      "date": "2026-07-24"
     }
   ]
 }
