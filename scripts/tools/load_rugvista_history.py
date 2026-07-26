@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS rugvista_variant_snapshot (
 INSERT_SQL = """
 INSERT INTO rugvista_variant_snapshot
     (captured_at, product_id, sku, parent_name, variant_name,
-     size_label, length_cm, width_cm, price_sek, available)
+     size_label, length_cm, width_cm, price_sek, available, snapshot_date)
 VALUES %s
 ON CONFLICT (captured_at, product_id) DO NOTHING;
 """
@@ -61,6 +61,7 @@ def rows_from_file(path: Path) -> list[tuple]:
     rows = []
     for product_id, v in data.items():
         captured_at = v.get("snapshot_time") or default_captured_at
+        snapshot_date = datetime.fromisoformat(captured_at).date().isoformat()
         rows.append((
             captured_at,
             int(product_id),
@@ -72,6 +73,7 @@ def rows_from_file(path: Path) -> list[tuple]:
             v.get("width_cm"),
             v.get("price_SEK"),
             v.get("available"),
+            snapshot_date,
         ))
     return rows
 

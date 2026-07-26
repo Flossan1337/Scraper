@@ -5,10 +5,14 @@ import time
 import json
 import argparse
 from datetime import datetime
-from typing import Dict, Any, List, Tuple
+from pathlib import Path
+from typing import Dict, Any, List, Optional, Tuple
 
 import requests
 import pandas as pd
+import psycopg2
+from psycopg2.extras import execute_values
+from dotenv import load_dotenv
 
 try:
     from zoneinfo import ZoneInfo  # py3.9+
@@ -21,6 +25,17 @@ STATE_PATH = "data/rugvista_state.json"        # previous snapshot
 XLSX_PATH  = "data/rugvista_daily_sales.xlsx"  # daily totals
 
 STHLM_TZ = ZoneInfo("Europe/Stockholm") if ZoneInfo else None
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(REPO_ROOT / ".env")  # no-op locally if absent; DATABASE_URL comes from CI env otherwise
+
+DB_INSERT_SQL = """
+INSERT INTO rugvista_variant_snapshot
+    (captured_at, product_id, sku, parent_name, variant_name,
+     size_label, length_cm, width_cm, price_sek, available, snapshot_date)
+VALUES %s
+ON CONFLICT (snapshot_date, product_id) DO NOTHING;
+"""
 
 def ensure_dir(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -150,6 +165,62 @@ def explode_variants(parents: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             })
     return rows
 
+def write_snapshot_to_db(rows: List[Dict[str, Any]]) -> Optional[int]:
+    """
+    Best-effort: write one row per variant to Postgres. Must never raise —
+    a DB problem should not stop the state/Excel pipeline below.
+    Returns the number of rows actually inserted (ON CONFLICT-skipped rows
+    don't count), or None if the write failed (see write_snapshot_to_db.last_error).
+    """
+    database_url = os.environ.get("DATABASE_URL")
+    if not database_url:
+        write_snapshot_to_db.last_error = "DATABASE_URL not set"
+        print("DB snapshot skipped: DATABASE_URL not set.", file=sys.stderr)
+        return None
+
+    captured_at = now_local_iso()
+    snapshot_date = datetime.fromisoformat(captured_at).date().isoformat()
+    values = [
+        (
+            captured_at,
+            r["product_id"],
+            r.get("sku"),
+            r.get("parent_name"),
+            r.get("variant_name"),
+            r.get("size_label"),
+            r.get("length_cm"),
+            r.get("width_cm"),
+            r.get("price_SEK"),
+            r.get("available"),
+            snapshot_date,
+        )
+        for r in rows
+        if r.get("product_id") is not None
+    ]
+    if not values:
+        return 0
+
+    try:
+        conn = psycopg2.connect(database_url)
+        try:
+            rows_written = 0
+            with conn.cursor() as cur:
+                for i in range(0, len(values), 1000):
+                    execute_values(cur, DB_INSERT_SQL, values[i:i + 1000])
+                    rows_written += cur.rowcount
+            conn.commit()
+        finally:
+            conn.close()
+        return rows_written
+    except Exception as e:
+        write_snapshot_to_db.last_error = str(e)
+        print(f"⚠️  DB snapshot write failed (continuing anyway): {e}", file=sys.stderr)
+        return None
+
+
+write_snapshot_to_db.last_error = None
+
+
 def load_state() -> Dict[str, Any]:
     if not os.path.isfile(STATE_PATH):
         return {}
@@ -277,6 +348,9 @@ def main():
             print("❌ No products/variants returned. Try --all-products or check the endpoint.", file=sys.stderr)
             sys.exit(2)
 
+        # Best-effort: persist raw variant snapshot to Postgres (must not break the rest of the run)
+        db_rows_written = write_snapshot_to_db(rows)
+
         # 2) Load previous state
         prev_state = load_state()
 
@@ -311,6 +385,10 @@ def main():
         print("-"*64)
         print(f"Wrote daily row to:      {XLSX_PATH}")
         print(f"Updated state file:      {STATE_PATH}")
+        if db_rows_written is None:
+            print(f"Databas: MISSLYCKADES – {write_snapshot_to_db.last_error}")
+        else:
+            print(f"Databas: {db_rows_written} rader skrivna")
         print("="*64 + "\n")
 
         sys.exit(0)
