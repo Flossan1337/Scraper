@@ -1,3 +1,5 @@
 .DS_Store
 .prettierrc
 __pycache__
+raw/
+.env
