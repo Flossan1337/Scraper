@@ -25,21 +25,8 @@ BATCH_SIZE = 1000
 load_dotenv(REPO_ROOT / ".env")
 DATABASE_URL = os.environ["DATABASE_URL"]
 
-CREATE_TABLE_SQL = """
-CREATE TABLE IF NOT EXISTS rugvista_variant_snapshot (
-    captured_at   timestamptz NOT NULL,
-    product_id    bigint      NOT NULL,
-    sku           text,
-    parent_name   text,
-    variant_name  text,
-    size_label    text,
-    length_cm     int,
-    width_cm      int,
-    price_sek     numeric,
-    available     int,
-    PRIMARY KEY (captured_at, product_id)
-);
-"""
+# Assumes rugvista_variant_snapshot already exists — see sql/schema.sql for the
+# table definition and sql/migrations/ for schema changes applied on top of it.
 
 INSERT_SQL = """
 INSERT INTO rugvista_variant_snapshot
@@ -85,10 +72,6 @@ def main():
 
     conn = psycopg2.connect(DATABASE_URL)
     try:
-        with conn.cursor() as cur:
-            cur.execute(CREATE_TABLE_SQL)
-        conn.commit()
-
         for path in files:
             rows = rows_from_file(path)
             with conn.cursor() as cur:

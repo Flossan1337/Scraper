@@ -5,14 +5,12 @@ import time
 import json
 import argparse
 from datetime import datetime
-from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 
 import requests
 import pandas as pd
-import psycopg2
-from psycopg2.extras import execute_values
-from dotenv import load_dotenv
+
+from core.db import safe_insert
 
 try:
     from zoneinfo import ZoneInfo  # py3.9+
@@ -25,17 +23,6 @@ STATE_PATH = "data/rugvista_state.json"        # previous snapshot
 XLSX_PATH  = "data/rugvista_daily_sales.xlsx"  # daily totals
 
 STHLM_TZ = ZoneInfo("Europe/Stockholm") if ZoneInfo else None
-
-REPO_ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(REPO_ROOT / ".env")  # no-op locally if absent; DATABASE_URL comes from CI env otherwise
-
-DB_INSERT_SQL = """
-INSERT INTO rugvista_variant_snapshot
-    (captured_at, product_id, sku, parent_name, variant_name,
-     size_label, length_cm, width_cm, price_sek, available, snapshot_date)
-VALUES %s
-ON CONFLICT (snapshot_date, product_id) DO NOTHING;
-"""
 
 def ensure_dir(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -167,17 +154,11 @@ def explode_variants(parents: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 def write_snapshot_to_db(rows: List[Dict[str, Any]]) -> Optional[int]:
     """
-    Best-effort: write one row per variant to Postgres. Must never raise —
-    a DB problem should not stop the state/Excel pipeline below.
+    Best-effort: write one row per variant to Postgres via core.db.safe_insert.
+    Must never raise — a DB problem should not stop the state/Excel pipeline below.
     Returns the number of rows actually inserted (ON CONFLICT-skipped rows
     don't count), or None if the write failed (see write_snapshot_to_db.last_error).
     """
-    database_url = os.environ.get("DATABASE_URL")
-    if not database_url:
-        write_snapshot_to_db.last_error = "DATABASE_URL not set"
-        print("DB snapshot skipped: DATABASE_URL not set.", file=sys.stderr)
-        return None
-
     captured_at = now_local_iso()
     snapshot_date = datetime.fromisoformat(captured_at).date().isoformat()
     values = [
@@ -197,25 +178,18 @@ def write_snapshot_to_db(rows: List[Dict[str, Any]]) -> Optional[int]:
         for r in rows
         if r.get("product_id") is not None
     ]
-    if not values:
-        return 0
 
-    try:
-        conn = psycopg2.connect(database_url)
-        try:
-            rows_written = 0
-            with conn.cursor() as cur:
-                for i in range(0, len(values), 1000):
-                    execute_values(cur, DB_INSERT_SQL, values[i:i + 1000])
-                    rows_written += cur.rowcount
-            conn.commit()
-        finally:
-            conn.close()
-        return rows_written
-    except Exception as e:
-        write_snapshot_to_db.last_error = str(e)
-        print(f"⚠️  DB snapshot write failed (continuing anyway): {e}", file=sys.stderr)
-        return None
+    result = safe_insert(
+        table="rugvista_variant_snapshot",
+        columns=[
+            "captured_at", "product_id", "sku", "parent_name", "variant_name",
+            "size_label", "length_cm", "width_cm", "price_sek", "available", "snapshot_date",
+        ],
+        rows=values,
+        conflict_columns=["snapshot_date", "product_id"],
+    )
+    write_snapshot_to_db.last_error = safe_insert.last_error
+    return result
 
 
 write_snapshot_to_db.last_error = None
