@@ -62,6 +62,8 @@ jobs:
         continue-on-error: true
 
       - name: Run track_rugvista_bestsellers.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python ./scripts/track_rugvista_bestsellers.py
         timeout-minutes: 10
         continue-on-error: true

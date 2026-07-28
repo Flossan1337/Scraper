@@ -115,7 +115,7 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 | `track_rugvista_daily_sales.py` | `rugvista_state.json` | `rugvista_daily_sales.xlsx` | daily | **Migrerad** | Raw capture live (`rugvista_variant_snapshot`); view `rugvista_daily_sales_v` exists but disagrees with xlsx on 54/283 days — see `KNOWN_ISSUES.md` #1. Not for analysis yet. |
 | `track_ahlsell_plejd_inventory.py` | `ahlsell_plejd_state.json` | `ahlsell_plejd_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`ahlsell_stock_snapshot`/`ahlsell_article`/`ahlsell_warehouse`). No view yet. Known zero-stock-row gap — `KNOWN_ISSUES.md` #5. |
 | `fetch_kpi.py` | — | `kpi-history.xlsx` | daily | **Migrerad** | Raw capture live (`kpi_history`, PK `snapshot_date`). No view needed — single scalar pair per day, no delta logic. Backfilled directly from `kpi-history.xlsx` (itself an append-only running log, not a snapshot file) rather than via git archaeology — `ON CONFLICT` also collapsed the known 2025-10-03/04 duplicates (`KNOWN_ISSUES.md` #2) to one row each. |
-| `track_rugvista_bestsellers.py` | — | `rugvista_bestsellers.xlsx` | daily | Ej migrerad | Single row/day (median/avg price), no state file. |
+| `track_rugvista_bestsellers.py` | — | `rugvista_bestsellers.xlsx` | daily | **Migrerad** | Raw capture live (`rugvista_bestseller_prices`, PK `snapshot_date`). No view needed — single median/avg pair per day, no delta logic. Backfilled directly from the xlsx (append-only, no duplicates found — 300 rows, 300 distinct dates). |
 | `fetch_ted_procurements.py` | — | `ted_procurements.xlsx` | daily | Ej migrerad | Structured per-company sheets, no delta/state — append-only. |
 | `fetch_plejd_sensortower_rankings.py` | — | `plejd_sensortower_rankings.xlsx` | daily | Ej migrerad | Dedupes via existing Excel instead of a JSON state file. |
 | `track_fractal_rankings_playwright.py` | — | `fractal_rankings.xlsx` | daily | Ej migrerad | Ranking positions, no state file. |
@@ -160,7 +160,7 @@ and #5 for what that costs).
 
 **Tier 1 — no state file, single/simple output, no delta math:**
 1. ~~`fetch_kpi.py`~~ — migrated.
-2. `track_rugvista_bestsellers.py`
+2. ~~`track_rugvista_bestsellers.py`~~ — migrated.
 3. `fetch_ted_procurements.py`
 4. `fetch_plejd_sensortower_rankings.py`
 5. `track_fractal_rankings_playwright.py`

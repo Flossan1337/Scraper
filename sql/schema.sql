@@ -65,3 +65,15 @@ CREATE TABLE IF NOT EXISTS kpi_history (
     brands         int,
     PRIMARY KEY (snapshot_date)
 );
+
+-- rugvista_bestseller_prices
+-- Daily median/average price across Rugvista's bestseller list pages,
+-- scraped by track_rugvista_bestsellers.py. data/rugvista_bestsellers.xlsx
+-- is itself the full append-only history, backfilled by reading that file
+-- directly instead of via git archaeology.
+CREATE TABLE IF NOT EXISTS rugvista_bestseller_prices (
+    snapshot_date   date NOT NULL,
+    median_price    numeric,
+    average_price   numeric,
+    PRIMARY KEY (snapshot_date)
+);

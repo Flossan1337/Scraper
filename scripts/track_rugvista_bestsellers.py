@@ -17,6 +17,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from openpyxl import Workbook, load_workbook
 from pathlib import Path
 
+from core.db import safe_insert
+
 # ──────────────────────────────────────────────────────────────────────────────
 URLS = [
     "https://www.rugvista.se/c/mattor/bastsaljare?page=1",
@@ -89,6 +91,18 @@ def append_to_xlsx(median_price, average_price):
     ws.append([today, round(median_price, 2), round(average_price, 2)])
     wb.save(XLSX_PATH)
     print(f"✓ Appended {today}: median={median_price:.2f}, avg={average_price:.2f} → {XLSX_PATH}")
+
+    # Best-effort: also write to Postgres (must not break the script)
+    db_rows_written, db_error = safe_insert(
+        table="rugvista_bestseller_prices",
+        columns=["snapshot_date", "median_price", "average_price"],
+        rows=[(today, round(median_price, 2), round(average_price, 2))],
+        conflict_columns=["snapshot_date"],
+    )
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES – {db_error}")
+    else:
+        print(f"Databas: {db_rows_written} rader skrivna")
 
 # ──────────────────────────────────────────────────────────────────────────────
 
