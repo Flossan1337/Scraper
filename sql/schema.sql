@@ -92,6 +92,20 @@ CREATE TABLE IF NOT EXISTS plejd_sensortower_rankings (
     PRIMARY KEY (snapshot_date, country)
 );
 
+-- anoto_amazon_data
+-- Daily Amazon US "bought in past month" count and Best Sellers Rank for
+-- the Anoto inq Smart Writing Set, scraped by fetch_anoto_amazon_data.py.
+-- Backfilled directly from data/anoto_amazon_data.xlsx (append-only). Both
+-- columns use 0 as the script's own "not found that day" sentinel, same as
+-- the source xlsx - not converted to NULL, to keep DB and xlsx semantics
+-- identical.
+CREATE TABLE IF NOT EXISTS anoto_amazon_data (
+    snapshot_date       date NOT NULL,
+    bought_past_month   int,
+    best_sellers_rank   int,
+    PRIMARY KEY (snapshot_date)
+);
+
 -- fractal_rankings
 -- Daily Newegg category ranking position per Fractal Design product
 -- (headsets + gaming chairs), scraped by track_fractal_rankings_playwright.py.

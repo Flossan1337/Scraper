@@ -12,6 +12,8 @@ except ImportError:
     print("Du måste installera openpyxl: pip install openpyxl")
     exit()
 
+from core.db import safe_insert
+
 # ── KONFIGURATION ──────────────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent
 DATA_DIR = (SCRIPT_DIR / ".." / "data").resolve()
@@ -232,6 +234,18 @@ def append_to_excel(today: str, bought: int, rank: int):
     ws.append([today, bought, rank])
     wb.save(XLSX_PATH)
     print(f"Data saved to {XLSX_PATH}")
+
+    # Best-effort: also write to Postgres (must not break the script)
+    db_rows_written, db_error = safe_insert(
+        table="anoto_amazon_data",
+        columns=["snapshot_date", "bought_past_month", "best_sellers_rank"],
+        rows=[(today, bought, rank)],
+        conflict_columns=["snapshot_date"],
+    )
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES – {db_error}")
+    else:
+        print(f"Databas: {db_rows_written} rader skrivna")
 
 
 async def run_once():

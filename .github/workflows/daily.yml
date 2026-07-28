@@ -105,6 +105,8 @@ jobs:
         continue-on-error: true
 
       - name: Run fetch_anoto_amazon_data.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python ./scripts/fetch_anoto_amazon_data.py
         timeout-minutes: 10
         continue-on-error: true

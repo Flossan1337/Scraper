@@ -119,7 +119,7 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 | `fetch_ted_procurements.py` | — | `ted_procurements.xlsx` | daily | Ej migrerad | **Not a snapshot-shaped pipeline** — rewrites the whole workbook every run from a live TED query (one row per notice, keyed by `Publication Number`, not by day). Status/values can change for the same notice over time, so it wants upsert-on-conflict-**update** semantics, not the `ON CONFLICT DO NOTHING` snapshot pattern every other migrated script uses. Needs its own design (natural key = `(company, publication_number)`, plus a separate lot-level detail table) before migrating — don't force the day-snapshot checklist onto it. |
 | `fetch_plejd_sensortower_rankings.py` | — | `plejd_sensortower_rankings.xlsx` | daily | **Migrerad** | Raw capture live (`plejd_sensortower_rankings`, PK `(snapshot_date, country)`). Wide xlsx (one column per country) melted to long rows; missing ranks (app unranked that day) are skipped, not fabricated as zero. Backfilled directly from the xlsx — 212 rows/210 populated dates → 889 (date, country) observations. The script's existing "already written today" guard now also triggers a DB-only write (rebuilt from the existing xlsx row) instead of exiting early, so the database doesn't silently miss a day. |
 | `track_fractal_rankings_playwright.py` | — | `fractal_rankings.xlsx` | daily | **Migrerad** | Raw capture live (`fractal_rankings`, PK `(snapshot_date, product)`). Same wide-to-long shape as the Plejd ranking: 6 products (2 headsets, 4 chairs), "NA"/not-found skipped rather than fabricated. Backfilled directly from the xlsx — 297 rows → 1219 (date, product) observations. |
-| `fetch_anoto_amazon_data.py` | — | `anoto_amazon_data.xlsx` | daily | Ej migrerad | Single count + BSR, no state file. |
+| `fetch_anoto_amazon_data.py` | — | `anoto_amazon_data.xlsx` | daily | **Migrerad** | Raw capture live (`anoto_amazon_data`, PK `snapshot_date`). Backfilled directly from the xlsx (append-only, 95 rows, no duplicates). `0` is the script's own "not found that day" sentinel for both columns — kept as-is in the DB rather than converted to NULL, to match existing xlsx semantics exactly. |
 | `amazon_scape_bought_playwright_us_de.py` | — | `fractal_scape_refine_data.xlsx` | daily | Ej migrerad | 2 countries × 2 products, no state file. Note: `daily.yml`'s job-summary `OUTFILE` map still points at the old `scape_bought_by_country.xlsx` path (stale since 2025-12-03) — cosmetic bug in the summary table, worth a separate small fix. |
 | `track_nelly_aov.py` | — | `nelly_aov.xlsx` | daily | Ej migrerad | Single AOV row/day. ~8 days stale as of 2026-07-28 — under the "stalled" threshold but worth watching. |
 | `track_ahlsell_led_panel_inventory.py` | `ahlsell_led_panel_state.json` | `ahlsell_led_panel_inventory.xlsx` | daily | Ej migrerad | Same site/shape as the already-migrated Ahlsell/Plejd pipeline — highest pattern reuse of anything left. |
@@ -163,7 +163,7 @@ and #5 for what that costs).
 2. ~~`track_rugvista_bestsellers.py`~~ — migrated.
 3. ~~`fetch_plejd_sensortower_rankings.py`~~ — migrated.
 4. ~~`track_fractal_rankings_playwright.py`~~ — migrated.
-5. `fetch_anoto_amazon_data.py`
+5. ~~`fetch_anoto_amazon_data.py`~~ — migrated.
 6. `amazon_scape_bought_playwright_us_de.py`
 7. `track_nelly_aov.py`
 
