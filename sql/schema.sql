@@ -106,6 +106,32 @@ CREATE TABLE IF NOT EXISTS anoto_amazon_data (
     PRIMARY KEY (snapshot_date)
 );
 
+-- ahlsell_led_panel_article
+-- Article metadata for recessed LED panel products at Ahlsell.se, tracked
+-- by track_ahlsell_led_panel_inventory.py. brand comes directly from the
+-- Ahlsell API (no Python classification involved, unlike Ahlsell/Plejd's
+-- categorize()).
+CREATE TABLE IF NOT EXISTS ahlsell_led_panel_article (
+    article       text PRIMARY KEY,
+    product_name  text,
+    product_code  text,
+    page_url      text,
+    brand         text
+);
+
+-- ahlsell_led_panel_stock_snapshot
+-- One row per article per day (total quantity across all warehouses - the
+-- public stock API used by this script doesn't expose a per-warehouse
+-- breakdown, unlike the Ahlsell/Plejd pipeline). Per-brand totals are a
+-- derived aggregate (join to ahlsell_led_panel_article, group by brand),
+-- not stored separately.
+CREATE TABLE IF NOT EXISTS ahlsell_led_panel_stock_snapshot (
+    snapshot_date  date NOT NULL,
+    article        text NOT NULL,
+    quantity       int,
+    PRIMARY KEY (snapshot_date, article)
+);
+
 -- nelly_aov
 -- Daily median/average selling price across Nelly.com's "topplistan" pages
 -- (AOV proxy), scraped by track_nelly_aov.py. Backfilled directly from

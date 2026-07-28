@@ -41,11 +41,14 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 from pathlib import Path
+from typing import Optional
 
 import requests
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
+
+from core.db import safe_insert
 
 # ── Konfiguration ──────────────────────────────────────────────────────────────
 BASE_URL       = "https://www.ahlsell.se"
@@ -278,6 +281,47 @@ def update_state(
     }
 
 
+# ── Databasskrivning ───────────────────────────────────────────────────────────
+
+def write_snapshot_to_db(products: dict, stock_by_article: dict, snapshot_date: str) -> Optional[int]:
+    """
+    Best-effort: write a snapshot to Postgres via core.db.safe_insert.
+    Must never raise. Returns total rows inserted across both tables, or
+    None if either write failed (see write_snapshot_to_db.last_error).
+    """
+    article_rows = [
+        (art, meta.get("product_name"), meta.get("product_code"),
+         meta.get("page_url"), meta.get("brand"))
+        for art, meta in products.items()
+    ]
+    stock_rows = [
+        (snapshot_date, art, round(qty))
+        for art, qty in stock_by_article.items()
+    ]
+
+    n_articles, err_articles = safe_insert(
+        table="ahlsell_led_panel_article",
+        columns=["article", "product_name", "product_code", "page_url", "brand"],
+        rows=article_rows,
+        conflict_columns=["article"],
+    )
+    n_stock, err_stock = safe_insert(
+        table="ahlsell_led_panel_stock_snapshot",
+        columns=["snapshot_date", "article", "quantity"],
+        rows=stock_rows,
+        conflict_columns=["snapshot_date", "article"],
+    )
+
+    error = err_articles or err_stock
+    write_snapshot_to_db.last_error = error
+    if error is not None:
+        return None
+    return n_articles + n_stock
+
+
+write_snapshot_to_db.last_error = None
+
+
 # ── Excel ──────────────────────────────────────────────────────────────────────
 
 def _sorted_brands(snapshots: dict) -> list[str]:
@@ -426,33 +470,39 @@ def main() -> None:
     state = load_state()
 
     if today in state.get("snapshots", {}):
-        print(f"Snapshot för {today} finns redan. Exporterar Excel...")
-        write_excel(state)
-        return
+        print(f"Snapshot för {today} finns redan.")
+        products = state.get("products", {})
+        stock_by_article = state["snapshots"][today].get("by_article", {})
+    else:
+        products, stock_by_article, stock_by_brand = collect_snapshot()
 
-    products, stock_by_article, stock_by_brand = collect_snapshot()
+        print("\nHämtar butikskatalog...")
+        try:
+            warehouses = fetch_warehouses()
+            print(f"  {len(warehouses)} butiker")
+        except Exception as exc:
+            print(f"  Varning: kunde ej hämta butiker: {exc}")
+            warehouses = state.get("warehouses", {})
 
-    print("\nHämtar butikskatalog...")
-    try:
-        warehouses = fetch_warehouses()
-        print(f"  {len(warehouses)} butiker")
-    except Exception as exc:
-        print(f"  Varning: kunde ej hämta butiker: {exc}")
-        warehouses = state.get("warehouses", {})
+        update_state(state, products, warehouses, stock_by_article, stock_by_brand)
+        save_state(state)
+        print(f"\nTillstånd sparat: {STATE_FILE}")
 
-    update_state(state, products, warehouses, stock_by_article, stock_by_brand)
-    save_state(state)
-    print(f"\nTillstånd sparat: {STATE_FILE}")
+        print("\nVarumärkessammanfattning:")
+        plejd_total = stock_by_brand.get(PLEJD_BRAND, 0)
+        grand_total = sum(stock_by_brand.values())
+        for brand in ([PLEJD_BRAND] if PLEJD_BRAND in stock_by_brand else []) + sorted(
+            b for b in stock_by_brand if b != PLEJD_BRAND
+        ):
+            print(f"  {brand:<30} {stock_by_brand[brand]:>6.0f} enheter")
+        print(f"  {'TOTALT':<30} {grand_total:>6.0f} enheter")
+        print(f"\n  Plejd andel: {plejd_total/grand_total*100:.1f}% av totalt lager")
 
-    print("\nVarumärkessammanfattning:")
-    plejd_total = stock_by_brand.get(PLEJD_BRAND, 0)
-    grand_total = sum(stock_by_brand.values())
-    for brand in ([PLEJD_BRAND] if PLEJD_BRAND in stock_by_brand else []) + sorted(
-        b for b in stock_by_brand if b != PLEJD_BRAND
-    ):
-        print(f"  {brand:<30} {stock_by_brand[brand]:>6.0f} enheter")
-    print(f"  {'TOTALT':<30} {grand_total:>6.0f} enheter")
-    print(f"\n  Plejd andel: {plejd_total/grand_total*100:.1f}% av totalt lager")
+    db_rows_written = write_snapshot_to_db(products, stock_by_article, today)
+    if db_rows_written is None:
+        print(f"Databas: MISSLYCKADES – {write_snapshot_to_db.last_error}")
+    else:
+        print(f"Databas: {db_rows_written} rader skrivna")
 
     write_excel(state)
     print("\nKlart!")
