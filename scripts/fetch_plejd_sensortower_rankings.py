@@ -5,7 +5,6 @@
 # Appends one row per run to data/plejd_sensortower_rankings.xlsx.
 
 import re
-import sys
 import time
 import random
 from datetime import date
@@ -15,6 +14,7 @@ from openpyxl import load_workbook
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeoutError
 
 from excel_utils import append_row
+from core.db import safe_insert
 
 # ── CONFIG ─────────────────────────────────────────────────────────────────────
 APP_ID     = "1032689423"
@@ -63,26 +63,40 @@ _KPI_SELECTOR = '[aria-labelledby="app-overview-unified-kpi-category-ranking"]'
 
 # ── HELPERS ────────────────────────────────────────────────────────────────────
 
-def today_already_written() -> bool:
-    """Returns True if today's date row is already in the Excel sheet."""
+def get_row_for_date(target_date: str) -> dict | None:
+    """Returns the row dict for target_date if already in the Excel sheet, else None."""
     path = Path(XLSX_PATH)
     if not path.exists():
-        return False
+        return None
     try:
         wb = load_workbook(path, read_only=True, data_only=True)
         if SHEET_NAME not in wb.sheetnames:
-            return False
+            return None
         ws = wb[SHEET_NAME]
-        today_str = str(date.today())
-        for row in ws.iter_rows(min_row=2, max_col=1, values_only=True):
-            cell = row[0]
-            if cell is None:
-                continue
-            if str(cell)[:10] == today_str:
-                return True
+        rows_iter = ws.iter_rows(values_only=True)
+        headers = next(rows_iter)
+        for row in rows_iter:
+            if row and row[0] is not None and str(row[0])[:10] == target_date:
+                return dict(zip(headers, row))
     except Exception:
         pass
-    return False
+    return None
+
+
+def write_rankings_to_db(row: dict) -> tuple[int | None, str | None]:
+    """Best-effort: write one row per country to Postgres. Must never raise."""
+    snapshot_date = str(row["Date"])
+    values = [
+        (snapshot_date, country, int(row[country]))
+        for country in COUNTRIES
+        if row.get(country) is not None
+    ]
+    return safe_insert(
+        table="plejd_sensortower_rankings",
+        columns=["snapshot_date", "country", "rank"],
+        rows=values,
+        conflict_columns=["snapshot_date", "country"],
+    )
 
 
 def fetch_rank(page, country: str) -> int | None:
@@ -129,47 +143,56 @@ def fetch_rank(page, country: str) -> int | None:
 # ── MAIN ───────────────────────────────────────────────────────────────────────
 
 def main():
-    if today_already_written():
-        print(f"Today ({date.today()}) is already written to {XLSX_PATH}. Nothing to do.")
-        sys.exit(0)
+    today_str = str(date.today())
+    existing_row = get_row_for_date(today_str)
 
-    # Random startup delay (0–45 s) so the run time varies each day and
-    # doesn’t leave a perfectly fixed pattern in Sensor Tower’s logs.
-    startup_delay = random.uniform(0, 45)
-    print(f"Startup delay: {startup_delay:.1f}s")
-    time.sleep(startup_delay)
+    if existing_row is not None:
+        print(f"Today ({today_str}) is already written to {XLSX_PATH}. Skipping fetch, writing to DB only.")
+        row = existing_row
+    else:
+        # Random startup delay (0–45 s) so the run time varies each day and
+        # doesn’t leave a perfectly fixed pattern in Sensor Tower’s logs.
+        startup_delay = random.uniform(0, 45)
+        print(f"Startup delay: {startup_delay:.1f}s")
+        time.sleep(startup_delay)
 
-    ranks: dict[str, int | None] = {}
+        ranks: dict[str, int | None] = {}
 
-    with sync_playwright() as pw:
-        browser = pw.chromium.launch(
-            headless=True,
-            args=_BROWSER_ARGS,
-        )
-        context = browser.new_context(
-            user_agent=random.choice(_USER_AGENTS),
-            locale="en-US",
-            viewport={"width": random.choice([1280, 1366, 1440, 1920]), "height": random.choice([800, 900, 1080])},
-            java_script_enabled=True,
-        )
-        # Mask the navigator.webdriver property
-        context.add_init_script(
-            "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-        )
-        page = context.new_page()
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(
+                headless=True,
+                args=_BROWSER_ARGS,
+            )
+            context = browser.new_context(
+                user_agent=random.choice(_USER_AGENTS),
+                locale="en-US",
+                viewport={"width": random.choice([1280, 1366, 1440, 1920]), "height": random.choice([800, 900, 1080])},
+                java_script_enabled=True,
+            )
+            # Mask the navigator.webdriver property
+            context.add_init_script(
+                "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+            )
+            page = context.new_page()
 
-        for country in COUNTRIES:
-            ranks[country] = fetch_rank(page, country)
-            # Polite delay between requests
-            time.sleep(random.uniform(2.0, 4.0))
+            for country in COUNTRIES:
+                ranks[country] = fetch_rank(page, country)
+                # Polite delay between requests
+                time.sleep(random.uniform(2.0, 4.0))
 
-        browser.close()
+            browser.close()
 
-    row = {"Date": str(date.today())} | {c: ranks[c] for c in COUNTRIES}
-    append_row(XLSX_PATH, SHEET_NAME, row)
-    print(f"\nDone. Row written to {XLSX_PATH}:")
-    for k, v in row.items():
-        print(f"  {k}: {v}")
+        row = {"Date": today_str} | {c: ranks[c] for c in COUNTRIES}
+        append_row(XLSX_PATH, SHEET_NAME, row)
+        print(f"\nDone. Row written to {XLSX_PATH}:")
+        for k, v in row.items():
+            print(f"  {k}: {v}")
+
+    db_rows_written, db_error = write_rankings_to_db(row)
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES – {db_error}")
+    else:
+        print(f"Databas: {db_rows_written} rader skrivna")
 
 
 if __name__ == "__main__":

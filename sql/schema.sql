@@ -77,3 +77,17 @@ CREATE TABLE IF NOT EXISTS rugvista_bestseller_prices (
     average_price   numeric,
     PRIMARY KEY (snapshot_date)
 );
+
+-- plejd_sensortower_rankings
+-- Daily Plejd App Store category ranking (Lifestyle, Top Free iPhone) per
+-- country, scraped by fetch_plejd_sensortower_rankings.py. Backfilled by
+-- melting the wide data/plejd_sensortower_rankings.xlsx (one column per
+-- country, append-only) into one row per (snapshot_date, country); missing
+-- ranks (app unranked that day in that country) are simply absent rows,
+-- not fabricated zeros.
+CREATE TABLE IF NOT EXISTS plejd_sensortower_rankings (
+    snapshot_date  date NOT NULL,
+    country        text NOT NULL,
+    rank           int,
+    PRIMARY KEY (snapshot_date, country)
+);

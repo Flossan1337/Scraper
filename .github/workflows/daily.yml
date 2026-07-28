@@ -91,6 +91,8 @@ jobs:
         continue-on-error: true
 
       - name: Run fetch_plejd_sensortower_rankings.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python ./scripts/fetch_plejd_sensortower_rankings.py
         timeout-minutes: 10
         continue-on-error: true

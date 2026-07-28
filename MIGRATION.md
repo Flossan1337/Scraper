@@ -116,8 +116,8 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 | `track_ahlsell_plejd_inventory.py` | `ahlsell_plejd_state.json` | `ahlsell_plejd_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`ahlsell_stock_snapshot`/`ahlsell_article`/`ahlsell_warehouse`). No view yet. Known zero-stock-row gap — `KNOWN_ISSUES.md` #5. |
 | `fetch_kpi.py` | — | `kpi-history.xlsx` | daily | **Migrerad** | Raw capture live (`kpi_history`, PK `snapshot_date`). No view needed — single scalar pair per day, no delta logic. Backfilled directly from `kpi-history.xlsx` (itself an append-only running log, not a snapshot file) rather than via git archaeology — `ON CONFLICT` also collapsed the known 2025-10-03/04 duplicates (`KNOWN_ISSUES.md` #2) to one row each. |
 | `track_rugvista_bestsellers.py` | — | `rugvista_bestsellers.xlsx` | daily | **Migrerad** | Raw capture live (`rugvista_bestseller_prices`, PK `snapshot_date`). No view needed — single median/avg pair per day, no delta logic. Backfilled directly from the xlsx (append-only, no duplicates found — 300 rows, 300 distinct dates). |
-| `fetch_ted_procurements.py` | — | `ted_procurements.xlsx` | daily | Ej migrerad | Structured per-company sheets, no delta/state — append-only. |
-| `fetch_plejd_sensortower_rankings.py` | — | `plejd_sensortower_rankings.xlsx` | daily | Ej migrerad | Dedupes via existing Excel instead of a JSON state file. |
+| `fetch_ted_procurements.py` | — | `ted_procurements.xlsx` | daily | Ej migrerad | **Not a snapshot-shaped pipeline** — rewrites the whole workbook every run from a live TED query (one row per notice, keyed by `Publication Number`, not by day). Status/values can change for the same notice over time, so it wants upsert-on-conflict-**update** semantics, not the `ON CONFLICT DO NOTHING` snapshot pattern every other migrated script uses. Needs its own design (natural key = `(company, publication_number)`, plus a separate lot-level detail table) before migrating — don't force the day-snapshot checklist onto it. |
+| `fetch_plejd_sensortower_rankings.py` | — | `plejd_sensortower_rankings.xlsx` | daily | **Migrerad** | Raw capture live (`plejd_sensortower_rankings`, PK `(snapshot_date, country)`). Wide xlsx (one column per country) melted to long rows; missing ranks (app unranked that day) are skipped, not fabricated as zero. Backfilled directly from the xlsx — 212 rows/210 populated dates → 889 (date, country) observations. The script's existing "already written today" guard now also triggers a DB-only write (rebuilt from the existing xlsx row) instead of exiting early, so the database doesn't silently miss a day. |
 | `track_fractal_rankings_playwright.py` | — | `fractal_rankings.xlsx` | daily | Ej migrerad | Ranking positions, no state file. |
 | `fetch_anoto_amazon_data.py` | — | `anoto_amazon_data.xlsx` | daily | Ej migrerad | Single count + BSR, no state file. |
 | `amazon_scape_bought_playwright_us_de.py` | — | `fractal_scape_refine_data.xlsx` | daily | Ej migrerad | 2 countries × 2 products, no state file. Note: `daily.yml`'s job-summary `OUTFILE` map still points at the old `scape_bought_by_country.xlsx` path (stale since 2025-12-03) — cosmetic bug in the summary table, worth a separate small fix. |
@@ -161,12 +161,14 @@ and #5 for what that costs).
 **Tier 1 — no state file, single/simple output, no delta math:**
 1. ~~`fetch_kpi.py`~~ — migrated.
 2. ~~`track_rugvista_bestsellers.py`~~ — migrated.
-3. `fetch_ted_procurements.py`
-4. `fetch_plejd_sensortower_rankings.py`
-5. `track_fractal_rankings_playwright.py`
-6. `fetch_anoto_amazon_data.py`
-7. `amazon_scape_bought_playwright_us_de.py`
-8. `track_nelly_aov.py`
+3. ~~`fetch_plejd_sensortower_rankings.py`~~ — migrated.
+4. `track_fractal_rankings_playwright.py`
+5. `fetch_anoto_amazon_data.py`
+6. `amazon_scape_bought_playwright_us_de.py`
+7. `track_nelly_aov.py`
+
+**Deferred — needs its own design, not a fit for the snapshot checklist:**
+- `fetch_ted_procurements.py` (see inventory notes above).
 
 **Tier 2 — has a state file (raw/ history already extracted), same
 snapshot+delta shape as Rugvista/Ahlsell:**
