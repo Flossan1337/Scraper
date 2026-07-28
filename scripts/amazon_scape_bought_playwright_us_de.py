@@ -12,6 +12,8 @@ except ImportError:
     print("Du måste installera openpyxl: pip install openpyxl")
     exit()
 
+from core.db import safe_insert
+
 # ── KONFIGURATION ──────────────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent
 DATA_DIR = (SCRIPT_DIR / ".." / "data").resolve()
@@ -271,6 +273,24 @@ def append_to_excel(data_dict):
     wb.save(XLSX_PATH)
     print(f"💾 Data saved to {XLSX_PATH}")
 
+
+def write_to_db(data_dict):
+    """Best-effort: write one row per (product, country) to Postgres. Must never raise."""
+    today = data_dict["Date"]
+    values = []
+    for country_code, *_ in COUNTRIES:
+        for prod_name, _ in PRODUCTS:
+            bought = data_dict.get(f"{prod_name} {country_code} Bought")
+            rank = data_dict.get(f"{prod_name} {country_code} Rank")
+            values.append((today, prod_name, country_code, bought, rank))
+
+    return safe_insert(
+        table="amazon_scape_refine_data",
+        columns=["snapshot_date", "product", "country", "bought_past_month", "best_sellers_rank"],
+        rows=values,
+        conflict_columns=["snapshot_date", "product", "country"],
+    )
+
 async def run_once():
     today = date.today().isoformat()
     results = {"Date": today}
@@ -306,6 +326,12 @@ async def run_once():
             await context.close()
         await browser.close()
     append_to_excel(results)
+
+    db_rows_written, db_error = write_to_db(results)
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES – {db_error}")
+    else:
+        print(f"Databas: {db_rows_written} rader skrivna")
 
 if __name__ == "__main__":
     asyncio.run(run_once())

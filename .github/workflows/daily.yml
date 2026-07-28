@@ -47,6 +47,8 @@ jobs:
         continue-on-error: true
 
       - name: Run amazon_scape_bought_playwright_us_de.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python ./scripts/amazon_scape_bought_playwright_us_de.py
         timeout-minutes: 10
         continue-on-error: true

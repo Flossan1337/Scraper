@@ -106,6 +106,24 @@ CREATE TABLE IF NOT EXISTS anoto_amazon_data (
     PRIMARY KEY (snapshot_date)
 );
 
+-- amazon_scape_refine_data
+-- Daily Amazon "bought in past month" count + Best Sellers Rank per Fractal
+-- Design Scape/Refine product, per country (US, DE), scraped by
+-- amazon_scape_bought_playwright_us_de.py. Backfilled by melting the wide
+-- data/fractal_scape_refine_data.xlsx (2 columns per product-country pair)
+-- into one row per (snapshot_date, product, country). Two rows already
+-- existed for 2025-11-30 in the source (two runs, slightly different
+-- scrape results) - ON CONFLICT DO NOTHING keeps the first and skips the
+-- second, same as every other migrated pipeline.
+CREATE TABLE IF NOT EXISTS amazon_scape_refine_data (
+    snapshot_date       date NOT NULL,
+    product             text NOT NULL,
+    country             text NOT NULL,
+    bought_past_month   int,
+    best_sellers_rank   int,
+    PRIMARY KEY (snapshot_date, product, country)
+);
+
 -- fractal_rankings
 -- Daily Newegg category ranking position per Fractal Design product
 -- (headsets + gaming chairs), scraped by track_fractal_rankings_playwright.py.
