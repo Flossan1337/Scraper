@@ -40,6 +40,8 @@ jobs:
 
       # Kör varje script i eget steg, fortsätt även om ett misslyckas
       - name: Run fetch_kpi.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python ./scripts/fetch_kpi.py
         timeout-minutes: 10
         continue-on-error: true

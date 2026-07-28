@@ -41,11 +41,16 @@ Checklist for migrating one more pipeline, in the order it was actually done:
    needed; it's idempotent, safe to re-run if a new `_state.json` shows up.
    **~20 of the 38 scripts have no `_state.json` at all** (they write
    straight to `.xlsx`) — those don't get this head start. Backfill options
-   for them: extract history from the xlsx files' own git-committed
-   versions (`git show <rev>:path`, parse each with `pandas.read_excel` —
-   more work, binary format), or accept the table starts empty from the day
-   migration lands. Decide per pipeline; record the decision in the
-   migration commit.
+   for them, cheapest first: (a) if the script only ever *appends* a row per
+   run and never rewrites the sheet (check for `excel_utils.append_row`/
+   `append_df` or equivalent — `fetch_kpi.py` is the confirmed example), the
+   **current** `.xlsx` file already *is* the full history; just read it
+   directly with `pandas.read_excel`, no git involved
+   (`scripts/tools/load_kpi_history.py` is the template); (b) otherwise,
+   extract history from the xlsx files' own git-committed versions
+   (`git show <rev>:path`, parse each with `pandas.read_excel` — more work,
+   binary format); (c) accept the table starts empty from the day migration
+   lands. Decide per pipeline; record the decision in the migration commit.
 2. **One-off loader in `scripts/tools/`.** Reads every file under `raw/…`
    and backfills the table(s) via `core.db.insert_rows` (not `safe_insert` —
    a one-off backfill should fail loudly, not swallow errors). If the
@@ -109,7 +114,7 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 |---|---|---|---|---|---|
 | `track_rugvista_daily_sales.py` | `rugvista_state.json` | `rugvista_daily_sales.xlsx` | daily | **Migrerad** | Raw capture live (`rugvista_variant_snapshot`); view `rugvista_daily_sales_v` exists but disagrees with xlsx on 54/283 days — see `KNOWN_ISSUES.md` #1. Not for analysis yet. |
 | `track_ahlsell_plejd_inventory.py` | `ahlsell_plejd_state.json` | `ahlsell_plejd_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`ahlsell_stock_snapshot`/`ahlsell_article`/`ahlsell_warehouse`). No view yet. Known zero-stock-row gap — `KNOWN_ISSUES.md` #5. |
-| `fetch_kpi.py` | — | `kpi-history.xlsx` | daily | Ej migrerad | Single row/day, 2 scalar KPIs, no delta logic. Simplest candidate. |
+| `fetch_kpi.py` | — | `kpi-history.xlsx` | daily | **Migrerad** | Raw capture live (`kpi_history`, PK `snapshot_date`). No view needed — single scalar pair per day, no delta logic. Backfilled directly from `kpi-history.xlsx` (itself an append-only running log, not a snapshot file) rather than via git archaeology — `ON CONFLICT` also collapsed the known 2025-10-03/04 duplicates (`KNOWN_ISSUES.md` #2) to one row each. |
 | `track_rugvista_bestsellers.py` | — | `rugvista_bestsellers.xlsx` | daily | Ej migrerad | Single row/day (median/avg price), no state file. |
 | `fetch_ted_procurements.py` | — | `ted_procurements.xlsx` | daily | Ej migrerad | Structured per-company sheets, no delta/state — append-only. |
 | `fetch_plejd_sensortower_rankings.py` | — | `plejd_sensortower_rankings.xlsx` | daily | Ej migrerad | Dedupes via existing Excel instead of a JSON state file. |
@@ -154,7 +159,7 @@ math is involved (harder — gets it wrong silently, see `KNOWN_ISSUES.md` #1
 and #5 for what that costs).
 
 **Tier 1 — no state file, single/simple output, no delta math:**
-1. `fetch_kpi.py`
+1. ~~`fetch_kpi.py`~~ — migrated.
 2. `track_rugvista_bestsellers.py`
 3. `fetch_ted_procurements.py`
 4. `fetch_plejd_sensortower_rankings.py`

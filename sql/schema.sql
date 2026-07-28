@@ -53,3 +53,15 @@ CREATE TABLE IF NOT EXISTS ahlsell_warehouse (
     city          text,
     address       text
 );
+
+-- kpi_history
+-- Daily Adtraction platform KPIs (total conversions, brand count) scraped by
+-- fetch_kpi.py. data/kpi-history.xlsx is itself the full append-only
+-- history (not a "latest snapshot" state file), so this table was
+-- backfilled by reading that file directly instead of via git archaeology.
+CREATE TABLE IF NOT EXISTS kpi_history (
+    snapshot_date  date NOT NULL,
+    conversions    bigint,
+    brands         int,
+    PRIMARY KEY (snapshot_date)
+);
