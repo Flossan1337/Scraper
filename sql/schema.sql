@@ -132,6 +132,27 @@ CREATE TABLE IF NOT EXISTS ahlsell_led_panel_stock_snapshot (
     PRIMARY KEY (snapshot_date, article)
 );
 
+-- anoto_variant_snapshot
+-- One row per variant per day, across both stores tracked by
+-- track_anoto_inventory.py: inq.shop (store='anoto') and Neo Smart Pen
+-- (store='neo'). Denormalized like rugvista_variant_snapshot (price/title
+-- captured per snapshot rather than a separate dimension table) since price
+-- can change day to day here too. quantity is the raw stock level
+-- (stock_curr); sold-units/revenue/restock are computed from deltas between
+-- rows and belong in a future SQL view, not stored here.
+CREATE TABLE IF NOT EXISTS anoto_variant_snapshot (
+    snapshot_date  date NOT NULL,
+    store          text NOT NULL,
+    variant_id     text NOT NULL,
+    product_title  text,
+    variant_title  text,
+    sku            text,
+    price          numeric,
+    currency       text,
+    quantity       int,
+    PRIMARY KEY (snapshot_date, store, variant_id)
+);
+
 -- nelly_aov
 -- Daily median/average selling price across Nelly.com's "topplistan" pages
 -- (AOV proxy), scraped by track_nelly_aov.py. Backfilled directly from

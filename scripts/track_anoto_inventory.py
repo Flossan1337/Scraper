@@ -64,6 +64,8 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
+from core.db import safe_insert
+
 # ── Configuration — Anoto / inq.shop ──────────────────────────────────────────
 SHOP_BASE_URL   = "https://inq.shop"
 
@@ -502,6 +504,43 @@ def compute_summary(
     return summary, detail_rows
 
 
+# ── Databasskrivning ───────────────────────────────────────────────────────────
+
+def write_snapshot_to_db(store: str, snapshot_date: str, detail_rows: list[dict]) -> Optional[int]:
+    """
+    Best-effort: write one row per variant to Postgres via core.db.safe_insert.
+    Must never raise. Returns rows inserted, or None on failure
+    (see write_snapshot_to_db.last_error).
+    """
+    rows = [
+        (
+            snapshot_date,
+            store,
+            row["variant_id"],
+            row.get("product_title"),
+            row.get("variant_title"),
+            row.get("sku"),
+            row.get("price"),
+            row.get("currency"),
+            row.get("stock_curr"),
+        )
+        for row in detail_rows
+    ]
+
+    result, error = safe_insert(
+        table="anoto_variant_snapshot",
+        columns=["snapshot_date", "store", "variant_id", "product_title", "variant_title",
+                 "sku", "price", "currency", "quantity"],
+        rows=rows,
+        conflict_columns=["snapshot_date", "store", "variant_id"],
+    )
+    write_snapshot_to_db.last_error = error
+    return result
+
+
+write_snapshot_to_db.last_error = None
+
+
 # ── Excel writer ───────────────────────────────────────────────────────────────
 
 _HDR_FILL = PatternFill("solid", fgColor="1F497D")
@@ -691,6 +730,8 @@ def main() -> None:
     print("\n\u2500\u2500 Anoto / inq.shop \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500")
     anoto_state = load_state()
     anoto_skip  = False
+    anoto_db_rows_written = None
+    anoto_db_error = None
 
     if anoto_state.get("daily_summary") and anoto_state["daily_summary"][-1]["date"] == today:
         print(
@@ -698,6 +739,10 @@ def main() -> None:
             f"from {STATE_FILE.name} to re-run."
         )
         anoto_skip = True
+        anoto_db_rows_written = write_snapshot_to_db(
+            "anoto", today, anoto_state["daily_summary"][-1].get("detail_rows", [])
+        )
+        anoto_db_error = write_snapshot_to_db.last_error
     else:
         print("\nDiscovering products ...")
         handles = fetch_product_handles()
@@ -758,12 +803,17 @@ def main() -> None:
                 save_state(anoto_state)
                 print(f"\n  State saved -> {STATE_FILE.name}")
 
+                anoto_db_rows_written = write_snapshot_to_db("anoto", today, detail_rows)
+                anoto_db_error = write_snapshot_to_db.last_error
+
     # ══════════════════════════════════════════════════════════════════════════
     # PART 2 — Neo Smart Pen
     # ══════════════════════════════════════════════════════════════════════════
     print("\n\u2500\u2500 Neo Smart Pen \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500")
     neo_state = load_neo_state()
     neo_skip  = False
+    neo_db_rows_written = None
+    neo_db_error = None
 
     if neo_state.get("daily_summary") and neo_state["daily_summary"][-1]["date"] == today:
         print(
@@ -771,6 +821,10 @@ def main() -> None:
             f"from {NEO_STATE_FILE.name} to re-run."
         )
         neo_skip = True
+        neo_db_rows_written = write_snapshot_to_db(
+            "neo", today, neo_state["daily_summary"][-1].get("detail_rows", [])
+        )
+        neo_db_error = write_snapshot_to_db.last_error
     else:
         print("\nDiscovering Neo Smart Pen products ...")
         neo_handles = fetch_neo_product_handles()
@@ -834,6 +888,9 @@ def main() -> None:
                 save_neo_state(neo_state)
                 print(f"\n  State saved -> {NEO_STATE_FILE.name}")
 
+                neo_db_rows_written = write_snapshot_to_db("neo", today, neo_detail_rows)
+                neo_db_error = write_snapshot_to_db.last_error
+
     # ══════════════════════════════════════════════════════════════════════════
     # Write combined Excel (always, even if one store was skipped today)
     # ══════════════════════════════════════════════════════════════════════════
@@ -842,6 +899,20 @@ def main() -> None:
         write_excel(anoto_state, neo_state)
     else:
         print("\nBoth stores already ran today — skipping Excel update.")
+
+    print("\nDatabas:")
+    if anoto_db_error is not None:
+        print(f"  Anoto: MISSLYCKADES – {anoto_db_error}")
+    elif anoto_db_rows_written is not None:
+        print(f"  Anoto: {anoto_db_rows_written} rader skrivna")
+    else:
+        print("  Anoto: hoppades över (ingen data att skriva)")
+    if neo_db_error is not None:
+        print(f"  Neo:   MISSLYCKADES – {neo_db_error}")
+    elif neo_db_rows_written is not None:
+        print(f"  Neo:   {neo_db_rows_written} rader skrivna")
+    else:
+        print("  Neo:   hoppades över (ingen data att skriva)")
 
     print("\nDone.")
 
