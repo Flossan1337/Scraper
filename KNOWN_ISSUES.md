@@ -1,6 +1,6 @@
 # Known Issues
 
-Senast uppdaterad: 2026-07-26
+Senast uppdaterad: 2026-07-28
 
 ## 1. `rugvista_daily_sales_v` avviker från `data/rugvista_daily_sales.xlsx`
 
@@ -43,3 +43,18 @@ Minst `data/revolutionrace_state.json` (och därmed beroende flikar/scripts) fic
 2026-06-22 — inga nyare snapshots finns i git-historiken. Alla dashboards/flikar som bygger på
 dessa filer kommer visa en platt linje efter det datumet, vilket kan misstolkas som att
 verksamheten stannat av snarare än att datainsamlingen tystnat.
+
+## 5. Nollsaldon saknas i Ahlsell-lagerdata, både i Excel och i databasen
+
+`fetch_stock()` i `track_ahlsell_plejd_inventory.py` returnerar bara poster där kvantiteten är
+större än noll. När ett lagersaldo når noll försvinner alltså raden ur snapshotet i stället för
+att lagras som en nolla. Detsamma gäller `ahlsell_stock_snapshot` i databasen, eftersom den fylls
+från samma data.
+
+Python-koden hanterar detta korrekt via `set(prev_wh) | set(curr_wh)` och `.get(wid, 0.0)`, som
+behandlar en saknad post som noll. En framtida SQL-vy med `lag()` gör det inte — den hoppar
+tillbaka till senast kända värde över nollperioden och räknar hela mellanskillnaden som en dags
+rörelse.
+
+Samma felklass som punkt 1 (Rugvista-avvikelsen): saknad rad tolkas som saknad observation i
+stället för som nollvärde. **Måste lösas innan en delta-vy för Ahlsell används för analys.**
