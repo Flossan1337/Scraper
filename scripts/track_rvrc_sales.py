@@ -39,6 +39,8 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
+from core.db import safe_insert
+
 # ---------------------------------------------------------------------------
 # Elevate API configuration
 # ---------------------------------------------------------------------------
@@ -498,6 +500,77 @@ def write_excel(today: str, rows: list[dict], summary: dict) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Database
+# ---------------------------------------------------------------------------
+
+def write_daily_summary_to_db(today: str, summary: dict, fx_rates: dict) -> tuple[Optional[int], Optional[str]]:
+    """Best-effort: write the daily aggregate summary to Postgres."""
+    return safe_insert(
+        table="rvrc_sales_daily_summary",
+        columns=["snapshot_date", "slw_x_sell_eur", "sld_x_sell_eur", "slw_x_list_eur",
+                 "sld_x_list_eur", "product_colors_total", "product_colors_with_sales",
+                 "fx_eur", "fx_nok", "fx_gbp"],
+        rows=[(
+            today,
+            summary["slw_x_sell_eur"], summary["sld_x_sell_eur"],
+            summary["slw_x_list_eur"], summary["sld_x_list_eur"],
+            summary["product_colors_total"], summary["product_colors_with_sales"],
+            fx_rates.get("EUR"), fx_rates.get("NOK"), fx_rates.get("GBP"),
+        )],
+        conflict_columns=["snapshot_date"],
+    )
+
+
+def write_variant_snapshot_to_db(today: str, rows: list[dict]) -> tuple[Optional[int], Optional[str]]:
+    """Best-effort: write one row per product-colour to Postgres."""
+    values = [
+        (today, r["base_key"], r.get("title"), r.get("category"),
+         r.get("sale_last_week"), r.get("sale_last_days"),
+         r.get("sell_price_eur"), r.get("list_price_eur"))
+        for r in rows
+    ]
+    return safe_insert(
+        table="rvrc_variant_snapshot",
+        columns=["snapshot_date", "base_key", "title", "category",
+                 "sale_last_week", "sale_last_days", "sell_price_eur", "list_price_eur"],
+        rows=values,
+        conflict_columns=["snapshot_date", "base_key"],
+    )
+
+
+def read_latest_detail_rows() -> list[dict]:
+    """
+    Rebuilds row dicts from the "Latest Detail" Excel sheet, for the
+    "already ran today" skip branch where no per-variant data exists in
+    the state file to rebuild from - the xlsx sheet still holds today's
+    already-written data since it was replaced (not appended) on the last
+    run before this skip check.
+    """
+    if not XLSX_PATH.exists():
+        return []
+    wb = load_workbook(XLSX_PATH, read_only=True, data_only=True)
+    if "Latest Detail" not in wb.sheetnames:
+        return []
+    ws = wb["Latest Detail"]
+    rows_iter = ws.iter_rows(values_only=True)
+    next(rows_iter)  # header
+    rows = []
+    for row in rows_iter:
+        if not row or row[0] is None:
+            continue
+        rows.append({
+            "base_key":       row[0],
+            "title":          row[1],
+            "category":       row[2],
+            "sale_last_week": row[3],
+            "sale_last_days": row[4],
+            "sell_price_eur": row[5],
+            "list_price_eur": row[6],
+        })
+    return rows
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -513,6 +586,21 @@ def main() -> None:
     if state.get("daily_summaries") and state["daily_summaries"][-1]["date"] == today:
         print(f"Already ran today ({today}). Delete the last entry in "
               f"daily_summaries from {STATE_FILE.name} to re-run.")
+
+        last_entry = state["daily_summaries"][-1]
+        fx_rates = last_entry.get("fx_rates", {})
+        db_rows_written, db_error = write_daily_summary_to_db(today, last_entry, fx_rates)
+        detail_rows = read_latest_detail_rows()
+        if detail_rows:
+            db_rows_written2, db_error2 = write_variant_snapshot_to_db(today, detail_rows)
+            db_error = db_error or db_error2
+            if db_rows_written is not None and db_rows_written2 is not None:
+                db_rows_written += db_rows_written2
+
+        if db_error is not None:
+            print(f"Databas: MISSLYCKADES – {db_error}")
+        else:
+            print(f"Databas: {db_rows_written} rader skrivna")
         return
 
     print("\nFetching FX rates ...")
@@ -566,6 +654,16 @@ def main() -> None:
 
     print("\nWriting Excel ...")
     write_excel(today, rows, summary)
+
+    db_rows_written, db_error = write_daily_summary_to_db(today, summary, fx_rates)
+    db_rows_written2, db_error2 = write_variant_snapshot_to_db(today, rows)
+    db_error = db_error or db_error2
+    if db_rows_written is not None and db_rows_written2 is not None:
+        db_rows_written += db_rows_written2
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES – {db_error}")
+    else:
+        print(f"Databas: {db_rows_written} rader skrivna")
 
     print("\nDone.")
 

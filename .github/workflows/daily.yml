@@ -87,6 +87,8 @@ jobs:
         continue-on-error: true
 
       - name: Run track_rvrc_sales.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python ./scripts/track_rvrc_sales.py
         timeout-minutes: 10
         continue-on-error: true

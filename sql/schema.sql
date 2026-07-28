@@ -153,6 +153,47 @@ CREATE TABLE IF NOT EXISTS anoto_variant_snapshot (
     PRIMARY KEY (snapshot_date, store, variant_id)
 );
 
+-- rvrc_sales_daily_summary
+-- Daily aggregated RevolutionRace sales metrics (sale_last_week/
+-- sale_last_days x sell/list price, in EUR), computed by
+-- track_rvrc_sales.py from the Voyado Elevate API. This is the only
+-- historically-backfillable layer: the script's state file has only ever
+-- stored these daily aggregates, never per-product-colour detail (that
+-- sheet is replaced, not appended, each run) - see
+-- rvrc_variant_snapshot below.
+CREATE TABLE IF NOT EXISTS rvrc_sales_daily_summary (
+    snapshot_date               date NOT NULL,
+    slw_x_sell_eur               numeric,
+    sld_x_sell_eur               numeric,
+    slw_x_list_eur               numeric,
+    sld_x_list_eur               numeric,
+    product_colors_total         int,
+    product_colors_with_sales    int,
+    fx_eur                       numeric,
+    fx_nok                       numeric,
+    fx_gbp                       numeric,
+    PRIMARY KEY (snapshot_date)
+);
+
+-- rvrc_variant_snapshot
+-- One row per product-colour per day (raw sale_last_week/sale_last_days
+-- counters + EUR prices), written live going forward from
+-- track_rvrc_sales.py. No historical backfill: this granularity was never
+-- persisted anywhere before migration (data/rvrc_sales.xlsx's "Latest
+-- Detail" sheet is overwritten every run, not appended), so this table
+-- starts from the day migration landed rather than from git archaeology.
+CREATE TABLE IF NOT EXISTS rvrc_variant_snapshot (
+    snapshot_date    date NOT NULL,
+    base_key         text NOT NULL,
+    title            text,
+    category         text,
+    sale_last_week   int,
+    sale_last_days   int,
+    sell_price_eur   numeric,
+    list_price_eur   numeric,
+    PRIMARY KEY (snapshot_date, base_key)
+);
+
 -- nelly_aov
 -- Daily median/average selling price across Nelly.com's "topplistan" pages
 -- (AOV proxy), scraped by track_nelly_aov.py. Backfilled directly from
