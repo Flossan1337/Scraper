@@ -194,6 +194,58 @@ CREATE TABLE IF NOT EXISTS rvrc_variant_snapshot (
     PRIMARY KEY (snapshot_date, base_key)
 );
 
+-- nelly_daily_summary
+-- Daily aggregated Nelly/NlyMan inventory-delta sales estimate, computed by
+-- track_nelly_inventory.py. Like RVRC, the state file has only ever stored
+-- this daily aggregate - per-product-colour detail is computed fresh each
+-- run and was never persisted anywhere (no "Latest Detail" sheet even
+-- exists for this script, unlike RVRC), so it's the only backfillable
+-- layer. by_category/by_brand/by_site/restock_events/return_events are
+-- kept as JSONB rather than normalized into child tables: their shape
+-- (dynamic category/brand sets, variable-length event lists) was never
+-- captured at finer grain historically, so JSONB preserves full fidelity
+-- of what's actually available without fabricating structure that isn't there.
+CREATE TABLE IF NOT EXISTS nelly_daily_summary (
+    snapshot_date             date NOT NULL,
+    total_products            int,
+    est_sold_today_units      int,
+    est_sold_today_sek        numeric,
+    est_sold_today_list_sek   numeric,
+    restocks                  int,
+    returns                   int,
+    by_category               jsonb,
+    by_brand                  jsonb,
+    by_site                   jsonb,
+    restock_events            jsonb,
+    return_events             jsonb,
+    PRIMARY KEY (snapshot_date)
+);
+
+-- nelly_variant_snapshot
+-- One row per product-colour per day (primary-market stock, SEK prices),
+-- written live going forward from track_nelly_inventory.py. No historical
+-- backfill: this granularity was never persisted before migration (only
+-- computed transiently each run), and unlike RVRC there's no leftover
+-- xlsx sheet to reconstruct even "today's" rows on a skip-branch re-run -
+-- so this table starts empty from the day migration landed, and the skip
+-- branch can only rebuild the daily summary, not this table.
+CREATE TABLE IF NOT EXISTS nelly_variant_snapshot (
+    snapshot_date     date NOT NULL,
+    site              text NOT NULL,
+    product_key       text NOT NULL,
+    brand             text,
+    title             text,
+    category          text,
+    sell_price_sek    numeric,
+    list_price_sek    numeric,
+    historic_low_sek  numeric,
+    discount_pct      numeric,
+    is_new            boolean,
+    primary_stock     int,
+    listed_count      int,
+    PRIMARY KEY (snapshot_date, site, product_key)
+);
+
 -- nelly_aov
 -- Daily median/average selling price across Nelly.com's "topplistan" pages
 -- (AOV proxy), scraped by track_nelly_aov.py. Backfilled directly from

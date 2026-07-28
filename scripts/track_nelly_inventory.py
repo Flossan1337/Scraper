@@ -71,6 +71,9 @@ import requests
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
+from psycopg2.extras import Json
+
+from core.db import safe_insert
 
 # ── Elevate API configuration ──────────────────────────────────────────────────
 ELEVATE_BASE_URL_TEMPLATE = "https://{cluster}.api.esales.apptus.cloud"
@@ -1013,6 +1016,53 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
     print(f"  Saved -> {XLSX_PATH}")
 
 
+# ── Databasskrivning ───────────────────────────────────────────────────────────
+
+def write_daily_summary_to_db(today: str, summary: dict) -> tuple[Optional[int], Optional[str]]:
+    """Best-effort: write the daily aggregate summary to Postgres."""
+    return safe_insert(
+        table="nelly_daily_summary",
+        columns=["snapshot_date", "total_products", "est_sold_today_units",
+                 "est_sold_today_sek", "est_sold_today_list_sek", "restocks", "returns",
+                 "by_category", "by_brand", "by_site", "restock_events", "return_events"],
+        rows=[(
+            today,
+            summary.get("total_products"),
+            summary.get("est_sold_today_units"),
+            summary.get("est_sold_today_sek"),
+            summary.get("est_sold_today_list_sek"),
+            summary.get("restocks"),
+            summary.get("returns"),
+            Json(summary.get("by_category") or {}),
+            Json(summary.get("by_brand") or {}),
+            Json(summary.get("by_site") or {}),
+            Json(summary.get("restock_events") or []),
+            Json(summary.get("return_events") or []),
+        )],
+        conflict_columns=["snapshot_date"],
+    )
+
+
+def write_variant_snapshot_to_db(today: str, detail_rows: list[dict]) -> tuple[Optional[int], Optional[str]]:
+    """Best-effort: write one row per product-colour to Postgres."""
+    values = [
+        (
+            today, r["site"], r["key"], r.get("brand"), r.get("title"), r.get("category"),
+            r.get("sell_price_sek"), r.get("list_price_sek"), r.get("historic_low_sek"),
+            r.get("discount_pct"), r.get("is_new"), r.get("primary_stock"), r.get("listed_count"),
+        )
+        for r in detail_rows
+    ]
+    return safe_insert(
+        table="nelly_variant_snapshot",
+        columns=["snapshot_date", "site", "product_key", "brand", "title", "category",
+                 "sell_price_sek", "list_price_sek", "historic_low_sek", "discount_pct",
+                 "is_new", "primary_stock", "listed_count"],
+        rows=values,
+        conflict_columns=["snapshot_date", "site", "product_key"],
+    )
+
+
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -1028,6 +1078,14 @@ def main() -> None:
     if state.get("daily_summary") and state["daily_summary"][-1]["date"] == today:
         print(f"Already ran today ({today}).  Delete the last entry in daily_summary "
               f"from {STATE_FILE.name} to re-run.")
+
+        last_summary = state["daily_summary"][-1].get("summary", {})
+        db_rows_written, db_error = write_daily_summary_to_db(today, last_summary)
+        if db_error is not None:
+            print(f"Databas: MISSLYCKADES – {db_error}")
+        else:
+            print(f"Databas: {db_rows_written} rader skrivna "
+                  f"(endast dagssammanfattning — per-produkt-detalj sparas inte historiskt)")
         return
 
     # ── Step 1: Use hardcoded cluster ID ─────────────────────────────────────
@@ -1103,6 +1161,17 @@ def main() -> None:
     # ── Step 6: Write Excel ─────────────────────────────────────────────────
     print("Writing Excel ...")
     write_excel(state, detail_rows)
+
+    # ── Step 7: Write to Postgres (best-effort) ──────────────────────────────
+    db_rows_written, db_error = write_daily_summary_to_db(today, summary)
+    db_rows_written2, db_error2 = write_variant_snapshot_to_db(today, detail_rows)
+    db_error = db_error or db_error2
+    if db_rows_written is not None and db_rows_written2 is not None:
+        db_rows_written += db_rows_written2
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES – {db_error}")
+    else:
+        print(f"Databas: {db_rows_written} rader skrivna")
 
     print("\nDone.")
 
