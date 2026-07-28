@@ -106,6 +106,17 @@ CREATE TABLE IF NOT EXISTS anoto_amazon_data (
     PRIMARY KEY (snapshot_date)
 );
 
+-- nelly_aov
+-- Daily median/average selling price across Nelly.com's "topplistan" pages
+-- (AOV proxy), scraped by track_nelly_aov.py. Backfilled directly from
+-- data/nelly_aov.xlsx (append-only, no duplicates found).
+CREATE TABLE IF NOT EXISTS nelly_aov (
+    snapshot_date   date NOT NULL,
+    median_price    numeric,
+    average_price   numeric,
+    PRIMARY KEY (snapshot_date)
+);
+
 -- amazon_scape_refine_data
 -- Daily Amazon "bought in past month" count + Best Sellers Rank per Fractal
 -- Design Scape/Refine product, per country (US, DE), scraped by

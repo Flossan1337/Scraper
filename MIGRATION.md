@@ -121,7 +121,7 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 | `track_fractal_rankings_playwright.py` | — | `fractal_rankings.xlsx` | daily | **Migrerad** | Raw capture live (`fractal_rankings`, PK `(snapshot_date, product)`). Same wide-to-long shape as the Plejd ranking: 6 products (2 headsets, 4 chairs), "NA"/not-found skipped rather than fabricated. Backfilled directly from the xlsx — 297 rows → 1219 (date, product) observations. |
 | `fetch_anoto_amazon_data.py` | — | `anoto_amazon_data.xlsx` | daily | **Migrerad** | Raw capture live (`anoto_amazon_data`, PK `snapshot_date`). Backfilled directly from the xlsx (append-only, 95 rows, no duplicates). `0` is the script's own "not found that day" sentinel for both columns — kept as-is in the DB rather than converted to NULL, to match existing xlsx semantics exactly. |
 | `amazon_scape_bought_playwright_us_de.py` | — | `fractal_scape_refine_data.xlsx` | daily | **Migrerad** | Raw capture live (`amazon_scape_refine_data`, PK `(snapshot_date, product, country)`). Wide xlsx (2 columns per product-country pair) melted to long rows. One known same-day double-run (2025-11-30, two rows with slightly different scrape results) resolved by `ON CONFLICT` keeping the first — 242 xlsx rows → 2892 of 2904 attempted observations inserted (12 skipped = that duplicate row × 6 products × 2 countries). Note: `daily.yml`'s job-summary `OUTFILE` map still points at the old `scape_bought_by_country.xlsx` path (stale since 2025-12-03) — cosmetic bug in the summary table, unrelated to this migration, worth a separate small fix. |
-| `track_nelly_aov.py` | — | `nelly_aov.xlsx` | daily | Ej migrerad | Single AOV row/day. ~8 days stale as of 2026-07-28 — under the "stalled" threshold but worth watching. |
+| `track_nelly_aov.py` | — | `nelly_aov.xlsx` | daily | **Migrerad** | Raw capture live (`nelly_aov`, PK `snapshot_date`). Backfilled directly from the xlsx (291 rows, no duplicates). Live test run found 0 prices on all 10 pages — confirmed root cause of the ~8-day staleness: Nelly's HTML/selectors have likely changed. Documented as `KNOWN_ISSUES.md` #6; the script silently no-ops (no Excel or DB write) when this happens, exactly like before — unrelated to and unchanged by this migration. |
 | `track_ahlsell_led_panel_inventory.py` | `ahlsell_led_panel_state.json` | `ahlsell_led_panel_inventory.xlsx` | daily | Ej migrerad | Same site/shape as the already-migrated Ahlsell/Plejd pipeline — highest pattern reuse of anything left. |
 | `track_anoto_inventory.py` | `anoto_inventory_state.json`, `neo_inventory_state.json` | `anoto_inventory.xlsx` | daily | Ej migrerad | One script, two shops (Anoto + Neo), two state files, one shared workbook. Stock-delta logic, same shape as Rugvista/Ahlsell. |
 | `track_rvrc_sales.py` | `rvrc_sales_state.json` | `rvrc_sales.xlsx` | daily | Ej migrerad | Voyado Elevate API, 5 markets, FX conversion to EUR, `sale_last_week`/`sale_last_days` counters (different math than stock-delta — needs its own view logic). |
@@ -165,7 +165,7 @@ and #5 for what that costs).
 4. ~~`track_fractal_rankings_playwright.py`~~ — migrated.
 5. ~~`fetch_anoto_amazon_data.py`~~ — migrated.
 6. ~~`amazon_scape_bought_playwright_us_de.py`~~ — migrated.
-7. `track_nelly_aov.py`
+7. ~~`track_nelly_aov.py`~~ — migrated. Tier 1 complete.
 
 **Deferred — needs its own design, not a fit for the snapshot checklist:**
 - `fetch_ted_procurements.py` (see inventory notes above).

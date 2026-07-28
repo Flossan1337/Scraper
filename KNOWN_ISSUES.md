@@ -2,6 +2,16 @@
 
 Senast uppdaterad: 2026-07-28
 
+## 6. `track_nelly_aov.py` hittar inga priser sedan 2026-07-20
+
+Scriptet är fortfarande schemalagt och kör felfritt (`continue-on-error` döljer det),
+men `fetch_prices()` hittar 0 priser på samtliga 10 sidor på `nelly.com/se/topplistan/`
+sedan 2026-07-20 — troligen har Nelly ändrat HTML-strukturen/selektorerna
+(`DISCOUNT_PRICE_SELECTOR`/`REGULAR_PRICE_SELECTOR`). Scriptet avslutar tyst utan att
+skriva någon rad (varken Excel eller databas) när `all_prices` är tom, så `data/nelly_aov.xlsx`
+och `nelly_aov`-tabellen har helt enkelt saknat nya rader i över en vecka utan någon synlig
+varning. Behöver en uppdatering av selektorerna mot nuvarande sidstruktur.
+
 ## 1. `rugvista_daily_sales_v` avviker från `data/rugvista_daily_sales.xlsx`
 
 Vyn ([sql/views/rugvista_daily_sales.sql](sql/views/rugvista_daily_sales.sql)) avviker från
