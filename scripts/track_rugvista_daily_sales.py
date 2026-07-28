@@ -11,6 +11,7 @@ import requests
 import pandas as pd
 
 from core.db import safe_insert
+from core.cli import add_no_side_effects_flag, log_skip
 
 try:
     from zoneinfo import ZoneInfo  # py3.9+
@@ -308,7 +309,12 @@ def main():
     ap.add_argument("--limit", type=int, default=49, help="Page size")
     ap.add_argument("--max-pages", type=int, default=None, help="Limit pages (for testing)")
     ap.add_argument("--all-products", action="store_true", help="Unset topSeller flag to fetch all rugs")
+    add_no_side_effects_flag(ap)
     args = ap.parse_args()
+
+    if args.no_side_effects:
+        print("[--no-side-effects] Active: fetching data and writing to the database as usual, "
+              "but state file and Excel report will NOT be written.")
 
     try:
         session = make_session()
@@ -334,10 +340,16 @@ def main():
 
         # 4) Append daily summary row to Excel
         run_date = today_stockholm_date_str()
-        append_daily_row_to_excel(run_date, total_units, total_revenue)
+        if args.no_side_effects:
+            log_skip(f"writing daily row to {XLSX_PATH}")
+        else:
+            append_daily_row_to_excel(run_date, total_units, total_revenue)
 
         # 5) Save new state
-        save_state(new_state)
+        if args.no_side_effects:
+            log_skip(f"updating state file {STATE_PATH}")
+        else:
+            save_state(new_state)
 
         # 6) Terminal summary
         print("\n" + "="*64)
@@ -357,8 +369,12 @@ def main():
         if metrics["sold_units_missing_price"] > 0:
             print(f"⚠️  Units sold with missing price: {metrics['sold_units_missing_price']} (revenue not counted)")
         print("-"*64)
-        print(f"Wrote daily row to:      {XLSX_PATH}")
-        print(f"Updated state file:      {STATE_PATH}")
+        if args.no_side_effects:
+            print(f"Wrote daily row to:      SKIPPED (--no-side-effects)")
+            print(f"Updated state file:      SKIPPED (--no-side-effects)")
+        else:
+            print(f"Wrote daily row to:      {XLSX_PATH}")
+            print(f"Updated state file:      {STATE_PATH}")
         if db_rows_written is None:
             print(f"Databas: MISSLYCKADES – {write_snapshot_to_db.last_error}")
         else:
