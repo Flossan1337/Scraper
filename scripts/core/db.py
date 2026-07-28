@@ -52,7 +52,11 @@ def insert_rows(
         rows_written = 0
         with conn.cursor() as cur:
             for i in range(0, len(rows), batch_size):
-                execute_values(cur, insert_sql, rows[i:i + batch_size])
+                chunk = rows[i:i + batch_size]
+                # page_size must cover the whole chunk: execute_values silently
+                # sub-paginates (default page_size=100) into multiple internal
+                # INSERT statements, and cur.rowcount only reflects the last one.
+                execute_values(cur, insert_sql, chunk, page_size=len(chunk))
                 rows_written += cur.rowcount
         conn.commit()
         return rows_written
@@ -66,17 +70,13 @@ def safe_insert(
     rows: Sequence[Sequence[Any]],
     conflict_columns: Sequence[str],
     batch_size: int = 1000,
-) -> Optional[int]:
-    """Same as insert_rows, but never raises: logs the error to stderr and returns
-    None on failure instead. The error text is also left on safe_insert.last_error."""
+) -> tuple[Optional[int], Optional[str]]:
+    """Same as insert_rows, but never raises: returns (rows_inserted, None) on
+    success, or (None, error_message) on failure."""
     try:
         result = insert_rows(table, columns, rows, conflict_columns, batch_size=batch_size)
-        safe_insert.last_error = None
-        return result
+        return result, None
     except Exception as e:
-        safe_insert.last_error = str(e)
+        error = str(e)
         print(f"DB insert into {table} failed (continuing anyway): {e}", file=sys.stderr)
-        return None
-
-
-safe_insert.last_error = None
+        return None, error

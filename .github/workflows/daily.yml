@@ -107,6 +107,8 @@ jobs:
         continue-on-error: true
 
       - name: Run track_ahlsell_plejd_inventory.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python ./scripts/track_ahlsell_plejd_inventory.py
         timeout-minutes: 15
         continue-on-error: true

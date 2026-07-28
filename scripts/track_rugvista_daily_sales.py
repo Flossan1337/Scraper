@@ -180,7 +180,7 @@ def write_snapshot_to_db(rows: List[Dict[str, Any]]) -> Optional[int]:
         if r.get("product_id") is not None
     ]
 
-    result = safe_insert(
+    result, error = safe_insert(
         table="rugvista_variant_snapshot",
         columns=[
             "captured_at", "product_id", "sku", "parent_name", "variant_name",
@@ -189,7 +189,7 @@ def write_snapshot_to_db(rows: List[Dict[str, Any]]) -> Optional[int]:
         rows=values,
         conflict_columns=["snapshot_date", "product_id"],
     )
-    write_snapshot_to_db.last_error = safe_insert.last_error
+    write_snapshot_to_db.last_error = error
     return result
 
 

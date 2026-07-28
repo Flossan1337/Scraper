@@ -34,11 +34,14 @@ import json
 import time
 from datetime import date
 from pathlib import Path
+from typing import Optional
 
 import requests
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
+
+from core.db import safe_insert
 
 # ── Konfiguration ──────────────────────────────────────────────────────────────
 BASE_URL       = "https://www.ahlsell.se"
@@ -257,6 +260,58 @@ def categorize(article: str, product_name: str) -> str:
     return "Övrigt"
 
 
+# ── Databasskrivning ───────────────────────────────────────────────────────────
+
+def write_snapshot_to_db(products: dict, warehouses: dict, stock: dict, snapshot_date: str) -> Optional[int]:
+    """
+    Best-effort: write a snapshot to Postgres via core.db.safe_insert.
+    Must never raise. Returns total rows inserted across the three tables,
+    or None if any of the three writes failed (see write_snapshot_to_db.last_error).
+    """
+    article_rows = [
+        (art, meta.get("product_name"), meta.get("product_code"), meta.get("page_url"),
+         categorize(art, meta.get("product_name", "")))
+        for art, meta in products.items()
+    ]
+    warehouse_rows = [
+        (wid, meta.get("name"), meta.get("city"), meta.get("address"))
+        for wid, meta in warehouses.items()
+    ]
+    stock_rows = [
+        (snapshot_date, art, wid, qty)
+        for art, wh_stock in stock.items()
+        for wid, qty in wh_stock.items()
+    ]
+
+    n_articles, err_articles = safe_insert(
+        table="ahlsell_article",
+        columns=["article", "product_name", "product_code", "page_url", "category"],
+        rows=article_rows,
+        conflict_columns=["article"],
+    )
+    n_warehouses, err_warehouses = safe_insert(
+        table="ahlsell_warehouse",
+        columns=["warehouse_id", "name", "city", "address"],
+        rows=warehouse_rows,
+        conflict_columns=["warehouse_id"],
+    )
+    n_stock, err_stock = safe_insert(
+        table="ahlsell_stock_snapshot",
+        columns=["snapshot_date", "article", "warehouse_id", "quantity"],
+        rows=stock_rows,
+        conflict_columns=["snapshot_date", "article", "warehouse_id"],
+    )
+
+    error = err_articles or err_warehouses or err_stock
+    write_snapshot_to_db.last_error = error
+    if error is not None:
+        return None
+    return n_articles + n_warehouses + n_stock
+
+
+write_snapshot_to_db.last_error = None
+
+
 # ── Deltaberäkning ─────────────────────────────────────────────────────────────
 
 def compute_deltas(
@@ -435,14 +490,21 @@ def main() -> None:
     state = load_state()
 
     if today in state.get("snapshots", {}):
-        print(f"Snapshot för {today} finns redan. Exporterar Excel...")
-        write_excel(state)
-        return
+        print(f"Snapshot för {today} finns redan.")
+        products = state.get("products", {})
+        warehouses = state.get("warehouses", {})
+        stock = {art: entry.get("warehouses", {}) for art, entry in state["snapshots"][today].items()}
+    else:
+        products, warehouses, stock = collect_snapshot()
+        update_state(state, products, warehouses, stock)
+        save_state(state)
+        print(f"\nTillstånd sparat: {STATE_FILE}")
 
-    products, warehouses, stock = collect_snapshot()
-    update_state(state, products, warehouses, stock)
-    save_state(state)
-    print(f"\nTillstånd sparat: {STATE_FILE}")
+    db_rows_written = write_snapshot_to_db(products, warehouses, stock, today)
+    if db_rows_written is None:
+        print(f"Databas: MISSLYCKADES – {write_snapshot_to_db.last_error}")
+    else:
+        print(f"Databas: {db_rows_written} rader skrivna")
 
     write_excel(state)
     print("\nKlart!")
