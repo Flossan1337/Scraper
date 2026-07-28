@@ -91,3 +91,17 @@ CREATE TABLE IF NOT EXISTS plejd_sensortower_rankings (
     rank           int,
     PRIMARY KEY (snapshot_date, country)
 );
+
+-- fractal_rankings
+-- Daily Newegg category ranking position per Fractal Design product
+-- (headsets + gaming chairs), scraped by track_fractal_rankings_playwright.py.
+-- Backfilled by melting the wide data/fractal_rankings.xlsx (one column per
+-- product, append-only) into one row per (snapshot_date, product); "NA"/
+-- missing (product not found on the ranked pages that day) is skipped, not
+-- fabricated.
+CREATE TABLE IF NOT EXISTS fractal_rankings (
+    snapshot_date  date NOT NULL,
+    product        text NOT NULL,
+    rank           int,
+    PRIMARY KEY (snapshot_date, product)
+);

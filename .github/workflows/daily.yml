@@ -52,6 +52,8 @@ jobs:
         continue-on-error: true
 
       - name: Run track_fractal_rankings_playwright.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python ./scripts/track_fractal_rankings_playwright.py
         timeout-minutes: 10
         continue-on-error: true

@@ -9,6 +9,8 @@ from playwright.sync_api import sync_playwright, TimeoutError as PWTimeoutError
 # NEW: Excel
 from openpyxl import Workbook, load_workbook
 
+from core.db import safe_insert
+
 # Notera: Newegg ändrar ofta URL-strukturen. Om scriptet slutar fungera, kontrollera dessa.
 HEADSET_URL = "https://www.newegg.com/Gaming-Headsets/SubCategory/ID-3767?Order=3&View=96"
 CHAIR_URL   = "https://www.newegg.com/Gaming-Chairs/SubCategory/ID-3628?Order=3&View=96"
@@ -203,6 +205,21 @@ def append_row(all_ranks):
     wb.save(XLSX_PATH)
     print(f"✓ Appended to {XLSX_PATH}")
 
+def write_rankings_to_db(all_ranks):
+    """Best-effort: write one row per product to Postgres. Must never raise."""
+    today = datetime.now().strftime("%Y-%m-%d")
+    values = [
+        (today, product, rank)
+        for product, rank in all_ranks.items()
+        if isinstance(rank, int)
+    ]
+    return safe_insert(
+        table="fractal_rankings",
+        columns=["snapshot_date", "product", "rank"],
+        rows=values,
+        conflict_columns=["snapshot_date", "product"],
+    )
+
 def main():
     ensure_header_xlsx()
     with sync_playwright() as p:
@@ -234,6 +251,12 @@ def main():
 
         append_row(all_ranks)
         print("Final Rankings:", all_ranks)
+
+        db_rows_written, db_error = write_rankings_to_db(all_ranks)
+        if db_error is not None:
+            print(f"Databas: MISSLYCKADES – {db_error}")
+        else:
+            print(f"Databas: {db_rows_written} rader skrivna")
 
         context.close()
         browser.close()
