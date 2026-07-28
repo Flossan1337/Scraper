@@ -80,3 +80,56 @@ def safe_insert(
         error = str(e)
         print(f"DB insert into {table} failed (continuing anyway): {e}", file=sys.stderr)
         return None, error
+
+
+def upsert_rows(
+    table: str,
+    columns: Sequence[str],
+    rows: Sequence[Sequence[Any]],
+    conflict_columns: Sequence[str],
+    batch_size: int = 1000,
+) -> int:
+    """Batched INSERT ... ON CONFLICT (conflict_columns) DO UPDATE SET ...
+    for tables that track "latest known state" rather than an append-only
+    snapshot history (e.g. an entity whose fields change over time). Returns
+    the total number of rows inserted or updated."""
+    if not rows:
+        return 0
+
+    update_columns = [c for c in columns if c not in conflict_columns]
+    set_clause = ", ".join(f"{c} = EXCLUDED.{c}" for c in update_columns)
+    insert_sql = (
+        f"INSERT INTO {table} ({', '.join(columns)}) VALUES %s "
+        f"ON CONFLICT ({', '.join(conflict_columns)}) DO UPDATE SET {set_clause};"
+    )
+
+    conn = get_connection()
+    try:
+        rows_written = 0
+        with conn.cursor() as cur:
+            for i in range(0, len(rows), batch_size):
+                chunk = rows[i:i + batch_size]
+                execute_values(cur, insert_sql, chunk, page_size=len(chunk))
+                rows_written += cur.rowcount
+        conn.commit()
+        return rows_written
+    finally:
+        conn.close()
+
+
+def safe_upsert(
+    table: str,
+    columns: Sequence[str],
+    rows: Sequence[Sequence[Any]],
+    conflict_columns: Sequence[str],
+    batch_size: int = 1000,
+) -> tuple[Optional[int], Optional[str]]:
+    """Same as upsert_rows, but never raises: returns (rows_written, None) on
+    success, or (None, error_message) on failure."""
+    try:
+        result = upsert_rows(table, columns, rows, conflict_columns, batch_size=batch_size)
+        return result, None
+    except Exception as e:
+        error = str(e)
+        print(f"DB upsert into {table} failed (continuing anyway): {e}", file=sys.stderr)
+        return None, error

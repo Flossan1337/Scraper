@@ -25,6 +25,13 @@ migrated data — don't re-discover or duplicate either.
   `insert_rows()` (raises) or `psycopg2.connect` directly. A one-off backfill
   script in `scripts/tools/` is the exception — it should use `insert_rows`
   and fail loudly, since a silent partial backfill is worse than a crash.
+- Most tables are daily snapshots: `ON CONFLICT DO NOTHING` on
+  `(snapshot_date, key)`, reruns are no-ops. Some pipelines track an *entity*
+  whose fields change over time instead (e.g. `ted_procurement_notice` —
+  a procurement's status/winner/value changes between runs) — for those,
+  use `upsert_rows`/`safe_upsert` (`ON CONFLICT DO UPDATE`) keyed on the
+  entity's natural key, storing latest-known-state rather than a history.
+  Don't force the snapshot shape onto something that isn't one.
 - `DATABASE_URL` comes from `.env` locally (gitignored, loaded via
   `python-dotenv`) or a workflow step's `env: DATABASE_URL: ${{ secrets.DATABASE_URL }}`
   in CI. Never hardcode it, commit it, or print it.

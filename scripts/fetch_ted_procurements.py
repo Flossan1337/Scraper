@@ -1,9 +1,13 @@
 """
 Fetch EU procurement data from TED (Tenders Electronic Daily) Search API.
 
-For each company in the COMPANIES list, queries the TED Search API for
+For each company tracked in the ted_tracked_companies table (falls back to
+a built-in list if the DB is unavailable), queries the TED Search API for
 procurement notices mentioning that company, then writes structured results
-to an Excel workbook with one sheet per company.
+to an Excel workbook with one sheet per company. The full notice set (not
+just the Excel-visible columns/rows) is also upserted into
+ted_procurement_notice - see load_tracked_companies() and
+write_notices_to_db().
 
 The Search API is fully anonymous – no API key or registration required.
 
@@ -18,6 +22,7 @@ import re
 import sys
 import time
 import logging
+from datetime import datetime, timezone
 from io import BytesIO
 from pathlib import Path
 from typing import Any, Union
@@ -26,6 +31,8 @@ import pandas as pd
 import requests
 from lxml import etree
 from openpyxl.styles import Font
+
+from core.db import get_connection, safe_upsert
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -39,10 +46,40 @@ from openpyxl.styles import Font
 #
 # Org numbers are normalised internally (dashes and spaces stripped)
 # before comparison with TED identifier fields.
-COMPANIES: list[Union[str, dict]] = [
+#
+# The tracked-company list lives in the ted_tracked_companies table (data,
+# not code) so adding a company doesn't need a code change - see
+# load_tracked_companies(). This constant is only the fallback used if the
+# database can't be read, so the fetch never breaks because of a DB problem.
+_FALLBACK_COMPANIES: list[Union[str, dict]] = [
     "Exsitec AB",
     "EQL Pharma AB",
 ]
+
+
+def load_tracked_companies() -> list[Union[str, dict]]:
+    """Loads tracked companies from ted_tracked_companies; falls back to
+    _FALLBACK_COMPANIES if the table can't be read, so a database problem
+    never stops the fetch."""
+    try:
+        conn = get_connection()
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT company, search_terms, org_numbers FROM ted_tracked_companies ORDER BY company;"
+                )
+                rows = cur.fetchall()
+        finally:
+            conn.close()
+        if not rows:
+            raise RuntimeError("ted_tracked_companies is empty")
+        return [
+            {"display_name": company, "search_terms": search_terms, "org_numbers": org_numbers}
+            for company, search_terms, org_numbers in rows
+        ]
+    except Exception as exc:
+        print(f"[WARN] Could not load tracked companies from DB ({exc}); using built-in fallback list.")
+        return _FALLBACK_COMPANIES
 
 # TED API endpoint (anonymous, no auth needed)
 API_URL = "https://api.ted.europa.eu/v3/notices/search"
@@ -856,12 +893,6 @@ def notices_to_dataframe(
     if df.empty:
         return df
 
-    # For companies tracked via org numbers:
-    # keep only rows where the group won the contract OR the procurement is
-    # still active.  Historical losses (Tenderer / Mentioned) are dropped.
-    if config["org_numbers"]:
-        df = df[(df["Status"] == "Active") | (df["Won by Company"] == "Yes")].copy()
-
     # Sort: oldest first so new rows append at the bottom; Active at the end
     df["_sort_status"] = df["Status"].map({"Historical": 0, "Active": 1})
     df["_sort_date"] = pd.to_datetime(df["Publication Date"], errors="coerce")
@@ -874,6 +905,70 @@ def notices_to_dataframe(
     df.reset_index(drop=True, inplace=True)
 
     return df
+
+
+def filter_for_excel(df: pd.DataFrame, config: dict) -> pd.DataFrame:
+    """
+    For companies tracked via org numbers: keep only rows where the group
+    won the contract OR the procurement is still active. Historical losses
+    (Tenderer / Mentioned) are dropped from the Excel sheet - a presentation
+    choice, applied only here. The full, unfiltered set (including those
+    dropped rows) is what gets written to the database.
+    """
+    if df.empty or not config["org_numbers"]:
+        return df
+    return df[(df["Status"] == "Active") | (df["Won by Company"] == "Yes")].copy()
+
+
+# ---------------------------------------------------------------------------
+# Database
+# ---------------------------------------------------------------------------
+
+def write_notices_to_db(company: str, df: pd.DataFrame) -> tuple[int | None, str | None]:
+    """
+    Best-effort: upsert the latest known state of every notice for *company*.
+    Must never raise. Writes the FULL row set (not the Excel-filtered
+    subset) - see filter_for_excel(). Uses upsert (not ON CONFLICT DO
+    NOTHING) because a notice's status/winner/value can change between runs.
+    """
+    if df.empty:
+        return 0, None
+
+    now = datetime.now(timezone.utc).isoformat()
+    rows = [
+        (
+            company,
+            row.get("Publication Number"),
+            row.get("Status"),
+            row.get("Publication Date"),
+            row.get("Won by Company"),
+            row.get("Awarded Value"),
+            row.get("Buyer Name"),
+            row.get("Estimated Value"),
+            row.get("Winner Name"),
+            row.get("Notice Type"),
+            row.get("Title"),
+            row.get("Description"),
+            row.get("Awarded Currency"),
+            row.get("Estimated Currency"),
+            row.get("Tenderers"),
+            row.get("Procedure Type"),
+            now,
+        )
+        for _, row in df.iterrows()
+        if row.get("Publication Number")
+    ]
+
+    return safe_upsert(
+        table="ted_procurement_notice",
+        columns=["company", "publication_number", "status", "publication_date",
+                 "won_by_company", "awarded_value", "buyer_name", "estimated_value",
+                 "winner_name", "notice_type", "title", "description",
+                 "awarded_currency", "estimated_currency", "tenderers", "procedure_type",
+                 "last_seen_at"],
+        rows=rows,
+        conflict_columns=["company", "publication_number"],
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -1017,8 +1112,10 @@ def main() -> None:
 
     company_frames: dict[str, pd.DataFrame] = {}
     company_notices: dict[str, tuple[list[dict], dict]] = {}  # raw notices + config
+    db_status: dict[str, tuple[int | None, str | None]] = {}
 
-    for raw_company in COMPANIES:
+    tracked_companies = load_tracked_companies()
+    for raw_company in tracked_companies:
         config = _normalize_company_config(raw_company)
         display_name = config["display_name"]
         log.info("Processing: %s", display_name)
@@ -1073,11 +1170,13 @@ def main() -> None:
             }
             log.info("  Of which %d are currently active", len(active_pub_nums))
 
-        # Build DataFrame
-        df = notices_to_dataframe(all_notices, config, active_pub_nums)
-        company_frames[display_name] = df
+        # Build DataFrame (full set - the Excel sheet only gets a filtered view)
+        df_full = notices_to_dataframe(all_notices, config, active_pub_nums)
+        company_frames[display_name] = filter_for_excel(df_full, config)
         company_notices[display_name] = (all_notices, config)
-        log.info("  Done - %d rows for sheet '%s'", len(df), display_name)
+        log.info("  Done - %d rows for sheet '%s'", len(company_frames[display_name]), display_name)
+
+        db_status[display_name] = write_notices_to_db(display_name, df_full)
 
     # --- Lot-level detail via XML parsing (only for selected companies) ---
     DETAIL_COMPANIES = {"EQL Pharma AB"}
@@ -1094,6 +1193,14 @@ def main() -> None:
             log.info("  No lot-level data found for '%s'", display_name)
 
     write_excel(company_frames, detail_frames)
+
+    log.info("Databas:")
+    for display_name, (rows_written, error) in db_status.items():
+        if error is not None:
+            log.info("  %s: MISSLYCKADES - %s", display_name, error)
+        else:
+            log.info("  %s: %s rader uppserta", display_name, rows_written)
+
     log.info("All done!")
 
 

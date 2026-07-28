@@ -246,6 +246,51 @@ CREATE TABLE IF NOT EXISTS nelly_variant_snapshot (
     PRIMARY KEY (snapshot_date, site, product_key)
 );
 
+-- ted_tracked_companies
+-- Companies fetch_ted_procurements.py fetches TED notices for. Data instead
+-- of a hardcoded Python list, so adding a company doesn't need a code
+-- change. The script falls back to a small built-in default list if this
+-- table can't be read (must never let a DB problem stop the fetch).
+CREATE TABLE IF NOT EXISTS ted_tracked_companies (
+    company       text PRIMARY KEY,
+    search_terms  jsonb NOT NULL,
+    org_numbers   jsonb NOT NULL DEFAULT '[]'::jsonb
+);
+
+-- ted_procurement_notice
+-- Latest known state per (company, publication_number) - NOT a daily
+-- snapshot history like every other table in this file. A notice's status/
+-- winner/value can change between runs as the procurement lifecycle
+-- progresses (Active -> Historical, winner assigned later, etc.), so this
+-- is upserted (core.db.upsert_rows / safe_upsert) rather than inserted with
+-- ON CONFLICT DO NOTHING. Stores the FULL computed row set, not just the
+-- 8 columns the Excel output happens to show (Title/Description/Notice
+-- Type/Tenderers/Procedure Type/Won by Company were always computed but
+-- never written to data/ted_procurements.xlsx). Also stores rows the
+-- Excel export filters out for org-number-tracked companies (historical
+-- losses) - that Active-or-Won filter is a presentation choice, applied
+-- only when building the Excel sheet, not a reason to not capture the row.
+CREATE TABLE IF NOT EXISTS ted_procurement_notice (
+    company              text NOT NULL,
+    publication_number   text NOT NULL,
+    status               text,
+    publication_date     text,
+    won_by_company       text,
+    awarded_value        numeric,
+    buyer_name           text,
+    estimated_value      numeric,
+    winner_name          text,
+    notice_type          text,
+    title                text,
+    description          text,
+    awarded_currency     text,
+    estimated_currency   text,
+    tenderers            text,
+    procedure_type       text,
+    last_seen_at         timestamptz NOT NULL,
+    PRIMARY KEY (company, publication_number)
+);
+
 -- nelly_aov
 -- Daily median/average selling price across Nelly.com's "topplistan" pages
 -- (AOV proxy), scraped by track_nelly_aov.py. Backfilled directly from

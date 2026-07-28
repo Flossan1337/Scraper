@@ -98,9 +98,21 @@ Checklist for migrating one more pipeline, in the order it was actually done:
    Query in the meantime, even partially.
 
 Two supporting reusable pieces already exist and should be reused, not
-recreated: `scripts/core/db.py` (`get_connection`/`insert_rows`/`safe_insert`)
-and `scripts/core/cli.py` (`add_no_side_effects_flag`/`log_skip`, for a
-script that needs to test its DB write without touching local files).
+recreated: `scripts/core/db.py` (`get_connection`/`insert_rows`/`safe_insert`,
+plus `upsert_rows`/`safe_upsert` for entity-shaped data — see below) and
+`scripts/core/cli.py` (`add_no_side_effects_flag`/`log_skip`, for a script
+that needs to test its DB write without touching local files).
+
+**Not every pipeline is snapshot-shaped.** `fetch_ted_procurements.py` tracks
+procurement *notices* whose fields change over time (status, winner, value) —
+there's no meaningful "day" to key on, just a natural entity key
+(`company`, `publication_number`). For pipelines like this, use
+`upsert_rows`/`safe_upsert` (`ON CONFLICT DO UPDATE`) instead of steps 4/6
+above, keyed on the entity's natural key, storing only its *latest known
+state* rather than a daily history. Backfill may also be simpler than usual:
+if the source system is itself the historical archive (TED's API has full
+history back to 2021), you don't need `raw/` or git archaeology at all —
+just run the live, DB-wired script once.
 
 ## Script inventory
 
@@ -116,7 +128,7 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 | `track_ahlsell_plejd_inventory.py` | `ahlsell_plejd_state.json` | `ahlsell_plejd_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`ahlsell_stock_snapshot`/`ahlsell_article`/`ahlsell_warehouse`). No view yet. Known zero-stock-row gap — `KNOWN_ISSUES.md` #5. |
 | `fetch_kpi.py` | — | `kpi-history.xlsx` | daily | **Migrerad** | Raw capture live (`kpi_history`, PK `snapshot_date`). No view needed — single scalar pair per day, no delta logic. Backfilled directly from `kpi-history.xlsx` (itself an append-only running log, not a snapshot file) rather than via git archaeology — `ON CONFLICT` also collapsed the known 2025-10-03/04 duplicates (`KNOWN_ISSUES.md` #2) to one row each. |
 | `track_rugvista_bestsellers.py` | — | `rugvista_bestsellers.xlsx` | daily | **Migrerad** | Raw capture live (`rugvista_bestseller_prices`, PK `snapshot_date`). No view needed — single median/avg pair per day, no delta logic. Backfilled directly from the xlsx (append-only, no duplicates found — 300 rows, 300 distinct dates). |
-| `fetch_ted_procurements.py` | — | `ted_procurements.xlsx` | daily | Ej migrerad | **Not a snapshot-shaped pipeline** — rewrites the whole workbook every run from a live TED query (one row per notice, keyed by `Publication Number`, not by day). Status/values can change for the same notice over time, so it wants upsert-on-conflict-**update** semantics, not the `ON CONFLICT DO NOTHING` snapshot pattern every other migrated script uses. Needs its own design (natural key = `(company, publication_number)`, plus a separate lot-level detail table) before migrating — don't force the day-snapshot checklist onto it. |
+| `fetch_ted_procurements.py` | — | `ted_procurements.xlsx` | daily | **Migrerad** | **Different shape from every other migration**: `ted_procurement_notice` holds the *latest known state* per `(company, publication_number)`, upserted via `core.db.upsert_rows`/`safe_upsert` (new — `ON CONFLICT DO UPDATE`, not `DO NOTHING`), not a daily snapshot history. Stores the full computed row set (Title/Description/Notice Type/Tenderers/Procedure Type/Won by Company were always computed but never written to the xlsx) and the rows the Excel export filters out for org-number-tracked companies (historical losses) — that filter is now applied only when building Excel (`filter_for_excel()`), not a reason to skip capturing the row. Tracked companies moved to a `ted_tracked_companies` data table (`company`, `search_terms`, `org_numbers` as JSONB) instead of the hardcoded `COMPANIES` list — `load_tracked_companies()` falls back to a small built-in list if the DB can't be read, so a DB problem never stops the fetch. No git archaeology needed for backfill: TED's own API is already the full historical archive back to 2021-01-01, so migrating just meant wiring the DB writes and running the existing fetch once (55 + 18 rows upserted live). Lot-level detail (`EQL Pharma AB Detail` sheet) intentionally deferred — not migrated yet. |
 | `fetch_plejd_sensortower_rankings.py` | — | `plejd_sensortower_rankings.xlsx` | daily | **Migrerad** | Raw capture live (`plejd_sensortower_rankings`, PK `(snapshot_date, country)`). Wide xlsx (one column per country) melted to long rows; missing ranks (app unranked that day) are skipped, not fabricated as zero. Backfilled directly from the xlsx — 212 rows/210 populated dates → 889 (date, country) observations. The script's existing "already written today" guard now also triggers a DB-only write (rebuilt from the existing xlsx row) instead of exiting early, so the database doesn't silently miss a day. |
 | `track_fractal_rankings_playwright.py` | — | `fractal_rankings.xlsx` | daily | **Migrerad** | Raw capture live (`fractal_rankings`, PK `(snapshot_date, product)`). Same wide-to-long shape as the Plejd ranking: 6 products (2 headsets, 4 chairs), "NA"/not-found skipped rather than fabricated. Backfilled directly from the xlsx — 297 rows → 1219 (date, product) observations. |
 | `fetch_anoto_amazon_data.py` | — | `anoto_amazon_data.xlsx` | daily | **Migrerad** | Raw capture live (`anoto_amazon_data`, PK `snapshot_date`). Backfilled directly from the xlsx (append-only, 95 rows, no duplicates). `0` is the script's own "not found that day" sentinel for both columns — kept as-is in the DB rather than converted to NULL, to match existing xlsx semantics exactly. |
@@ -166,9 +178,6 @@ and #5 for what that costs).
 5. ~~`fetch_anoto_amazon_data.py`~~ — migrated.
 6. ~~`amazon_scape_bought_playwright_us_de.py`~~ — migrated.
 7. ~~`track_nelly_aov.py`~~ — migrated. Tier 1 complete.
-
-**Deferred — needs its own design, not a fit for the snapshot checklist:**
-- `fetch_ted_procurements.py` (see inventory notes above).
 
 **Tier 2 — has a state file (raw/ history already extracted), same
 snapshot+delta shape as Rugvista/Ahlsell:**
