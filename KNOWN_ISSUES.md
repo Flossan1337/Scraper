@@ -2,6 +2,38 @@
 
 Senast uppdaterad: 2026-07-29
 
+## 7. `ahlsell_led_panel_article.product_name` har 48 rader med äkta teckenkodningsfel
+
+Bekräftat i råfilerna själva (`raw/ahlsell_led_panel_state/2026-07-07.json` t.o.m. `2026-07-16.json`):
+`track_ahlsell_led_panel_inventory.py` skrev vid tillfället dubbelkodad UTF-8 för vissa
+produktnamn (t.ex. "PowerBalance"-armaturen, artikel `7017879`, lagrad som `Interiö` + byte
+`0xC3 0xB6` istället för `ö`). Detta är inte något som introducerats av migreringsarbetet —
+samma felklass som redan konstaterades i Rugvistas `variant_name`-fält
+(t.ex. "FlerfÃ¤rgad"). Alla berörda artiklar har sedan dess försvunnit ur sortimentet, så det
+påverkar bara historiska rader, inte aktuell rapportering. Lämnat orört; går bara att laga om
+den ursprungliga HTML-källan för de dagarna finns kvar någonstans (osannolikt).
+
+## 8. ~~`ahlsell_article` hade 39 rader med teckenkodningsfel som ändrade kategorisering~~ — LÖST 2026-07-29
+
+Till skillnad från punkt 7 ovan var råkällan här alltid korrekt kodad (verifierat i samtliga
+`raw/ahlsell_plejd_state/*.json`, från första filen 2026-05-27 till senaste) — felet uppstod i
+den ursprungliga engångsladdningen till databasen (`scripts/tools/load_ahlsell_history.py`,
+körd 2026-07-28), inte i källdatan. En felfri nyskrivning med samma sträng lyckas (verifierat
+med en direkt round-trip-test), så den exakta orsaken till den ursprungliga körningens fel är
+inte fastställd — men eftersom ett färskt försök inte reproducerar felet bedöms det som en
+engångsanomali snarare än ett kvarstående systemfel.
+
+**Konsekvens:** 9 artiklar med "Väggarmatur"-namn (`7706311/312/313`, `7706614/615/616`,
+`7706621/622/623`) kategoriserades som "Övrigt" istället för "Armaturer", eftersom
+`categorize()`s nyckelordsmatchning på "väggarmatur" inte kunde matcha den dubbelkodade texten.
+Detta upptäcktes när `ahlsell_plejd_sales_v` validerades mot `data/ahlsell_plejd_inventory.xlsx`
+och gav ett konsekvent 26-enheters-fel mellan just de två kategorierna, varje dag.
+
+**Fix:** laddade om `ahlsell_article` med `core.db.upsert_rows` (istället för den ursprungliga
+`ON CONFLICT DO NOTHING`-insatsen) från en färsk sammanslagning av alla `raw/`-filer plus
+aktuell `data/ahlsell_plejd_state.json`. Validerat efteråt: `ahlsell_plejd_sales_v` matchar
+xlsx exakt över hela historiken (315 av 315 observationer, både sales-out och sales-in).
+
 ## 6. `track_nelly_aov.py` hittar inga priser sedan 2026-07-20
 
 Scriptet är fortfarande schemalagt och kör felfritt (`continue-on-error` döljer det),
