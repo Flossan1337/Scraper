@@ -11,9 +11,17 @@
 --   - Revenue = units sold * price_sek from the CURRENT snapshot (matches
 --     the Python script, which prices sales at the post-change price).
 --   - Products with no preceding snapshot are skipped (first sighting).
---   - Deltas are only counted when the preceding snapshot is less than 48
---     hours earlier, so a product that disappears and reappears days later
---     doesn't produce a false delta.
+--   - Deltas are only counted when the preceding snapshot's calendar date
+--     (Europe/Stockholm) is exactly one day before the current snapshot's,
+--     so a product that disappears and reappears days later doesn't
+--     produce a false delta. Originally this was an absolute "< 48 hours"
+--     check, but the nightly job's exact run time varies by several
+--     minutes night to night, so a genuine 2-calendar-day gap could
+--     measure as little as ~47.9 hours and slip through - confirmed on
+--     2025-11-18, where two products absent from the 2025-11-17 snapshot
+--     but present on 2025-11-16 and 2025-11-18 produced a 47.92-hour gap,
+--     inflating that day's count by exactly 37 units (KNOWN_ISSUES.md #1).
+--     A calendar-date comparison is immune to that time-of-day jitter.
 --   - Day is the snapshot's calendar date in Europe/Stockholm, matching
 --     today_stockholm_date_str() in the Python script.
 
@@ -42,7 +50,9 @@ variant_lag AS (
         available,
         price_sek,
         LAG(available)   OVER (PARTITION BY product_id ORDER BY captured_at) AS prev_available,
-        LAG(captured_at) OVER (PARTITION BY product_id ORDER BY captured_at) AS prev_captured_at
+        LAG(captured_at) OVER (PARTITION BY product_id ORDER BY captured_at) AS prev_captured_at,
+        (LAG(captured_at) OVER (PARTITION BY product_id ORDER BY captured_at)
+            AT TIME ZONE 'Europe/Stockholm')::date AS prev_day
     FROM rugvista_variant_snapshot
 ),
 variant_metrics AS (
@@ -52,7 +62,7 @@ variant_metrics AS (
         CASE
             WHEN prev_available IS NOT NULL
              AND price_sek IS NOT NULL
-             AND EXTRACT(EPOCH FROM (captured_at - prev_captured_at)) / 3600.0 < 48
+             AND day - prev_day <= 1
              AND available < prev_available
             THEN prev_available - available
             ELSE 0
@@ -60,7 +70,7 @@ variant_metrics AS (
         CASE
             WHEN prev_available IS NOT NULL
              AND price_sek IS NOT NULL
-             AND EXTRACT(EPOCH FROM (captured_at - prev_captured_at)) / 3600.0 < 48
+             AND day - prev_day <= 1
              AND available < prev_available
             THEN (prev_available - available) * price_sek
             ELSE 0

@@ -1,6 +1,6 @@
 # Known Issues
 
-Senast uppdaterad: 2026-07-28
+Senast uppdaterad: 2026-07-29
 
 ## 6. `track_nelly_aov.py` hittar inga priser sedan 2026-07-20
 
@@ -12,24 +12,32 @@ skriva någon rad (varken Excel eller databas) när `all_prices` är tom, så `d
 och `nelly_aov`-tabellen har helt enkelt saknat nya rader i över en vecka utan någon synlig
 varning. Behöver en uppdatering av selektorerna mot nuvarande sidstruktur.
 
-## 1. `rugvista_daily_sales_v` avviker från `data/rugvista_daily_sales.xlsx`
+## 1. ~~`rugvista_daily_sales_v` avviker från `data/rugvista_daily_sales.xlsx`~~ — LÖST 2026-07-29
 
-Vyn ([sql/views/rugvista_daily_sales.sql](sql/views/rugvista_daily_sales.sql)) avviker från
-`data/rugvista_daily_sales.xlsx` på **54 av 283 dagar**. Vyn räknar konsekvent **högre**
-units_sold/revenue på de avvikande dagarna, aldrig lägre.
+Vyn ([sql/views/rugvista_daily_sales.sql](sql/views/rugvista_daily_sales.sql)) avvek från
+`data/rugvista_daily_sales.xlsx` på 54 av 283 dagar, alltid åt samma håll (vyn räknade högre).
 
-Två hypoteser, ingen bekräftad:
-- `LAG()` i vyn hoppar över luckor när produkter tillfälligt lämnar och sedan återvänder till
-  topplistan (Rugvista-API:et hämtas med `topSeller=true`), vilket kan ge ett annat "föregående"
-  värde än vad det ursprungliga Python-scriptets state-fil hade vid samma tillfälle.
-- Olika hantering av enheter utan pris: `track_rugvista_daily_sales.py` exkluderar sålda enheter
-  helt ur totalen om pris saknas (`sold_units_missing_price`), medan vyns motsvarande villkor
-  (`price_sek IS NOT NULL`) kan träffa andra rader om historiken i `raw/rugvista_state/` skiljer
-  sig något från vad som fanns i `data/rugvista_state.json` vid respektive körning.
+**Grundorsak bekräftad:** vyns 48-timmarsspärr (menad att hoppa över produkter som
+tillfälligt lämnat och återvänt till topplistan, se punkt 5 nedan för samma felklass)
+jämförde absolut klocktid, inte kalenderdatum. Rugvista-jobbets exakta körtid varierar
+någon minut natt till natt, så ett verkligt tvådagarsgap (en produkt saknades exakt en dag
+i `raw/rugvista_state/`) kunde ibland mäta strax under 48 timmar och slinka igenom spärren.
+Bekräftat konkret på 2025-11-18: två artiklar (`621923`, `621992`) saknades i
+2025-11-17-snapshoten men fanns 2025-11-16 och 2025-11-18 — gapet mätte 47,92 timmar,
+vilket gav ett falskt delta på 2 + 35 = 37 enheter, exakt differensen mot xlsx den dagen
+(841 vs 804).
 
-**Ej utrett.** Root cause är inte bekräftad.
+Ingen av de två tidigare hypoteserna stämde: en direkt ombyggnad av
+`compute_sales_from_deltas()`-logiken från `raw/rugvista_state/`-filerna gav exakt samma
+siffror som xlsx (inklusive `sold_units_missing_price = 0`), vilket uteslöt
+pris-hypotesen helt.
 
-**Vyn får inte användas för analys förrän detta är löst.**
+**Fix:** bytte 48-timmarsspärren mot en kalenderdagsjämförelse
+(`day - prev_day <= 1`, båda i Europe/Stockholm) — immun mot klockslagsjitter eftersom den
+bara bryr sig om kalenderdatum, inte exakt antal timmar. Validerat mot hela historiken
+(286 dagar) efter fixen: **0 avvikelser**.
+
+Vyn är nu godkänd för analys.
 
 ## 2. `kpi-history.xlsx` har dubbletter och luckor
 
@@ -66,5 +74,9 @@ behandlar en saknad post som noll. En framtida SQL-vy med `lag()` gör det inte 
 tillbaka till senast kända värde över nollperioden och räknar hela mellanskillnaden som en dags
 rörelse.
 
-Samma felklass som punkt 1 (Rugvista-avvikelsen): saknad rad tolkas som saknad observation i
-stället för som nollvärde. **Måste lösas innan en delta-vy för Ahlsell används för analys.**
+Samma felklass som punkt 1 (Rugvista-avvikelsen, nu löst): saknad rad tolkas som saknad
+observation i stället för som nollvärde. En framtida delta-vy för Ahlsell bör återanvända
+samma fix-mönster som löste punkt 1 — kalenderdagsjämförelse istället för en absolut
+timmar-spärr — men det löser inte grundproblemet här (nollsaldon saknas helt i rådatan);
+det kräver att `fetch_stock()` börjar spara nollor explicit. **Måste lösas innan en
+delta-vy för Ahlsell används för analys.**
