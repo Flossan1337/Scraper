@@ -5,6 +5,44 @@ files to Postgres (Supabase). Written 2026-07-28. For open correctness
 questions about specific pipelines, see `KNOWN_ISSUES.md` — this document
 doesn't repeat them, only points at them.
 
+## Next steps (as of 2026-07-29 end of day)
+
+Raw capture is done for every active, correctly-shaped pipeline. Tier 1 is
+fully validated against xlsx. Three Tier 2 views are built and validated
+(`rugvista_daily_sales_v`, `ahlsell_plejd_sales_v`,
+`ahlsell_led_panel_brand_stock_v`, `anoto_daily_sales_v`). In priority order:
+
+1. **Validate `rvrc_sales_daily_summary` and `nelly_daily_summary`** against
+   their xlsx "Daily Summary" sheets — same quick pattern as the Tier 1
+   validation, just hasn't been run yet for these two aggregate tables.
+2. **Repoint Power Query, tab by tab**, for everything validated so far:
+   the 7 Tier 1 tables, `rugvista_daily_sales_v`, `ahlsell_plejd_sales_v`,
+   `ahlsell_led_panel_brand_stock_v`, `anoto_daily_sales_v`, and (once step 1
+   passes) the RVRC/Nelly daily summary tables. This is the actual point of
+   the migration — do it carefully, one tab at a time, per the "never
+   repoint before validating" rule.
+3. **Fix `KNOWN_ISSUES.md` #5** (Ahlsell `fetch_stock()` drops
+   zero-quantity warehouse rows instead of storing them) — `ahlsell_plejd_sales_v`
+   validated clean against *existing* history, but the underlying gap risk
+   is still live for future zero-stock events. Worth fixing before leaning
+   on that view long-term.
+4. **Build `rvrc_variant_snapshot`/`nelly_variant_snapshot` delta views**
+   once enough daily history has accumulated (both started empty at
+   migration time, no backfill was possible — check back in a couple of
+   weeks).
+5. **`KNOWN_ISSUES.md` #3** (delta scripts assume exactly one day between
+   runs, several pipelines) — worth a general robustness pass, not just a
+   one-off fix per pipeline, now that the calendar-date-gap pattern has
+   proven itself twice (Rugvista, Anoto).
+
+Separate from the migration itself, still open:
+- `track_nelly_aov.py`'s scraper is broken (`KNOWN_ISSUES.md` #6) — a real
+  code fix, not a database task.
+- `adtraction_epc_combined.py` and `track_tu_brands.py` are waiting on your
+  call (see the inventory table below).
+- `fetch_ted_procurements.py`'s lot-level detail table (EQL Pharma only)
+  was deferred by decision — pick up if/when you want it.
+
 ## Target architecture
 
 - **Postgres is the source of truth for raw data**, at the finest
