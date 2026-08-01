@@ -16,12 +16,31 @@ built and validated (`rugvista_daily_sales_v`, `ahlsell_plejd_sales_v`,
 1. ~~Validate `rvrc_sales_daily_summary` and `nelly_daily_summary`~~ — done
    2026-08-01, 0 discrepancies on both (143 and 137 days respectively),
    after filling the same 2026-07-27 migration-day gap seen elsewhere.
-2. **Repoint Power Query, tab by tab**, for everything validated so far:
-   the 7 Tier 1 tables, `rugvista_daily_sales_v`, `ahlsell_plejd_sales_v`,
-   `ahlsell_led_panel_brand_stock_v`, `anoto_daily_sales_v`,
-   `rvrc_sales_daily_summary`, `nelly_daily_summary`. This is the actual
-   point of the migration — do it carefully, one tab at a time, per the
-   "never repoint before validating" rule.
+2. **Repoint Power Query, tab by tab**, for everything validated so far.
+   `DATA_DASHBOARD.xlsx` itself is not in this repo (lives in the user's
+   OneDrive), so this step is tracked here in prose rather than in git.
+   22 Power Query queries exist across 14 distinct source files; **10 are
+   now repointed and confirmed working against Postgres in the live file**
+   (verified 2026-08-01):
+   - Simple swaps (5): `kpi-history (2)`, `Sheet1` (nelly_aov),
+     `Sheet1 (2)` (rugvista_bestseller_prices), `Sheet1 (6)`
+     (rugvista_daily_sales_v), `Daily Summary` (nelly_daily_summary).
+   - Pivot queries (5): `Sheet1 (7)` (fractal_rankings), `Tracking`
+     (amazon_scape_refine_data, double pivot on product×country for
+     Bought/Rank), `category_rankings` (plejd_sensortower_rankings),
+     `AHLSELL SALES OUT` / `PLEJD SALES IN` (both from
+     `ahlsell_plejd_sales_v`, pivoted on category).
+   Remaining 12: 3 need JSONB-unnesting (`By Brand`, `By Category`,
+   `Returns Detail`, all from `nelly_daily_summary`'s JSON columns), and
+   9 can't be repointed yet because their source pipeline was never
+   migrated (the 8 Google Trends tabs + `EQL Pharma AB Detail`).
+   Required one-time local setup discovered along the way: Excel's
+   PostgreSQL connector needs Npgsql **4.0.17 or earlier** specifically
+   installed with the GAC option (newer Npgsql versions aren't supported
+   by the connector), and Supabase's pooler requires the DB username in
+   `postgres.<project-ref>` form (not just `postgres`) since disabling
+   TLS (needed to work around a certificate-validation error) removes the
+   SNI-based tenant routing alternative.
 3. **Fix `KNOWN_ISSUES.md` #5** (Ahlsell `fetch_stock()` drops
    zero-quantity warehouse rows instead of storing them) — `ahlsell_plejd_sales_v`
    validated clean against *existing* history, but the underlying gap risk
