@@ -5,22 +5,23 @@ files to Postgres (Supabase). Written 2026-07-28. For open correctness
 questions about specific pipelines, see `KNOWN_ISSUES.md` — this document
 doesn't repeat them, only points at them.
 
-## Next steps (as of 2026-07-29 end of day)
+## Next steps (as of 2026-08-01)
 
-Raw capture is done for every active, correctly-shaped pipeline. Tier 1 is
-fully validated against xlsx. Three Tier 2 views are built and validated
-(`rugvista_daily_sales_v`, `ahlsell_plejd_sales_v`,
+Raw capture is done for every active, correctly-shaped pipeline. Tier 1 and
+both Tier 2/3 aggregate tables (`rvrc_sales_daily_summary`,
+`nelly_daily_summary`) are fully validated against xlsx. Four views are
+built and validated (`rugvista_daily_sales_v`, `ahlsell_plejd_sales_v`,
 `ahlsell_led_panel_brand_stock_v`, `anoto_daily_sales_v`). In priority order:
 
-1. **Validate `rvrc_sales_daily_summary` and `nelly_daily_summary`** against
-   their xlsx "Daily Summary" sheets — same quick pattern as the Tier 1
-   validation, just hasn't been run yet for these two aggregate tables.
+1. ~~Validate `rvrc_sales_daily_summary` and `nelly_daily_summary`~~ — done
+   2026-08-01, 0 discrepancies on both (143 and 137 days respectively),
+   after filling the same 2026-07-27 migration-day gap seen elsewhere.
 2. **Repoint Power Query, tab by tab**, for everything validated so far:
    the 7 Tier 1 tables, `rugvista_daily_sales_v`, `ahlsell_plejd_sales_v`,
-   `ahlsell_led_panel_brand_stock_v`, `anoto_daily_sales_v`, and (once step 1
-   passes) the RVRC/Nelly daily summary tables. This is the actual point of
-   the migration — do it carefully, one tab at a time, per the "never
-   repoint before validating" rule.
+   `ahlsell_led_panel_brand_stock_v`, `anoto_daily_sales_v`,
+   `rvrc_sales_daily_summary`, `nelly_daily_summary`. This is the actual
+   point of the migration — do it carefully, one tab at a time, per the
+   "never repoint before validating" rule.
 3. **Fix `KNOWN_ISSUES.md` #5** (Ahlsell `fetch_stock()` drops
    zero-quantity warehouse rows instead of storing them) — `ahlsell_plejd_sales_v`
    validated clean against *existing* history, but the underlying gap risk
@@ -174,8 +175,8 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 | `track_nelly_aov.py` | — | `nelly_aov.xlsx` | daily | **Migrerad** | Raw capture live (`nelly_aov`, PK `snapshot_date`). Backfilled directly from the xlsx (291 rows, no duplicates). Live test run found 0 prices on all 10 pages — confirmed root cause of the ~8-day staleness: Nelly's HTML/selectors have likely changed. Documented as `KNOWN_ISSUES.md` #6; the script silently no-ops (no Excel or DB write) when this happens, exactly like before — unrelated to and unchanged by this migration. |
 | `track_ahlsell_led_panel_inventory.py` | `ahlsell_led_panel_state.json` | `ahlsell_led_panel_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`ahlsell_led_panel_article`, `ahlsell_led_panel_stock_snapshot`). Simpler than Ahlsell/Plejd: this endpoint only returns per-article *totals* across all warehouses, no per-warehouse breakdown, so no `ahlsell_warehouse`-equivalent table. `ahlsell_led_panel_brand_stock_v` (per-brand daily totals) built and validated against the xlsx "Varumärken" sheet — 0 discrepancies, 551 observations. 48 pre-existing mojibake rows in `ahlsell_led_panel_article.product_name` found during validation but left as-is (confirmed present in the raw git history itself, not introduced by this migration, and only affects now-delisted articles) — `KNOWN_ISSUES.md` #7. |
 | `track_anoto_inventory.py` | `anoto_inventory_state.json`, `neo_inventory_state.json` | `anoto_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`anoto_variant_snapshot`, PK `(snapshot_date, store, variant_id)`, `store` = `anoto`/`neo`). Denormalized like `rugvista_variant_snapshot` — price/title captured per snapshot, not a separate dimension table. `anoto_daily_sales_v` built and validated against both stores' "Daily Summary" sheets — required the same calendar-date gap guard as `rugvista_daily_sales_v` (a handful of inq.shop variants were transiently absent from single days' fetches); after that fix, 0 discrepancies except one deliberate divergence (2026-07-04, Neo) where the view correctly excludes a delta spanning a day the pipeline itself skipped, rather than reproducing that flaw like the xlsx does (`KNOWN_ISSUES.md` #3). |
-| `track_rvrc_sales.py` | `rvrc_sales_state.json` | `rvrc_sales.xlsx` | daily | **Migrerad** | Two raw tables: `rvrc_sales_daily_summary` (aggregate, fully backfilled — 137 dates, the state file has only ever stored this level) and `rvrc_variant_snapshot` (per-product-colour, **not backfillable** — the "Latest Detail" xlsx sheet is replaced not appended each run, so no history was ever retrievable; starts from the day migration landed). The "already ran today" skip branch rebuilds the variant snapshot from that day's still-current "Latest Detail" sheet instead of skipping the database. No delta view yet — `rvrc_variant_snapshot` only has 1-2 days of history so far, not enough to validate a view against. |
-| `track_nelly_inventory.py` | `nelly_inventory_state.json` | `nelly_inventory.xlsx` | daily | **Migrerad** | Two raw tables, same split as RVRC: `nelly_daily_summary` (aggregate, fully backfilled — 131 dates; `by_category`/`by_brand`/`by_site`/`restock_events`/`return_events` kept as JSONB rather than normalized, since that nested shape was never captured at finer grain historically) and `nelly_variant_snapshot` (per-product-colour, **not backfillable at all** — unlike RVRC there's no leftover "Latest Detail" sheet either, so even the skip-branch can only rebuild the daily summary, not this table; starts from the day migration landed). Note: the docstring's Playwright cluster-ID auto-discovery is currently dead code — `main()` uses the hardcoded `ELEVATE_CLUSTER_ID` constant directly, so no browser automation was actually involved in this migration. No delta view yet — same reason as RVRC, insufficient history in `nelly_variant_snapshot` to validate against. |
+| `track_rvrc_sales.py` | `rvrc_sales_state.json` | `rvrc_sales.xlsx` | daily | **Migrerad** | Two raw tables: `rvrc_sales_daily_summary` (aggregate, fully backfilled and **validated against the xlsx "Daily Summary" sheet — 0 discrepancies, 143 days**, after filling a 2026-07-27 gap the same migration-day timing gap seen elsewhere) and `rvrc_variant_snapshot` (per-product-colour, **not backfillable** — the "Latest Detail" xlsx sheet is replaced not appended each run, so no history was ever retrievable; starts from the day migration landed). The "already ran today" skip branch rebuilds the variant snapshot from that day's still-current "Latest Detail" sheet instead of skipping the database. No delta view yet — `rvrc_variant_snapshot` only has a few days of history so far, not enough to validate a view against. |
+| `track_nelly_inventory.py` | `nelly_inventory_state.json` | `nelly_inventory.xlsx` | daily | **Migrerad** | Two raw tables, same split as RVRC: `nelly_daily_summary` (aggregate, fully backfilled and **validated against the xlsx "Daily Summary" sheet — 0 discrepancies, 137 days**, after filling the same 2026-07-27 gap; two of the earliest dates, 2026-03-17/18, predate the script's "returns" field entirely — stored as NULL, correctly treated as 0 to match the xlsx writer's own `.get("returns", 0)` default) and `nelly_variant_snapshot` (per-product-colour, **not backfillable at all** — unlike RVRC there's no leftover "Latest Detail" sheet either, so even the skip-branch can only rebuild the daily summary, not this table; starts from the day migration landed). Note: the docstring's Playwright cluster-ID auto-discovery is currently dead code — `main()` uses the hardcoded `ELEVATE_CLUSTER_ID` constant directly, so no browser automation was actually involved in this migration. No delta view yet — same reason as RVRC, insufficient history in `nelly_variant_snapshot` to validate against. |
 | `adtraction_epc_combined.py` | root `adtraction_state.json` (Playwright storage state, not under `data/`) | `adtraction_epc_medians.xlsx` | every-3-days | Ej migrerad | Still scheduled in `every-3-days.yml`, but has deliberately produced no output since 2025-10-22 (~9 months) — a known, intentional state, not a bug. Low priority for migration until that changes. |
 | `track_tu_brands.py` | `tu_brands_state.json` | `tu_brands.xlsx` | daily | Ej migrerad | State file has only 4 commits in ~9 months; `tu_brands.xlsx` has **never been created** (only appends a row when a genuinely new brand appears). Confirm this is expected (no new brands) vs. a broken append path before migrating. |
 | `fetch_cheffelo_trends.py` | — | `cheffelo_trends_monthly.xlsx` | not scheduled | Ej migrerad | Google Trends, manual/ad-hoc only. |
