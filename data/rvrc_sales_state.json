@@ -2287,68 +2287,84 @@
       "sld_x_list_eur": 159625.0,
       "product_colors_total": 2066,
       "product_colors_with_sales": 322
+    },
+    {
+      "date": "2026-08-02",
+      "timestamp": "2026-08-02T01:43:40",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.9855,
+        "GBP": 12.8376,
+        "NOK": 1.004
+      },
+      "slw_x_sell_eur": 1168638.35,
+      "sld_x_sell_eur": 88988.0,
+      "slw_x_list_eur": 1525671.35,
+      "sld_x_list_eur": 126463.0,
+      "product_colors_total": 2059,
+      "product_colors_with_sales": 318
     }
   ],
   "reference_products": [
     {
       "base_key": "10461_962",
       "title": "Phantom Trail Low Hiking Shoes",
-      "sale_last_week": 470,
-      "date": "2026-08-01"
+      "sale_last_week": 453,
+      "date": "2026-08-02"
     },
     {
       "base_key": "11030_4170",
       "title": "Nordwand Shorts",
-      "sale_last_week": 445,
-      "date": "2026-08-01"
+      "sale_last_week": 408,
+      "date": "2026-08-02"
     },
     {
       "base_key": "10772_2001",
       "title": "Rambler Lightweight Pro Shorts",
-      "sale_last_week": 411,
-      "date": "2026-08-01"
-    },
-    {
-      "base_key": "14355_2869",
-      "title": "Twig High-waist Pants",
-      "sale_last_week": 405,
-      "date": "2026-08-01"
-    },
-    {
-      "base_key": "10088_2370",
-      "title": "Hike & Dive Shorts",
-      "sale_last_week": 391,
-      "date": "2026-08-01"
-    },
-    {
-      "base_key": "10067_2698",
-      "title": "RVRC GP Shorts",
-      "sale_last_week": 379,
-      "date": "2026-08-01"
+      "sale_last_week": 402,
+      "date": "2026-08-02"
     },
     {
       "base_key": "11027_4170",
       "title": "Nordwand Pants",
-      "sale_last_week": 377,
-      "date": "2026-08-01"
+      "sale_last_week": 399,
+      "date": "2026-08-02"
+    },
+    {
+      "base_key": "14355_2869",
+      "title": "Twig High-waist Pants",
+      "sale_last_week": 392,
+      "date": "2026-08-02"
+    },
+    {
+      "base_key": "10067_2698",
+      "title": "RVRC GP Shorts",
+      "sale_last_week": 389,
+      "date": "2026-08-02"
+    },
+    {
+      "base_key": "10088_2370",
+      "title": "Hike & Dive Shorts",
+      "sale_last_week": 384,
+      "date": "2026-08-02"
     },
     {
       "base_key": "10716_2001",
       "title": "3-pack Ultimate Soft Boxers",
-      "sale_last_week": 375,
-      "date": "2026-08-01"
+      "sale_last_week": 362,
+      "date": "2026-08-02"
     },
     {
       "base_key": "14357_2001",
       "title": "Twig High-waist Shorts",
-      "sale_last_week": 346,
-      "date": "2026-08-01"
+      "sale_last_week": 328,
+      "date": "2026-08-02"
     },
     {
       "base_key": "10005_2001",
       "title": "RVRC GP Pro Pants",
-      "sale_last_week": 311,
-      "date": "2026-08-01"
+      "sale_last_week": 313,
+      "date": "2026-08-02"
     }
   ]
 }
