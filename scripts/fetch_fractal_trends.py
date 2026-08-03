@@ -14,6 +14,7 @@ from pytrends.exceptions import TooManyRequestsError
 from openpyxl import load_workbook
 
 from excel_utils import append_df
+from core.trends import write_trends_to_db
 
 # ── KONFIG VIA ENV (valfritt) ───────────────────────────────────────────────
 # Bas-sömn för backoff (sek), max antal försök, och paus mellan grupper.
@@ -135,6 +136,12 @@ def main():
     # Skriv hela datasetet på nytt
     append_df(str(XLSX_PATH), SHEET_NAME, out)
     print(f"Skrev om hela historiken ({len(out)} rader) till {XLSX_PATH} [{SHEET_NAME}].")
+
+    db_rows, db_error = write_trends_to_db("fractal", {"default": out})
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES - {db_error}")
+    else:
+        print(f"Databas: {db_rows} rader uppserta")
 
 
 if __name__ == "__main__":

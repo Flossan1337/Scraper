@@ -333,3 +333,65 @@ CREATE TABLE IF NOT EXISTS fractal_rankings (
     rank           int,
     PRIMARY KEY (snapshot_date, product)
 );
+
+-- google_trends_monthly
+-- Shared table for all 8 Google Trends fetchers (fetch_cheffelo_trends.py,
+-- fetch_fractal_trends.py, fetch_nelly_trends_v3.py, fetch_pierce_trends.py,
+-- fetch_plejd_trends.py, fetch_plejd_vs_electrician_trends.py,
+-- fetch_revolutionrace_trends.py, fetch_rugvista_trends_v2.py). Each script
+-- rewrites its own xlsx wholesale on every manual run (full retroactive
+-- monthly series from its FETCH_START, not an incremental snapshot), so this
+-- is upserted latest-known-state per (pipeline, sheet, series, month) rather
+-- than an append-only history - same reasoning as ted_procurement_notice.
+-- "sheet" distinguishes same-named series scaled differently within one
+-- script's own output (fetch_pierce_trends.py writes "together" and
+-- "separate" sheets for the same 3 terms); scripts with a single sheet use
+-- 'default'. "series" is the column name from that script's own output
+-- (e.g. "Linas_Matkasse_SE", "24mx").
+CREATE TABLE IF NOT EXISTS google_trends_monthly (
+    pipeline     text NOT NULL,
+    sheet        text NOT NULL DEFAULT 'default',
+    series       text NOT NULL,
+    month        date NOT NULL,
+    value        numeric,
+    fetched_at   timestamptz NOT NULL,
+    PRIMARY KEY (pipeline, sheet, series, month)
+);
+
+-- ted_lot_tender
+-- Lot-level tender detail for TED companies in fetch_ted_procurements.py's
+-- DETAIL_COMPANIES set (currently just "EQL Pharma AB"), parsed from each
+-- notice's eForms XML by parse_eforms_xml()/fetch_lot_details(). Latest
+-- known state per (company, publication_number, lot_id) - a lot's result/
+-- value can be revised between runs same as ted_procurement_notice, so this
+-- is upserted, not snapshot-inserted.
+CREATE TABLE IF NOT EXISTS ted_lot_tender (
+    company                text NOT NULL,
+    publication_number     text NOT NULL,
+    lot_id                 text NOT NULL,
+    lot_title              text,
+    result                 text,
+    tender_value           numeric,
+    currency               text,
+    is_framework           text,
+    winners_on_lot         int,
+    contract_title         text,
+    num_tenders_on_lot     int,
+    fa_max_value           numeric,
+    fa_max_currency        text,
+    start_date             text,
+    end_date               text,
+    duration_years         numeric,
+    total_lots             int,
+    eql_lots_won           int,
+    proc_estimated_value   numeric,
+    proc_estimated_currency text,
+    total_awarded_value    numeric,
+    total_awarded_currency text,
+    publication_date       text,
+    buyer_name             text,
+    notice_type            text,
+    notice_title           text,
+    last_seen_at           timestamptz NOT NULL,
+    PRIMARY KEY (company, publication_number, lot_id)
+);

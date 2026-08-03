@@ -924,6 +924,14 @@ def filter_for_excel(df: pd.DataFrame, config: dict) -> pd.DataFrame:
 # Database
 # ---------------------------------------------------------------------------
 
+def _clean(value):
+    """pandas coerces a missing value in a float64 column to NaN, not None -
+    psycopg2 then writes a literal 'NaN' numeric instead of NULL. Convert
+    back to None so absence is stored as NULL (comparable via IS NULL,
+    excluded from SUM/AVG) rather than the special NaN value."""
+    return None if pd.isna(value) else value
+
+
 def write_notices_to_db(company: str, df: pd.DataFrame) -> tuple[int | None, str | None]:
     """
     Best-effort: upsert the latest known state of every notice for *company*.
@@ -942,9 +950,9 @@ def write_notices_to_db(company: str, df: pd.DataFrame) -> tuple[int | None, str
             row.get("Status"),
             row.get("Publication Date"),
             row.get("Won by Company"),
-            row.get("Awarded Value"),
+            _clean(row.get("Awarded Value")),
             row.get("Buyer Name"),
-            row.get("Estimated Value"),
+            _clean(row.get("Estimated Value")),
             row.get("Winner Name"),
             row.get("Notice Type"),
             row.get("Title"),
@@ -968,6 +976,65 @@ def write_notices_to_db(company: str, df: pd.DataFrame) -> tuple[int | None, str
                  "last_seen_at"],
         rows=rows,
         conflict_columns=["company", "publication_number"],
+    )
+
+
+def write_lot_details_to_db(company: str, df: pd.DataFrame) -> tuple[int | None, str | None]:
+    """
+    Best-effort: upsert the latest known state of every lot tender for
+    *company* (only DETAIL_COMPANIES gets this - see fetch_lot_details()).
+    Uses upsert, same reasoning as write_notices_to_db - a lot's result/
+    value can be revised between runs.
+    """
+    if df.empty:
+        return 0, None
+
+    now = datetime.now(timezone.utc).isoformat()
+    rows = [
+        (
+            company,
+            row.get("publication_number"),
+            row.get("lot_id"),
+            row.get("lot_title"),
+            row.get("result"),
+            _clean(row.get("tender_value")),
+            row.get("currency"),
+            row.get("is_framework"),
+            _clean(row.get("winners_on_lot")),
+            row.get("contract_title"),
+            _clean(row.get("num_tenders_on_lot")),
+            _clean(row.get("fa_max_value")),
+            row.get("fa_max_currency"),
+            row.get("start_date"),
+            row.get("end_date"),
+            _clean(row.get("duration_years")),
+            _clean(row.get("total_lots")),
+            _clean(row.get("eql_lots_won")),
+            _clean(row.get("proc_estimated_value")),
+            row.get("proc_estimated_currency"),
+            _clean(row.get("total_awarded_value")),
+            row.get("total_awarded_currency"),
+            row.get("publication_date"),
+            row.get("buyer_name"),
+            row.get("notice_type"),
+            row.get("notice_title"),
+            now,
+        )
+        for _, row in df.iterrows()
+        if row.get("publication_number") and row.get("lot_id")
+    ]
+
+    return safe_upsert(
+        table="ted_lot_tender",
+        columns=["company", "publication_number", "lot_id", "lot_title", "result",
+                 "tender_value", "currency", "is_framework", "winners_on_lot",
+                 "contract_title", "num_tenders_on_lot", "fa_max_value", "fa_max_currency",
+                 "start_date", "end_date", "duration_years", "total_lots", "eql_lots_won",
+                 "proc_estimated_value", "proc_estimated_currency", "total_awarded_value",
+                 "total_awarded_currency", "publication_date", "buyer_name", "notice_type",
+                 "notice_title", "last_seen_at"],
+        rows=rows,
+        conflict_columns=["company", "publication_number", "lot_id"],
     )
 
 
@@ -1181,6 +1248,7 @@ def main() -> None:
     # --- Lot-level detail via XML parsing (only for selected companies) ---
     DETAIL_COMPANIES = {"EQL Pharma AB"}
     detail_frames: dict[str, pd.DataFrame] = {}
+    detail_db_status: dict[str, tuple[int | None, str | None]] = {}
     for display_name, (raw_notices, config) in company_notices.items():
         if not raw_notices or display_name not in DETAIL_COMPANIES:
             continue
@@ -1191,11 +1259,19 @@ def main() -> None:
             log.info("  %d lot-level rows for '%s'", len(df_detail), display_name)
         else:
             log.info("  No lot-level data found for '%s'", display_name)
+        detail_db_status[display_name] = write_lot_details_to_db(display_name, df_detail)
 
     write_excel(company_frames, detail_frames)
 
     log.info("Databas:")
     for display_name, (rows_written, error) in db_status.items():
+        if error is not None:
+            log.info("  %s: MISSLYCKADES - %s", display_name, error)
+        else:
+            log.info("  %s: %s rader uppserta", display_name, rows_written)
+
+    log.info("Databas (lot-detail):")
+    for display_name, (rows_written, error) in detail_db_status.items():
         if error is not None:
             log.info("  %s: MISSLYCKADES - %s", display_name, error)
         else:

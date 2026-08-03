@@ -6,6 +6,8 @@ import pandas as pd
 from pytrends.request import TrendReq
 from pathlib import Path
 
+from core.trends import write_trends_to_db
+
 # ── OUTPUT ──
 REPO_ROOT   = Path(__file__).resolve().parent.parent
 DATA_DIR    = REPO_ROOT / "data"
@@ -114,6 +116,12 @@ def main():
         out_df.to_excel(str(OUTPUT_XLSX), index=False, engine="openpyxl")
         print(f"\nSUCCESS! Wrote {len(out_df)} months to {OUTPUT_XLSX}")
         print(f"Columns: {list(out_df.columns)}")
+
+        db_rows, db_error = write_trends_to_db("cheffelo", {"default": out_df})
+        if db_error is not None:
+            print(f"Databas: MISSLYCKADES - {db_error}")
+        else:
+            print(f"Databas: {db_rows} rader uppserta")
     else:
         print("No data fetched.")
 

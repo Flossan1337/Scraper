@@ -5,42 +5,56 @@ files to Postgres (Supabase). Written 2026-07-28. For open correctness
 questions about specific pipelines, see `KNOWN_ISSUES.md` — this document
 doesn't repeat them, only points at them.
 
-## Next steps (as of 2026-08-01)
+## Next steps (as of 2026-08-03)
 
-Raw capture is done for every active, correctly-shaped pipeline. Tier 1 and
-both Tier 2/3 aggregate tables (`rvrc_sales_daily_summary`,
+Raw capture is done for every active, correctly-shaped pipeline, including
+all 8 Google Trends fetchers and TED lot-detail (both added 2026-08-03).
+Tier 1 and both Tier 2/3 aggregate tables (`rvrc_sales_daily_summary`,
 `nelly_daily_summary`) are fully validated against xlsx. Four views are
 built and validated (`rugvista_daily_sales_v`, `ahlsell_plejd_sales_v`,
-`ahlsell_led_panel_brand_stock_v`, `anoto_daily_sales_v`). In priority order:
+`ahlsell_led_panel_brand_stock_v`, `anoto_daily_sales_v`).
 
-1. ~~Validate `rvrc_sales_daily_summary` and `nelly_daily_summary`~~ — done
-   2026-08-01, 0 discrepancies on both (143 and 137 days respectively),
-   after filling the same 2026-07-27 migration-day gap seen elsewhere.
-2. **Repoint Power Query, tab by tab**, for everything validated so far.
-   `DATA_DASHBOARD.xlsx` itself is not in this repo (lives in the user's
-   OneDrive), so this step is tracked here in prose rather than in git.
-   22 Power Query queries exist across 14 distinct source files; **10 are
-   now repointed and confirmed working against Postgres in the live file**
-   (verified 2026-08-01):
-   - Simple swaps (5): `kpi-history (2)`, `Sheet1` (nelly_aov),
-     `Sheet1 (2)` (rugvista_bestseller_prices), `Sheet1 (6)`
-     (rugvista_daily_sales_v), `Daily Summary` (nelly_daily_summary).
-   - Pivot queries (5): `Sheet1 (7)` (fractal_rankings), `Tracking`
-     (amazon_scape_refine_data, double pivot on product×country for
-     Bought/Rank), `category_rankings` (plejd_sensortower_rankings),
-     `AHLSELL SALES OUT` / `PLEJD SALES IN` (both from
-     `ahlsell_plejd_sales_v`, pivoted on category).
-   Remaining 12: 3 need JSONB-unnesting (`By Brand`, `By Category`,
-   `Returns Detail`, all from `nelly_daily_summary`'s JSON columns), and
-   9 can't be repointed yet because their source pipeline was never
-   migrated (the 8 Google Trends tabs + `EQL Pharma AB Detail`).
-   Required one-time local setup discovered along the way: Excel's
-   PostgreSQL connector needs Npgsql **4.0.17 or earlier** specifically
-   installed with the GAC option (newer Npgsql versions aren't supported
-   by the connector), and Supabase's pooler requires the DB username in
-   `postgres.<project-ref>` form (not just `postgres`) since disabling
-   TLS (needed to work around a certificate-validation error) removes the
-   SNI-based tenant routing alternative.
+**Power Query repointing is done for all 13 currently-migratable queries**
+(verified 2026-08-03, all applied to the live `DATA_DASHBOARD.xlsx`):
+- Simple swaps (5): `kpi-history (2)`, `Sheet1` (nelly_aov),
+  `Sheet1 (2)` (rugvista_bestseller_prices), `Sheet1 (6)`
+  (rugvista_daily_sales_v), `Daily Summary` (nelly_daily_summary).
+- Pivot queries (5): `Sheet1 (7)` (fractal_rankings), `Tracking`
+  (amazon_scape_refine_data, double pivot on product×country for
+  Bought/Rank), `category_rankings` (plejd_sensortower_rankings),
+  `AHLSELL SALES OUT` / `PLEJD SALES IN` (both from
+  `ahlsell_plejd_sales_v`, pivoted on category).
+- JSONB-unnesting queries (3): `By Brand`, `By Category`, `Returns Detail`
+  (all from `nelly_daily_summary`'s JSON columns). Applied with two known
+  caveats, both documented rather than blocking: `KNOWN_ISSUES.md` #9 (a
+  `Kläder>Jeans`-style category-name encoding bug affects only dates before
+  2026-07-27) and #10 (a zero-restocks/zero-returns anomaly on 2026-08-02/03,
+  confirmed genuine in the source data, being watched going forward).
+
+Required one-time local setup discovered along the way: Excel's PostgreSQL
+connector needs Npgsql **4.0.17 or earlier** specifically installed with the
+GAC option (newer Npgsql versions aren't supported by the connector), and
+Supabase's pooler requires the DB username in `postgres.<project-ref>` form
+(not just `postgres`) since disabling TLS (needed to work around a
+certificate-validation error) removes the SNI-based tenant routing
+alternative.
+
+**Remaining 9 tabs** (the 8 Google Trends tabs + `EQL Pharma AB Detail`) are
+still on local xlsx — their source pipelines are now migrated (raw capture
+live in `google_trends_monthly`/`ted_lot_tender`), but repointing Power Query
+for them hasn't been done yet; pick up whenever you want to continue that
+batch.
+
+Remaining work, in priority order:
+
+1. **Fix `KNOWN_ISSUES.md` #9** (encoding bug in `extract_state_history.py`'s
+   `git()` helper — missing `encoding="utf-8"` on `subprocess.run`, silently
+   corrupting å/ä/ö in every backfilled `raw/` table on Windows, not just
+   Nelly) — deferred by decision, revisit before trusting any Swedish text
+   in a backfilled (pre-live-wiring) row.
+2. **Review the 8 Google Trends scripts** (`KNOWN_ISSUES.md` #11) — none
+   were run live during migration (deliberately, to avoid 429/CAPTCHA risk);
+   unknown whether they still work against Google's current defenses.
 3. **Fix `KNOWN_ISSUES.md` #5** (Ahlsell `fetch_stock()` drops
    zero-quantity warehouse rows instead of storing them) — `ahlsell_plejd_sales_v`
    validated clean against *existing* history, but the underlying gap risk
@@ -60,8 +74,6 @@ Separate from the migration itself, still open:
   code fix, not a database task.
 - `adtraction_epc_combined.py` and `track_tu_brands.py` are waiting on your
   call (see the inventory table below).
-- `fetch_ted_procurements.py`'s lot-level detail table (EQL Pharma only)
-  was deferred by decision — pick up if/when you want it.
 
 ## Target architecture
 
@@ -186,7 +198,7 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 | `track_ahlsell_plejd_inventory.py` | `ahlsell_plejd_state.json` | `ahlsell_plejd_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`ahlsell_stock_snapshot`/`ahlsell_article`/`ahlsell_warehouse`). `ahlsell_plejd_sales_v` built and validated against the full xlsx history (0 discrepancies, 315 observations) — found and fixed a real bug along the way: 39 `ahlsell_article.product_name` rows had mojibake from the original one-off load, silently miscategorizing 9 "Väggarmatur" articles as "Övrigt" (`KNOWN_ISSUES.md` #8, resolved). Known zero-stock-row gap still open — `KNOWN_ISSUES.md` #5. |
 | `fetch_kpi.py` | — | `kpi-history.xlsx` | daily | **Migrerad** | Raw capture live (`kpi_history`, PK `snapshot_date`). No view needed — single scalar pair per day, no delta logic. Backfilled directly from `kpi-history.xlsx` (itself an append-only running log, not a snapshot file) rather than via git archaeology — `ON CONFLICT` also collapsed the known 2025-10-03/04 duplicates (`KNOWN_ISSUES.md` #2) to one row each. |
 | `track_rugvista_bestsellers.py` | — | `rugvista_bestsellers.xlsx` | daily | **Migrerad** | Raw capture live (`rugvista_bestseller_prices`, PK `snapshot_date`). No view needed — single median/avg pair per day, no delta logic. Backfilled directly from the xlsx (append-only, no duplicates found — 300 rows, 300 distinct dates). |
-| `fetch_ted_procurements.py` | — | `ted_procurements.xlsx` | daily | **Migrerad** | **Different shape from every other migration**: `ted_procurement_notice` holds the *latest known state* per `(company, publication_number)`, upserted via `core.db.upsert_rows`/`safe_upsert` (new — `ON CONFLICT DO UPDATE`, not `DO NOTHING`), not a daily snapshot history. Stores the full computed row set (Title/Description/Notice Type/Tenderers/Procedure Type/Won by Company were always computed but never written to the xlsx) and the rows the Excel export filters out for org-number-tracked companies (historical losses) — that filter is now applied only when building Excel (`filter_for_excel()`), not a reason to skip capturing the row. Tracked companies moved to a `ted_tracked_companies` data table (`company`, `search_terms`, `org_numbers` as JSONB) instead of the hardcoded `COMPANIES` list — `load_tracked_companies()` falls back to a small built-in list if the DB can't be read, so a DB problem never stops the fetch. No git archaeology needed for backfill: TED's own API is already the full historical archive back to 2021-01-01, so migrating just meant wiring the DB writes and running the existing fetch once (55 + 18 rows upserted live). Lot-level detail (`EQL Pharma AB Detail` sheet) intentionally deferred — not migrated yet. |
+| `fetch_ted_procurements.py` | — | `ted_procurements.xlsx` | daily | **Migrerad** | **Different shape from every other migration**: `ted_procurement_notice` holds the *latest known state* per `(company, publication_number)`, upserted via `core.db.upsert_rows`/`safe_upsert` (new — `ON CONFLICT DO UPDATE`, not `DO NOTHING`), not a daily snapshot history. Stores the full computed row set (Title/Description/Notice Type/Tenderers/Procedure Type/Won by Company were always computed but never written to the xlsx) and the rows the Excel export filters out for org-number-tracked companies (historical losses) — that filter is now applied only when building Excel (`filter_for_excel()`), not a reason to skip capturing the row. Tracked companies moved to a `ted_tracked_companies` data table (`company`, `search_terms`, `org_numbers` as JSONB) instead of the hardcoded `COMPANIES` list — `load_tracked_companies()` falls back to a small built-in list if the DB can't be read, so a DB problem never stops the fetch. No git archaeology needed for backfill: TED's own API is already the full historical archive back to 2021-01-01, so migrating just meant wiring the DB writes and running the existing fetch once (55 + 18 rows upserted live). **Lot-level detail added 2026-08-03**: `ted_lot_tender`, same upsert shape keyed on `(company, publication_number, lot_id)`, fed by the existing `fetch_lot_details()`/`parse_eforms_xml()` XML parsing (only for `DETAIL_COMPANIES = {"EQL Pharma AB"}`) — 65 rows upserted live. Along the way, fixed a pre-existing bug affecting both this table and `ted_procurement_notice`: pandas coerces a missing float to `NaN`, and psycopg2 was writing that through as a literal `NaN` numeric instead of `NULL` (34 + 37 rows respectively) — added a `_clean()` helper and re-ran to fix in place. |
 | `fetch_plejd_sensortower_rankings.py` | — | `plejd_sensortower_rankings.xlsx` | daily | **Migrerad** | Raw capture live (`plejd_sensortower_rankings`, PK `(snapshot_date, country)`). Wide xlsx (one column per country) melted to long rows; missing ranks (app unranked that day) are skipped, not fabricated as zero. Backfilled directly from the xlsx — 212 rows/210 populated dates → 889 (date, country) observations. The script's existing "already written today" guard now also triggers a DB-only write (rebuilt from the existing xlsx row) instead of exiting early, so the database doesn't silently miss a day. |
 | `track_fractal_rankings_playwright.py` | — | `fractal_rankings.xlsx` | daily | **Migrerad** | Raw capture live (`fractal_rankings`, PK `(snapshot_date, product)`). Same wide-to-long shape as the Plejd ranking: 6 products (2 headsets, 4 chairs), "NA"/not-found skipped rather than fabricated. Backfilled directly from the xlsx — 297 rows → 1219 (date, product) observations. |
 | `fetch_anoto_amazon_data.py` | — | `anoto_amazon_data.xlsx` | daily | **Migrerad** | Raw capture live (`anoto_amazon_data`, PK `snapshot_date`). Backfilled directly from the xlsx (append-only, 95 rows, no duplicates). `0` is the script's own "not found that day" sentinel for both columns — kept as-is in the DB rather than converted to NULL, to match existing xlsx semantics exactly. |
@@ -198,14 +210,14 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 | `track_nelly_inventory.py` | `nelly_inventory_state.json` | `nelly_inventory.xlsx` | daily | **Migrerad** | Two raw tables, same split as RVRC: `nelly_daily_summary` (aggregate, fully backfilled and **validated against the xlsx "Daily Summary" sheet — 0 discrepancies, 137 days**, after filling the same 2026-07-27 gap; two of the earliest dates, 2026-03-17/18, predate the script's "returns" field entirely — stored as NULL, correctly treated as 0 to match the xlsx writer's own `.get("returns", 0)` default) and `nelly_variant_snapshot` (per-product-colour, **not backfillable at all** — unlike RVRC there's no leftover "Latest Detail" sheet either, so even the skip-branch can only rebuild the daily summary, not this table; starts from the day migration landed). Note: the docstring's Playwright cluster-ID auto-discovery is currently dead code — `main()` uses the hardcoded `ELEVATE_CLUSTER_ID` constant directly, so no browser automation was actually involved in this migration. No delta view yet — same reason as RVRC, insufficient history in `nelly_variant_snapshot` to validate against. |
 | `adtraction_epc_combined.py` | root `adtraction_state.json` (Playwright storage state, not under `data/`) | `adtraction_epc_medians.xlsx` | every-3-days | Ej migrerad | Still scheduled in `every-3-days.yml`, but has deliberately produced no output since 2025-10-22 (~9 months) — a known, intentional state, not a bug. Low priority for migration until that changes. |
 | `track_tu_brands.py` | `tu_brands_state.json` | `tu_brands.xlsx` | daily | Ej migrerad | State file has only 4 commits in ~9 months; `tu_brands.xlsx` has **never been created** (only appends a row when a genuinely new brand appears). Confirm this is expected (no new brands) vs. a broken append path before migrating. |
-| `fetch_cheffelo_trends.py` | — | `cheffelo_trends_monthly.xlsx` | not scheduled | Ej migrerad | Google Trends, manual/ad-hoc only. |
-| `fetch_fractal_trends.py` | — | `fractal_trends_monthly.xlsx` | not scheduled | Ej migrerad | Google Trends, manual/ad-hoc only. |
-| `fetch_nelly_trends_v3.py` | `nelly_trends_cache.json` (transient) | `nelly_trends_monthly.xlsx` | not scheduled | Ej migrerad | Google Trends, manual/ad-hoc only. |
-| `fetch_pierce_trends.py` | — | `pierce_trends_monthly.xlsx` | not scheduled | Ej migrerad | Google Trends, manual/ad-hoc only. |
-| `fetch_plejd_trends.py` | — | `plejd_trends_monthly.xlsx` | not scheduled | Ej migrerad | Google Trends, manual/ad-hoc only. |
-| `fetch_plejd_vs_electrician_trends.py` | — | `plejd_vs_electrician_trends.xlsx` | not scheduled | Ej migrerad | Google Trends, manual/ad-hoc only. |
-| `fetch_revolutionrace_trends.py` | — | `revolutionrace_trends_monthly.xlsx` | not scheduled | Ej migrerad | Google Trends, manual/ad-hoc only. |
-| `fetch_rugvista_trends_v2.py` | `rugvista_trends_cache.json` (transient) | `rugvista_trends_monthly.xlsx` | not scheduled | Ej migrerad | Google Trends, most recently manually run (2026-07-03) of the trend fetchers. |
+| `fetch_cheffelo_trends.py` | — | `cheffelo_trends_monthly.xlsx` | not scheduled | **Migrerad** | Google Trends, manual/ad-hoc only. Shares `google_trends_monthly` (long format: `pipeline`/`sheet`/`series`/`month`/`value`, upserted latest-known-state — see schema note) with the other 7 trends fetchers rather than 8 near-duplicate wide tables. Backfilled directly from the current xlsx (each run rewrites its full series from `FETCH_START`, so no `raw/` git archaeology needed) via `scripts/tools/load_google_trends_history.py`. DB write wired into the script via `core/trends.py`'s shared `write_trends_to_db()`, but **not live-tested** — see `KNOWN_ISSUES.md` #11. |
+| `fetch_fractal_trends.py` | — | `fractal_trends_monthly.xlsx` | not scheduled | **Migrerad** | Same as `fetch_cheffelo_trends.py` above — shares `google_trends_monthly`, backfilled, wired, not live-tested (`KNOWN_ISSUES.md` #11). |
+| `fetch_nelly_trends_v3.py` | `nelly_trends_cache.json` (transient) | `nelly_trends_monthly.xlsx` | not scheduled | **Migrerad** | Same as above. |
+| `fetch_pierce_trends.py` | — | `pierce_trends_monthly.xlsx` | not scheduled | **Migrerad** | Same as above, except this script writes two sheets ("together"/"separate" scaling of the same 3 terms) — both map to `google_trends_monthly` via the `sheet` column instead of `'default'`. |
+| `fetch_plejd_trends.py` | — | `plejd_trends_monthly.xlsx` | not scheduled | **Migrerad** | Same as `fetch_cheffelo_trends.py` above. |
+| `fetch_plejd_vs_electrician_trends.py` | — | `plejd_vs_electrician_trends.xlsx` | not scheduled | **Migrerad** | Same as above. |
+| `fetch_revolutionrace_trends.py` | — | `revolutionrace_trends_monthly.xlsx` | not scheduled | **Migrerad** | Same as above. |
+| `fetch_rugvista_trends_v2.py` | `rugvista_trends_cache.json` (transient) | `rugvista_trends_monthly.xlsx` | not scheduled | **Migrerad** | Same as above. |
 | `track_combined_prices.py` | — | `combined_prices.xlsx` | **removed 2026-06-22** | Avvecklad | Step deleted in commit `0e06ab3`; still listed (harmlessly) in `daily.yml`'s summary-table arrays. |
 | `track_duroc_machines.py` | `duroc_machines_state.json` | `duroc_machines.xlsx` | **removed 2026-06-22** | Avvecklad | Step + summary-array entries cleanly removed in `0e06ab3`. |
 | `track_revolutionrace_reviews.py` | `revolutionrace_state.json` | `revolutionrace_reviews.xlsx` | **removed 2026-06-22** | Avvecklad | Step + summary-array entries cleanly removed in `0e06ab3`. This is the script behind the already-known-stalled `revolutionrace_state.json` (`KNOWN_ISSUES.md` #4). |
@@ -248,21 +260,18 @@ snapshot+delta shape as Rugvista/Ahlsell:**
 11. ~~`track_rvrc_sales.py`~~ — migrated.
 12. ~~`track_nelly_inventory.py`~~ — migrated. Tier 3 complete.
 
-**All active, correctly-shaped pipelines are now migrated.** Only
-`fetch_ted_procurements.py` (needs its own upsert design) and the two
-"needs a decision" / not-scheduled / discontinued groups above remain.
+**All active, correctly-shaped pipelines are now migrated**, including
+`fetch_ted_procurements.py`'s lot-level detail (`ted_lot_tender`, added
+2026-08-03) and all 8 Google Trends fetchers (`google_trends_monthly`,
+added 2026-08-03 — backfilled and wired, but not live-tested against
+Google's current API, see `KNOWN_ISSUES.md` #11). Only the two
+"needs a decision" / discontinued groups below remain.
 
 **Needs a decision before migrating:**
 - `adtraction_epc_combined.py` — no output since 2025-10-22 by deliberate choice
   (confirmed by the repo owner), not a bug. Low priority until that changes.
 - `track_tu_brands.py` — confirm whether the never-created xlsx is expected
   (no new brands found) or a broken append path, before migrating.
-
-**Not scheduled — migrate only if/when rescheduled:** the 8 Google Trends
-fetchers (`fetch_cheffelo_trends.py`, `fetch_fractal_trends.py`,
-`fetch_nelly_trends_v3.py`, `fetch_pierce_trends.py`, `fetch_plejd_trends.py`,
-`fetch_plejd_vs_electrician_trends.py`, `fetch_revolutionrace_trends.py`,
-`fetch_rugvista_trends_v2.py`).
 
 **Do not migrate** anything marked Avvecklad or Engångsscript above without
 first deciding to revive (re-add the workflow step) or formally retire it.

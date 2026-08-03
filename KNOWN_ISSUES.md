@@ -1,6 +1,68 @@
 # Known Issues
 
-Senast uppdaterad: 2026-07-29
+Senast uppdaterad: 2026-08-03
+
+## 11. Google Trends-scripten (8 st) troligen trasiga p.g.a. hårdare rate-limiting
+
+Alla 8 `fetch_*_trends.py`-script migrerades till `google_trends_monthly` (schema +
+engångsbackfill från befintlig xlsx-historik, se `scripts/tools/load_google_trends_history.py`),
+och DB-skrivning kopplades in i varje scripts kod (`core/trends.py`). **Ingen av de 8 kördes
+live under migreringen** — beslutat medvetet, eftersom Google Trends/pytrends är extremt
+känsligt för 429-blockering och en full körning kan ta flera minuter per script. Det är alltså
+inte verifierat att skrivvägen fungerar mot en riktig scrape, bara att koden är korrekt kopplad
+(verifierat med syntetisk testdata mot databasen) och att bakgrundsdatan i xlsx-filerna är
+korrekt inläst.
+
+Misstanken är att scripten redan är trasiga eller att Google skärpt sina motåtgärder sedan
+scripten skrevs (flera har redan omfattande backoff/retry-logik som tyder på tidigare problem).
+**Måste ses över** – kör varje script manuellt och kontrollera om det fortfarande får fram data
+innan de körs/schemaläggs på riktigt, eller innan man litar på att `google_trends_monthly`
+kommer fyllas på med nya månader framöver.
+
+## 9. `extract_state_history.py` dubbelkodar å/ä/ö på Windows — smittar backfillad historik
+
+`git()`-hjälparen i `scripts/tools/extract_state_history.py` kör
+`subprocess.run(["git", "show", ...], capture_output=True, text=True)` utan att ange
+`encoding="utf-8"`. Med `text=True` avkodas stdout med `locale.getpreferredencoding()`, som på
+den här Windows-maskinen är `cp1252` — inte UTF-8. Varje historisk `data/*_state.json`-fil som
+innehåller UTF-8-bytes för å/ä/ö (t.ex. "ä" = `0xC3 0xA4`) blir därför feltolkad tecken för
+tecken (`0xC3`→"Ã", `0xA4`→"¤") innan den skrivs till `raw/<namn>/<datum>.json` med
+`encoding="utf-8"` — vilket permanent dubbelkodar strängen i cache-filen.
+
+**Bekräftat konkret i `nelly_daily_summary.by_category`:** alla 131 datum som lästes in via
+`load_nelly_inventory_history.py` (2026-03-17 till 2026-07-25, via `raw/nelly_inventory_state/`)
+har dubbelkodade kategorinycklar (t.ex. `"Kläder>Jeans"` blir `"KlÃ¤der>Jeans"`), medan alla
+datum från 2026-07-27 och framåt — skrivna direkt av `track_nelly_inventory.py` live, som aldrig
+går via `raw/` — har korrekt kodning. Samma logiska kategori pivoteras därför till två olika
+kolumner i Power Query beroende på datum (upptäckt via "By Category"-fliken i
+`DATA DASHBOARD.xlsx`, där "Jeans"-försäljning verkade hoppa mellan kolumner).
+
+Sannolikt smittar samma bugg `raw/`-cachen (och därmed eventuella redan körda backfills) för
+**alla** tabeller som extraherades med detta script och innehåller å/ä/ö — inte bara Nelly.
+Punkt 7 och 8 nedan (Ahlsell-relaterade mojibake-fynd) bör räknas om mot detta som en möjlig
+gemensam grundorsak, snarare än separata engångsanomalier.
+
+**Fix (ej gjord ännu):** lägg till `encoding="utf-8"` på `subprocess.run`-anropet i `git()`,
+kör om `extract_state_history.py` för att skriva om `raw/`, ladda om `nelly_daily_summary`
+(och eventuellt övriga påverkade tabeller) med `upsert_rows` istället för den ursprungliga
+`ON CONFLICT DO NOTHING`-insatsen, sedan validera om. **Uttryckligen uppskjutet** — batch 3 av
+Power Query-repunkteringen kördes mot den riktiga filen med denna bugg kvar; "By Category"-fliken
+kommer visa uppdelade kolumner för samma kategori tills detta löses.
+
+## 10. `nelly_daily_summary.restocks`/`.returns` var exakt 0 för 2026-08-02 och 2026-08-03
+
+Båda dagarna hade 0 restocks och 0 returer, till skillnad från grannedagarna (t.ex. 38–170
+restocks, 806–2832 returer). Manuell omräkning av lagerdeltat direkt från de git-committade
+`data/nelly_inventory_state.json`-snapshottarna (`last_snapshot`-fälten för 08-01→08-02 och
+08-02→08-03) visar **exakt noll** produkter med lagerökning av ~33 000 gemensamma
+produkt-nycklar, båda dagarna — datan i databasen är alltså en korrekt spegling av vad scriptet
+beräknade, inte ett fel i migreringen eller skrivvägen. Grannedagen 07-31→08-01 hade 2 870
+ökningar (matchar 38+2832 exakt), så mönstret bröts tvärt just dessa två dagar.
+
+Inte fastställt om detta är en verklig (om ovanlig) lugn period i Nellys faktiska lagerrörelser
+eller ett tecken på att något i deras Elevate-API tystnat/ändrats för just lagerökningar. **Bevaka
+framåt:** om mönstret (0 restocks + 0 returer) fortsätter flera dagar till är det sannolikt ett
+uppströms-problem värt att undersöka i `track_nelly_inventory.py`s datakälla, inte en engångshändelse.
 
 ## 7. `ahlsell_led_panel_article.product_name` har 48 rader med äkta teckenkodningsfel
 

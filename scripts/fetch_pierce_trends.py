@@ -9,6 +9,8 @@ import pandas as pd
 from pytrends.request import TrendReq
 from pathlib import Path
 
+from core.trends import write_trends_to_db
+
 # ── OUTPUT ──
 REPO_ROOT   = Path(__file__).resolve().parent.parent
 DATA_DIR    = REPO_ROOT / "data"
@@ -155,6 +157,14 @@ def main():
     print(f"\nSUCCESS! Wrote {OUTPUT_XLSX}")
     print(f"  'together' sheet : {len(together_out)} rows, columns: {list(together_out.columns)}")
     print(f"  'separate' sheet : {len(separate_out)} rows, columns: {list(separate_out.columns)}")
+
+    db_rows, db_error = write_trends_to_db(
+        "pierce", {"together": together_out, "separate": separate_out}
+    )
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES - {db_error}")
+    else:
+        print(f"Databas: {db_rows} rader uppserta")
 
 
 if __name__ == "__main__":
