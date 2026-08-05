@@ -33,11 +33,12 @@ URLS = [
     "https://nelly.com/se/topplistan/?page=10",
 ]
 
-# If a product is discounted, Nelly renders the selling price inside <ins> and the
-# original price inside <del>. Non-discounted items show the price in a span like
-# <span class="text-sm text-darkGrey">299&nbsp;kr</span>.
-DISCOUNT_PRICE_SELECTOR = "ins"
-REGULAR_PRICE_SELECTOR = "span.text-sm.text-darkGrey"
+# Each product card on the listing page shows exactly one price (already the
+# effective/selling price - there's no separate struck-through "original price"
+# element on this page anymore, verified 2026-08-05 against the current site).
+# Was `span.text-sm.text-darkGrey` with a separate `ins` discount selector
+# until Nelly's frontend rebuild renamed the class (see KNOWN_ISSUES.md #6).
+PRICE_SELECTOR = "span.text-subhead.leading-none.text-darkGrey"
 
 # OLD: CSV_FILENAME = "nelly_aov.csv"
 # NEW: write to ../data/nelly_aov.xlsx (repo-root/data)
@@ -78,32 +79,8 @@ def fetch_prices(driver, url):
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
     prices = []
-
-    # 1) Collect all discounted selling prices (<ins>)
-    for tag in soup.select(DISCOUNT_PRICE_SELECTOR):
+    for tag in soup.select(PRICE_SELECTOR):
         val = _to_number(tag.get_text(strip=True))
-        if val is not None:
-            prices.append(val)
-
-    # 2) Collect all regular prices only for items that don't show a discount.
-    # Heuristic: regular price spans exist broadly; to avoid double counting
-    # discounted items we only add spans when the *nearest* container does not
-    # also contain an <ins>. This keeps things robust even if the DOM shifts a bit.
-    for span in soup.select(REGULAR_PRICE_SELECTOR):
-        container = span
-        # Climb a few levels up looking for an <ins> sibling in the same card.
-        has_discount = False
-        for _ in range(4):
-            if container is None or container.parent is None:
-                break
-            container = container.parent
-            if container.select_one(DISCOUNT_PRICE_SELECTOR):
-                has_discount = True
-                break
-        if has_discount:
-            continue
-
-        val = _to_number(span.get_text(strip=True))
         if val is not None:
             prices.append(val)
 

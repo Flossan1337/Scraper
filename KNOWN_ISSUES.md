@@ -108,15 +108,34 @@ och gav ett konsekvent 26-enheters-fel mellan just de två kategorierna, varje d
 aktuell `data/ahlsell_plejd_state.json`. Validerat efteråt: `ahlsell_plejd_sales_v` matchar
 xlsx exakt över hela historiken (315 av 315 observationer, både sales-out och sales-in).
 
-## 6. `track_nelly_aov.py` hittar inga priser sedan 2026-07-20
+## 6. ~~`track_nelly_aov.py` hittade inga priser sedan 2026-07-20~~ — LÖST 2026-08-05
 
-Scriptet är fortfarande schemalagt och kör felfritt (`continue-on-error` döljer det),
-men `fetch_prices()` hittar 0 priser på samtliga 10 sidor på `nelly.com/se/topplistan/`
-sedan 2026-07-20 — troligen har Nelly ändrat HTML-strukturen/selektorerna
-(`DISCOUNT_PRICE_SELECTOR`/`REGULAR_PRICE_SELECTOR`). Scriptet avslutar tyst utan att
-skriva någon rad (varken Excel eller databas) när `all_prices` är tom, så `data/nelly_aov.xlsx`
-och `nelly_aov`-tabellen har helt enkelt saknat nya rader i över en vecka utan någon synlig
-varning. Behöver en uppdatering av selektorerna mot nuvarande sidstruktur.
+Scriptet var fortfarande schemalagt och körde felfritt (`continue-on-error` dolde det), men
+`fetch_prices()` hittade 0 priser på samtliga 10 sidor på `nelly.com/se/topplistan/` sedan
+2026-07-20. Scriptet avslutar tyst utan att skriva någon rad (varken Excel eller databas) när
+`all_prices` är tom, så `data/nelly_aov.xlsx` och `nelly_aov`-tabellen saknade nya rader i över
+två veckor utan någon synlig varning.
+
+**Grundorsak:** Nelly bytte sin frontend/design-system. Prisspannet satt tidigare i
+`<span class="text-sm text-darkGrey">` (med separat `<ins>`-element för rabatterat pris) —
+klassen `text-sm` finns inte längre på prisspannet, som nu heter
+`text-subhead leading-none text-darkGrey`. Bekräftat live genom att rendera sidan med Selenium
+(precis som scriptet redan gjorde) och inspektera den faktiska DOM-strukturen: 32 produkter per
+sida, alla med exakt samma nya klasskombination.
+
+Samtidigt bekräftades att den gamla rabatt/ordinarie-pris-uppdelningen (`<ins>`/`<del>`) inte
+längre existerar på listningssidan — varje produktkort visar numera bara **ett** pris (redan det
+effektiva/säljande priset), ingen separat överstruken originalprissättning syns längre i rutnätet.
+Sidparametern `?page=N` fungerar fortfarande som riktig sidnavigering (verifierat: sida 1 och 2
+gav olika produkter), så resten av scriptets struktur var oförändrad och korrekt.
+
+**Fix:** bytte selektor till `span.text-subhead.leading-none.text-darkGrey` och tog bort hela
+den nu onödiga rabatt-vs-ordinarie-uppdelningslogiken i `fetch_prices()` (färre rader, ingen
+dold sårbarhet mot en förändring i hur `<ins>` en gång användes). Körd live: alla 10 sidor gav
+32 priser vardera (320 totalt), median 349 kr / snitt 423,41 kr för 2026-08-05 — ett rimligt
+mönster (snitt > median, högerskev fördelning) jämfört med tidigare frisk historik
+(t.ex. juni: median ~209–249, snitt ~252–288 — nivåskillnaden är trolig säsongsvariation i
+"topplistan"-sortimentet, inte ett tecken på fortsatt fel).
 
 ## 1. ~~`rugvista_daily_sales_v` avviker från `data/rugvista_daily_sales.xlsx`~~ — LÖST 2026-07-29
 
