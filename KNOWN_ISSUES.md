@@ -168,21 +168,27 @@ Minst `data/revolutionrace_state.json` (och därmed beroende flikar/scripts) fic
 dessa filer kommer visa en platt linje efter det datumet, vilket kan misstolkas som att
 verksamheten stannat av snarare än att datainsamlingen tystnat.
 
-## 5. Nollsaldon saknas i Ahlsell-lagerdata, både i Excel och i databasen
+## 5. ~~Nollsaldon saknas i Ahlsell-lagerdata, både i Excel och i databasen~~ — LÖST 2026-08-05
 
-`fetch_stock()` i `track_ahlsell_plejd_inventory.py` returnerar bara poster där kvantiteten är
-större än noll. När ett lagersaldo når noll försvinner alltså raden ur snapshotet i stället för
-att lagras som en nolla. Detsamma gäller `ahlsell_stock_snapshot` i databasen, eftersom den fylls
-från samma data.
+`fetch_stock()` i `track_ahlsell_plejd_inventory.py` returnerade bara poster där kvantiteten var
+större än noll. När ett lagersaldo nådde noll försvann alltså raden ur snapshotet i stället för
+att lagras som en nolla. Detsamma gällde `ahlsell_stock_snapshot` i databasen, eftersom den fylls
+från samma data. Bekräftat konkret via ett live-anrop mot API:t: ett enskilt artikelnummer gav
+110 butiksposter totalt, varav 11 med kvantitet 0 — som filtret kastade bort.
 
-Python-koden hanterar detta korrekt via `set(prev_wh) | set(curr_wh)` och `.get(wid, 0.0)`, som
-behandlar en saknad post som noll. En framtida SQL-vy med `lag()` gör det inte — den hoppar
-tillbaka till senast kända värde över nollperioden och räknar hela mellanskillnaden som en dags
-rörelse.
+Python-koden i den befintliga Excel/state-diff-logiken hanterade redan detta korrekt via
+`set(prev_wh) | set(curr_wh)` och `.get(wid, 0.0)`, som behandlar en saknad post som noll — och
+den redan validerade `ahlsell_plejd_sales_v` (se punkt 8) är också opåverkad, eftersom den
+jämför hela kalenderdagspar via `FULL OUTER JOIN` + `COALESCE(quantity, 0)`, inte `lag()` per
+artikel/lager. En framtida vy byggd med `lag()` OVER (PARTITION BY article, warehouse ORDER BY
+snapshot_date) hade däremot varit sårbar — den hoppar tillbaka till senast kända rad oavsett hur
+många kalenderdagar bort den är, och hade räknat en flerdagars nollperiod som en enda dags
+rörelse. Grundproblemet fanns ändå kvar i rådatan: vem som helst som frågade
+`ahlsell_stock_snapshot` direkt (utanför vyn) skulle fått fel resultat för "hur många artiklar
+har nollsaldo idag", eftersom nollsaldon helt enkelt inte fanns som rader.
 
-Samma felklass som punkt 1 (Rugvista-avvikelsen, nu löst): saknad rad tolkas som saknad
-observation i stället för som nollvärde. En framtida delta-vy för Ahlsell bör återanvända
-samma fix-mönster som löste punkt 1 — kalenderdagsjämförelse istället för en absolut
-timmar-spärr — men det löser inte grundproblemet här (nollsaldon saknas helt i rådatan);
-det kräver att `fetch_stock()` börjar spara nollor explicit. **Måste lösas innan en
-delta-vy för Ahlsell används för analys.**
+**Fix:** tog bort `if (entry.get("stock", {}).get("quantity") or 0) > 0`-filtret i
+`fetch_stock()` — sparar nu alla butiksposter, inklusive nollor. Träder i kraft från nästa
+schemalagda körning (dagens körning hade redan skett när fixen landade, så "redan körd idag"-
+grenen byggde om dagens rader från det gamla, redan hämtade tillståndet snarare än att hämta på
+nytt).

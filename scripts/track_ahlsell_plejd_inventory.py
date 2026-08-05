@@ -112,7 +112,10 @@ def fetch_warehouses() -> dict[str, dict]:
 def fetch_stock(variant_number: str) -> dict[str, float]:
     """
     Hämtar lagersaldo per butik för ett artikelnummer.
-    Returnerar {warehouseId: quantity} — bara poster med quantity > 0.
+    Returnerar {warehouseId: quantity} för alla butiker, inklusive de med
+    saldo 0 — se KNOWN_ISSUES.md #5 för varför en explicit nolla måste
+    lagras istället för att raden bara försvinner (en saknad rad tolkas som
+    en saknad observation av en framtida delta-vy, inte som "0 i lager").
     """
     resp = requests.get(
         STOCK_URL,
@@ -122,9 +125,8 @@ def fetch_stock(variant_number: str) -> dict[str, float]:
     )
     resp.raise_for_status()
     return {
-        str(entry["id"]): entry["stock"]["quantity"]
+        str(entry["id"]): entry.get("stock", {}).get("quantity") or 0
         for entry in resp.json()
-        if (entry.get("stock", {}).get("quantity") or 0) > 0
     }
 
 
@@ -191,7 +193,7 @@ def collect_snapshot() -> tuple[dict, dict, dict]:
             print(f"  {i + 1}/{len(products)} artiklar klara...")
 
     total_entries = sum(len(v) for v in stock.values())
-    print(f"  Klart — {total_entries} butiksposter med lager > 0")
+    print(f"  Klart — {total_entries} butiksposter (inkl. nollsaldon)")
     return products, warehouses, stock
 
 
