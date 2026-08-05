@@ -62,3 +62,17 @@ material for this already exists in `MIGRATION.md` and `CLAUDE.md`; this
 is really about whether it needs a more explicit/discoverable form (a
 script template? a documented decision tree of "which existing script is
 this most like"?) rather than living implicitly in prior conversations.
+
+## 6. Prompt Claude from the mobile app to build scripts / check the database
+
+Investigate a structure so that prompts sent through the Claude mobile app
+can build scripts and check the database (running queries, checking script
+status, etc.) against this repo, the same way this desktop/CLI session
+does — without being at a computer.
+
+## 7. Push notifications to the Claude mobile app for flagged issues
+
+Once #2 (outlier/anomaly flagging) exists, get a push notification to the
+phone whenever something flagged actually needs attention — an outlier,
+a broken scraper, whatever the flagging logic decides is worth surfacing —
+rather than having to go look for it.
