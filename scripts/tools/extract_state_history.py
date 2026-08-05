@@ -24,11 +24,11 @@ RAW_DIR = REPO_ROOT / "raw"
 
 def git(*args: str) -> str:
     result = subprocess.run(
-        ["git", *args], cwd=REPO_ROOT, capture_output=True, text=True
+        ["git", *args], cwd=REPO_ROOT, capture_output=True
     )
     if result.returncode != 0:
-        raise RuntimeError(f"git {' '.join(args)} failed: {result.stderr}")
-    return result.stdout
+        raise RuntimeError(f"git {' '.join(args)} failed: {result.stderr.decode('utf-8', errors='replace')}")
+    return result.stdout.decode("utf-8")
 
 
 def get_state_files() -> list[str]:

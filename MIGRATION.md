@@ -35,30 +35,39 @@ Supabase's pooler requires the DB username in `postgres.<project-ref>` form
 certificate-validation error) removes the SNI-based tenant routing
 alternative.
 
+**`KNOWN_ISSUES.md` #9 resolved 2026-08-05.** Fixed the `extract_state_history.py`
+encoding bug, re-extracted all of `raw/`, and audited every text/JSONB
+column in the schema (77 + 7 columns, all clean now). The bug turned out to
+be much bigger than the original Nelly finding: it also corrupted
+`rugvista_variant_snapshot.variant_name`/`.parent_name` (49,083 of 89,098
+rows — the single largest data-quality bug found in this whole migration),
+`ahlsell_led_panel_article.product_name` (48 rows — previously misdiagnosed
+in `KNOWN_ISSUES.md` #7 as genuine source corruption; it wasn't), and
+`ahlsell_warehouse.name`/`.city`/`.address` (67/48/75 of 110 rows). All four
+reloaded via new one-off `upsert_rows`-based fix scripts in `scripts/tools/`
+(`fix_rugvista_encoding.py`, `fix_ahlsell_encoding.py`) rather than the
+original `insert_rows`/`ON CONFLICT DO NOTHING` loaders, since those skip
+rows that already exist instead of correcting them.
+
 Remaining work, in priority order:
 
-1. **Fix `KNOWN_ISSUES.md` #9** (encoding bug in `extract_state_history.py`'s
-   `git()` helper — missing `encoding="utf-8"` on `subprocess.run`, silently
-   corrupting å/ä/ö in every backfilled `raw/` table on Windows, not just
-   Nelly) — deferred by decision, revisit before trusting any Swedish text
-   in a backfilled (pre-live-wiring) row. Now also affects the live
-   `By Category` Power Query tab directly (category split pre/post
-   2026-07-27), not just the underlying data.
-2. **Review the 8 Google Trends scripts** (`KNOWN_ISSUES.md` #11) — none
+1. **Review the 8 Google Trends scripts** (`KNOWN_ISSUES.md` #11) — none
    were run live during migration (deliberately, to avoid 429/CAPTCHA risk);
    unknown whether they still work against Google's current defenses. Now
    that their Power Query tabs are live, a broken scraper means those tabs
    silently stop getting new months rather than just the raw table.
-3. **Fix `KNOWN_ISSUES.md` #5** (Ahlsell `fetch_stock()` drops
+   **Explicitly deferred again — handle separately, last, per 2026-08-05
+   decision.**
+2. **Fix `KNOWN_ISSUES.md` #5** (Ahlsell `fetch_stock()` drops
    zero-quantity warehouse rows instead of storing them) — `ahlsell_plejd_sales_v`
    validated clean against *existing* history, but the underlying gap risk
    is still live for future zero-stock events. Worth fixing before leaning
    on that view long-term.
-4. **Build `rvrc_variant_snapshot`/`nelly_variant_snapshot` delta views**
+3. **Build `rvrc_variant_snapshot`/`nelly_variant_snapshot` delta views**
    once enough daily history has accumulated (both started empty at
    migration time, no backfill was possible — check back in a couple of
    weeks).
-5. **`KNOWN_ISSUES.md` #3** (delta scripts assume exactly one day between
+4. **`KNOWN_ISSUES.md` #3** (delta scripts assume exactly one day between
    runs, several pipelines) — worth a general robustness pass, not just a
    one-off fix per pipeline, now that the calendar-date-gap pattern has
    proven itself twice (Rugvista, Anoto).
@@ -198,7 +207,7 @@ stopped; do not migrate without first deciding whether to revive or retire it.
 | `fetch_anoto_amazon_data.py` | — | `anoto_amazon_data.xlsx` | daily | **Migrerad** | Raw capture live (`anoto_amazon_data`, PK `snapshot_date`). Backfilled directly from the xlsx (append-only, 95 rows, no duplicates). `0` is the script's own "not found that day" sentinel for both columns — kept as-is in the DB rather than converted to NULL, to match existing xlsx semantics exactly. |
 | `amazon_scape_bought_playwright_us_de.py` | — | `fractal_scape_refine_data.xlsx` | daily | **Migrerad** | Raw capture live (`amazon_scape_refine_data`, PK `(snapshot_date, product, country)`). Wide xlsx (2 columns per product-country pair) melted to long rows. One known same-day double-run (2025-11-30, two rows with slightly different scrape results) resolved by `ON CONFLICT` keeping the first — 242 xlsx rows → 2892 of 2904 attempted observations inserted (12 skipped = that duplicate row × 6 products × 2 countries). Note: `daily.yml`'s job-summary `OUTFILE` map still points at the old `scape_bought_by_country.xlsx` path (stale since 2025-12-03) — cosmetic bug in the summary table, unrelated to this migration, worth a separate small fix. |
 | `track_nelly_aov.py` | — | `nelly_aov.xlsx` | daily | **Migrerad** | Raw capture live (`nelly_aov`, PK `snapshot_date`). Backfilled directly from the xlsx (291 rows, no duplicates). Live test run found 0 prices on all 10 pages — confirmed root cause of the ~8-day staleness: Nelly's HTML/selectors have likely changed. Documented as `KNOWN_ISSUES.md` #6; the script silently no-ops (no Excel or DB write) when this happens, exactly like before — unrelated to and unchanged by this migration. |
-| `track_ahlsell_led_panel_inventory.py` | `ahlsell_led_panel_state.json` | `ahlsell_led_panel_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`ahlsell_led_panel_article`, `ahlsell_led_panel_stock_snapshot`). Simpler than Ahlsell/Plejd: this endpoint only returns per-article *totals* across all warehouses, no per-warehouse breakdown, so no `ahlsell_warehouse`-equivalent table. `ahlsell_led_panel_brand_stock_v` (per-brand daily totals) built and validated against the xlsx "Varumärken" sheet — 0 discrepancies, 551 observations. 48 pre-existing mojibake rows in `ahlsell_led_panel_article.product_name` found during validation but left as-is (confirmed present in the raw git history itself, not introduced by this migration, and only affects now-delisted articles) — `KNOWN_ISSUES.md` #7. |
+| `track_ahlsell_led_panel_inventory.py` | `ahlsell_led_panel_state.json` | `ahlsell_led_panel_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`ahlsell_led_panel_article`, `ahlsell_led_panel_stock_snapshot`). Simpler than Ahlsell/Plejd: this endpoint only returns per-article *totals* across all warehouses, no per-warehouse breakdown, so no `ahlsell_warehouse`-equivalent table. `ahlsell_led_panel_brand_stock_v` (per-brand daily totals) built and validated against the xlsx "Varumärken" sheet — 0 discrepancies, 551 observations. 48 mojibake rows in `ahlsell_led_panel_article.product_name` found during validation — originally believed to be genuine pre-existing source corruption, but turned out to be the same `extract_state_history.py` encoding bug as `KNOWN_ISSUES.md` #9; fixed 2026-08-05 via `scripts/tools/fix_ahlsell_encoding.py`. |
 | `track_anoto_inventory.py` | `anoto_inventory_state.json`, `neo_inventory_state.json` | `anoto_inventory.xlsx` | daily | **Migrerad** | Raw capture live (`anoto_variant_snapshot`, PK `(snapshot_date, store, variant_id)`, `store` = `anoto`/`neo`). Denormalized like `rugvista_variant_snapshot` — price/title captured per snapshot, not a separate dimension table. `anoto_daily_sales_v` built and validated against both stores' "Daily Summary" sheets — required the same calendar-date gap guard as `rugvista_daily_sales_v` (a handful of inq.shop variants were transiently absent from single days' fetches); after that fix, 0 discrepancies except one deliberate divergence (2026-07-04, Neo) where the view correctly excludes a delta spanning a day the pipeline itself skipped, rather than reproducing that flaw like the xlsx does (`KNOWN_ISSUES.md` #3). |
 | `track_rvrc_sales.py` | `rvrc_sales_state.json` | `rvrc_sales.xlsx` | daily | **Migrerad** | Two raw tables: `rvrc_sales_daily_summary` (aggregate, fully backfilled and **validated against the xlsx "Daily Summary" sheet — 0 discrepancies, 143 days**, after filling a 2026-07-27 gap the same migration-day timing gap seen elsewhere) and `rvrc_variant_snapshot` (per-product-colour, **not backfillable** — the "Latest Detail" xlsx sheet is replaced not appended each run, so no history was ever retrievable; starts from the day migration landed). The "already ran today" skip branch rebuilds the variant snapshot from that day's still-current "Latest Detail" sheet instead of skipping the database. No delta view yet — `rvrc_variant_snapshot` only has a few days of history so far, not enough to validate a view against. |
 | `track_nelly_inventory.py` | `nelly_inventory_state.json` | `nelly_inventory.xlsx` | daily | **Migrerad** | Two raw tables, same split as RVRC: `nelly_daily_summary` (aggregate, fully backfilled and **validated against the xlsx "Daily Summary" sheet — 0 discrepancies, 137 days**, after filling the same 2026-07-27 gap; two of the earliest dates, 2026-03-17/18, predate the script's "returns" field entirely — stored as NULL, correctly treated as 0 to match the xlsx writer's own `.get("returns", 0)` default) and `nelly_variant_snapshot` (per-product-colour, **not backfillable at all** — unlike RVRC there's no leftover "Latest Detail" sheet either, so even the skip-branch can only rebuild the daily summary, not this table; starts from the day migration landed). Note: the docstring's Playwright cluster-ID auto-discovery is currently dead code — `main()` uses the hardcoded `ELEVATE_CLUSTER_ID` constant directly, so no browser automation was actually involved in this migration. No delta view yet — same reason as RVRC, insufficient history in `nelly_variant_snapshot` to validate against. |
