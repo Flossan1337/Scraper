@@ -151,15 +151,31 @@ Vyn är nu godkänd för analys.
 - Dubblettrader för **2025-10-03** och **2025-10-04** (tre identiska rader vardera).
 - Saknade datum: **2025-11-16** och **2026-04-03**.
 
-## 3. Delta-baserade script antar exakt ett dygns mellanrum mellan körningar
+## 3. Delta-baserade script antar exakt ett dygns mellanrum mellan körningar — varning tillagd 2026-08-05
 
 Script som beräknar sålda enheter/intäkt via lagerdifferens mellan snapshots
-(t.ex. `track_rvrc_sales.py`, `track_nelly_inventory.py`, `track_anoto_inventory.py`,
+(`track_nelly_inventory.py`, `track_anoto_inventory.py` — båda butiker, Anoto och Neo —
 `track_ahlsell_plejd_inventory.py`) antar att föregående snapshot är från gårdagen. Ingen av dem
-verifierar faktisk tid sedan föregående körning — om en nattlig körning missas (t.ex. timeout,
+verifierade faktisk tid sedan föregående körning — om en nattlig körning missas (t.ex. timeout,
 se `continue-on-error: true` i [.github/workflows/daily.yml](.github/workflows/daily.yml)) räknas
 mellanliggande dagars förändring ändå som ett enda dygns delta, vilket ger felaktigt höga
 sålda-enheter-siffror för den dagen.
+
+(`track_rvrc_sales.py` **tillhör inte denna grupp** trots att det stod med i en tidigare version
+av denna punkt — det scriptet använder API:ts egna `sale_last_week`/`sale_last_days`-rullande
+räknare direkt, inte en egen lagerdifferens mellan två körningar, så det är immunt mot denna
+felklass redan genom sin design.)
+
+**Åtgärdat (delvis):** ett gemensamt `core.cli.warn_if_gap()` kollar nu, i alla tre påverkade
+script, kalenderdagarna mellan föregående sparade snapshot och dagens körning, och skriver en
+tydlig `[VARNING]`-rad i körloggen om gapet är större än 1 dag. **Detta ändrar inte den
+beräknade siffran** — samma beteende som redan validerats mot xlsx-historiken bibehålls
+medvetet (jfr `ahlsell_plejd_sales_v`/`rugvista_daily_sales_v`/`anoto_daily_sales_v`, som redan
+har en oberoende, korrekt kalenderdagsspärr på SQL-vy-nivå och därför inte påverkas av detta
+script-sidiga problem alls). Kvarstår: `nelly_daily_summary`/`rvrc_sales_daily_summary` har
+ingen motsvarande vy-nivå-skyddsmekanism ännu — de Python-beräknade siffrorna skrivs direkt till
+databasen och läses direkt av Power Query, så ett missat dygn där skulle fortfarande synas som
+en felaktig topp i "Daily Summary"-fliken, bara nu med en varningsrad i körloggen som förklaring.
 
 ## 4. Dashboardflikar som matas av borttagna/stoppade script visar platt linje efter 2026-06-22
 

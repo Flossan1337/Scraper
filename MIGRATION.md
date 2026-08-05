@@ -49,6 +49,26 @@ reloaded via new one-off `upsert_rows`-based fix scripts in `scripts/tools/`
 original `insert_rows`/`ON CONFLICT DO NOTHING` loaders, since those skip
 rows that already exist instead of correcting them.
 
+**`KNOWN_ISSUES.md` #5 fixed 2026-08-05.** Removed the `quantity > 0` filter
+in `fetch_stock()` — confirmed live via the API that zero-stock warehouse
+entries genuinely exist and were being silently dropped (110 entries for a
+sample article, 11 at zero). Takes effect from the next scheduled run.
+
+**`KNOWN_ISSUES.md` #3 addressed (partially) 2026-08-05.** Added a shared
+`core.cli.warn_if_gap()` helper, wired into the three scripts that actually
+have this bug (`track_nelly_inventory.py`, `track_anoto_inventory.py` for
+both Anoto and Neo, `track_ahlsell_plejd_inventory.py`) — prints a clear
+`[VARNING]` in the run log when the previous snapshot is more than one
+calendar day old, without changing the computed number (deliberately, to
+preserve behavior already validated against xlsx history). Along the way,
+found that `track_rvrc_sales.py` was wrongly included in the original list —
+it uses the Voyado API's own `sale_last_week`/`sale_last_days` rolling
+counters, not a self-computed stock delta, so it's immune by design.
+Still open: `nelly_daily_summary`/`rvrc_sales_daily_summary` have no
+SQL-view-level protection the way Rugvista/Anoto/Ahlsell do (see item 2
+below) — a missed day still produces a wrong number there, just a visible
+one now.
+
 Remaining work, in priority order:
 
 1. **Review the 8 Google Trends scripts** (`KNOWN_ISSUES.md` #11) — none
@@ -58,19 +78,11 @@ Remaining work, in priority order:
    silently stop getting new months rather than just the raw table.
    **Explicitly deferred again — handle separately, last, per 2026-08-05
    decision.**
-2. **Fix `KNOWN_ISSUES.md` #5** (Ahlsell `fetch_stock()` drops
-   zero-quantity warehouse rows instead of storing them) — `ahlsell_plejd_sales_v`
-   validated clean against *existing* history, but the underlying gap risk
-   is still live for future zero-stock events. Worth fixing before leaning
-   on that view long-term.
-3. **Build `rvrc_variant_snapshot`/`nelly_variant_snapshot` delta views**
+2. **Build `rvrc_variant_snapshot`/`nelly_variant_snapshot` delta views**
    once enough daily history has accumulated (both started empty at
    migration time, no backfill was possible — check back in a couple of
-   weeks).
-4. **`KNOWN_ISSUES.md` #3** (delta scripts assume exactly one day between
-   runs, several pipelines) — worth a general robustness pass, not just a
-   one-off fix per pipeline, now that the calendar-date-gap pattern has
-   proven itself twice (Rugvista, Anoto).
+   weeks). This would also give Nelly/RVRC the same calendar-day-guard
+   protection Rugvista/Anoto/Ahlsell already have at the view level.
 
 Separate from the migration itself, still open:
 - `track_nelly_aov.py`'s scraper is broken (`KNOWN_ISSUES.md` #6) — a real

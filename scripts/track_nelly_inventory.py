@@ -74,6 +74,7 @@ from openpyxl.utils import get_column_letter
 from psycopg2.extras import Json
 
 from core.db import safe_insert
+from core.cli import warn_if_gap
 
 # ── Elevate API configuration ──────────────────────────────────────────────────
 ELEVATE_BASE_URL_TEMPLATE = "https://{cluster}.api.esales.apptus.cloud"
@@ -1113,6 +1114,9 @@ def main() -> None:
     print("\nComputing inventory summary and stock-delta estimates ...")
     last_snapshot = state.get("last_snapshot") or {}
     is_first_run  = not last_snapshot
+
+    if state.get("daily_summary"):
+        warn_if_gap(state["daily_summary"][-1]["date"], today, "sold/restock/return")
 
     summary, detail_rows, new_snapshot, product_catalog = compute_snapshot_summary(
         curr_by_market, last_snapshot

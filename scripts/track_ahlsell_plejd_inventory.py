@@ -42,6 +42,7 @@ from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 from core.db import safe_insert
+from core.cli import warn_if_gap
 
 # ── Konfiguration ──────────────────────────────────────────────────────────────
 BASE_URL       = "https://www.ahlsell.se"
@@ -490,6 +491,10 @@ def main() -> None:
     print(f"=== Ahlsell Plejd lageruppföljning — {today} ===\n")
 
     state = load_state()
+
+    prior_dates = [d for d in state.get("snapshots", {}) if d != today]
+    if prior_dates:
+        warn_if_gap(max(prior_dates), today, "sales-out/sales-in")
 
     if today in state.get("snapshots", {}):
         print(f"Snapshot för {today} finns redan.")

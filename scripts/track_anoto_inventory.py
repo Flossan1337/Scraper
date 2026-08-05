@@ -65,6 +65,7 @@ from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 from core.db import safe_insert
+from core.cli import warn_if_gap
 
 # ── Configuration — Anoto / inq.shop ──────────────────────────────────────────
 SHOP_BASE_URL   = "https://inq.shop"
@@ -765,6 +766,8 @@ def main() -> None:
                 print("\nComputing deltas ...")
                 last_snapshot = anoto_state.get("last_snapshot") or {}
                 is_first_run  = not last_snapshot
+                if anoto_state.get("daily_summary"):
+                    warn_if_gap(anoto_state["daily_summary"][-1]["date"], today, "sold/restock")
                 summary, detail_rows = compute_summary(curr_inv, last_snapshot, catalog)
 
                 if is_first_run:
@@ -848,6 +851,8 @@ def main() -> None:
                 print("\nComputing Neo deltas ...")
                 neo_last_snapshot = neo_state.get("last_snapshot") or {}
                 neo_is_first_run  = not neo_last_snapshot
+                if neo_state.get("daily_summary"):
+                    warn_if_gap(neo_state["daily_summary"][-1]["date"], today, "sold/restock")
                 neo_summary, neo_detail_rows = compute_summary(
                     neo_curr_inv, neo_last_snapshot, neo_catalog
                 )
