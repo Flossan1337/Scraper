@@ -5,31 +5,27 @@ files to Postgres (Supabase). Written 2026-07-28. For open correctness
 questions about specific pipelines, see `KNOWN_ISSUES.md` — this document
 doesn't repeat them, only points at them.
 
-## Next steps (as of 2026-08-03)
+## Next steps (as of 2026-08-05)
 
 Raw capture is done for every active, correctly-shaped pipeline, including
-all 8 Google Trends fetchers and TED lot-detail (both added 2026-08-03).
-Tier 1 and both Tier 2/3 aggregate tables (`rvrc_sales_daily_summary`,
+all 8 Google Trends fetchers and TED lot-detail (added 2026-08-03). Tier 1
+and both Tier 2/3 aggregate tables (`rvrc_sales_daily_summary`,
 `nelly_daily_summary`) are fully validated against xlsx. Four views are
 built and validated (`rugvista_daily_sales_v`, `ahlsell_plejd_sales_v`,
 `ahlsell_led_panel_brand_stock_v`, `anoto_daily_sales_v`).
 
-**Power Query repointing is done for all 13 currently-migratable queries**
-(verified 2026-08-03, all applied to the live `DATA_DASHBOARD.xlsx`):
-- Simple swaps (5): `kpi-history (2)`, `Sheet1` (nelly_aov),
-  `Sheet1 (2)` (rugvista_bestseller_prices), `Sheet1 (6)`
-  (rugvista_daily_sales_v), `Daily Summary` (nelly_daily_summary).
-- Pivot queries (5): `Sheet1 (7)` (fractal_rankings), `Tracking`
-  (amazon_scape_refine_data, double pivot on product×country for
-  Bought/Rank), `category_rankings` (plejd_sensortower_rankings),
-  `AHLSELL SALES OUT` / `PLEJD SALES IN` (both from
-  `ahlsell_plejd_sales_v`, pivoted on category).
-- JSONB-unnesting queries (3): `By Brand`, `By Category`, `Returns Detail`
-  (all from `nelly_daily_summary`'s JSON columns). Applied with two known
-  caveats, both documented rather than blocking: `KNOWN_ISSUES.md` #9 (a
-  `Kläder>Jeans`-style category-name encoding bug affects only dates before
-  2026-07-27) and #10 (a zero-restocks/zero-returns anomaly on 2026-08-02/03,
-  confirmed genuine in the source data, being watched going forward).
+**Power Query repointing is fully done — all 22 queries, verified working
+in the live `DATA_DASHBOARD.xlsx` (2026-08-05).** Batch 4 (the last 9 —
+8 Google Trends tabs + `EQL Pharma AB Detail`) followed the same
+`google_trends_monthly`/`ted_lot_tender` shape as the raw tables: the 8
+Trends tabs pivot on `series` after filtering `pipeline`(+`sheet`) — same
+`Table.Pivot`-after-`Table.SelectRows` pattern as `By Brand`/`By Category`
+in batch 3 — and `EQL Pharma AB Detail` is a straight column select/rename
+off `ted_lot_tender` filtered to that company. `DATA_DASHBOARD.xlsx` now
+has zero local `.xlsx` dependencies for its Power Query sources — only the
+one Postgres connection (confirmed via Data Source Settings, modulo a
+stale/orphaned credential-list entry per old file path that Excel doesn't
+auto-prune — harmless, doesn't affect what a query actually reads from).
 
 Required one-time local setup discovered along the way: Excel's PostgreSQL
 connector needs Npgsql **4.0.17 or earlier** specifically installed with the
@@ -39,22 +35,20 @@ Supabase's pooler requires the DB username in `postgres.<project-ref>` form
 certificate-validation error) removes the SNI-based tenant routing
 alternative.
 
-**Remaining 9 tabs** (the 8 Google Trends tabs + `EQL Pharma AB Detail`) are
-still on local xlsx — their source pipelines are now migrated (raw capture
-live in `google_trends_monthly`/`ted_lot_tender`), but repointing Power Query
-for them hasn't been done yet; pick up whenever you want to continue that
-batch.
-
 Remaining work, in priority order:
 
 1. **Fix `KNOWN_ISSUES.md` #9** (encoding bug in `extract_state_history.py`'s
    `git()` helper — missing `encoding="utf-8"` on `subprocess.run`, silently
    corrupting å/ä/ö in every backfilled `raw/` table on Windows, not just
    Nelly) — deferred by decision, revisit before trusting any Swedish text
-   in a backfilled (pre-live-wiring) row.
+   in a backfilled (pre-live-wiring) row. Now also affects the live
+   `By Category` Power Query tab directly (category split pre/post
+   2026-07-27), not just the underlying data.
 2. **Review the 8 Google Trends scripts** (`KNOWN_ISSUES.md` #11) — none
    were run live during migration (deliberately, to avoid 429/CAPTCHA risk);
-   unknown whether they still work against Google's current defenses.
+   unknown whether they still work against Google's current defenses. Now
+   that their Power Query tabs are live, a broken scraper means those tabs
+   silently stop getting new months rather than just the raw table.
 3. **Fix `KNOWN_ISSUES.md` #5** (Ahlsell `fetch_stock()` drops
    zero-quantity warehouse rows instead of storing them) — `ahlsell_plejd_sales_v`
    validated clean against *existing* history, but the underlying gap risk
