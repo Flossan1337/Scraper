@@ -2383,6 +2383,22 @@
       "sld_x_list_eur": 176477.91,
       "product_colors_total": 2099,
       "product_colors_with_sales": 350
+    },
+    {
+      "date": "2026-08-08",
+      "timestamp": "2026-08-08T03:00:48",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.9455,
+        "GBP": 12.7622,
+        "NOK": 0.9973
+      },
+      "slw_x_sell_eur": 1190849.19,
+      "sld_x_sell_eur": 135079.55,
+      "slw_x_list_eur": 1537794.19,
+      "sld_x_list_eur": 176480.55,
+      "product_colors_total": 2075,
+      "product_colors_with_sales": 349
     }
   ],
   "reference_products": [
@@ -2390,61 +2406,61 @@
       "base_key": "10067_2698",
       "title": "RVRC GP Shorts",
       "sale_last_week": 526,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     },
     {
       "base_key": "11027_4170",
       "title": "Nordwand Pants",
       "sale_last_week": 453,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     },
     {
       "base_key": "10461_962",
       "title": "Phantom Trail Low Hiking Shoes",
       "sale_last_week": 405,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     },
     {
       "base_key": "10169_2001",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 372,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     },
     {
       "base_key": "10716_2001",
       "title": "3-pack Ultimate Soft Boxers",
       "sale_last_week": 361,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     },
     {
       "base_key": "10005_2001",
       "title": "RVRC GP Pro Pants",
       "sale_last_week": 305,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     },
     {
       "base_key": "11031_4170",
       "title": "Nordwand Pants",
       "sale_last_week": 285,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     },
     {
       "base_key": "10004_2851",
       "title": "RVRC GP Pants",
       "sale_last_week": 280,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     },
     {
       "base_key": "11028_2001",
       "title": "Nordwand Pro Pants",
       "sale_last_week": 274,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     },
     {
       "base_key": "10088_2370",
       "title": "Hike & Dive Shorts",
       "sale_last_week": 270,
-      "date": "2026-08-07"
+      "date": "2026-08-08"
     }
   ]
 }
