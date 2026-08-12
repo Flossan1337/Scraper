@@ -2447,68 +2447,84 @@
       "sld_x_list_eur": 94331.0,
       "product_colors_total": 2085,
       "product_colors_with_sales": 395
+    },
+    {
+      "date": "2026-08-12",
+      "timestamp": "2026-08-12T03:28:13",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 10.9635,
+        "GBP": 12.8254,
+        "NOK": 0.9994
+      },
+      "slw_x_sell_eur": 1494204.92,
+      "sld_x_sell_eur": 134544.87,
+      "slw_x_list_eur": 1569276.92,
+      "sld_x_list_eur": 141658.87,
+      "product_colors_total": 2087,
+      "product_colors_with_sales": 398
     }
   ],
   "reference_products": [
     {
       "base_key": "10169_2001",
       "title": "Hike & Dive Shorts",
-      "sale_last_week": 496,
-      "date": "2026-08-11"
+      "sale_last_week": 410,
+      "date": "2026-08-12"
     },
     {
       "base_key": "10067_2698",
       "title": "RVRC GP Shorts",
-      "sale_last_week": 449,
-      "date": "2026-08-11"
+      "sale_last_week": 381,
+      "date": "2026-08-12"
     },
     {
       "base_key": "11027_4170",
       "title": "Nordwand Pants",
-      "sale_last_week": 369,
-      "date": "2026-08-11"
+      "sale_last_week": 321,
+      "date": "2026-08-12"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 324,
-      "date": "2026-08-11"
-    },
-    {
-      "base_key": "10461_962",
-      "title": "Phantom Trail Low Hiking Shoes",
-      "sale_last_week": 296,
-      "date": "2026-08-11"
+      "sale_last_week": 312,
+      "date": "2026-08-12"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 282,
-      "date": "2026-08-11"
+      "sale_last_week": 292,
+      "date": "2026-08-12"
+    },
+    {
+      "base_key": "10461_962",
+      "title": "Phantom Trail Low Hiking Shoes",
+      "sale_last_week": 253,
+      "date": "2026-08-12"
     },
     {
       "base_key": "10004_2851",
       "title": "RVRC GP Pants",
-      "sale_last_week": 274,
-      "date": "2026-08-11"
-    },
-    {
-      "base_key": "10716_2001",
-      "title": "3-pack Ultimate Soft Boxers",
-      "sale_last_week": 268,
-      "date": "2026-08-11"
+      "sale_last_week": 245,
+      "date": "2026-08-12"
     },
     {
       "base_key": "10976_2001",
       "title": "Athletic Lightweight Pants",
-      "sale_last_week": 251,
-      "date": "2026-08-11"
+      "sale_last_week": 239,
+      "date": "2026-08-12"
+    },
+    {
+      "base_key": "10716_2001",
+      "title": "3-pack Ultimate Soft Boxers",
+      "sale_last_week": 230,
+      "date": "2026-08-12"
     },
     {
       "base_key": "10975_2706",
       "title": "Athletic Lightweight Pants",
-      "sale_last_week": 240,
-      "date": "2026-08-11"
+      "sale_last_week": 216,
+      "date": "2026-08-12"
     }
   ]
 }
