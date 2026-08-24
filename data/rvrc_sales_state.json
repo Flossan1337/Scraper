@@ -2639,68 +2639,84 @@
       "sld_x_list_eur": 246881.15,
       "product_colors_total": 2116,
       "product_colors_with_sales": 430
+    },
+    {
+      "date": "2026-08-24",
+      "timestamp": "2026-08-24T02:27:54",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.0625,
+        "GBP": 12.9129,
+        "NOK": 1.0179
+      },
+      "slw_x_sell_eur": 2009233.62,
+      "sld_x_sell_eur": 366840.66,
+      "slw_x_list_eur": 2456518.62,
+      "sld_x_list_eur": 459673.66,
+      "product_colors_total": 2101,
+      "product_colors_with_sales": 437
     }
   ],
   "reference_products": [
     {
       "base_key": "14149_2001",
       "title": "Field Outdoor Pants",
-      "sale_last_week": 905,
-      "date": "2026-08-23"
+      "sale_last_week": 943,
+      "date": "2026-08-24"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 694,
-      "date": "2026-08-23"
-    },
-    {
-      "base_key": "10007_2851",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 456,
-      "date": "2026-08-23"
-    },
-    {
-      "base_key": "11035_2001",
-      "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 440,
-      "date": "2026-08-23"
+      "sale_last_week": 930,
+      "date": "2026-08-24"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 387,
-      "date": "2026-08-23"
+      "sale_last_week": 583,
+      "date": "2026-08-24"
     },
     {
-      "base_key": "14377_2001",
-      "title": "Nordwand Stretch Pants",
-      "sale_last_week": 378,
-      "date": "2026-08-23"
+      "base_key": "10007_2851",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 510,
+      "date": "2026-08-24"
+    },
+    {
+      "base_key": "11035_2001",
+      "title": "Nordwand Stretch High-waist Pants",
+      "sale_last_week": 485,
+      "date": "2026-08-24"
     },
     {
       "base_key": "10739_4141",
       "title": "Campfire Shirt",
-      "sale_last_week": 377,
-      "date": "2026-08-23"
+      "sale_last_week": 450,
+      "date": "2026-08-24"
     },
     {
       "base_key": "10982_2001",
       "title": "Adventure Cargo Stretch Pants",
-      "sale_last_week": 362,
-      "date": "2026-08-23"
+      "sale_last_week": 441,
+      "date": "2026-08-24"
     },
     {
-      "base_key": "14355_2001",
-      "title": "Twig High-waist Pants",
-      "sale_last_week": 346,
-      "date": "2026-08-23"
+      "base_key": "14377_2001",
+      "title": "Nordwand Stretch Pants",
+      "sale_last_week": 419,
+      "date": "2026-08-24"
     },
     {
-      "base_key": "11190_2001",
-      "title": "Flow High-waisted Capri Leggings",
-      "sale_last_week": 287,
-      "date": "2026-08-23"
+      "base_key": "14188_2001",
+      "title": "Hiker Fleece Hoodie",
+      "sale_last_week": 343,
+      "date": "2026-08-24"
+    },
+    {
+      "base_key": "14187_2001",
+      "title": "Hiker Fleece Hoodie",
+      "sale_last_week": 341,
+      "date": "2026-08-24"
     }
   ]
 }
