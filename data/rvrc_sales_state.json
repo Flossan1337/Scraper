@@ -2767,6 +2767,22 @@
       "sld_x_list_eur": 667808.85,
       "product_colors_total": 2146,
       "product_colors_with_sales": 503
+    },
+    {
+      "date": "2026-09-01",
+      "timestamp": "2026-09-01T06:10:39",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.11,
+        "GBP": 12.9717,
+        "NOK": 1.0257
+      },
+      "slw_x_sell_eur": 3101611.84,
+      "sld_x_sell_eur": 666130.05,
+      "slw_x_list_eur": 3136569.84,
+      "sld_x_list_eur": 667430.05,
+      "product_colors_total": 2157,
+      "product_colors_with_sales": 502
     }
   ],
   "reference_products": [
@@ -2774,61 +2790,61 @@
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
       "sale_last_week": 1030,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
       "sale_last_week": 982,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
       "sale_last_week": 641,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     },
     {
       "base_key": "10713_4100",
       "title": "Silence Proshell 3L Jacket",
       "sale_last_week": 540,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     },
     {
       "base_key": "10828_2001",
       "title": "Cyclone 3L Shell Jacket",
       "sale_last_week": 510,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     },
     {
       "base_key": "10728_2288",
       "title": "Sherpa Hoodie",
       "sale_last_week": 477,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     },
     {
       "base_key": "10711_4100",
       "title": "Silence Proshell 3L Jacket",
       "sale_last_week": 442,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     },
     {
       "base_key": "10728_2018",
       "title": "Sherpa Hoodie",
       "sale_last_week": 440,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     },
     {
       "base_key": "11031_2001",
       "title": "Nordwand Pants",
       "sale_last_week": 394,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     },
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
       "sale_last_week": 358,
-      "date": "2026-08-31"
+      "date": "2026-09-01"
     }
   ]
 }
