@@ -2783,68 +2783,84 @@
       "sld_x_list_eur": 667430.05,
       "product_colors_total": 2157,
       "product_colors_with_sales": 502
+    },
+    {
+      "date": "2026-09-02",
+      "timestamp": "2026-09-02T05:36:04",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.1145,
+        "GBP": 12.9759,
+        "NOK": 1.0274
+      },
+      "slw_x_sell_eur": 3935540.81,
+      "sld_x_sell_eur": 558202.7,
+      "slw_x_list_eur": 3976899.81,
+      "sld_x_list_eur": 559677.7,
+      "product_colors_total": 2172,
+      "product_colors_with_sales": 528
     }
   ],
   "reference_products": [
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 1030,
-      "date": "2026-09-01"
+      "sale_last_week": 1304,
+      "date": "2026-09-02"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 982,
-      "date": "2026-09-01"
-    },
-    {
-      "base_key": "10004_2003",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 641,
-      "date": "2026-09-01"
+      "sale_last_week": 851,
+      "date": "2026-09-02"
     },
     {
       "base_key": "10713_4100",
       "title": "Silence Proshell 3L Jacket",
-      "sale_last_week": 540,
-      "date": "2026-09-01"
+      "sale_last_week": 728,
+      "date": "2026-09-02"
     },
     {
       "base_key": "10828_2001",
       "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 510,
-      "date": "2026-09-01"
-    },
-    {
-      "base_key": "10728_2288",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 477,
-      "date": "2026-09-01"
+      "sale_last_week": 706,
+      "date": "2026-09-02"
     },
     {
       "base_key": "10711_4100",
       "title": "Silence Proshell 3L Jacket",
-      "sale_last_week": 442,
-      "date": "2026-09-01"
+      "sale_last_week": 652,
+      "date": "2026-09-02"
     },
     {
       "base_key": "10728_2018",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 440,
-      "date": "2026-09-01"
+      "sale_last_week": 621,
+      "date": "2026-09-02"
     },
     {
       "base_key": "11031_2001",
       "title": "Nordwand Pants",
-      "sale_last_week": 394,
-      "date": "2026-09-01"
+      "sale_last_week": 582,
+      "date": "2026-09-02"
     },
     {
-      "base_key": "10004_2001",
+      "base_key": "10728_2288",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 577,
+      "date": "2026-09-02"
+    },
+    {
+      "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 358,
-      "date": "2026-09-01"
+      "sale_last_week": 547,
+      "date": "2026-09-02"
+    },
+    {
+      "base_key": "11027_2001",
+      "title": "Nordwand Pants",
+      "sale_last_week": 517,
+      "date": "2026-09-02"
     }
   ]
 }
