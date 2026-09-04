@@ -1,106 +1,39 @@
-# fetch_nelly_trends_v4.py
+# fetch_nelly_trends_v3.py
+#
+# NOTE on the chunking below: it splits 2016→today into 12-month windows with
+# a 2-month overlap and stitches them, which costs ~13 requests per country
+# (~52 for all four, ~104 HTTP calls). That was built to dodge 429s, but the
+# 429s never came from request size - see the TrendReq comment in
+# core/trends.py. Google returns the whole 2016→today window in ONE call.
+#
+# The chunking is kept for now because switching to a single call changes
+# every value in the output (Google's own normalisation vs. our stitched
+# reconstruction), and that needs a diff against the full xlsx history first.
+# See KNOWN_ISSUES.md. Of all the trends scripts this is the one most likely
+# to exhaust the per-IP quota on a single run.
 
-import time
-import random
-import json
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
-import pandas as pd
-from pytrends.request import TrendReq
+from datetime import datetime
 from pathlib import Path
 
-from core.trends import write_trends_to_db
+import pandas as pd
+from dateutil.relativedelta import relativedelta
+
+# Not pytrends: see the TrendReq comment in core/trends.py. Retries and the
+# per-chunk cache live in core.trends now - no sleeps needed here.
+from core.trends import TrendReq, TrendsQuotaError, fetch_series, write_trends_to_db
 
 # ── OUTPUT ──
 REPO_ROOT  = Path(__file__).resolve().parent.parent
 DATA_DIR   = REPO_ROOT / "data"
 DATA_DIR.mkdir(exist_ok=True)
-OUTPUT_CSV   = DATA_DIR / "nelly_trends_monthly.xlsx"
-CACHE_FILE   = DATA_DIR / "nelly_trends_cache.json"   # partial-result cache
+OUTPUT_CSV = DATA_DIR / "nelly_trends_monthly.xlsx"
 
 COUNTRIES   = [("SE", "SE"), ("NO", "NO"), ("DK", "DK"), ("FI", "FI")]
 SEARCH_TERM = "nelly"
 START_DATE  = datetime(2016, 1, 1)
 
-# ── TUNABLES ──
-CHUNK_MONTHS        = 12    # months per request
-OVERLAP_MONTHS      = 2     # overlap used for inter-chunk normalisation
-CHUNK_SLEEP         = 8.0   # seconds between chunks within the same country
-COUNTRY_SLEEP       = 45.0  # seconds between countries (longer cool-down)
-MAX_RETRIES         = 6
-BACKOFF_START       = 90.0  # first 429 back-off in seconds
-BACKOFF_MAX         = 600.0 # cap at 10 minutes
-BACKOFF_MULT        = 2.0
-
-# Optional proxy list – leave empty to use no proxy.
-# Format: ["http://user:pass@host:port", ...]
-PROXIES: list[str] = []
-
-# ── USER-AGENTS ──
-_USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-]
-
-
-def _is_rate_limit(msg: str) -> bool:
-    triggers = ["429", "toomanyrequest", "response code 429", "too many requests"]
-    return any(t in msg.lower() for t in triggers)
-
-
-def mk_client() -> TrendReq:
-    """Fresh client per attempt – resets cookies and session state."""
-    kwargs: dict = dict(
-        hl="en-US",
-        tz=120,
-        retries=0,
-        backoff_factor=0,
-        timeout=(10, 45),
-        requests_args={"headers": {"User-Agent": random.choice(_USER_AGENTS)}},
-    )
-    if PROXIES:
-        proxy = random.choice(PROXIES)
-        kwargs["proxies"] = {"https": proxy, "http": proxy}
-    return TrendReq(**kwargs)
-
-
-def _fetch_single_chunk(geo: str, start: datetime, end: datetime) -> pd.DataFrame:
-    """Fetch one time-window with retry/backoff. Returns raw weekly DataFrame."""
-    timeframe = f"{start:%Y-%m-%d} {end:%Y-%m-%d}"
-    attempt = 0
-    backoff = BACKOFF_START
-
-    while True:
-        try:
-            py = mk_client()
-            print(f"  [{geo}] Fetching {timeframe} …")
-            py.build_payload([SEARCH_TERM], timeframe=timeframe, geo=geo)
-            df = py.interest_over_time()
-
-            if df.empty:
-                raise RuntimeError("Empty DataFrame – possible silent 429")
-
-            df = df.drop(columns=["isPartial"], errors="ignore")
-            return df[[SEARCH_TERM]]
-
-        except Exception as exc:
-            attempt += 1
-            msg = str(exc)
-            if attempt > MAX_RETRIES:
-                print(f"  [{geo}] GIVING UP after {MAX_RETRIES} retries: {msg}")
-                raise
-
-            if _is_rate_limit(msg):
-                sleep_s = min(backoff, BACKOFF_MAX) + random.uniform(10, 30)
-                print(f"  [{geo}] 429 – sleeping {sleep_s:.0f}s (attempt {attempt}/{MAX_RETRIES}) …")
-                backoff = min(backoff * BACKOFF_MULT, BACKOFF_MAX)
-            else:
-                sleep_s = random.uniform(15, 30)
-                print(f"  [{geo}] Error '{msg}' – retry {attempt}/{MAX_RETRIES} in {sleep_s:.0f}s …")
-
-            time.sleep(sleep_s)
+CHUNK_MONTHS   = 12    # months per request
+OVERLAP_MONTHS = 2     # overlap used for inter-chunk normalisation
 
 
 def _normalise_and_stitch(chunks: list[pd.DataFrame]) -> pd.DataFrame:
@@ -123,10 +56,7 @@ def _normalise_and_stitch(chunks: list[pd.DataFrame]) -> pd.DataFrame:
         prev_mean = result.loc[overlap_idx, SEARCH_TERM].mean()
         nxt_mean  = nxt.loc[overlap_idx, SEARCH_TERM].mean()
 
-        if nxt_mean > 0:
-            scale = prev_mean / nxt_mean
-        else:
-            scale = 1.0
+        scale = (prev_mean / nxt_mean) if nxt_mean > 0 else 1.0
 
         nxt_scaled = nxt.copy()
         nxt_scaled[SEARCH_TERM] = nxt_scaled[SEARCH_TERM] * scale
@@ -138,7 +68,7 @@ def _normalise_and_stitch(chunks: list[pd.DataFrame]) -> pd.DataFrame:
     return result.sort_index()
 
 
-def fetch_country_monthly(geo: str, col_suffix: str) -> pd.DataFrame:
+def fetch_country_monthly(py: TrendReq, geo: str, col_suffix: str) -> pd.DataFrame:
     """
     Fetches the full history for one country by requesting ~CHUNK_MONTHS-sized
     windows with OVERLAP_MONTHS overlap, then normalises and stitches them.
@@ -147,100 +77,81 @@ def fetch_country_monthly(geo: str, col_suffix: str) -> pd.DataFrame:
     chunks: list[pd.DataFrame] = []
 
     chunk_start = START_DATE
-    chunk_index = 0
-
     while chunk_start < end_date:
         chunk_end = min(chunk_start + relativedelta(months=CHUNK_MONTHS), end_date)
+        timeframe = f"{chunk_start:%Y-%m-%d} {chunk_end:%Y-%m-%d}"
+        print(f"  [{geo}] Fetching {timeframe} …")
 
-        if chunk_index > 0:
-            sleep_s = CHUNK_SLEEP + random.uniform(2, 6)
-            print(f"  [{geo}] Sleeping {sleep_s:.0f}s before next chunk …")
-            time.sleep(sleep_s)
+        # Cached per chunk in core.trends - an interrupted run resumes.
+        df = fetch_series([SEARCH_TERM], timeframe=timeframe, geo=geo, client=py)
+        chunks.append(df[[SEARCH_TERM]])
 
-        raw = _fetch_single_chunk(geo, chunk_start, chunk_end)
-        chunks.append(raw)
-        chunk_index += 1
+        # Termination guard. Without it this loop never ends: once chunk_end
+        # clamps to end_date, subtracting the overlap rewinds chunk_start to
+        # the same date every iteration, and the same window is fetched
+        # forever. (The pre-2026-09 version had this bug too - it just span
+        # slowly, behind sleeps and 429s, so it looked like a rate-limit hang.
+        # build_chunks() in fetch_rugvista_trends_v2.py has the same guard.)
+        if chunk_end >= end_date:
+            break
+        next_start = chunk_end - relativedelta(months=OVERLAP_MONTHS)
+        if next_start <= chunk_start:
+            break
 
         # Move start forward, keeping overlap for normalisation
-        chunk_start = chunk_end - relativedelta(months=OVERLAP_MONTHS)
+        chunk_start = next_start
 
     stitched = _normalise_and_stitch(chunks)
     stitched = stitched.rename(columns={SEARCH_TERM: f"Nelly_{col_suffix}"})
     return stitched.resample("ME").mean()
 
 
-# ── Disk cache helpers ──────────────────────────────────────────────────────
-
-def _load_cache() -> dict:
-    if CACHE_FILE.exists():
-        try:
-            return json.loads(CACHE_FILE.read_text())
-        except Exception:
-            pass
-    return {}
-
-
-def _save_cache(cache: dict) -> None:
-    CACHE_FILE.write_text(json.dumps(cache))
-
-
-def _df_to_cache(df: pd.DataFrame) -> dict:
-    return df.reset_index().rename(columns={"date": "Date"}).to_dict(orient="list")
-
-
-def _df_from_cache(data: dict) -> pd.DataFrame:
-    df = pd.DataFrame(data)
-    df["Date"] = pd.to_datetime(df["Date"])
-    return df.set_index("Date")
-
-
-# ── Main ────────────────────────────────────────────────────────────────────
-
 def main():
-    cache = _load_cache()
-    master: pd.DataFrame | None = None
+    # One client for the whole run - the shared warmed session is the point.
+    py = TrendReq(hl="en-US", tz=120)
 
-    for geo, suffix in COUNTRIES:
-        col = f"Nelly_{suffix}"
+    master = None
+    failed = []
 
-        # Resume from cache if available
-        if col in cache:
-            print(f"[{geo}] Loaded from cache – skipping fetch.")
-            df = _df_from_cache(cache[col])
-        else:
-            if master is not None:
-                sleep_s = COUNTRY_SLEEP + random.uniform(10, 20)
-                print(f"[{geo}] Sleeping {sleep_s:.0f}s before next country …")
-                time.sleep(sleep_s)
+    for i, (geo, suffix) in enumerate(COUNTRIES):
+        try:
+            print(f"[{geo}] Starting chunked fetch …")
+            df = fetch_country_monthly(py, geo, suffix)
+            master = df if master is None else master.join(df, how="outer")
+            print(f"[{geo}] Done – {len(df)} months fetched.")
+        except TrendsQuotaError as e:
+            # Every remaining country would fail the same way. Stop now; a
+            # rerun resumes from the cached chunks.
+            print(f"[{geo}] {e}")
+            failed.extend(g for g, _ in COUNTRIES[i:])
+            break
+        except Exception as exc:
+            failed.append(geo)
+            print(f"[{geo}] FAILED: {exc}")
 
-            try:
-                print(f"[{geo}] Starting chunked fetch …")
-                df = fetch_country_monthly(geo, suffix)
-                cache[col] = _df_to_cache(df)
-                _save_cache(cache)
-                print(f"[{geo}] Done – {len(df)} months fetched.")
-            except Exception as exc:
-                print(f"[{geo}] CRITICAL FAILURE: {exc}")
-                continue
+    if master is None:
+        print("\nNo data fetched - nothing written.")
+        return
 
-        master = df if master is None else master.join(df, how="outer")
+    out_df = master.sort_index().reset_index().rename(columns={"date": "Date"})
 
-    if master is not None:
-        out_df = master.sort_index().reset_index().rename(columns={"date": "Date"})
-        out_df.to_excel(str(OUTPUT_CSV), index=False, engine="openpyxl")
-        print(f"\nSUCCESS – wrote {len(out_df)} months → {OUTPUT_CSV}")
-        print(f"Columns: {list(out_df.columns)}")
+    if failed:
+        # A partial pull would silently drop columns from the xlsx. Write
+        # only when every country came back.
+        print(f"\nINCOMPLETE - missing {', '.join(failed)}. Nothing written.")
+        print("Rerun to fetch only what is missing (the rest are cached).")
+        return
 
-        db_rows, db_error = write_trends_to_db("nelly", {"default": out_df})
-        if db_error is not None:
-            print(f"Databas: MISSLYCKADES - {db_error}")
-        else:
-            print(f"Databas: {db_rows} rader uppserta")
-        # Clean up cache after a successful full run
-        if CACHE_FILE.exists():
-            CACHE_FILE.unlink()
+    out_df.to_excel(str(OUTPUT_CSV), index=False, engine="openpyxl")
+    print(f"\nSUCCESS – wrote {len(out_df)} months → {OUTPUT_CSV}")
+    print(f"Columns: {list(out_df.columns)}")
+
+    db_rows, db_error = write_trends_to_db("nelly", {"default": out_df})
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES - {db_error}")
     else:
-        print("No data fetched.")
+        print(f"Databas: {db_rows} rader uppserta")
+
 
 if __name__ == "__main__":
     main()

@@ -1,9 +1,11 @@
 pandas>=2.0.0
 openpyxl>=3.1.0
+python-dateutil>=2.9.0
 python-dotenv>=1.0.0
 psycopg2-binary>=2.9.9
-pytrends>=4.9.2
 requests>=2.32.0
+# Google Trends fetchas via core/trends.py (egen TrendReq ovanpa requests),
+# inte pytrends - se kommentaren dar om varfor pytrends alltid far 429.
 beautifulsoup4>=4.12.3
 # valfritt men snabbare/robustare HTML-parser:
 lxml>=5.2.0

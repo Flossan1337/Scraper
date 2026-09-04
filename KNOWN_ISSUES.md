@@ -1,23 +1,126 @@
 # Known Issues
 
-Senast uppdaterad: 2026-08-05
+Senast uppdaterad: 2026-09-04
 
-## 11. Google Trends-scripten (8 st) troligen trasiga p.g.a. hårdare rate-limiting
+## 13. `fetch_nelly_trends_v3.py` loopade oändligt i chunk-slingan — LÖST 2026-09-04, men värdena har skiftat
+
+`fetch_country_monthly()` avancerade fönstret med
+`chunk_start = chunk_end - relativedelta(months=OVERLAP_MONTHS)`. Så fort `chunk_end` klampades
+till `end_date` (dagens datum) hamnade `chunk_start` på `end_date - 2 månader`, nästa varv
+klampade `chunk_end` till `end_date` igen, och samma fönster hämtades **för alltid**. Slingan kunde
+bara avbrytas av att `_fetch_single_chunk()` gav upp efter `MAX_RETRIES` 429:or och kastade vidare
+— vilket landade i `except`-grenen i `main()` och gav "CRITICAL FAILURE" utan data. Buggen fanns
+alltså i originalkoden också; den maskerades av att körningen ändå dog på 429 långt innan, så det
+såg ut som ett rate-limit-problem.
+
+`build_chunks()` i `fetch_rugvista_trends_v2.py` har rätt vakt sedan tidigare
+(`if cur <= chunks[-1][0]: break`). Samma vakt är nu tillagd i nelly. Körningen tar 10 s och gör
+44 chunks.
+
+**Konsekvens för datan:** nelly-serierna är hopsydda chunk för chunk, så när kedjan av
+skalfaktorer ändras ändras nivån på hela serien. Nya utdatan mot den tidigare committade xlsx:en,
+125 överlappande månader:
+
+| serie | korrelation | max abs diff | medel abs diff |
+|---|---|---|---|
+| Nelly_SE | 0.9937 | 32.2 | 15.20 |
+| Nelly_NO | 0.9886 | 23.1 | 12.49 |
+| Nelly_DK | 0.9948 | 11.9 | 3.13 |
+| Nelly_FI | 0.9948 | 24.6 | 11.39 |
+
+Formen är alltså intakt (korrelation 0,99+) men **nivån har flyttat sig 10–15 punkter i snitt**.
+Jämför man nelly-tal före och efter 2026-09-04 jämför man därför inte samma skala. Det är ett
+argument till för att gå över till ett enda anrop per land (se punkt 11) — då kommer värdena från
+Googles egen normalisering i stället för vår skalkedja, och blir stabila mellan körningar.
+Utdatan börjar dessutom nu på 2015-12-31 i stället för 2016-01-31 (en extra månad).
+
+## 12. Plejd-trends för små länder (ES, CH, IS, DK) är brus, inte en tidsserie
+
+Upptäckt när utdatan från `fetch_plejd_trends.py` diffades mot den committade historiken
+2026-09-04 (SE och NO rörde sig knappt — max 5 respektive 7 punkter — vilket bekräftar att själva
+hämtningen är likvärdig med den gamla). De små länderna rörde sig i stället upp till 100 punkter:
+
+| serie | andel månader = 0 | 100-toppen låg | flyttade toppen |
+|---|---|---|---|
+| Plejd_SE | 2 % | 2025-11 | nej |
+| Plejd_NO | 41 % | 2025-11 | nej |
+| Plejd_FI | 50 % | 2025-10 | nej |
+| Plejd_NL | 64 % | 2026-03 → 2026-07 | ja |
+| Plejd_DE | 80 % | 2025-11 → 2026-07 | ja |
+| Plejd_IS | 91 % | 2024-11 → 2026-01 | ja |
+| Plejd_DK | 91 % | 2024-11 → 2024-10 | ja |
+| Plejd_ES | 95 % | 2025-10 → 2019-02 | ja |
+| Plejd_CH | 98 % | 2019-03 → 2023-06 | ja |
+
+Google normaliserar varje serie 0–100 mot sin egen toppmånad. När 90–98 % av månaderna är noll
+avgörs toppen av var Googles sampling råkar hitta någon sökning alls, och den landar på olika
+månad varje körning — varpå hela serien skalas om. Det är inte ett fel i hämtningen och går inte
+att fixa där; det är vad Trends returnerar för för lite sökvolym.
+
+**Praktiskt:** `Plejd_SE`, `Plejd_NO` och `Plejd_FI` går att följa över tid. `Plejd_ES`,
+`Plejd_CH`, `Plejd_IS` och `Plejd_DK` ska inte användas för nivå- eller trendjämförelser mellan
+körningar, och `Plejd_NL`/`Plejd_DE` bör tolkas försiktigt. Samma resonemang gäller alla
+Trends-serier med hög nollandel, inte bara Plejd.
+
+## 11. ~~Google Trends-scripten (8 st) troligen trasiga p.g.a. hårdare rate-limiting~~ — ROTORSAK HITTAD och FIXAD 2026-09-04
 
 Alla 8 `fetch_*_trends.py`-script migrerades till `google_trends_monthly` (schema +
 engångsbackfill från befintlig xlsx-historik, se `scripts/tools/load_google_trends_history.py`),
 och DB-skrivning kopplades in i varje scripts kod (`core/trends.py`). **Ingen av de 8 kördes
 live under migreringen** — beslutat medvetet, eftersom Google Trends/pytrends är extremt
-känsligt för 429-blockering och en full körning kan ta flera minuter per script. Det är alltså
-inte verifierat att skrivvägen fungerar mot en riktig scrape, bara att koden är korrekt kopplad
-(verifierat med syntetisk testdata mot databasen) och att bakgrundsdatan i xlsx-filerna är
-korrekt inläst.
+känsligt för 429-blockering och en full körning kan ta flera minuter per script.
 
-Misstanken är att scripten redan är trasiga eller att Google skärpt sina motåtgärder sedan
-scripten skrevs (flera har redan omfattande backoff/retry-logik som tyder på tidigare problem).
-**Måste ses över** – kör varje script manuellt och kontrollera om det fortfarande får fram data
-innan de körs/schemaläggs på riktigt, eller innan man litar på att `google_trends_monthly`
-kommer fyllas på med nya månader framöver.
+Misstanken stämde: alla 8 var trasiga. Men **inte** för att Google skärpt sig mot volym —
+rotorsaken var pytrends självt, och backoff-logiken gjorde saken sämre, inte bättre.
+
+**Mätt 2026-09-04, inte gissat:**
+
+* Google svarar **429 på den FÖRSTA requesten i en ny HTTP-session** och sätter `NID`-cookien
+  på just det 429-svaret. Varje efterföljande request i **samma** session går igenom.
+* 40 explore-anrop i rad utan någon fördröjning alls: **39 st 200, 1 st 429** — och 429:an var
+  request nr 0. Hela svängen tog 2,1 sekunder.
+* Headers spelar ingen roll. En naken session utan ens `User-Agent` beter sig identiskt.
+  Testat: bara UA, UA+Accept-Language, UA+Referer, full webbläsarupp­sättning — alla 0/6 när
+  sessionen är ny per anrop, alla OK när sessionen återanvänds.
+
+pytrends gör precis tvärtom: `mk_client()` byggde en ny `TrendReq` **per land och per retry**,
+så varje request var "en sessions första request" och fick därför 429. Scripten tolkade det som
+"vi är rate-limitade", sov 60 s+ med exponentiell backoff, och byggde sedan **ännu en** färsk
+klient — vilket garanterade nästa 429. Backoffen orsakade felet, den överlevde det inte. Det är
+därför körningarna tog evigheter och ändå slutade utan data.
+
+**Ovanpå det finns en riktig per-IP-kvot — men den tar betalt för nya sessioner, inte för
+requests.** Under felsökningen låste sig IP:n i ~12 minuter efter ~100 anrop, men de anropen var
+utspridda över massor av nybyggda sessioner som var och en brände en handskaknings-429. Till
+jämförelse: alla 8 script i rad, ~156 requests på en enda uppvärmd session, tog 27 sekunder och
+slog inte i något tak alls. En normal full körning ligger alltså inte i närheten av gränsen. Det
+som kostar är att bygga om sessioner i en loop — precis det gamla pytrends-koden gjorde.
+
+**Fix:** `pytrends` är borta ur `requirements.txt`. `core/trends.py` har en egen
+`TrendReq` (samma API-yta: `build_payload()` + `interest_over_time()`) ovanpå `requests`, med
+
+* **en** uppvärmd session per process, delad av alla anrop,
+* `NID`-cookien cachad på disk i `.cache/` så omkörningar slipper handskakningens 429,
+* korta retrier (1 s, 3 s) i stället för minutlång backoff,
+* en brytare: efter 3 helt misslyckade requests i rad kastas `TrendsQuotaError` direkt, så ett
+  kvotstopp avbryter körningen på sekunder i stället för att mala i minuter,
+* `fetch_series()` som cachar varje hämtad serie på disk, nycklad på exakt request — en körning
+  som dör halvvägs återupptas vid omkörning i stället för att börja om.
+
+Scripten skriver dessutom bara xlsx/databas när **alla** serier kom hem, annars tappas kolumner
+tyst ur xlsx:en.
+
+### Kvarstår: chunkningen i `fetch_nelly_trends_v3.py` och `fetch_rugvista_trends_v2.py`
+
+Båda delar upp 2016→idag i småfönster med överlapp och syr ihop resultatet. Kommentarerna i
+dem säger att en enda stor förfrågan "triggar rate-limiting nästan alltid" — **det är fel**,
+Google returnerar hela 2016→idag i ett anrop (verifierat för Plejd: 129 månadspunkter).
+
+Chunkningen kostar därför onödigt mycket kvot — nelly gör ~13 anrop per land, ~52 totalt,
+alltså ~104 HTTP-requests per körning, och är det script som mest sannolikt slår i per-IP-kvoten
+på egen hand. Den behålls ändå tills någon diffar ett enkelanrop mot hela xlsx-historiken:
+byte från hopsydd serie till Googles egen normalisering **ändrar varenda siffra i utdatan**, och
+enligt CLAUDE.md får en xlsx inte peka om utan att diffen är gjord och förstådd.
 
 ## 9. ~~`extract_state_history.py` dubbelkodade å/ä/ö på Windows — smittade backfillad historik~~ — LÖST 2026-08-05
 

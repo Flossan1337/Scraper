@@ -1,14 +1,19 @@
 # fetch_plejd_trends.py
 
-import time, random
 from datetime import datetime
-import pandas as pd
-from pytrends.request import TrendReq
-from requests.exceptions import RequestException
-import os
 from pathlib import Path
 
-from core.trends import write_trends_to_db
+import pandas as pd
+
+# Not pytrends: see the TrendReq comment in core/trends.py. pytrends builds a
+# fresh session per request, and Google answers a session's first request with
+# a 429, so under pytrends every request fails.
+from core.trends import (
+    TrendReq,
+    TrendsQuotaError,
+    fetch_series,
+    write_trends_to_db,
+)
 
 # -- OUTPUT to Scripts/data --
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -28,104 +33,62 @@ COUNTRIES = [
     ("DK", "DK"),
 ]
 SEARCH_TERM = "Plejd"
+FETCH_START = "2016-01-01"
 
-# -- TUNABLES --
-BASE_SLEEP    = 15.0
-MAX_RETRIES   = 5
-BACKOFF_START = 60.0
-BACKOFF_MULT  = 1.5
-
-def mk_client():
-    """Creates a fresh client to reset cookies/session."""
-    user_agents = [
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"
-    ]
-
-    return TrendReq(
-        hl="en-US",
-        tz=120,
-        retries=0,
-        backoff_factor=0,
-        timeout=(10, 30),
-        requests_args={
-            "headers": {
-                "User-Agent": random.choice(user_agents)
-            }
-        },
-    )
-
-def fetch_country_monthly(geo_code: str, col_suffix: str) -> pd.DataFrame:
-    timeframe = f"2016-01-01 {datetime.now():%Y-%m-%d}"
-    attempt = 0
-    current_backoff = BACKOFF_START
-
-    while True:
-        try:
-            py = mk_client()
-
-            print(f"[{geo_code}] Requesting data...")
-            py.build_payload([SEARCH_TERM], timeframe=timeframe, geo=geo_code)
-
-            df = py.interest_over_time()
-            if df.empty:
-                print(f"[{geo_code}] Warning: Empty response from Google.")
-                raise Exception("Empty DataFrame returned")
-
-            df = df.drop(columns=["isPartial"], errors="ignore")
-            df = df.rename(columns={SEARCH_TERM: f"Plejd_{col_suffix}"})
-
-            return df.resample("ME").mean()
-
-        except Exception as e:
-            attempt += 1
-            msg = str(e)
-            is_rate_limit = "429" in msg or "TooManyRequests" in msg
-
-            if attempt > MAX_RETRIES:
-                print(f"[{geo_code}] GIVING UP after {MAX_RETRIES} retries. Error: {msg}")
-                raise e
-
-            if is_rate_limit:
-                sleep_s = current_backoff + random.uniform(5, 15)
-                print(f"[{geo_code}] RATE LIMITED (429). Cleaning cookies & sleeping {sleep_s:.1f}s...")
-                current_backoff *= BACKOFF_MULT
-            else:
-                sleep_s = random.uniform(5, 10)
-                print(f"[{geo_code}] Error ({msg}). Retry {attempt}/{MAX_RETRIES} in {sleep_s:.1f}s...")
-
-            time.sleep(sleep_s)
 
 def main():
+    # One client for the whole run - the shared warmed session is the point.
+    py = TrendReq(hl="en-US", tz=120)
+    timeframe = f"{FETCH_START} {datetime.now():%Y-%m-%d}"
+
     master = None
+    failed = []
+    quota_hit = False
 
     for geo, suffix in COUNTRIES:
-        if master is not None:
-            sleep_initial = BASE_SLEEP + random.uniform(2, 8)
-            print(f"Sleeping {sleep_initial:.1f}s before next country...")
-            time.sleep(sleep_initial)
-
         try:
-            df = fetch_country_monthly(geo, suffix)
+            df = fetch_series([SEARCH_TERM], timeframe=timeframe, geo=geo, client=py)
+            df = df.drop(columns=["isPartial"], errors="ignore")
+            df = df.rename(columns={SEARCH_TERM: f"Plejd_{suffix}"})
+            df = df.resample("ME").mean()
             master = df if master is None else master.join(df, how="outer")
+            print(f"[{geo}] OK - {len(df)} months")
+        except TrendsQuotaError as e:
+            # Every remaining country would fail the same way. Stop now and
+            # keep what we have; a rerun resumes from the cache.
+            print(f"[{geo}] {e}")
+            failed.extend(g for g, _ in COUNTRIES[COUNTRIES.index((geo, suffix)):])
+            quota_hit = True
+            break
         except Exception as e:
-            print(f"CRITICAL FAILURE for {geo}: {e}")
-            continue
+            failed.append(geo)
+            print(f"[{geo}] FAILED: {e}")
 
-    if master is not None:
-        out_df = master.sort_index().reset_index().rename(columns={"date": "Date"})
-        out_df.to_excel(str(OUTPUT_CSV), index=False, engine="openpyxl")
-        print(f"SUCCESS! Wrote {len(out_df)} months to {OUTPUT_CSV}")
-        print(f"Columns: {list(out_df.columns)}")
+    if master is None:
+        print("\nNo data fetched - nothing written.")
+        if quota_hit:
+            print("Rate limited. Wait, then rerun; cached countries are reused.")
+        return
 
-        db_rows, db_error = write_trends_to_db("plejd", {"default": out_df})
-        if db_error is not None:
-            print(f"Databas: MISSLYCKADES - {db_error}")
-        else:
-            print(f"Databas: {db_rows} rader uppserta")
+    out_df = master.sort_index().reset_index().rename(columns={"date": "Date"})
+
+    if failed:
+        # A partial pull would silently drop columns from the xlsx and leave
+        # stale months in the DB. Write only when every country is present.
+        print(f"\nINCOMPLETE - missing {', '.join(failed)}. Nothing written.")
+        print("Rerun to fetch only the missing countries (the rest are cached).")
+        return
+
+    out_df.to_excel(str(OUTPUT_CSV), index=False, engine="openpyxl")
+    print(f"\nSUCCESS! Wrote {len(out_df)} months to {OUTPUT_CSV}")
+    print(f"Columns: {list(out_df.columns)}")
+
+    db_rows, db_error = write_trends_to_db("plejd", {"default": out_df})
+    if db_error is not None:
+        print(f"Databas: MISSLYCKADES - {db_error}")
     else:
-        print("No data fetched.")
+        print(f"Databas: {db_rows} rader uppserta")
+
 
 if __name__ == "__main__":
     main()

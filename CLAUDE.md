@@ -77,6 +77,42 @@ migrated data — don't re-discover or duplicate either.
 - Not every script has a `_state.json` — about half write straight to
   `.xlsx`. Those need a different backfill approach; see `MIGRATION.md`.
 
+## Google Trends
+
+- All Trends access goes through `core.trends.TrendReq` / `fetch_series()`.
+  **Never `pytrends`** — it is gone from `requirements.txt` on purpose. Google
+  answers the *first* request of any HTTP session with 429 (that response is
+  what sets the `NID` cookie); pytrends builds a fresh session per request, so
+  under pytrends every request fails. Measured 2026-09-04: 40 back-to-back
+  calls on one reused session, no delays at all, gave 39x 200 in 2.1s.
+- **Do not "fix" a 429 by adding sleeps, backoff, rotating User-Agents, or a
+  fresh client per attempt.** That is what the old scripts did and it is what
+  broke them — a new client per retry guarantees the next 429, and the 60s
+  exponential backoff turned a 2-second job into a 45-minute one that still
+  returned nothing. Retries in `core/trends.py` are seconds, deliberately.
+- There is also a real per-IP quota, separate from the session handshake, and
+  what it charges for is **new sessions, not requests**. Measured 2026-09-04:
+  ~100 requests spread over many freshly-built sessions (each burning a
+  handshake 429) locked the IP out for ~12 minutes, while all 8 scripts run
+  back to back — ~156 requests on one warmed session — finished in 27s and
+  tripped nothing. So a normal full run is nowhere near the limit; what costs
+  you is rebuilding sessions in a loop, which is exactly what the old
+  pytrends code did.
+- When the quota does trip, it cannot be slept around inside a run.
+  `core.trends` raises `TrendsQuotaError` after 3 consecutive failed requests
+  so a script aborts in seconds instead of grinding; catch it, stop the loop,
+  and write nothing.
+- `fetch_series()` caches each series on disk under `.cache/trends/`, keyed on
+  the exact request. A run killed by the quota is resumed by just running it
+  again — only the missing series are refetched. `.cache/` is gitignored;
+  it is derived, delete it to force a clean pull (`clear_series_cache()`).
+- A script writes its xlsx and DB rows only when **every** series came back.
+  A partial pull silently drops columns from the xlsx that Power Query reads.
+- Don't chunk a long timeframe into small windows to avoid rate limits — the
+  premise is false, Google returns 2016→today in one call. `fetch_nelly_trends_v3.py`
+  and `fetch_rugvista_trends_v2.py` still chunk-and-stitch for historical
+  reasons; that is a documented debt in `KNOWN_ISSUES.md`, not a pattern to copy.
+
 ## Excel / Power Query
 
 - Never delete a `data/*.xlsx` file or repoint a Power Query source to a
