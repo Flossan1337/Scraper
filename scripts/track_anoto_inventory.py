@@ -2,9 +2,16 @@
 """
 track_anoto_inventory.py
 
-Tracks inq.shop (Anoto/Inq) AND shop.neosmartpen.com (Neo Smart Pen)
-per-variant inventory and estimates daily sales via stock deltas.
-Results are written to state JSON files and a shared Excel workbook.
+Tracks inq.shop (Anoto/Inq) per-variant inventory and estimates daily
+sales via stock deltas. Results are written to a state JSON file, an Excel
+workbook and Postgres (anoto_variant_snapshot, store='anoto').
+
+Until 2026-09-06 this script also tracked shop.neosmartpen.com (Neo Smart
+Pen) as a second store. That was dropped on purpose - only Anoto is needed.
+Neo's history stays in Postgres (anoto_variant_snapshot rows with
+store='neo') and in git history (data/neo_inventory_state.json); the
+"Neo - *" sheets it used to write are removed from the xlsx by write_excel()
+the first time it runs after the change.
 
 ──────────────────────────────────────────────────────────────────────────────
 Anoto / inq.shop — inventory data
@@ -27,29 +34,15 @@ as plain HTML, extracts this JSON block with a regex, and reads
 inventory_quantity per variant.
 
 ──────────────────────────────────────────────────────────────────────────────
-Neo Smart Pen — inventory data
-──────────────────────────────────────────────────────────────────────────────
-shop.neosmartpen.com is also on Shopify, but its product HTML pages redirect
-to a Shopify checkout intermediary.  Instead, the script uses the public
-Shopify product JSON endpoint:
-
-    GET /products/<handle>.json
-
-This returns full variant objects including inventory_quantity and
-price_currency directly — no HTML parsing needed.
-
-──────────────────────────────────────────────────────────────────────────────
-Sales estimation methodology (applies to both stores)
+Sales estimation methodology
 ──────────────────────────────────────────────────────────────────────────────
 - Negative stock delta (curr < prev) → estimated units sold.
 - Positive delta                     → restock / return (ignored for revenue).
 - Day 1 has no prior snapshot → all deltas are zero (baseline only).
 - est_revenue = est_sold_units × variant_price
 
-State files :
-  data/anoto_inventory_state.json
-  data/neo_inventory_state.json
-Excel output: data/anoto_inventory.xlsx  (all sheets for both stores)
+State file  : data/anoto_inventory_state.json
+Excel output: data/anoto_inventory.xlsx
 """
 
 import json
@@ -81,15 +74,6 @@ STATE_FILE      = (SCRIPT_DIR / ".." / "data" / "anoto_inventory_state.json").re
 SKIP_SKU        = "ROUTEINS"
 # Product titles containing any of these strings are also skipped.
 SKIP_TITLES     = ["Shipping Protection"]
-
-# ── Configuration — Neo Smart Pen ──────────────────────────────────────────────
-NEO_SHOP_BASE_URL   = "https://shop.neosmartpen.com"
-# Neo serves SEK prices to European IPs.  Leave empty to accept the server
-# default, or set to e.g. "USD" if you want to force a specific currency.
-NEO_FORCE_CURRENCY  = ""
-NEO_STATE_FILE      = (SCRIPT_DIR / ".." / "data" / "neo_inventory_state.json").resolve()
-# Neo product titles / SKU prefixes to skip (e.g. gift-card, shipping).
-NEO_SKIP_TITLES     = []
 
 # ── Shared configuration ────────────────────────────────────────────────────────
 XLSX_PATH       = (SCRIPT_DIR / ".." / "data" / "anoto_inventory.xlsx").resolve()
@@ -128,25 +112,6 @@ def load_state() -> dict:
 
 def save_state(state: dict) -> None:
     STATE_FILE.write_text(
-        json.dumps(state, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-
-
-# ── State I/O — Neo Smart Pen ─────────────────────────────────────────────────
-
-def load_neo_state() -> dict:
-    if NEO_STATE_FILE.exists():
-        return json.loads(NEO_STATE_FILE.read_text(encoding="utf-8-sig"))
-    return {
-        "daily_summary":   [],
-        "last_snapshot":   {},
-        "product_catalog": {},
-    }
-
-
-def save_neo_state(state: dict) -> None:
-    NEO_STATE_FILE.write_text(
         json.dumps(state, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
@@ -275,136 +240,6 @@ def fetch_all_inventory(
             print(f"    → {len(inv)} variant(s) with inventory data")
         else:
             print("    → no inventory data found")
-        all_inv.update(inv)
-        all_catalog.update(cat)
-        time.sleep(REQUEST_DELAY)
-
-    return all_inv, all_catalog
-
-
-# ── Product discovery — Neo Smart Pen ─────────────────────────────────────────
-
-def fetch_neo_product_handles() -> list[dict]:
-    """
-    Fetch all product handles from Neo Smart Pen /products.json.
-    Handles pagination automatically (Shopify limit=250 per page).
-    Returns list of {id, handle, title} dicts.
-    """
-    result: list[dict] = []
-    page = 1
-    while True:
-        url  = f"{NEO_SHOP_BASE_URL}/products.json"
-        resp = requests.get(
-            url,
-            params={"limit": 250, "page": page},
-            headers=HEADERS,
-            timeout=(10, 30),
-        )
-        resp.raise_for_status()
-        products = resp.json().get("products", [])
-        if not products:
-            break
-
-        for p in products:
-            title = p.get("title", "")
-            if any(pat.lower() in title.lower() for pat in NEO_SKIP_TITLES):
-                continue
-            result.append({"id": p["id"], "handle": p["handle"], "title": title})
-
-        if len(products) < 250:
-            break
-        page += 1
-        time.sleep(REQUEST_DELAY)
-
-    return result
-
-
-# ── Per-product inventory fetch — Neo Smart Pen ───────────────────────────────
-
-def fetch_neo_product_inventory(handle: str) -> tuple[dict[str, int], dict[str, dict]]:
-    """
-    Fetch a single Neo Smart Pen product via /products/<handle>.json and
-    extract per-variant inventory + metadata.
-
-    The individual product JSON endpoint exposes inventory_quantity and
-    price_currency directly in each variant object — no HTML scraping needed.
-
-    Returns
-    -------
-    inventory : {variant_id_str: inventory_quantity_int}
-    catalog   : {variant_id_str: {product_title, variant_title, sku, price, currency}}
-    """
-    url = f"{NEO_SHOP_BASE_URL}/products/{handle}.json"
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=(10, 30))
-        resp.raise_for_status()
-    except requests.RequestException as exc:
-        print(f"    [WARN] neo/{handle}: {exc}")
-        return {}, {}
-
-    try:
-        data = resp.json()
-    except ValueError as exc:
-        print(f"    [WARN] neo/{handle}: JSON parse error — {exc}")
-        return {}, {}
-
-    product       = data.get("product") or {}
-    product_title = product.get("title", handle)
-    variants      = product.get("variants") or []
-
-    inventory: dict[str, int]  = {}
-    catalog:   dict[str, dict] = {}
-
-    for v in variants:
-        # Skip variants where inventory is not managed by Shopify
-        if v.get("inventory_management") != "shopify":
-            continue
-        qty = v.get("inventory_quantity")
-        if qty is None:
-            continue
-
-        vid = str(v["id"])
-        try:
-            price = float(v.get("price") or 0)
-        except (TypeError, ValueError):
-            price = 0.0
-
-        # Use price_currency from variant if available; fall back to config.
-        currency = (
-            NEO_FORCE_CURRENCY
-            or v.get("price_currency")
-            or "?"
-        )
-
-        inventory[vid] = int(qty)
-        catalog[vid] = {
-            "product_title": product_title,
-            "variant_title": v.get("title", ""),
-            "sku":           v.get("sku", ""),
-            "price":         price,
-            "currency":      currency,
-            "handle":        handle,
-        }
-
-    return inventory, catalog
-
-
-def fetch_all_neo_inventory(
-    handles: list[dict],
-) -> tuple[dict[str, int], dict[str, dict]]:
-    """Fetch inventory for every Neo Smart Pen product, returning merged dicts."""
-    all_inv:     dict[str, int]  = {}
-    all_catalog: dict[str, dict] = {}
-
-    for p in handles:
-        handle = p["handle"]
-        title  = p["title"]
-        print(f"  [{title}]  ({handle})")
-        inv, cat = fetch_neo_product_inventory(handle)
-        if inv:
-            print(f"    → {len(inv)} variant(s) with inventory data")
-        else:
-            print("    → no inventory data found (unmanaged or zero)")
         all_inv.update(inv)
         all_catalog.update(cat)
         time.sleep(REQUEST_DELAY)
@@ -566,7 +401,7 @@ def _autofit(ws) -> None:
         )
 
 
-def write_excel(anoto_state: dict, neo_state: dict) -> None:
+def write_excel(anoto_state: dict) -> None:
     if XLSX_PATH.exists():
         wb = load_workbook(XLSX_PATH)
     else:
@@ -696,7 +531,6 @@ def write_excel(anoto_state: dict, neo_state: dict) -> None:
                 ])
         _autofit(ws_h)
 
-    # ── Anoto sheets (indices 0-3) ────────────────────────────────────────────
     _write_store_sheets(
         anoto_state,
         prefix="",                  # no prefix keeps original sheet names
@@ -704,13 +538,11 @@ def write_excel(anoto_state: dict, neo_state: dict) -> None:
         curr_label=_curr_label(anoto_state, "USD"),
     )
 
-    # ── Neo Smart Pen sheets (indices 4-7) ────────────────────────────────────
-    _write_store_sheets(
-        neo_state,
-        prefix="Neo - ",
-        sheet_index_start=4,
-        curr_label=_curr_label(neo_state, "SEK"),
-    )
+    # Neo Smart Pen tracking was dropped 2026-09-06; drop the sheets it left
+    # behind in an existing workbook so they don't linger as stale data.
+    for name in [n for n in wb.sheetnames if n.startswith("Neo - ")]:
+        del wb[name]
+        print(f"  Removed stale sheet '{name}' (Neo tracking discontinued)")
 
     wb.save(XLSX_PATH)
     print(f"  Saved -> {XLSX_PATH}")
@@ -722,12 +554,9 @@ def main() -> None:
     today = date.today().isoformat()
     now   = datetime.now().isoformat(timespec="seconds")
 
-    print(f"[{now}] Inventory tracker — Anoto/inq.shop + Neo Smart Pen")
+    print(f"[{now}] Inventory tracker — Anoto/inq.shop")
     print("=" * 60)
 
-    # ══════════════════════════════════════════════════════════════════════════
-    # PART 1 — Anoto / inq.shop
-    # ══════════════════════════════════════════════════════════════════════════
     print("\n\u2500\u2500 Anoto / inq.shop \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500")
     anoto_state = load_state()
     anoto_skip  = False
@@ -809,101 +638,11 @@ def main() -> None:
                 anoto_db_rows_written = write_snapshot_to_db("anoto", today, detail_rows)
                 anoto_db_error = write_snapshot_to_db.last_error
 
-    # ══════════════════════════════════════════════════════════════════════════
-    # PART 2 — Neo Smart Pen
-    # ══════════════════════════════════════════════════════════════════════════
-    print("\n\u2500\u2500 Neo Smart Pen \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500")
-    neo_state = load_neo_state()
-    neo_skip  = False
-    neo_db_rows_written = None
-    neo_db_error = None
-
-    if neo_state.get("daily_summary") and neo_state["daily_summary"][-1]["date"] == today:
-        print(
-            f"  Already ran today ({today}). Delete the last entry in daily_summary "
-            f"from {NEO_STATE_FILE.name} to re-run."
-        )
-        neo_skip = True
-        neo_db_rows_written = write_snapshot_to_db(
-            "neo", today, neo_state["daily_summary"][-1].get("detail_rows", [])
-        )
-        neo_db_error = write_snapshot_to_db.last_error
+    if not anoto_skip:
+        print("\nWriting Excel ...")
+        write_excel(anoto_state)
     else:
-        print("\nDiscovering Neo Smart Pen products ...")
-        neo_handles = fetch_neo_product_handles()
-        if not neo_handles:
-            print("  No trackable products found — check Neo shop URL.")
-            neo_skip = True
-        else:
-            print(f"  {len(neo_handles)} product(s) to track:")
-            for p in neo_handles:
-                print(f"    {p['handle']}  (id={p['id']})")
-
-            currency_info = f"currency={NEO_FORCE_CURRENCY}" if NEO_FORCE_CURRENCY else "geo-default currency"
-            print(f"\nFetching Neo inventory ({currency_info}) ...")
-            neo_curr_inv, neo_catalog = fetch_all_neo_inventory(neo_handles)
-            print(f"\n  Total variants with inventory data: {len(neo_curr_inv)}")
-
-            if not neo_curr_inv:
-                print("  No inventory data fetched — skipping Neo.")
-                neo_skip = True
-            else:
-                print("\nComputing Neo deltas ...")
-                neo_last_snapshot = neo_state.get("last_snapshot") or {}
-                neo_is_first_run  = not neo_last_snapshot
-                if neo_state.get("daily_summary"):
-                    warn_if_gap(neo_state["daily_summary"][-1]["date"], today, "sold/restock")
-                neo_summary, neo_detail_rows = compute_summary(
-                    neo_curr_inv, neo_last_snapshot, neo_catalog
-                )
-
-                if neo_is_first_run:
-                    print("  (First run — all deltas are zero / baseline only.)")
-
-                neo_curr_label = neo_summary.get("currency", "SEK")
-                print(f"  Variants tracked         : {neo_summary['total_variants']}")
-                print(f"  Est. sold today (units)  : {neo_summary['est_sold_units']}")
-                print(f"  Est. revenue today       : {neo_summary['est_revenue']:,.2f} {neo_curr_label}")
-                print(f"  Restocks detected        : {neo_summary['restocks']}")
-
-                print(f"\n  By product (est. revenue {neo_curr_label}):")
-                for ptitle, pdata in sorted(
-                    neo_summary["by_product"].items(), key=lambda x: -x[1]["est_rev"]
-                ):
-                    print(
-                        f"    [{ptitle}]  {pdata['est_rev']:,.2f} {neo_curr_label}"
-                        f"  ({pdata['est_sold_units']} units)"
-                        f"  restocks={pdata['restocks']}"
-                    )
-
-                if not isinstance(neo_state.get("daily_summary"), list):
-                    neo_state["daily_summary"] = []
-
-                neo_state["daily_summary"].append({
-                    "date":        today,
-                    "timestamp":   now,
-                    "summary":     neo_summary,
-                    "detail_rows": neo_detail_rows,
-                })
-                neo_state["last_snapshot"]   = neo_curr_inv
-                neo_state["product_catalog"] = {
-                    **neo_state.get("product_catalog", {}), **neo_catalog
-                }
-
-                save_neo_state(neo_state)
-                print(f"\n  State saved -> {NEO_STATE_FILE.name}")
-
-                neo_db_rows_written = write_snapshot_to_db("neo", today, neo_detail_rows)
-                neo_db_error = write_snapshot_to_db.last_error
-
-    # ══════════════════════════════════════════════════════════════════════════
-    # Write combined Excel (always, even if one store was skipped today)
-    # ══════════════════════════════════════════════════════════════════════════
-    if not (anoto_skip and neo_skip):
-        print("\nWriting combined Excel ...")
-        write_excel(anoto_state, neo_state)
-    else:
-        print("\nBoth stores already ran today — skipping Excel update.")
+        print("\nAlready ran today — skipping Excel update.")
 
     print("\nDatabas:")
     if anoto_db_error is not None:
@@ -912,12 +651,6 @@ def main() -> None:
         print(f"  Anoto: {anoto_db_rows_written} rader skrivna")
     else:
         print("  Anoto: hoppades över (ingen data att skriva)")
-    if neo_db_error is not None:
-        print(f"  Neo:   MISSLYCKADES – {neo_db_error}")
-    elif neo_db_rows_written is not None:
-        print(f"  Neo:   {neo_db_rows_written} rader skrivna")
-    else:
-        print("  Neo:   hoppades över (ingen data att skriva)")
 
     print("\nDone.")
 

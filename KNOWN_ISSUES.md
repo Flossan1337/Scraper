@@ -1,6 +1,34 @@
 # Known Issues
 
-Senast uppdaterad: 2026-09-04
+Senast uppdaterad: 2026-09-06
+
+## 14. `anoto_variant_snapshot.price` är i cent för inq.shop men i dollar för Neo — intäkten i xlsx:en är 100x för hög
+
+Upptäckt 2026-09-06 när Anoto-flikarna kopplades in i `DATA_DASHBOARD.xlsx`. inq.shop:s
+inbäddade produkt-JSON (`<script data-section-type="product">`) anger `price` i **cent**
+(15000 = USD 150,00), medan Neo:s `/products/<handle>.json` anger hela **dollar** (189.0).
+`track_anoto_inventory.py` behandlar båda lika (`est_rev = est_sold * price`) och dividerar
+aldrig, så "Est. Revenue (USD)" i `data/anoto_inventory.xlsx` är 100x för hög för inq.shop
+(t.ex. 791 550 för 75 sålda enheter 2026-09-04 — rätt siffra är 7 915,50). Neo-arket är rätt.
+Rådatan i `anoto_variant_snapshot.price` lagrar värdet exakt som källan gav det (900–19000 för
+`store='anoto'`, 5–189 för `store='neo'`); det är intäkts*beräkningen* som var fel, inte
+insamlingen. Den ursprungliga valideringen av `anoto_daily_sales_v` mot xlsx:en (0 avvikelser)
+såg inte det här eftersom båda sidor räknade i cent.
+
+**Fix:** `anoto_daily_sales_v` och nya `anoto_product_daily_sales_v` dividerar priset med 100
+för `store='anoto'` (i vyn, per CLAUDE.md — en fix där gäller hela historiken). Båda vyerna
+validerade om mot xlsx:en 2026-09-06 med xlsx-intäkten/100 för inq.shop: 0 avvikelser för
+Daily Summary (133 + 72 gemensamma dagar) och By Product (1 729 + 2 376 celler), förutom den
+redan dokumenterade avsiktliga Neo-avvikelsen 2026-07-04 (#3). Dashboardens två Anoto-flikar
+(`ANOTO daily sales RAW`, `ANOTO by product RAW`) läser från vyerna och visar alltså dollar.
+(Neo-spårningen lades ner samma dag — Neo-raderna finns kvar i `anoto_variant_snapshot` med
+`store='neo'`, men scriptet hämtar inte längre något från shop.neosmartpen.com.)
+
+**Kvarstår:** Python-scriptet och `data/anoto_inventory.xlsx` räknar fortfarande i cent för
+inq.shop. Medvetet inte ändrat i den här vändan — det skulle ge en kolumn med blandade enheter
+i xlsx:ens historik och bryta xlsx-mot-DB-jämförbarheten. Om xlsx:en ska fortsätta användas bör
+scriptet dividera med 100 vid insamling för inq.shop *och* rådatan skrivas om i samma vända
+(`upsert_rows`, jfr #8/#9), varefter divisorn i vyerna tas bort.
 
 ## 13. `fetch_nelly_trends_v3.py` loopade oändligt i chunk-slingan — LÖST 2026-09-04, men värdena har skiftat
 

@@ -10,6 +10,9 @@
 --     matching the Python `max(0, -delta)`).
 --   - Variants with no preceding snapshot are skipped (first sighting).
 --   - Revenue = units sold * price from the CURRENT snapshot.
+--   - restocks = number of variants whose quantity went UP since the
+--     preceding snapshot (the Python `is_restock` counter, one per variant
+--     regardless of size). Same calendar-day guard as the other columns.
 --   - Deltas only count when the preceding snapshot's date is exactly one
 --     day earlier. A variant can be transiently absent from a single
 --     day's fetch (e.g. 2026-05-08 for several inq.shop variants) even
@@ -19,6 +22,15 @@
 --     KNOWN_ISSUES.md #1) - confirmed concretely on 2026-05-09, where 9
 --     variants missing only from 2026-05-08 inflated that day's estimate
 --     from 127 to 381 units before this guard was added.
+--
+-- Price units differ per store (KNOWN_ISSUES.md #14): inq.shop's embedded
+-- product JSON gives `price` in cents (15000 = USD 150.00), while Neo's
+-- /products/<handle>.json endpoint gives whole dollars (189.0). The raw
+-- table stores each exactly as captured; the store-specific divisor here
+-- is what puts est_sold_revenue in actual USD for both. The Python script
+-- and data/anoto_inventory.xlsx never divide, so their "Est. Revenue
+-- (USD)" for inq.shop is 100x too large - this view is deliberately not
+-- reproducing that.
 --
 -- One known, deliberate divergence from data/anoto_inventory.xlsx: the Neo
 -- pipeline itself skipped 2026-07-03 entirely (missing from its own
@@ -35,7 +47,7 @@ WITH lag AS (
         snapshot_date,
         store,
         variant_id,
-        price,
+        price / CASE store WHEN 'anoto' THEN 100 ELSE 1 END AS price,
         quantity,
         LAG(quantity)      OVER (PARTITION BY store, variant_id ORDER BY snapshot_date) AS prev_quantity,
         LAG(snapshot_date) OVER (PARTITION BY store, variant_id ORDER BY snapshot_date) AS prev_date
@@ -47,7 +59,9 @@ SELECT
     SUM(CASE WHEN snapshot_date - prev_date <= 1
              THEN GREATEST(0, prev_quantity - quantity) ELSE 0 END)::bigint AS est_sold_units,
     ROUND(SUM(CASE WHEN snapshot_date - prev_date <= 1
-                   THEN GREATEST(0, prev_quantity - quantity) * price ELSE 0 END), 2) AS est_sold_revenue
+                   THEN GREATEST(0, prev_quantity - quantity) * price ELSE 0 END), 2) AS est_sold_revenue,
+    SUM(CASE WHEN snapshot_date - prev_date <= 1 AND quantity > prev_quantity
+             THEN 1 ELSE 0 END)::bigint AS restocks
 FROM lag
 WHERE prev_quantity IS NOT NULL
 GROUP BY snapshot_date, store

@@ -139,7 +139,12 @@ CREATE TABLE IF NOT EXISTS ahlsell_led_panel_stock_snapshot (
 -- captured per snapshot rather than a separate dimension table) since price
 -- can change day to day here too. quantity is the raw stock level
 -- (stock_curr); sold-units/revenue/restock are computed from deltas between
--- rows and belong in a future SQL view, not stored here.
+-- rows and live in anoto_daily_sales_v / anoto_product_daily_sales_v, not
+-- stored here. price is stored exactly as each source reports it, which
+-- means different units per store: cents for store='anoto' (inq.shop's
+-- embedded product JSON, 15000 = USD 150.00) and whole dollars for
+-- store='neo' (/products/<handle>.json, 189.0). The views divide by 100 for
+-- 'anoto' - see KNOWN_ISSUES.md #14.
 CREATE TABLE IF NOT EXISTS anoto_variant_snapshot (
     snapshot_date  date NOT NULL,
     store          text NOT NULL,
