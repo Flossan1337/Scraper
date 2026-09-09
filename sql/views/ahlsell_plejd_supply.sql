@@ -3,24 +3,33 @@
 -- The two SUPPLY-side flows, by product group, shaped for a date x category
 -- pivot in Excel:
 --
---   sell_in_*    Plejd  -> Ahlsell's central warehouse
---   branch_in_*  central warehouse -> Ahlsell's branches
+--   sell_in_*      Plejd -> Ahlsell's central warehouse
+--   central_out_*  everything leaving the central warehouse, whether it goes
+--                  to a branch or straight to a customer
 --
 -- Deliberately narrower than ahlsell_plejd_flows_category_v: it carries only
 -- flows that are DIRECTLY MEASURED from stock movements. Nothing here is a
 -- residual and nothing is allocated, so every cell can be traced to an
 -- observed change in a stock level.
 --
---   sell_in_units    = per article, sum of positive changes in central stock.
---                      Central stock only rises when Plejd delivers.
---   branch_in_units  = per article per BRANCH, sum of positive changes.
---                      Measured at the branches, so a delivery to Malmö is
---                      not cancelled by a sale in Umeå. Branch stock rises
---                      only on a delivery from central: measured 2026-09,
---                      just 2 of 67 articles show cumulative branch arrivals
---                      exceeding central departures, 114 units of 42,470
---                      (0.27%), so treating arrivals as central shipments is
---                      sound.
+--   sell_in_units      = per article, sum of POSITIVE changes in central
+--                        stock. Central stock only rises when Plejd delivers.
+--   central_out_units  = per article, sum of NEGATIVE changes in central
+--                        stock. Everything that left, with no attempt to
+--                        say where it went.
+--
+-- Both are computed PER ARTICLE per day, not per day overall, so an article
+-- being replenished does not cancel a different article shipping out on the
+-- same date. Within one article on one date the two are mutually exclusive
+-- by construction: central stock either rose or fell, so a day either counts
+-- as sell-in or as outflow for that article, never both.
+--
+-- central_out_units deliberately does NOT split branch replenishment from
+-- direct-to-customer delivery. That split is not identifiable from stock
+-- levels (see sql/views/ahlsell_plejd_flows.sql) and the estimate of it is a
+-- residual; this column is a direct measurement instead. Roughly two thirds
+-- of it ships straight from Hallsberg to the customer and one third restocks
+-- branches, but that ratio is an estimate and is not applied here.
 --
 -- KNOWN AND ACCEPTED: same-day netting
 -- ------------------------------------
@@ -28,11 +37,13 @@
 -- same two snapshots net off and only the difference is seen. Measured
 -- capture rates:
 --
---   sell_in     ~94%  -- 369 delivery events; the delivery (median +52,
---                        up to +6,473) dwarfs that article's typical daily
---                        outflow (median -10), so little is lost.
---   branch_in   ~83%  -- arrivals average 7.7 units against ~2.3 units of
---                        same-day counter sales, so more is masked here.
+--   sell_in      ~94%  -- 369 delivery events; the delivery (median +52,
+--                         up to +6,473) dwarfs that article's typical daily
+--                         outflow (median -10), so little is lost.
+--   central_out  ~high -- outflow is the frequent, small side of the ledger
+--                         (3,890 article-days, median -10). Only the outflow
+--                         landing on that article's ~4-5 delivery days per
+--                         quarter is masked.
 --
 -- Both under-report; neither over-reports. Levels are conservative, and the
 -- bias is stable over time, so period-on-period comparison is unaffected.
@@ -43,12 +54,12 @@
 -- a wholesale cost below it, which is not observable. Value columns are a
 -- consistently-priced volume proxy for mix and momentum -- NOT Plejd revenue.
 --
--- MISSING DAYS (branch flows only -- sell-in is unaffected)
--- --------------------------------------------------------
---   2026-05-30  branch snapshot was a partial fetch; nulled, which also
---               voids the 05-31 delta. KNOWN_ISSUES.md #15.1.
---   2026-08-25  central collected, branches never were.
--- Three of 102 days carry no branch_in. They are absent, not zero.
+-- MISSING DAYS
+-- ------------
+-- None. Both columns read the central warehouse only, so the branch-side
+-- gaps that affect other views (2026-05-30's partial branch fetch, and
+-- 2026-08-25 where branches were never collected) do not apply here. Every
+-- one of the 102 dates carries both measures.
 --
 -- PRODUCT GROUPING
 -- ----------------
@@ -70,8 +81,8 @@ WITH base AS (
         END                                                    AS product_group,
         f.sell_in_units,
         f.sell_in_value_eff,
-        f.branch_in_units,
-        f.branch_in_units * f.price_eff                        AS branch_in_value_eff
+        f.central_out_units,
+        f.central_out_value_eff
     FROM ahlsell_plejd_flows_v f
     LEFT JOIN ahlsell_article a ON a.article = f.variant_number
 )
@@ -82,8 +93,8 @@ SELECT
     category                                    AS sort_key,
     SUM(sell_in_units)                          AS sell_in_units,
     ROUND(SUM(sell_in_value_eff))               AS sell_in_value_eff,
-    SUM(branch_in_units)                        AS branch_in_units,
-    ROUND(SUM(branch_in_value_eff))             AS branch_in_value_eff
+    SUM(central_out_units)                      AS central_out_units,
+    ROUND(SUM(central_out_value_eff))           AS central_out_value_eff
 FROM base
 GROUP BY snapshot_date, product_group, category;
 -- NO ORDER BY here, deliberately. Power Query folds List.Distinct into
