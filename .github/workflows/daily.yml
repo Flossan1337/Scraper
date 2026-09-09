@@ -131,6 +131,12 @@ jobs:
       - name: Run track_ahlsell_plejd_inventory.py
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          # Central-warehouse stock and prices need a logged-in session. If
+          # these are unset or the login fails the script still collects the
+          # anonymous per-branch data and exits 0 -- it just logs one line and
+          # writes no ahlsell_plejd_daily rows.
+          AHLSELL_USERNAME: ${{ secrets.AHLSELL_USERNAME }}
+          AHLSELL_PASSWORD: ${{ secrets.AHLSELL_PASSWORD }}
         run: python ./scripts/track_ahlsell_plejd_inventory.py
         timeout-minutes: 15
         continue-on-error: true

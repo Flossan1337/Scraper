@@ -38,11 +38,17 @@ CREATE TABLE IF NOT EXISTS ahlsell_stock_snapshot (
 -- track_ahlsell_plejd_inventory.categorize() at load/write time and stored as
 -- data, rather than re-derived from hardcoded article numbers in Python.
 CREATE TABLE IF NOT EXISTS ahlsell_article (
-    article       text PRIMARY KEY,
-    product_name  text,
-    product_code  text,
-    page_url      text,
-    category      text
+    article           text PRIMARY KEY,
+    product_name      text,
+    product_code      text,
+    page_url          text,
+    category          text,
+    -- sku and ahlsell_category come from Ahlsell's authenticated product API
+    -- (the Plejd product code, e.g. DIM-01, and Ahlsell's own taxonomy).
+    -- Preferred over `category` above, which categorize() infers from the
+    -- product name using hardcoded article-number sets.
+    sku               text,
+    ahlsell_category  text
 );
 
 -- ahlsell_warehouse
@@ -53,6 +59,36 @@ CREATE TABLE IF NOT EXISTS ahlsell_warehouse (
     city          text,
     address       text
 );
+
+-- ahlsell_plejd_daily
+-- One row per article per day at Ahlsell-national grain, from the
+-- *authenticated* product API: central-warehouse stock (qty_lager) and
+-- prices are invisible to anonymous callers, which is why this table did
+-- not exist before 2026-09. qty_butik is the branch-network total and
+-- duplicates the sum of ahlsell_stock_snapshot for the same day -- that
+-- table keeps the per-warehouse breakdown this one flattens.
+--
+-- price_eff is the *account-specific* net price, so it is only comparable
+-- within one `source`; price_gnp (list price) is account-independent.
+CREATE TABLE IF NOT EXISTS ahlsell_plejd_daily (
+    snapshot_date   date NOT NULL,
+    variant_number  text NOT NULL,
+    qty_lager       integer,
+    qty_butik       integer,
+    qty_inleverans  integer,
+    price_eff       numeric,
+    price_gnp       numeric,
+    fetched_at      timestamptz,
+    source          text NOT NULL,
+    -- globalStock.type: 1=Restnoterad, 2=Delvis, 3=I lager,
+    -- 4=Beställningsvara (qty_lager floored from sentinel -1), 6=Osäker.
+    -- NULL on backfilled rows: the source database never recorded it.
+    stock_type      integer,
+    PRIMARY KEY (snapshot_date, variant_number)
+);
+
+CREATE INDEX IF NOT EXISTS ahlsell_plejd_daily_variant_idx
+  ON ahlsell_plejd_daily (variant_number);
 
 -- kpi_history
 -- Daily Adtraction platform KPIs (total conversions, brand count) scraped by

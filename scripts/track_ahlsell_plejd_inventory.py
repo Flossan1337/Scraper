@@ -32,9 +32,10 @@ Excel-utdata   : data/ahlsell_plejd_inventory.xlsx
 
 import json
 import time
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Optional
+from zoneinfo import ZoneInfo
 
 import requests
 from openpyxl import Workbook, load_workbook
@@ -43,6 +44,7 @@ from openpyxl.utils import get_column_letter
 
 from core.db import safe_insert
 from core.cli import warn_if_gap
+from core.ahlsell_auth import try_login
 
 # ── Konfiguration ──────────────────────────────────────────────────────────────
 BASE_URL       = "https://www.ahlsell.se"
@@ -50,6 +52,11 @@ SEARCH_URL     = f"{BASE_URL}/api/search"
 VARIANTS_URL   = f"{BASE_URL}/api/search/variants"
 WAREHOUSES_URL = f"{BASE_URL}/api/warehouses"
 STOCK_URL      = f"{BASE_URL}/api/warehouses/stock"
+# Central-warehouse stock and prices. Answers 204 No Content unless the session
+# is authenticated -- see core/ahlsell_auth.py.
+INFO_URL       = f"{BASE_URL}/api/product/{{}}/info"
+
+STOCKHOLM      = ZoneInfo("Europe/Stockholm")
 
 SEARCH_PHRASE  = "plejd"
 BRAND_FILTER   = "Plejd"
@@ -129,6 +136,71 @@ def fetch_stock(variant_number: str) -> dict[str, float]:
         str(entry["id"]): entry.get("stock", {}).get("quantity") or 0
         for entry in resp.json()
     }
+
+
+# ── Centrallager (kräver inloggning) ───────────────────────────────────────────
+
+# globalStock.type. Typ 4 (Beställningsvara) rapporterar quantity -1 som
+# sentinel -- artikeln lagerhålls inte centralt -- medan typ 1 (Restnoterad)
+# ger en äkta 0. Se KNOWN_ISSUES.md #15.
+STOCK_TYPE_ACQUISITION = 4
+
+
+def fetch_central(session, article: str) -> Optional[dict]:
+    """Hämtar centrallagersaldo och priser för en artikel.
+
+    Returnerar None om anropet misslyckas eller ger 204 (dvs. sessionen inte
+    längre är inloggad) -- anroparen hoppar då över artikeln i stället för att
+    skriva en nolla som inte är mätt.
+    """
+    resp = session.get(
+        INFO_URL.format(article),
+        headers={**HEADERS, "Referer": f"{BASE_URL}/"},
+        timeout=30,
+    )
+    if resp.status_code != 200 or not resp.content:
+        return None
+
+    data       = resp.json()
+    global_stk = data.get("globalStock") or {}
+    price      = data.get("price") or {}
+
+    quantity   = global_stk.get("quantity")
+    stock_type = global_stk.get("type")
+    # Golva sentinelvärdet, men behåll typen så skillnaden inte går förlorad.
+    if quantity is not None and quantity < 0:
+        quantity = 0
+
+    return {
+        "qty_lager":      quantity,
+        "qty_inleverans": data.get("inHoldQuantity"),
+        "price_eff":      price.get("price"),
+        "price_gnp":      price.get("grossPrice"),
+        "stock_type":     stock_type,
+    }
+
+
+def collect_central(session, articles) -> dict[str, dict]:
+    """Hämtar centrallagerdata för samtliga artiklar. Aldrig fatal."""
+    central: dict[str, dict] = {}
+    failures = 0
+    for i, art in enumerate(articles):
+        time.sleep(REQUEST_DELAY)
+        try:
+            row = fetch_central(session, art)
+        except Exception as exc:
+            print(f"  Varning: centrallagerfel för {art}: {exc}")
+            row = None
+        if row is None:
+            failures += 1
+        else:
+            central[art] = row
+        if (i + 1) % 20 == 0:
+            print(f"  {i + 1}/{len(articles)} artiklar klara...")
+
+    if failures:
+        print(f"  {failures} artiklar utan centrallagerdata")
+    return central
 
 
 # ── Insamling ──────────────────────────────────────────────────────────────────
@@ -313,6 +385,50 @@ def write_snapshot_to_db(products: dict, warehouses: dict, stock: dict, snapshot
 
 
 write_snapshot_to_db.last_error = None
+
+
+def write_daily_to_db(
+    central: dict,
+    stock: dict,
+    snapshot_date: str,
+    fetched_at: Optional[str],
+) -> Optional[int]:
+    """Best-effort: skriver ahlsell_plejd_daily (centrallager + butiker + pris).
+
+    qty_butik är butiksnätets summa och dubblerar avsiktligt
+    ahlsell_stock_snapshot, som behåller uppdelningen per butik. Får aldrig
+    kasta. Returnerar antal skrivna rader, eller None vid fel
+    (write_daily_to_db.last_error).
+    """
+    rows = [
+        (
+            snapshot_date,
+            art,
+            meta.get("qty_lager"),
+            sum(stock.get(art, {}).values()) if art in stock else None,
+            meta.get("qty_inleverans"),
+            meta.get("price_eff"),
+            meta.get("price_gnp"),
+            fetched_at,
+            "own",
+            meta.get("stock_type"),
+        )
+        for art, meta in central.items()
+    ]
+
+    n, error = safe_insert(
+        table="ahlsell_plejd_daily",
+        columns=["snapshot_date", "variant_number", "qty_lager", "qty_butik",
+                 "qty_inleverans", "price_eff", "price_gnp", "fetched_at",
+                 "source", "stock_type"],
+        rows=rows,
+        conflict_columns=["snapshot_date", "variant_number"],
+    )
+    write_daily_to_db.last_error = error
+    return None if error is not None else n
+
+
+write_daily_to_db.last_error = None
 
 
 # ── Deltaberäkning ─────────────────────────────────────────────────────────────
@@ -507,11 +623,42 @@ def main() -> None:
         save_state(state)
         print(f"\nTillstånd sparat: {STATE_FILE}")
 
+    # Centrallagret kräver inloggning och är medvetet best-effort: utan
+    # inloggning fortsätter körningen exakt som innan autentiseringen fanns,
+    # med butiksdata, tillståndsfil och Excel intakta.
+    central = state.get("central_snapshots", {}).get(today, {})
+    fetched_at = state.get("central_fetched_at", {}).get(today)
+    if central:
+        print(f"\nCentrallager för {today} finns redan ({len(central)} artiklar).")
+    else:
+        session, auth_error = try_login()
+        if session is None:
+            print(f"\nCentrallager: HOPPAS ÖVER – inloggning misslyckades ({auth_error})")
+        else:
+            print("\nHämtar centrallager (inloggad)...")
+            fetched_at = datetime.now(STOCKHOLM).isoformat()
+            central = collect_central(session, products)
+            if central:
+                state.setdefault("central_snapshots", {})[today] = central
+                state.setdefault("central_fetched_at", {})[today] = fetched_at
+                save_state(state)
+                total_central = sum(v.get("qty_lager") or 0 for v in central.values())
+                print(f"  {len(central)} artiklar, {total_central:,} enheter i centrallager")
+
     db_rows_written = write_snapshot_to_db(products, warehouses, stock, today)
     if db_rows_written is None:
         print(f"Databas: MISSLYCKADES – {write_snapshot_to_db.last_error}")
     else:
         print(f"Databas: {db_rows_written} rader skrivna")
+
+    if central:
+        n_daily = write_daily_to_db(central, stock, today, fetched_at)
+        if n_daily is None:
+            print(f"Databas (centrallager): MISSLYCKADES – {write_daily_to_db.last_error}")
+        else:
+            print(f"Databas (centrallager): {n_daily} rader skrivna")
+    else:
+        print("Databas (centrallager): inga rader – ingen centrallagerdata")
 
     write_excel(state)
     print("\nKlart!")

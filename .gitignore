@@ -4,3 +4,11 @@ __pycache__
 raw/
 .env
 .cache/
+
+# Externally-sourced Ahlsell backfill database (see KNOWN_ISSUES.md #15).
+# 12.5 MB binary carrying a third party's negotiated net prices; already
+# loaded into ahlsell_plejd_daily, which is now the durable record.
+# Keep the original outside the repo -- it cannot be regenerated.
+ahlsell_sales.db
+ahlsell_sales.db-shm
+ahlsell_sales.db-wal

@@ -517024,5 +517024,572 @@
       }
     }
   },
-  "last_updated": "2026-09-09"
+  "last_updated": "2026-09-09",
+  "central_snapshots": {
+    "2026-09-09": {
+      "1377701": {
+        "qty_lager": 3245.0,
+        "qty_inleverans": 11.0,
+        "price_eff": 517.37,
+        "price_gnp": 1330.0,
+        "stock_type": 3
+      },
+      "1377702": {
+        "qty_lager": 3337.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 517.37,
+        "price_gnp": 1330.0,
+        "stock_type": 3
+      },
+      "1377721": {
+        "qty_lager": 729.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 315.87,
+        "price_gnp": 812.0,
+        "stock_type": 3
+      },
+      "1377724": {
+        "qty_lager": 179.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 431.79,
+        "price_gnp": 1110.0,
+        "stock_type": 3
+      },
+      "7577719": {
+        "qty_lager": 57.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1690.78,
+        "price_gnp": 1820.0,
+        "stock_type": 3
+      },
+      "7577720": {
+        "qty_lager": 0.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1690.78,
+        "price_gnp": 1820.0,
+        "stock_type": 1
+      },
+      "1377740": {
+        "qty_lager": 1229.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 274.25,
+        "price_gnp": 705.0,
+        "stock_type": 3
+      },
+      "1377741": {
+        "qty_lager": 0.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 340.76,
+        "price_gnp": 876.0,
+        "stock_type": 1
+      },
+      "1377732": {
+        "qty_lager": 1346.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 166.1,
+        "price_gnp": 427.0,
+        "stock_type": 3
+      },
+      "8581183": {
+        "qty_lager": 137.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 974.03,
+        "price_gnp": 1665.0,
+        "stock_type": 3
+      },
+      "8581182": {
+        "qty_lager": 299.0,
+        "qty_inleverans": 5.0,
+        "price_eff": 974.03,
+        "price_gnp": 1665.0,
+        "stock_type": 3
+      },
+      "8581181": {
+        "qty_lager": 363.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 974.03,
+        "price_gnp": 1665.0,
+        "stock_type": 3
+      },
+      "8581284": {
+        "qty_lager": 73.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 974.03,
+        "price_gnp": 1665.0,
+        "stock_type": 3
+      },
+      "8581285": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 974.03,
+        "price_gnp": 1665.0,
+        "stock_type": 4
+      },
+      "8581286": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 974.03,
+        "price_gnp": 1665.0,
+        "stock_type": 4
+      },
+      "1307779": {
+        "qty_lager": 1018.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 365.66,
+        "price_gnp": 940.0,
+        "stock_type": 3
+      },
+      "7577717": {
+        "qty_lager": 673.0,
+        "qty_inleverans": 2.0,
+        "price_eff": 1258.8,
+        "price_gnp": 1355.0,
+        "stock_type": 3
+      },
+      "7577718": {
+        "qty_lager": 98.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1258.8,
+        "price_gnp": 1355.0,
+        "stock_type": 3
+      },
+      "7077777": {
+        "qty_lager": 1411.0,
+        "qty_inleverans": 2.0,
+        "price_eff": 1367.04,
+        "price_gnp": 1920.0,
+        "stock_type": 3
+      },
+      "1377703": {
+        "qty_lager": 2457.0,
+        "qty_inleverans": 2.0,
+        "price_eff": 630.18,
+        "price_gnp": 1620.0,
+        "stock_type": 3
+      },
+      "1377709": {
+        "qty_lager": 275.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 499.87,
+        "price_gnp": 1285.0,
+        "stock_type": 3
+      },
+      "7077725": {
+        "qty_lager": 1666.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 35.96,
+        "price_gnp": 50.5,
+        "stock_type": 3
+      },
+      "1377742": {
+        "qty_lager": 3517.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 241.18,
+        "price_gnp": 620.0,
+        "stock_type": 3
+      },
+      "1377705": {
+        "qty_lager": 131.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 807.18,
+        "price_gnp": 2075.0,
+        "stock_type": 3
+      },
+      "1377707": {
+        "qty_lager": 414.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 365.66,
+        "price_gnp": 940.0,
+        "stock_type": 3
+      },
+      "1377727": {
+        "qty_lager": 137.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 431.79,
+        "price_gnp": 1110.0,
+        "stock_type": 3
+      },
+      "7984810": {
+        "qty_lager": 1023.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 630.18,
+        "price_gnp": 1620.0,
+        "stock_type": 3
+      },
+      "7984895": {
+        "qty_lager": 1793.0,
+        "qty_inleverans": 4.0,
+        "price_eff": 1147.55,
+        "price_gnp": 2950.0,
+        "stock_type": 3
+      },
+      "1377706": {
+        "qty_lager": 145.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 630.18,
+        "price_gnp": 1620.0,
+        "stock_type": 3
+      },
+      "7077726": {
+        "qty_lager": 531.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 63.01,
+        "price_gnp": 88.5,
+        "stock_type": 3
+      },
+      "1377749": {
+        "qty_lager": 530.0,
+        "qty_inleverans": 2.0,
+        "price_eff": 647.69,
+        "price_gnp": 1665.0,
+        "stock_type": 3
+      },
+      "7509808E": {
+        "qty_lager": 262.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 701.32,
+        "price_gnp": 985.0,
+        "stock_type": 3
+      },
+      "7509809": {
+        "qty_lager": 528.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1171.24,
+        "price_gnp": 1645.0,
+        "stock_type": 3
+      },
+      "7509810": {
+        "qty_lager": 295.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1637.6,
+        "price_gnp": 2300.0,
+        "stock_type": 3
+      },
+      "1893378": {
+        "qty_lager": 1362.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 266.08,
+        "price_gnp": 684.0,
+        "stock_type": 3
+      },
+      "1377791": {
+        "qty_lager": 192.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 41.62,
+        "price_gnp": 107.0,
+        "stock_type": 3
+      },
+      "1377767": {
+        "qty_lager": 810.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 166.1,
+        "price_gnp": 427.0,
+        "stock_type": 3
+      },
+      "7476990": {
+        "qty_lager": 483.0,
+        "qty_inleverans": 82.0,
+        "price_eff": 512.64,
+        "price_gnp": 720.0,
+        "stock_type": 3
+      },
+      "7476991": {
+        "qty_lager": 169.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 512.64,
+        "price_gnp": 720.0,
+        "stock_type": 3
+      },
+      "7476994": {
+        "qty_lager": 221.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 2969.04,
+        "price_gnp": 4170.0,
+        "stock_type": 3
+      },
+      "7476995": {
+        "qty_lager": 115.0,
+        "qty_inleverans": 2.0,
+        "price_eff": 2969.04,
+        "price_gnp": 4170.0,
+        "stock_type": 3
+      },
+      "1377722": {
+        "qty_lager": 397.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 315.87,
+        "price_gnp": 812.0,
+        "stock_type": 3
+      },
+      "1377723": {
+        "qty_lager": 145.0,
+        "qty_inleverans": 2.0,
+        "price_eff": 431.79,
+        "price_gnp": 1110.0,
+        "stock_type": 3
+      },
+      "7706614": {
+        "qty_lager": 75.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1356.36,
+        "price_gnp": 1905.0,
+        "stock_type": 3
+      },
+      "7706615": {
+        "qty_lager": 42.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1356.36,
+        "price_gnp": 1905.0,
+        "stock_type": 3
+      },
+      "7706616": {
+        "qty_lager": 63.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1356.36,
+        "price_gnp": 1905.0,
+        "stock_type": 3
+      },
+      "1377736": {
+        "qty_lager": 354.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 166.1,
+        "price_gnp": 427.0,
+        "stock_type": 3
+      },
+      "1377738": {
+        "qty_lager": 204.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 249.35,
+        "price_gnp": 641.0,
+        "stock_type": 3
+      },
+      "7476992": {
+        "qty_lager": 476.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 458.53,
+        "price_gnp": 644.0,
+        "stock_type": 3
+      },
+      "7476993": {
+        "qty_lager": 119.0,
+        "qty_inleverans": 1.0,
+        "price_eff": 458.53,
+        "price_gnp": 644.0,
+        "stock_type": 3
+      },
+      "7476996": {
+        "qty_lager": 739.0,
+        "qty_inleverans": 66.0,
+        "price_eff": 2648.64,
+        "price_gnp": 3720.0,
+        "stock_type": 3
+      },
+      "7476997": {
+        "qty_lager": 108.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 2648.64,
+        "price_gnp": 3720.0,
+        "stock_type": 3
+      },
+      "7706621": {
+        "qty_lager": 49.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1445.36,
+        "price_gnp": 2030.0,
+        "stock_type": 3
+      },
+      "7706622": {
+        "qty_lager": 48.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1445.36,
+        "price_gnp": 2030.0,
+        "stock_type": 3
+      },
+      "7706623": {
+        "qty_lager": 37.0,
+        "qty_inleverans": 42.0,
+        "price_eff": 1445.36,
+        "price_gnp": 2030.0,
+        "stock_type": 3
+      },
+      "1377790": {
+        "qty_lager": 1370.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 16.73,
+        "price_gnp": 43.0,
+        "stock_type": 3
+      },
+      "7706311": {
+        "qty_lager": 88.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 1356.36,
+        "price_gnp": 1905.0,
+        "stock_type": 3
+      },
+      "7706312": {
+        "qty_lager": 132.0,
+        "qty_inleverans": 64.0,
+        "price_eff": 1356.36,
+        "price_gnp": 1905.0,
+        "stock_type": 3
+      },
+      "7706313": {
+        "qty_lager": 574.0,
+        "qty_inleverans": 2.0,
+        "price_eff": 1356.36,
+        "price_gnp": 1905.0,
+        "stock_type": 3
+      },
+      "1893380": {
+        "qty_lager": 409.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 306.53,
+        "price_gnp": 788.0,
+        "stock_type": 3
+      },
+      "1377737": {
+        "qty_lager": 453.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 166.1,
+        "price_gnp": 427.0,
+        "stock_type": 3
+      },
+      "1377735": {
+        "qty_lager": 59.0,
+        "qty_inleverans": 4.0,
+        "price_eff": 249.35,
+        "price_gnp": 641.0,
+        "stock_type": 3
+      },
+      "1377708": {
+        "qty_lager": 252.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 365.66,
+        "price_gnp": 940.0,
+        "stock_type": 3
+      },
+      "1377726": {
+        "qty_lager": 274.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 431.79,
+        "price_gnp": 1110.0,
+        "stock_type": 3
+      },
+      "1377773": {
+        "qty_lager": 561.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 431.79,
+        "price_gnp": 1110.0,
+        "stock_type": 3
+      },
+      "1377772": {
+        "qty_lager": 373.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 431.79,
+        "price_gnp": 1110.0,
+        "stock_type": 3
+      },
+      "1377733": {
+        "qty_lager": 521.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 166.1,
+        "price_gnp": 427.0,
+        "stock_type": 3
+      },
+      "1377734": {
+        "qty_lager": 244.0,
+        "qty_inleverans": 0.0,
+        "price_eff": 166.1,
+        "price_gnp": 427.0,
+        "stock_type": 3
+      },
+      "8581287": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 974.03,
+        "price_gnp": 1665.0,
+        "stock_type": 4
+      },
+      "8581288": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 974.03,
+        "price_gnp": 1665.0,
+        "stock_type": 4
+      },
+      "1377711": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 315.87,
+        "price_gnp": 812.0,
+        "stock_type": 4
+      },
+      "1377712": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 315.87,
+        "price_gnp": 812.0,
+        "stock_type": 4
+      },
+      "1377715": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 166.1,
+        "price_gnp": 427.0,
+        "stock_type": 4
+      },
+      "1377716": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 166.1,
+        "price_gnp": 427.0,
+        "stock_type": 4
+      },
+      "1893384": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 315.87,
+        "price_gnp": 812.0,
+        "stock_type": 4
+      },
+      "1893385": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 431.79,
+        "price_gnp": 1110.0,
+        "stock_type": 4
+      },
+      "1893386": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 315.87,
+        "price_gnp": 812.0,
+        "stock_type": 4
+      },
+      "1893387": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 431.79,
+        "price_gnp": 1110.0,
+        "stock_type": 4
+      },
+      "1377713": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 365.66,
+        "price_gnp": 940.0,
+        "stock_type": 4
+      },
+      "1377714": {
+        "qty_lager": 0,
+        "qty_inleverans": 0.0,
+        "price_eff": 365.66,
+        "price_gnp": 940.0,
+        "stock_type": 4
+      }
+    }
+  },
+  "central_fetched_at": {
+    "2026-09-09": "2026-09-09T10:51:26.943273+02:00"
+  }
 }

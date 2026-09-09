@@ -1,6 +1,68 @@
 # Known Issues
 
-Senast uppdaterad: 2026-09-06
+Senast uppdaterad: 2026-09-09
+
+## 15. `ahlsell_plejd_daily` är backfillad från en extern databas — fem förbehåll
+
+`ahlsell_plejd_daily` innehåller 7 520 rader (80 artiklar × 103 dagar,
+2026-05-28..2026-09-09) med `source='backfill'`, laddade från en externt
+insamlad SQLite-databas (`ahlsell_sales.db`) via
+`scripts/tools/load_ahlsell_plejd_daily.py`. Det är den enda källan till
+centrallagersaldot före 2026-09 — vår egen pipeline såg bara butikslagret,
+eftersom `qty_lager` kräver inloggning: Ahlsell visar anonyma besökare bara
+texten "Normalt i centrallager", medan siffran (`globalStock`) kommer från
+`/api/product/{variantNumber}/info` som svarar 204 No Content utan session.
+
+**Validerad före laddning** mot vår egen oberoende butikshistorik: 80/80
+artiklar identiska, 76 av 102 överlappande dagar matchar på *varje* artikel,
+92,8 % av alla artikel-dagar matchar exakt. Avvikelserna förklaras helt av
+hämtningstidpunkt — andelen felmatchningar stiger monotont med klockslaget
+(03:00 → 4,1 %, 06:00 → 24,3 %, 13:00 → 48,7 %, 17:00 → 57,4 %), vilket är
+precis vad ett lagersaldo som rör sig under arbetsdagen ska göra.
+
+Fyra förbehåll som *inte* går att läsa ur datan själv:
+
+1. **2026-05-30 `qty_butik` är trasig.** 20 277 enheter mot ~24 550 dagen före
+   och efter; vår egen mätning samma dag är 24 553. En partiell hämtning.
+   Rådatan är laddad exakt som källan gav den (jfr punkt 14) — filtrera bort
+   dagen i vyn, inte i tabellen. Enda tydligt trasiga dagen av 103.
+
+2. **Tio dagar hämtades mitt på dagen** (upp till 17:26), vilket förvränger
+   *deltat* både in i och ut ur dagen: 2026-05-28, 06-03, 06-06, 07-15, 07-20,
+   08-03, 08-05, 08-18, 08-27, 08-28. Ett delta som spänner över en sådan dag
+   täcker inte 24 timmar.
+
+3. **`price_eff` är kontoscopat i princip — men i praktiken finns ingen skarv.**
+   Ursprungligen antogs att den externa källans nettopris (~47 % under listpris)
+   skulle hoppa när vår egen inloggning tog över. **Mätt 2026-09-09: fel.** Alla
+   80 artiklar ger identiskt nettopris *och* listpris på båda kontona
+   (`price`/`grossPrice` mot `price_eff`/`price_gnp`, 80/80 exakt). Serien är
+   alltså kontinuerlig över `source`-gränsen. Kolumnen `source` behålls ändå:
+   fältet *kan* vara framförhandlat per konto, och två konton som råkar ha samma
+   villkor bevisar inte att alla har det. `price_gnp` (listpris) steg ~1,9 % för
+   68 av 80 varianter mitt i perioden — en verklig Plejd-prishöjning, inte ett
+   kontobyte.
+
+4. **`qty_lager` = 0 är tvetydigt i de backfillade raderna.** Ahlsells API
+   rapporterar `globalStock.quantity = -1` som *sentinel* för
+   Beställningsvara (typ 4 — artikeln lagerhålls inte centralt), medan
+   Restnoterad (typ 1 — lagerförd men slut) ger en äkta 0. Källan golvade båda
+   till 0 och tappade skillnaden; 14 av 80 artiklar var typ 4 vid mätning
+   2026-09-09. Från och med `source='own'` bär kolumnen `stock_type` den
+   skillnaden. Backfillade rader har `stock_type IS NULL` — det går inte att
+   rekonstruera i efterhand och ska inte gissas.
+
+5. **`fetched_at` har en antagen tidszon.** Källans `fetchDate` saknar zon och
+   tolkas som Europe/Stockholm (minutspridningen 03:51/03:59/04:12/04:44 ser ut
+   som ett lokalt schemalagt jobb, inte en UTC-cron i CI). Osäkerheten är max
+   2 timmar och spelar bara roll för de tio dagarna i punkt 2. Går att avgöra
+   säkert genom att fråga källan.
+
+**Det datan visar, och som butiksdatan ensam inte kunde:** Ahlsells
+centrallager föll från 73 470 till 39 527 enheter (−46 %) medan butikslagret
+låg still (24 560 → 23 990). Totalt lager −35 %. Centrallagret är 62 % av
+Ahlsells Plejd-lager, alltså såg den gamla pipelinen den dryga tredjedel som
+*inte* rörde sig. Se `MIGRATION.md` för vad det gör med sell-in-tolkningen.
 
 ## 14. `anoto_variant_snapshot.price` är i cent för inq.shop men i dollar för Neo — intäkten i xlsx:en är 100x för hög
 
