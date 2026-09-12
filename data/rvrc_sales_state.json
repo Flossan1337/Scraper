@@ -2943,68 +2943,84 @@
       "sld_x_list_eur": 383438.38,
       "product_colors_total": 2132,
       "product_colors_with_sales": 452
+    },
+    {
+      "date": "2026-09-12",
+      "timestamp": "2026-09-12T05:32:58",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.2373,
+        "GBP": 13.0948,
+        "NOK": 1.0424
+      },
+      "slw_x_sell_eur": 2092028.97,
+      "sld_x_sell_eur": 268992.63,
+      "slw_x_list_eur": 2447053.97,
+      "sld_x_list_eur": 304810.63,
+      "product_colors_total": 2131,
+      "product_colors_with_sales": 464
     }
   ],
   "reference_products": [
     {
       "base_key": "10713_4100",
       "title": "Silence Proshell 3L Jacket",
-      "sale_last_week": 725,
-      "date": "2026-09-11"
-    },
-    {
-      "base_key": "10711_4100",
-      "title": "Silence Proshell 3L Jacket",
-      "sale_last_week": 623,
-      "date": "2026-09-11"
+      "sale_last_week": 693,
+      "date": "2026-09-12"
     },
     {
       "base_key": "10713_4691",
       "title": "Silence Proshell 3L Jacket",
-      "sale_last_week": 616,
-      "date": "2026-09-11"
+      "sale_last_week": 647,
+      "date": "2026-09-12"
+    },
+    {
+      "base_key": "10711_4100",
+      "title": "Silence Proshell 3L Jacket",
+      "sale_last_week": 637,
+      "date": "2026-09-12"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 565,
-      "date": "2026-09-11"
+      "sale_last_week": 596,
+      "date": "2026-09-12"
     },
     {
       "base_key": "10711_2239",
       "title": "Silence Proshell 3L Jacket",
-      "sale_last_week": 479,
-      "date": "2026-09-11"
-    },
-    {
-      "base_key": "10714_4100",
-      "title": "Silence Proshell 3L Pants",
-      "sale_last_week": 419,
-      "date": "2026-09-11"
+      "sale_last_week": 474,
+      "date": "2026-09-12"
     },
     {
       "base_key": "14561_4239",
       "title": "Woodland Fleece Jacket",
-      "sale_last_week": 396,
-      "date": "2026-09-11"
+      "sale_last_week": 435,
+      "date": "2026-09-12"
+    },
+    {
+      "base_key": "10714_4100",
+      "title": "Silence Proshell 3L Pants",
+      "sale_last_week": 435,
+      "date": "2026-09-12"
     },
     {
       "base_key": "10712_4100",
       "title": "Silence Proshell 3L Pants",
-      "sale_last_week": 382,
-      "date": "2026-09-11"
-    },
-    {
-      "base_key": "10004_2243",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 320,
-      "date": "2026-09-11"
+      "sale_last_week": 391,
+      "date": "2026-09-12"
     },
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 313,
-      "date": "2026-09-11"
+      "sale_last_week": 337,
+      "date": "2026-09-12"
+    },
+    {
+      "base_key": "11027_2001",
+      "title": "Nordwand Pants",
+      "sale_last_week": 334,
+      "date": "2026-09-12"
     }
   ]
 }
