@@ -1,0 +1,2599 @@
+{
+ "version": 1,
+ "baseline_date": "2026-09-19",
+ "note": "Seed captured 2026-09-19 by track_opter_tenants.py investigation. first_seen=seed means the tenant predates tracking; real adds get a later first_seen.",
+ "tenants": {
+  "a2bfi.opter.cloud": {
+   "slug": "a2bfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "a3transportno.opter.cloud": {
+   "slug": "a3transportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "aastransportno.opter.cloud": {
+   "slug": "aastransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "acxlse.opter.cloud": {
+   "slug": "acxlse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "agrentransportse.opter.cloud": {
+   "slug": "agrentransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ahlgrensakerise.opter.cloud": {
+   "slug": "ahlgrensakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ahrensakerise.opter.cloud": {
+   "slug": "ahrensakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "aktabse.opter.cloud": {
+   "slug": "aktabse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "aktivlogno.opter.cloud": {
+   "slug": "aktivlogno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "alfredssonse.opter.cloud": {
+   "slug": "alfredssonse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "alftafraktse.opter.cloud": {
+   "slug": "alftafraktse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "alvinxse.opter.cloud": {
+   "slug": "alvinxse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "amtransportse.opter.cloud": {
+   "slug": "amtransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "apollono.opter.cloud": {
+   "slug": "apollono",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "arosspedse.opter.cloud": {
+   "slug": "arosspedse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "asbjornnessno.opter.cloud": {
+   "slug": "asbjornnessno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "aurmono.opter.cloud": {
+   "slug": "aurmono",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "autofraktno.opter.cloud": {
+   "slug": "autofraktno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "avantegofi.opter.cloud": {
+   "slug": "avantegofi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "avisnesno.opter.cloud": {
+   "slug": "avisnesno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "axtransportse.opter.cloud": {
+   "slug": "axtransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "azoicse.opter.cloud": {
+   "slug": "azoicse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "benetsse.opter.cloud": {
+   "slug": "benetsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bergenspesialno.opter.cloud": {
+   "slug": "bergenspesialno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bergentsno.opter.cloud": {
+   "slug": "bergentsno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "berglundsakerise.opter.cloud": {
+   "slug": "berglundsakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bestserviceno.opter.cloud": {
+   "slug": "bestserviceno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bjtrpse.opter.cloud": {
+   "slug": "bjtrpse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bkakerise.opter.cloud": {
+   "slug": "bkakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bklogisticsno.opter.cloud": {
+   "slug": "bklogisticsno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "blakurerno.opter.cloud": {
+   "slug": "blakurerno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bnltransportse.opter.cloud": {
+   "slug": "bnltransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bolkanno.opter.cloud": {
+   "slug": "bolkanno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bomanexpressse.opter.cloud": {
+   "slug": "bomanexpressse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "boomerangdk.opter.cloud": {
+   "slug": "boomerangdk",
+   "country": "dk",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bostrandno.opter.cloud": {
+   "slug": "bostrandno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "boviksno.opter.cloud": {
+   "slug": "boviksno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "boxexpressfi.opter.cloud": {
+   "slug": "boxexpressfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "boxholmsakerise.opter.cloud": {
+   "slug": "boxholmsakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "braasakerise.opter.cloud": {
+   "slug": "braasakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "brdrhansenno.opter.cloud": {
+   "slug": "brdrhansenno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "brdrhansense.opter.cloud": {
+   "slug": "brdrhansense",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "breidmyrno.opter.cloud": {
+   "slug": "breidmyrno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "brgrse.opter.cloud": {
+   "slug": "brgrse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "brinkdk.opter.cloud": {
+   "slug": "brinkdk",
+   "country": "dk",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bstenkullense.opter.cloud": {
+   "slug": "bstenkullense",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "btlogistikkno.opter.cloud": {
+   "slug": "btlogistikkno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "budbilense.opter.cloud": {
+   "slug": "budbilense",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "budbilexpressenno.opter.cloud": {
+   "slug": "budbilexpressenno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "budcomse.opter.cloud": {
+   "slug": "budcomse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "budmasterse.opter.cloud": {
+   "slug": "budmasterse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "budpartnerksdse.opter.cloud": {
+   "slug": "budpartnerksdse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "budpartnerorese.opter.cloud": {
+   "slug": "budpartnerorese",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "budwheelsse.opter.cloud": {
+   "slug": "budwheelsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "budxpressse.opter.cloud": {
+   "slug": "budxpressse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bulktransportostno.opter.cloud": {
+   "slug": "bulktransportostno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "bulltransno.opter.cloud": {
+   "slug": "bulltransno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "camionsse.opter.cloud": {
+   "slug": "camionsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "cargotronno.opter.cloud": {
+   "slug": "cargotronno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "carrierse.opter.cloud": {
+   "slug": "carrierse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "castemase.opter.cloud": {
+   "slug": "castemase",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "cegetransse.opter.cloud": {
+   "slug": "cegetransse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "citybudetse.opter.cloud": {
+   "slug": "citybudetse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "citymailfi.opter.cloud": {
+   "slug": "citymailfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "dahletransportno.opter.cloud": {
+   "slug": "dahletransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ddaviesabse.opter.cloud": {
+   "slug": "ddaviesabse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "dltse.opter.cloud": {
+   "slug": "dltse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "dovrebudogvareno.opter.cloud": {
+   "slug": "dovrebudogvareno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "drangekranno.opter.cloud": {
+   "slug": "drangekranno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "dybvadno.opter.cloud": {
+   "slug": "dybvadno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "dydabse.opter.cloud": {
+   "slug": "dydabse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "eblog.opter.cloud": {
+   "slug": "eblog",
+   "country": null,
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ebrc.opter.cloud": {
+   "slug": "ebrc",
+   "country": null,
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ecolinkse.opter.cloud": {
+   "slug": "ecolinkse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ekerobudse.opter.cloud": {
+   "slug": "ekerobudse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "elmbladsse.opter.cloud": {
+   "slug": "elmbladsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "elslogse.opter.cloud": {
+   "slug": "elslogse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "emanuelssonstrpse.opter.cloud": {
+   "slug": "emanuelssonstrpse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "emdno.opter.cloud": {
+   "slug": "emdno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ensetfi.opter.cloud": {
+   "slug": "ensetfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "erkkilepistofi.opter.cloud": {
+   "slug": "erkkilepistofi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "etlogistikse.opter.cloud": {
+   "slug": "etlogistikse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "europatransportse.opter.cloud": {
+   "slug": "europatransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "eurotransportno.opter.cloud": {
+   "slug": "eurotransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "evidensiase.opter.cloud": {
+   "slug": "evidensiase",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ewentreprenadse.opter.cloud": {
+   "slug": "ewentreprenadse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "exnordicase.opter.cloud": {
+   "slug": "exnordicase",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "expresservicese.opter.cloud": {
+   "slug": "expresservicese",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "expressusno.opter.cloud": {
+   "slug": "expressusno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "falkkylse.opter.cloud": {
+   "slug": "falkkylse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "fbcargose.opter.cloud": {
+   "slug": "fbcargose",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "fivestaree.opter.cloud": {
+   "slug": "fivestaree",
+   "country": "ee",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "fjeldbergautono.opter.cloud": {
+   "slug": "fjeldbergautono",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "flasnesno.opter.cloud": {
+   "slug": "flasnesno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "flbse.opter.cloud": {
+   "slug": "flbse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "flygfraktse.opter.cloud": {
+   "slug": "flygfraktse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "foriase.opter.cloud": {
+   "slug": "foriase",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "fraktlogistikse.opter.cloud": {
+   "slug": "fraktlogistikse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "gdfasno.opter.cloud": {
+   "slug": "gdfasno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "gftse.opter.cloud": {
+   "slug": "gftse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "gjersundtransportno.opter.cloud": {
+   "slug": "gjersundtransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "globexlinkse.opter.cloud": {
+   "slug": "globexlinkse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "godslogistikse.opter.cloud": {
+   "slug": "godslogistikse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "greenbowse.opter.cloud": {
+   "slug": "greenbowse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "grimsasakerise.opter.cloud": {
+   "slug": "grimsasakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "gstransportno.opter.cloud": {
+   "slug": "gstransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "gtlogistikkno.opter.cloud": {
+   "slug": "gtlogistikkno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "hadelandbudno.opter.cloud": {
+   "slug": "hadelandbudno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "hajtrpse.opter.cloud": {
+   "slug": "hajtrpse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "hardabudse.opter.cloud": {
+   "slug": "hardabudse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "hardstransse.opter.cloud": {
+   "slug": "hardstransse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "harlemno.opter.cloud": {
+   "slug": "harlemno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "haukeboegassno.opter.cloud": {
+   "slug": "haukeboegassno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "haukeboeno.opter.cloud": {
+   "slug": "haukeboeno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "haukeboetankno.opter.cloud": {
+   "slug": "haukeboetankno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "helthjemno.opter.cloud": {
+   "slug": "helthjemno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "hillblomse.opter.cloud": {
+   "slug": "hillblomse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "himmetaakerise.opter.cloud": {
+   "slug": "himmetaakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "hogkvistfi.opter.cloud": {
+   "slug": "hogkvistfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "hssno.opter.cloud": {
+   "slug": "hssno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "hurtigguttano.opter.cloud": {
+   "slug": "hurtigguttano",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ibtransportse.opter.cloud": {
+   "slug": "ibtransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "icetransportse.opter.cloud": {
+   "slug": "icetransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "intactse.opter.cloud": {
+   "slug": "intactse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "interspeddk.opter.cloud": {
+   "slug": "interspeddk",
+   "country": "dk",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "itideno.opter.cloud": {
+   "slug": "itideno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jabslse.opter.cloud": {
+   "slug": "jabslse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jakobsentransno.opter.cloud": {
+   "slug": "jakobsentransno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jareksfi.opter.cloud": {
+   "slug": "jareksfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jarvimakifi.opter.cloud": {
+   "slug": "jarvimakifi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jessenno.opter.cloud": {
+   "slug": "jessenno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jktransportno.opter.cloud": {
+   "slug": "jktransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jobyhovase.opter.cloud": {
+   "slug": "jobyhovase",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jotrano.opter.cloud": {
+   "slug": "jotrano",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jpaarsethno.opter.cloud": {
+   "slug": "jpaarsethno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jpylvainencofi.opter.cloud": {
+   "slug": "jpylvainencofi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jsakerise.opter.cloud": {
+   "slug": "jsakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jtptransportse.opter.cloud": {
+   "slug": "jtptransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jtwtransportse.opter.cloud": {
+   "slug": "jtwtransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "jumbotransportno.opter.cloud": {
+   "slug": "jumbotransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kallesbudse.opter.cloud": {
+   "slug": "kallesbudse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "karjalaisenfi.opter.cloud": {
+   "slug": "karjalaisenfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "karlstadsakerise.opter.cloud": {
+   "slug": "karlstadsakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kaubaekspress.opter.cloud": {
+   "slug": "kaubaekspress",
+   "country": null,
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kbtangenno.opter.cloud": {
+   "slug": "kbtangenno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kingsrodno.opter.cloud": {
+   "slug": "kingsrodno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kjellandse.opter.cloud": {
+   "slug": "kjellandse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kjellssonse.opter.cloud": {
+   "slug": "kjellssonse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "klevefjordsse.opter.cloud": {
+   "slug": "klevefjordsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kolsbyno.opter.cloud": {
+   "slug": "kolsbyno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kpmtransportno.opter.cloud": {
+   "slug": "kpmtransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kslogisticsfi.opter.cloud": {
+   "slug": "kslogisticsfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kvikkbagno.opter.cloud": {
+   "slug": "kvikkbagno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "kystbudetno.opter.cloud": {
+   "slug": "kystbudetno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "landetruntse.opter.cloud": {
+   "slug": "landetruntse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "lansiofi.opter.cloud": {
+   "slug": "lansiofi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "larssonakerise.opter.cloud": {
+   "slug": "larssonakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "leirvikvaretaxino.opter.cloud": {
+   "slug": "leirvikvaretaxino",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "linjegodsse.opter.cloud": {
+   "slug": "linjegodsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "lkptransportse.opter.cloud": {
+   "slug": "lkptransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "loadmasterno.opter.cloud": {
+   "slug": "loadmasterno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "loffesse.opter.cloud": {
+   "slug": "loffesse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "logsltse.opter.cloud": {
+   "slug": "logsltse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "logsse.opter.cloud": {
+   "slug": "logsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "loodsakerise.opter.cloud": {
+   "slug": "loodsakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "lrnno.opter.cloud": {
+   "slug": "lrnno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ltsjonkopingse.opter.cloud": {
+   "slug": "ltsjonkopingse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "lundgrense.opter.cloud": {
+   "slug": "lundgrense",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "lundintransportse.opter.cloud": {
+   "slug": "lundintransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "maksino.opter.cloud": {
+   "slug": "maksino",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "maltidsfabrikense.opter.cloud": {
+   "slug": "maltidsfabrikense",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "mantorptrpse.opter.cloud": {
+   "slug": "mantorptrpse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "mixorfi.opter.cloud": {
+   "slug": "mixorfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "mkrlogistikse.opter.cloud": {
+   "slug": "mkrlogistikse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "mobeldriftno.opter.cloud": {
+   "slug": "mobeldriftno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "mobelfraktno.opter.cloud": {
+   "slug": "mobelfraktno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "mokkenhaugtransportno.opter.cloud": {
+   "slug": "mokkenhaugtransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "mordaltransportno.opter.cloud": {
+   "slug": "mordaltransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "movatorse.opter.cloud": {
+   "slug": "movatorse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "mrexpressse.opter.cloud": {
+   "slug": "mrexpressse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "mrlogistikse.opter.cloud": {
+   "slug": "mrlogistikse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "namdaltransportno.opter.cloud": {
+   "slug": "namdaltransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "nausakerise.opter.cloud": {
+   "slug": "nausakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "nemotransportno.opter.cloud": {
+   "slug": "nemotransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "nipfraktse.opter.cloud": {
+   "slug": "nipfraktse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "norbaseno.opter.cloud": {
+   "slug": "norbaseno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "nordicthermofi.opter.cloud": {
+   "slug": "nordicthermofi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "nordlysno.opter.cloud": {
+   "slug": "nordlysno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "nordstromsse.opter.cloud": {
+   "slug": "nordstromsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "nordtrafikkno.opter.cloud": {
+   "slug": "nordtrafikkno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "norense.opter.cloud": {
+   "slug": "norense",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "norfragtdk.opter.cloud": {
+   "slug": "norfragtdk",
+   "country": "dk",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "norfraktno.opter.cloud": {
+   "slug": "norfraktno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "norrbudetexpressse.opter.cloud": {
+   "slug": "norrbudetexpressse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "norspeedno.opter.cloud": {
+   "slug": "norspeedno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "norsteveno.opter.cloud": {
+   "slug": "norsteveno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "oalogistikse.opter.cloud": {
+   "slug": "oalogistikse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ohrlundsse.opter.cloud": {
+   "slug": "ohrlundsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "okjtransportno.opter.cloud": {
+   "slug": "okjtransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ollepsakerise.opter.cloud": {
+   "slug": "ollepsakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "olssonsse.opter.cloud": {
+   "slug": "olssonsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "omdaltransportno.opter.cloud": {
+   "slug": "omdaltransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "orebroflyttse.opter.cloud": {
+   "slug": "orebroflyttse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "orlandno.opter.cloud": {
+   "slug": "orlandno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ostkranno.opter.cloud": {
+   "slug": "ostkranno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "otransno.opter.cloud": {
+   "slug": "otransno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "overhallatransportno.opter.cloud": {
+   "slug": "overhallatransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "pallcargose.opter.cloud": {
+   "slug": "pallcargose",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "pantraxxse.opter.cloud": {
+   "slug": "pantraxxse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "pedersentransportno.opter.cloud": {
+   "slug": "pedersentransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "perftransse.opter.cloud": {
+   "slug": "perftransse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "pgtransportse.opter.cloud": {
+   "slug": "pgtransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "piccolofi.opter.cloud": {
+   "slug": "piccolofi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "pleymstransportno.opter.cloud": {
+   "slug": "pleymstransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "pohjolalogfi.opter.cloud": {
+   "slug": "pohjolalogfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "prolineno.opter.cloud": {
+   "slug": "prolineno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "quickno.opter.cloud": {
+   "slug": "quickno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "rbfraktse.opter.cloud": {
+   "slug": "rbfraktse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "rbftransportse.opter.cloud": {
+   "slug": "rbftransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "rblogistikse.opter.cloud": {
+   "slug": "rblogistikse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "redningsverket.opter.cloud": {
+   "slug": "redningsverket",
+   "country": null,
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "riksbudse.opter.cloud": {
+   "slug": "riksbudse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "rologisticsse.opter.cloud": {
+   "slug": "rologisticsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "roxtransse.opter.cloud": {
+   "slug": "roxtransse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "royaltransportno.opter.cloud": {
+   "slug": "royaltransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ryskapostense.opter.cloud": {
+   "slug": "ryskapostense",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "samtransportno.opter.cloud": {
+   "slug": "samtransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "se247logistics.opter.cloud": {
+   "slug": "se247logistics",
+   "country": null,
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "seafoodlogisticsno.opter.cloud": {
+   "slug": "seafoodlogisticsno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "seafrontno.opter.cloud": {
+   "slug": "seafrontno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "skaugtransportno.opter.cloud": {
+   "slug": "skaugtransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "skubbetse.opter.cloud": {
+   "slug": "skubbetse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "slaslettenno.opter.cloud": {
+   "slug": "slaslettenno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "slindetransportno.opter.cloud": {
+   "slug": "slindetransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "smafraktse.opter.cloud": {
+   "slug": "smafraktse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "sorumtransportno.opter.cloud": {
+   "slug": "sorumtransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "sslogse.opter.cloud": {
+   "slug": "sslogse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "storemenfi.opter.cloud": {
+   "slug": "storemenfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "surnflodtno.opter.cloud": {
+   "slug": "surnflodtno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "sutrano.opter.cloud": {
+   "slug": "sutrano",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "svedalacargose.opter.cloud": {
+   "slug": "svedalacargose",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "svippno.opter.cloud": {
+   "slug": "svippno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "systemtrafikkno.opter.cloud": {
+   "slug": "systemtrafikkno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tabergsakerise.opter.cloud": {
+   "slug": "tabergsakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tavaralahetitfi.opter.cloud": {
+   "slug": "tavaralahetitfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tbsno.opter.cloud": {
+   "slug": "tbsno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tbspecialse.opter.cloud": {
+   "slug": "tbspecialse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tctasno.opter.cloud": {
+   "slug": "tctasno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tdi24hno.opter.cloud": {
+   "slug": "tdi24hno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "teatransno.opter.cloud": {
+   "slug": "teatransno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "teraxno.opter.cloud": {
+   "slug": "teraxno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "termoxpressno.opter.cloud": {
+   "slug": "termoxpressno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "thorinsakerise.opter.cloud": {
+   "slug": "thorinsakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "timosalofi.opter.cloud": {
+   "slug": "timosalofi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tipptransportno.opter.cloud": {
+   "slug": "tipptransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tnrspedisjonno.opter.cloud": {
+   "slug": "tnrspedisjonno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tonysbudbilse.opter.cloud": {
+   "slug": "tonysbudbilse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tornfraktse.opter.cloud": {
+   "slug": "tornfraktse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "torpabilruterno.opter.cloud": {
+   "slug": "torpabilruterno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "totenno.opter.cloud": {
+   "slug": "totenno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tothno.opter.cloud": {
+   "slug": "tothno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "traentse.opter.cloud": {
+   "slug": "traentse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "transmarkee.opter.cloud": {
+   "slug": "transmarkee",
+   "country": "ee",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "trondheimtermno.opter.cloud": {
+   "slug": "trondheimtermno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tstromsono.opter.cloud": {
+   "slug": "tstromsono",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tsverdalno.opter.cloud": {
+   "slug": "tsverdalno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tuomifi.opter.cloud": {
+   "slug": "tuomifi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "tupekufi.opter.cloud": {
+   "slug": "tupekufi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "ulviktransportutleieno.opter.cloud": {
+   "slug": "ulviktransportutleieno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "unilastse.opter.cloud": {
+   "slug": "unilastse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "uppdragetse.opter.cloud": {
+   "slug": "uppdragetse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "utengenno.opter.cloud": {
+   "slug": "utengenno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "uudenmaanfi.opter.cloud": {
+   "slug": "uudenmaanfi",
+   "country": "fi",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "valdrestransportno.opter.cloud": {
+   "slug": "valdrestransportno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "varubudse.opter.cloud": {
+   "slug": "varubudse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "verdalkranno.opter.cloud": {
+   "slug": "verdalkranno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "vgtse.opter.cloud": {
+   "slug": "vgtse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "vikencargono.opter.cloud": {
+   "slug": "vikencargono",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "vivaldise.opter.cloud": {
+   "slug": "vivaldise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "vtsno.opter.cloud": {
+   "slug": "vtsno",
+   "country": "no",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "20.251.106.235",
+   "is_live": true,
+   "source": "seed"
+  },
+  "wansse.opter.cloud": {
+   "slug": "wansse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "wibeckerse.opter.cloud": {
+   "slug": "wibeckerse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "wirensakerise.opter.cloud": {
+   "slug": "wirensakerise",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "wohlinsse.opter.cloud": {
+   "slug": "wohlinsse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "xpressfraktse.opter.cloud": {
+   "slug": "xpressfraktse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "xtraresursse.opter.cloud": {
+   "slug": "xtraresursse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "xxltransportse.opter.cloud": {
+   "slug": "xxltransportse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  },
+  "zerologisticse.opter.cloud": {
+   "slug": "zerologisticse",
+   "country": "se",
+   "first_seen": "2026-09-19",
+   "last_seen": "2026-09-19",
+   "last_ip": "74.241.233.90",
+   "is_live": true,
+   "source": "seed"
+  }
+ }
+}

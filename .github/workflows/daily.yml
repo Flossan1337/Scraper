@@ -148,6 +148,18 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
 
+      - name: Run track_opter_tenants.py
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          # Denmark discovery stays inert until these are set. The rest of the
+          # run (SE/NO/FI discovery + churn re-check) does not depend on them.
+          # Get free CVR system-til-system creds from cvrselvbetjening@erst.dk.
+          CVR_USERNAME: ${{ secrets.CVR_USERNAME }}
+          CVR_PASSWORD: ${{ secrets.CVR_PASSWORD }}
+        run: python ./scripts/track_opter_tenants.py
+        timeout-minutes: 25
+        continue-on-error: true
+
       - name: Open GitHub issue for new TU brands
         if: always()
         env:
@@ -223,6 +235,7 @@ jobs:
           DESCR[track_anoto_inventory.py]="Tracks inq.shop per-variant inventory via Shopify page JSON; estimates daily unit sales and revenue (USD) via stock delta"
           DESCR[track_ahlsell_plejd_inventory.py]="Tracks Plejd product inventory at Ahlsell.se per store and article; computes daily sales-out (customers buying from Ahlsell) and sales-in (Plejd restocking Ahlsell)"
           DESCR[track_ahlsell_led_panel_inventory.py]="Tracks total inventory levels for all recessed LED panel brands at Ahlsell.se; time-series by brand (Plejd vs competitors)"
+          DESCR[track_opter_tenants.py]="Counts Opter AB cloud customers by enumerating <slug><cc>.opter.cloud tenants (public DNS) as an ARR proxy; discovers new tenants via passive DNS + national company registers, detects churn daily"
 
           declare -A OUTFILE
           OUTFILE[fetch_kpi.py]="data/kpi-history.xlsx"
@@ -240,6 +253,7 @@ jobs:
           OUTFILE[track_anoto_inventory.py]="data/anoto_inventory.xlsx"
           OUTFILE[track_ahlsell_plejd_inventory.py]="data/ahlsell_plejd_inventory.xlsx"
           OUTFILE[track_ahlsell_led_panel_inventory.py]="data/ahlsell_led_panel_inventory.xlsx"
+          OUTFILE[track_opter_tenants.py]="data/opter_tenants.xlsx"
 
           METRICS_DIR="scripts/metrics"
           mkdir -p "$METRICS_DIR"
@@ -251,7 +265,8 @@ jobs:
                         "track_rvrc_sales.py" "track_nelly_inventory.py" \
                         "fetch_anoto_amazon_data.py" "track_anoto_inventory.py" \
                         "track_ahlsell_plejd_inventory.py" \
-                        "track_ahlsell_led_panel_inventory.py"; do
+                        "track_ahlsell_led_panel_inventory.py" \
+                        "track_opter_tenants.py"; do
             desc="${DESCR[$script]:-—}"
             outfile="${OUTFILE[$script]:-}"
             jsonfile="$METRICS_DIR/${script}.json"

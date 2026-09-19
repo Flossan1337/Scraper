@@ -12,3 +12,6 @@ raw/
 ahlsell_sales.db
 ahlsell_sales.db-shm
 ahlsell_sales.db-wal
+
+# Per-run CI metrics JSON (written by the daily workflow summary step)
+scripts/metrics/

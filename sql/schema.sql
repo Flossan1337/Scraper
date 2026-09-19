@@ -436,3 +436,39 @@ CREATE TABLE IF NOT EXISTS ted_lot_tender (
     last_seen_at           timestamptz NOT NULL,
     PRIMARY KEY (company, publication_number, lot_id)
 );
+
+-- opter_tenant_snapshot
+-- Daily census of Opter AB's cloud customers, used as an ARR lead indicator.
+-- Written by scripts/track_opter_tenants.py. Each Opter cloud customer has a
+-- tenant addressed <slug><country>.opter.cloud; opter.cloud has no wildcard
+-- DNS, so a resolving host == a real customer tenant (all serve the Opter
+-- login page from Azure IPs 74.241.233.90 / 20.251.106.235). 100% public DNS.
+--
+-- This is a genuine daily snapshot (one row per live tenant per day), NOT an
+-- entity/upsert table: reruns are no-ops via ON CONFLICT (snapshot_date, host)
+-- DO NOTHING, and adds/losses/counts are derived in sql/views/opter_tenants.sql
+-- (Python computes nothing analytical, per CLAUDE.md).
+--
+--   resolved = TRUE  : host was confirmed live by DNS on snapshot_date.
+--   resolved = FALSE : host errored transiently that day but was live before,
+--                      so it is carried into the snapshot to avoid phantom
+--                      churn from a DNS blip (last known ip). The view's churn
+--                      logic keys on presence, so a carried row keeps a tenant
+--                      "present" without counting a false loss.
+--   source   : how the tenant was first discovered ('seed' = present at
+--              baseline 2026-09-19; 'passive_dns'; 'register_se/no/fi/dk').
+--
+-- NOT captured: self-hosted Opter installs on a customer's own domain
+-- (e.g. fleet.bdx.se/Opter/Account/Login) — they are not on opter.cloud.
+CREATE TABLE IF NOT EXISTS opter_tenant_snapshot (
+    snapshot_date  date NOT NULL,
+    host           text NOT NULL,
+    slug           text NOT NULL,
+    country        text,
+    ip             text,
+    resolved       boolean NOT NULL DEFAULT true,
+    source         text,
+    PRIMARY KEY (snapshot_date, host)
+);
+CREATE INDEX IF NOT EXISTS opter_tenant_snapshot_host_idx
+    ON opter_tenant_snapshot (host, snapshot_date);
