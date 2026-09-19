@@ -106,3 +106,38 @@ JOIN dates dt ON dt.prev_date = p.snapshot_date
 LEFT JOIN present c ON c.snapshot_date = dt.snapshot_date AND c.host = p.host
 WHERE c.host IS NULL
 ORDER BY event_date, event, host;
+
+-- ── 5. Dashboard row — one row per run day, shaped for Excel/Power Query ─────
+-- Column order and names are the dashboard layout: date, per-market counts,
+-- total, then adds (count + names) and losses (count + names) vs the previous
+-- run. Names are the tenant slugs (Opter's own abbreviation of the customer
+-- name). Quoted aliases keep the header casing when Power Query reads it.
+CREATE OR REPLACE VIEW opter_tenant_dashboard_v AS
+WITH ev AS (
+    SELECT
+        event_date,
+        COUNT(*) FILTER (WHERE event = 'add')                      AS adds,
+        string_agg(slug, ', ' ORDER BY slug)
+            FILTER (WHERE event = 'add')                           AS add_names,
+        COUNT(*) FILTER (WHERE event = 'loss')                     AS losses,
+        string_agg(slug, ', ' ORDER BY slug)
+            FILTER (WHERE event = 'loss')                          AS loss_names
+    FROM opter_tenant_events_v
+    GROUP BY event_date
+)
+SELECT
+    d.snapshot_date                         AS "Date",
+    d.live_se                               AS "SE",
+    d.live_no                               AS "NO",
+    d.live_fi                               AS "FI",
+    d.live_dk                               AS "DK",
+    d.live_ee                               AS "EE",
+    d.live_other                            AS "Other",
+    d.live_tenants                          AS "Total",
+    COALESCE(ev.adds, 0)                    AS "New customers",
+    ev.add_names                            AS "New customer names",
+    COALESCE(ev.losses, 0)                  AS "Churned customers",
+    ev.loss_names                           AS "Churned customer names"
+FROM opter_tenant_daily_v d
+LEFT JOIN ev ON ev.event_date = d.snapshot_date
+ORDER BY d.snapshot_date;
