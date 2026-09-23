@@ -3119,68 +3119,84 @@
       "sld_x_list_eur": 331434.9,
       "product_colors_total": 2187,
       "product_colors_with_sales": 491
+    },
+    {
+      "date": "2026-09-23",
+      "timestamp": "2026-09-23T05:41:27",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.2463,
+        "GBP": 13.1106,
+        "NOK": 1.0412
+      },
+      "slw_x_sell_eur": 2651625.25,
+      "sld_x_sell_eur": 230909.0,
+      "slw_x_list_eur": 3409766.2,
+      "sld_x_list_eur": 307176.0,
+      "product_colors_total": 2180,
+      "product_colors_with_sales": 483
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_962",
       "title": "RVRC GP Pants",
-      "sale_last_week": 828,
-      "date": "2026-09-22"
+      "sale_last_week": 783,
+      "date": "2026-09-23"
     },
     {
       "base_key": "10728_2288",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 770,
-      "date": "2026-09-22"
+      "sale_last_week": 741,
+      "date": "2026-09-23"
     },
     {
       "base_key": "10005_2001",
       "title": "RVRC GP Pro Pants",
-      "sale_last_week": 762,
-      "date": "2026-09-22"
-    },
-    {
-      "base_key": "10716_2183",
-      "title": "3-pack Ultimate Soft Boxers",
-      "sale_last_week": 692,
-      "date": "2026-09-22"
-    },
-    {
-      "base_key": "10739_4100",
-      "title": "Campfire Shirt",
-      "sale_last_week": 687,
-      "date": "2026-09-22"
-    },
-    {
-      "base_key": "10004_2001",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 680,
-      "date": "2026-09-22"
+      "sale_last_week": 722,
+      "date": "2026-09-23"
     },
     {
       "base_key": "11027_2001",
       "title": "Nordwand Pants",
-      "sale_last_week": 667,
-      "date": "2026-09-22"
+      "sale_last_week": 665,
+      "date": "2026-09-23"
     },
     {
-      "base_key": "10728_2007",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 626,
-      "date": "2026-09-22"
+      "base_key": "10716_2183",
+      "title": "3-pack Ultimate Soft Boxers",
+      "sale_last_week": 652,
+      "date": "2026-09-23"
     },
     {
-      "base_key": "11251_2001",
-      "title": "3-pack Daily Socks",
-      "sale_last_week": 626,
-      "date": "2026-09-22"
+      "base_key": "10004_2001",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 651,
+      "date": "2026-09-23"
     },
     {
       "base_key": "10727_2007",
       "title": "Sherpa Hoodie",
       "sale_last_week": 610,
-      "date": "2026-09-22"
+      "date": "2026-09-23"
+    },
+    {
+      "base_key": "11251_2001",
+      "title": "3-pack Daily Socks",
+      "sale_last_week": 591,
+      "date": "2026-09-23"
+    },
+    {
+      "base_key": "10728_2007",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 588,
+      "date": "2026-09-23"
+    },
+    {
+      "base_key": "10739_4100",
+      "title": "Campfire Shirt",
+      "sale_last_week": 513,
+      "date": "2026-09-23"
     }
   ]
 }
