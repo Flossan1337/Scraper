@@ -157,7 +157,16 @@ jobs:
           CVR_USERNAME: ${{ secrets.CVR_USERNAME }}
           CVR_PASSWORD: ${{ secrets.CVR_PASSWORD }}
         run: python ./scripts/track_opter_tenants.py
-        timeout-minutes: 25
+        # A full run measured ~16 min (2026-09-30): three register bulk
+        # downloads plus ~270k DNS lookups, all repeated from scratch nightly.
+        # The cap is generous on purpose. DISCOVERY_BUDGET_S bounds when a
+        # source may START, not how long it runs, so the true ceiling is
+        # budget + longest single source (Norway, ~10 min) = ~25 min. At a
+        # 25-min cap that sits exactly on the line, and being killed here
+        # means no state/Excel/DB write at all -- which is how this script
+        # silently produced nothing for its first 11 nights. See
+        # KNOWN_ISSUES.md #16.
+        timeout-minutes: 40
         continue-on-error: true
 
       - name: Open GitHub issue for new TU brands
@@ -235,7 +244,7 @@ jobs:
           DESCR[track_anoto_inventory.py]="Tracks inq.shop per-variant inventory via Shopify page JSON; estimates daily unit sales and revenue (USD) via stock delta"
           DESCR[track_ahlsell_plejd_inventory.py]="Tracks Plejd product inventory at Ahlsell.se per store and article; computes daily sales-out (customers buying from Ahlsell) and sales-in (Plejd restocking Ahlsell)"
           DESCR[track_ahlsell_led_panel_inventory.py]="Tracks total inventory levels for all recessed LED panel brands at Ahlsell.se; time-series by brand (Plejd vs competitors)"
-          DESCR[track_opter_tenants.py]="Counts Opter AB cloud customers by enumerating <slug><cc>.opter.cloud tenants (public DNS) as an ARR proxy; discovers new tenants via passive DNS + national company registers, detects churn daily"
+          DESCR[track_opter_tenants.py]="Counts Opter AB cloud customers by enumerating <slug><cc>.opter.cloud tenants (public DNS) as an ARR proxy; discovers new tenants via passive DNS + the Wayback Machine URL index + national company registers, detects churn daily"
 
           declare -A OUTFILE
           OUTFILE[fetch_kpi.py]="data/kpi-history.xlsx"

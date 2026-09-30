@@ -1,6 +1,62 @@
 # Known Issues
 
-Senast uppdaterad: 2026-09-09
+Senast uppdaterad: 2026-09-30
+
+## 16. `opter_tenant_snapshot` har bara EN dag (2026-09-19) — scriptet tystnade i 11 nätter, och nivån hoppar när det börjar gå igen
+
+`track_opter_tenants.py` lades in 2026-09-19 med 288 tenants som baseline. Sedan
+skrev det **ingenting** på 11 nätter: `data/opter_tenants_state.json` har
+`last_seen = 2026-09-19` för alla 288, `data/opter_tenants.xlsx` har exakt en
+rad, och ingen `chore(data)`-commit har rört någon av filerna sedan.
+
+**Orsak (hittad 2026-09-30):** inte ett fel i datan utan i tidsbudgeten.
+`resolve_host()` gjorde 3 försök med 0,3 s sömn mellan varje, och
+register-gissningen skickade *varje* kandidat genom den — en svep som är ~99 %
+missar. Det kostade 3 DNS-frågor och 0,6 s sömn per miss. Uppmätt: ~65 hostar/s,
+dvs ~77 min för de tre registren, mot ett CI-tak på 25 min. Steget dödades alltså
+mitt i discovery varje natt, *före* alla skrivningar i slutet av `main()` — och
+eftersom steget har `continue-on-error: true` syntes det inte i workflow-loggen
+som ett fel. Fixat genom att skilja på de två DNS-vägarna: `probe_host()` (ett
+försök, ~1570 hostar/s) för kandidatsvep, `resolve_host()` (försök om igen) bara
+för återkollen av kända hostar, där en DNS-blipp annars hittar på en churn.
+Discovery har nu också ett tak (`DISCOVERY_BUDGET_S`) så att fasen aldrig igen
+kan kosta oss dagens skrivningar.
+
+**Förbehållet som spelar roll för tolkningen:** nivån hoppar uppåt första natten
+detta går igenom — **uppmätt 2026-09-30 till 288 → 350, +62 tenants (+21,5 %)** —
+och **det hoppet är inte nyvunna kunder.** Det är mätförmåga som kommer ikapp.
+Tre ändringar samma natt höjer antalet utan att något har hänt hos Opter:
+
+1. **Wayback-CDX-källan** (Internet Archives URL-index) — ny 2026-09-30. Stod för
+   20 av de 62, inklusive 2 DK och 2 EE som register-gissningen inte kan nå alls.
+2. **Namnfiltret i registren** — `is_haulier_name()`. Branschkoden är ett dåligt
+   filter: riktiga Opter-kunder är registrerade som holdingbolag, byggbolag och
+   grossister. Verifierade exempel som *bara* koden missar: AMK Transport AB,
+   BHS Logistics AB, GNS Cargo AS — alla tre levande tenants.
+3. **Fler branschkoder** i `NACE_TRANSPORT` (godshantering, taxi/budbil,
+   lastbilsuthyrning, post) utöver de ursprungliga sex.
+
+Fördelning av de 62: SE 38, NO 15, FI 4, DK 2, EE 2, okänt land 1. Per källa:
+`register_se` 28, `wayback_cdx` 20, `register_no` 11, `register_fi` 3. De fem
+passiva DNS-källorna bidrog med **noll** nya kunder — de hittade bara Opters egna
+interna hostar (`opter`, `perrademo`, `playground`, filtrerade via
+`INTERNAL_SLUGS`). Passiv DNS är alltså i praktiken redan uttömd som källa; det
+är arkivindexet och registren som gör jobbet.
+
+Praktiskt: behandla **inte** `opter_tenant_changes_v` / kolumnen "New customers" i
+`opter_tenant_dashboard_v` som kundtillväxt för den första körningen efter
+2026-09-30. Adds den dagen är övervägande retroaktiva upptäckter av kunder som
+redan fanns 2026-09-19. Först därefter är dag-till-dag-deltat en ren
+vinst/förlust-signal. Att `first_seen` i state-filen är korrekt hjälper inte här —
+vyerna är byggda på när hosten *dök upp i snapshotten*, vilket är rätt beteende
+för churn men läser som en add vid en täckningsförbättring.
+
+**Nivån är fortfarande ett golv, inte ett facit.** Kvar utanför mätningen:
+självhostade Opter-installationer på kundens egen domän (t.ex.
+`fleet.bdx.se/Opter/Account/Login`) syns inte i `opter.cloud` överhuvudtaget, och
+DK/EE har ingen register-källa (CVR kräver credentials som ännu inte är hämtade —
+se `discover_denmark()`). Serien är alltså bra på *riktning och förändring* inom
+molnprodukten, inte på absolut kundantal för hela Opter.
 
 ## 15. `ahlsell_plejd_daily` är backfillad från en extern databas — fem förbehåll
 

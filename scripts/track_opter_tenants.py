@@ -31,14 +31,26 @@ How the daily run works (two independent jobs)
    know about (from the state file) in DNS. A host that stops resolving is a
    candidate churn/loss; a transient DNS error is NOT treated as a loss.
 
-2. DISCOVERY (heavier, best-effort, catches adds): find new tenants two ways —
+2. DISCOVERY (heavier, best-effort, catches adds): find new tenants three ways —
      a) passive DNS databases for *.opter.cloud (HackerTarget, crt.sh, urlscan,
         RapidDNS, subdomain.center) — direct, but only ~half of tenants are
         ever indexed there.
-     b) register-guessing: pull the national company registers, filter to
-        transport/courier/logistics industry codes, generate candidate slugs
-        from company names, and DNS-check them. This is what finds the other
-        half. Sources:
+     b) the Wayback Machine CDX index, which is a public wildcard-queryable
+        list of every URL the Internet Archive has ever archived, so it answers
+        "which *.opter.cloud hosts have existed?" outright. Best yield per
+        second of any source, and the only one that reaches markets we have no
+        register for (DK, EE) — see discover_wayback().
+     c) register-guessing: pull the national company registers, keep the firms
+        that look like hauliers, generate candidate slugs from their names, and
+        DNS-check them. This is what finds the other half.
+
+        "Looks like a haulier" is deliberately two tests OR'd together, because
+        the industry code alone is not good enough: real Opter customers are
+        registered as holding companies, construction firms and wholesalers.
+        So we keep a firm on a transport NACE code (NACE_TRANSPORT) OR one
+        whose NAME reads as transport whatever its code (is_haulier_name()).
+        Being loose costs only DNS lookups and can never corrupt a number — a
+        non-customer has no DNS record. Sources:
           SE  SCB "värdefulla datamängder" bulk file (weekly HVD open data),
               via a public mirror because bolagsverket.se CAPTCHAs scripts
           NO  Brønnøysundregistrene full entity bulk download
@@ -48,9 +60,17 @@ How the daily run works (two independent jobs)
               env vars are set; the rest of the run does not depend on it.
 
 Every discovery source is wrapped so that a slow/broken/rate-limited source
-logs one line and is skipped — the re-check job and the DB/Excel writes always
-complete. The script never exits non-zero on a data-source failure and never
-raises out of a DB write (see CLAUDE.md).
+logs one line and is skipped, and the discovery phase as a whole is capped by
+DISCOVERY_BUDGET_S — the re-check job and the DB/Excel writes always complete.
+The script never exits non-zero on a data-source failure and never raises out of
+a DB write (see CLAUDE.md).
+
+Note the two DNS paths, which is the difference between this script working and
+not: the candidate sweep uses probe_host() (one shot, ~1570 hosts/s) while the
+re-check of known hosts uses resolve_host() (retries, so a blip cannot fake a
+churn event). Using the retrying path for the sweep put a full run at ~77 min
+against a 25-min CI cap, so the step was killed before any write and the tracker
+produced nothing at all for its first 11 nights.
 
 ──────────────────────────────────────────────────────────────────────────────
 Outputs (all additive, same pattern as the other trackers in this repo)
@@ -106,11 +126,63 @@ DB_TABLE = "opter_tenant_snapshot"
 # on an unexpected IP is still counted (Opter could add clusters).
 KNOWN_CLUSTER_IPS = {"74.241.233.90": "SE", "20.251.106.235": "NO"}
 
-# Transport / courier / logistics / removals industry codes. Same intent across
-# registers even though the code systems differ slightly (all NACE rev.2 based).
-NACE_SE = {"49410", "49420", "53200", "52291", "52292", "52100", "49390"}
-NACE_NO = {"49.410", "49.420", "53.200", "52.291", "52.292", "52.100", "49.390"}
-NACE_FI = {"49410", "49420", "53200", "52291", "52292", "52100", "49390"}
+# Transport / courier / logistics / removals industry codes, as canonical NACE
+# rev.2. All four registers use NACE-derived codes but format them differently,
+# so the per-register variants are DERIVED rather than maintained by hand —
+# adding a code below reaches every country at once.
+#
+# Codes past the original six are transport-adjacent activities that hauliers
+# and courier firms genuinely register under (cargo handling, taxi/budbil,
+# truck rental, postal). They widen the net; the DNS check is what decides.
+NACE_TRANSPORT = {
+    "49.410",  # road freight transport
+    "49.420",  # removals / flyttjänster
+    "49.390",  # other passenger land transport
+    "49.310",  # urban and suburban passenger land transport
+    "49.320",  # taxi operation — many budbil/courier firms sit here
+    "52.100",  # warehousing and storage
+    "52.240",  # cargo handling
+    "52.291",  # freight forwarding / spedition
+    "52.292",  # other transport support / shipping agency
+    "52.290",  # other transport support activities (parent code)
+    "53.100",  # postal activities under universal service obligation
+    "53.200",  # other postal and courier activities
+    "77.120",  # renting and leasing of trucks
+}
+NACE_DOTTED = set(NACE_TRANSPORT)                                 # NO (brreg)
+NACE_PLAIN = {c.replace(".", "") for c in NACE_TRANSPORT}         # SE (SNI), FI (PRH)
+NACE_DK = {c.replace(".", "") + "0" for c in NACE_TRANSPORT}      # DK (DB07, 6-digit)
+
+# A company's industry code is NOT a reliable filter for Opter's customer base:
+# plenty of real hauliers are registered as holding companies, construction
+# firms or wholesalers. So on top of the codes above we keep any firm whose
+# NAME reads like a transport business, whatever code it filed under. Verified
+# examples this recovers: AMK Transport AB, BHS Logistics AB, GNS Cargo AS —
+# all three are live opter.cloud tenants that the code filter alone misses.
+#
+# Being generous here is cheap and safe: a name-matched firm that is not an
+# Opter customer simply has no DNS record, so a false positive costs a DNS
+# lookup and can never produce a wrong number. The only budget is run time.
+#
+# Long, distinctive stems are matched ANYWHERE in a word so Scandinavian
+# compounds land ("Vinstaåkeri", "Stadsbudet"); short or ambiguous ones must be
+# a whole word, so "Transcendent AB" or "Budget Sport AB" are not dragged in.
+NAME_HINT_STEMS = (
+    "transpor", "logisti", "spedit", "spedis", "akeri", "budbil", "budservice",
+    "kuljetus", "huolinta", "flytting", "flyttebyra", "distribu", "lastebil",
+    "lastbil", "godstrafik", "kurier", "kurir", "courier", "haulage",
+)
+# 'akeri' is the one stem with a common innocent host word around it: nearly
+# every Norwegian bakery is an "X Bakeri". Excluded so the SE/NO sweeps don't
+# spend thousands of lookups on bakeries.
+NAME_HINT_EXCLUDE = re.compile(r"bakeri|konditori")
+NAME_HINT_WORDS = {
+    "trans", "trp", "frakt", "rahti", "cargo", "gods", "bud", "express",
+    "expressen", "xpress", "trucking", "truck", "trailer", "container",
+    "shipping", "freight", "forwarding", "flytt", "muutto", "logistics",
+    "logistik", "logistikk", "akeri", "aakeri", "bring", "hauling",
+}
+
 
 # Words that carry no identifying information in a haulier's name — stripped so
 # the distinctive part of the name drives the slug guess.
@@ -133,7 +205,11 @@ SLUG_ABBR = [("transport", "trans"), ("transport", "trp"),
 # Hosts that exist on opter.cloud but are Opter-internal, not customers.
 INTERNAL_SLUGS = {"opter", "perrademo", "playground", "www"}
 
-# Per-source network budgets (seconds). A source that overruns is skipped.
+# Wall-clock budget for the whole discovery phase. The CI step allows 25 min and
+# the re-check + writes that follow need only seconds, so this leaves generous
+# headroom. See run_discovery() for why a cap exists at all.
+DISCOVERY_BUDGET_S = 15 * 60
+
 SESSION = requests.Session()
 SESSION.headers["User-Agent"] = (
     "Mozilla/5.0 (compatible; opter-tenant-tracker/1.0; equity research; "
@@ -166,6 +242,22 @@ def _ascii_words(name: str) -> list[str]:
     return [w for w in re.findall(r"[a-z0-9]+", s) if w not in STOP_WORDS]
 
 
+def is_haulier_name(name: str) -> bool:
+    """True if a company NAME reads like a transport business, regardless of the
+    industry code it is registered under. See the NAME_HINT_* comment above for
+    why this is deliberately generous — DNS, not this function, decides who is
+    an actual customer."""
+    words = _ascii_words(name)
+    if not words:
+        return False
+    if NAME_HINT_WORDS & set(words):
+        return True
+    joined = "".join(words)
+    if NAME_HINT_EXCLUDE.search(joined):
+        return False
+    return any(stem in joined for stem in NAME_HINT_STEMS)
+
+
 def slug_candidates(name: str) -> set[str]:
     """Generate plausible opter.cloud slug stems (without country suffix) from a
     company name. Mirrors how Opter's onboarding seems to abbreviate names:
@@ -191,7 +283,12 @@ def slug_candidates(name: str) -> set[str]:
 def resolve_host(host: str, retries: int = 3) -> tuple[str, Optional[str], str]:
     """Return (host, ip_or_None, status) where status is 'live' | 'dead' |
     'error'. 'dead' is a confident NXDOMAIN; 'error' is a transient failure and
-    must never be counted as a lost customer."""
+    must never be counted as a lost customer.
+
+    This is the careful path, used for the daily RE-CHECK of hosts we already
+    know: there, mistaking a blip for an NXDOMAIN invents a churn event, so the
+    retries earn their cost over a few hundred hosts. Candidate sweeps use
+    probe_host() instead — see why there."""
     last_exc = None
     for _ in range(retries):
         try:
@@ -210,6 +307,32 @@ def resolve_host(host: str, retries: int = 3) -> tuple[str, Optional[str], str]:
        "name or service not known" in msg or "11001" in msg:
         return host, None, "dead"
     return host, None, "error"
+
+
+def probe_host(host: str) -> tuple[str, Optional[str], str]:
+    """Single-shot resolve, for DISCOVERY candidates only. Deliberately does NOT
+    retry: a candidate sweep is ~99 % misses, and resolve_host()'s 3 attempts +
+    0.3 s sleeps cost 3 queries and 0.6 s of sleep on every one of them. That is
+    what made discovery unable to finish — measured 2026-09-30, one attempt does
+    ~1570 hosts/s against ~65 hosts/s for the retrying version, a 24x gap, which
+    is the difference between a 6-minute register sweep and a 77-minute one.
+
+    The tradeoff is safe in this direction: a real tenant lost to a one-off DNS
+    blip is simply found by the next day's sweep, and once it is known it moves
+    onto the resolve_host() path where a false 'dead' would actually matter."""
+    try:
+        return host, socket.gethostbyname(host), "live"
+    except Exception:
+        return host, None, "dead"
+
+
+def probe_many(hosts: Iterable[str], workers: int = 64) -> set[str]:
+    """Hosts that resolve, out of a large candidate list. Discovery-side only."""
+    hosts = list(dict.fromkeys(hosts))
+    if not hosts:
+        return set()
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        return {h for h, ip, st in ex.map(probe_host, hosts) if st == "live"}
 
 
 def resolve_many(hosts: Iterable[str], workers: int = 24) -> dict[str, tuple[Optional[str], str]]:
@@ -265,15 +388,53 @@ def discover_passive_dns() -> set[str]:
     return {h for h in found if h.endswith(f".{BASE_DOMAIN}") and "*" not in h}
 
 
+# ── discovery: Wayback Machine CDX index ────────────────────────────────────
+def discover_wayback() -> set[str]:
+    """The Internet Archive's CDX index is a public, wildcard-queryable list of
+    every URL it has ever archived, so it answers "which *.opter.cloud hosts have
+    ever existed?" directly. Tenants land in it because the archive follows links
+    and because anyone can submit a page by hand — a typical row is
+    https://malmoflygfraktse.opter.cloud/Account/Login.
+
+    Highest-yield single source we have: it reaches tenants the passive-DNS
+    aggregators never indexed, and countries register-guessing cannot cover at
+    all (Denmark's register is unwired, Estonia's absent). Measured 2026-09-30:
+    126 distinct hosts, 20 of them live tenants missing from the then-288
+    universe, including 2 DK and 2 EE.
+
+    CDX answers "Temporarily Offline" (HTTP 503) fairly often, so a couple of
+    short retries. It also returns long-dead hosts; those just fail the DNS
+    re-check and are recorded as known-dead instead of counted.
+    """
+    url = (f"https://web.archive.org/cdx/search/cdx?url=*.{BASE_DOMAIN}"
+           "&fl=original&collapse=urlkey&limit=50000")
+    rx = re.compile(r"https?://([a-z0-9][a-z0-9-]*)" + re.escape("." + BASE_DOMAIN))
+    text = ""
+    for attempt in range(3):
+        r = SESSION.get(url, timeout=120)
+        if r.status_code == 200:
+            text = r.text.lower()
+            break
+        print(f"  wayback: HTTP {r.status_code} (attempt {attempt + 1}/3)")
+        time.sleep(3)
+    else:
+        print("  wayback: index unavailable — skipped")
+        return set()
+    slugs = {m.group(1) for line in text.splitlines() if (m := rx.match(line.strip()))}
+    print(f"  wayback: {len(slugs)} distinct hosts in the archive index")
+    return {f"{s}.{BASE_DOMAIN}" for s in slugs}
+
+
 # ── discovery: register guessing ────────────────────────────────────────────
 def _guess_from_names(names: Iterable[str], suffix: str, label: str) -> set[str]:
     cands: set[str] = set()
     for nm in names:
         cands |= slug_candidates(nm)
     hosts = slugs_to_hosts(cands, suffix)
-    res = resolve_many(hosts, workers=64)
-    hits = {h for h, (ip, st) in res.items() if st == "live"}
-    print(f"  register[{label}]: {len(cands)} slug candidates → {len(hits)} live")
+    t0 = time.time()
+    hits = probe_many(hosts, workers=64)
+    print(f"  register[{label}]: {len(cands)} slug candidates → {len(hits)} live "
+          f"({time.time() - t0:.0f}s)")
     return hits
 
 
@@ -290,6 +451,7 @@ def discover_sweden() -> set[str]:
     url = f"https://huggingface.co/datasets/krafs/bolagsverket-arkiv/resolve/main/{latest}/scb_bulkfil.zip"
     raw = SESSION.get(url, timeout=180).content
     names: list[str] = []
+    n_code = n_name = 0
     with zipfile.ZipFile(io.BytesIO(raw)) as z:
         fn = [n for n in z.namelist() if n.endswith(".txt")][0]
         import csv
@@ -298,11 +460,17 @@ def discover_sweden() -> set[str]:
             for row in csv.DictReader(text, delimiter="\t", quoting=csv.QUOTE_NONE):
                 if row.get("FtgStat") != "1":  # only active
                     continue
-                if {row.get(f"Ng{i}") for i in range(1, 6)} & NACE_SE:
-                    for key in ("Namn", "Foretagsnamn"):
-                        if row.get(key):
-                            names.append(row[key])
-    print(f"  register[SE]: {len(names)} active transport company names")
+                row_names = [row[k] for k in ("Namn", "Foretagsnamn") if row.get(k)]
+                if not row_names:
+                    continue
+                if {row.get(f"Ng{i}") for i in range(1, 6)} & NACE_PLAIN:
+                    names.extend(row_names)
+                    n_code += 1
+                elif any(is_haulier_name(n) for n in row_names):
+                    names.extend(row_names)
+                    n_name += 1
+    print(f"  register[SE]: {n_code} firms on a transport code + {n_name} more "
+          f"whose name reads as transport ({len(names)} names)")
     return _guess_from_names(names, "se", "SE")
 
 
@@ -316,13 +484,23 @@ def discover_norway() -> set[str]:
     ).content
     data = json.load(gzip.open(io.BytesIO(raw)))
     names: list[str] = []
+    n_code = n_name = 0
     for e in data:
+        if e.get("konkurs") or e.get("underAvvikling") or e.get("slettedato"):
+            continue
+        name = e.get("navn")
+        if not name:
+            continue
         codes = {e.get(k, {}).get("kode") for k in
                  ("naeringskode1", "naeringskode2", "naeringskode3") if e.get(k)}
-        if codes & NACE_NO and not e.get("konkurs") and not e.get("underAvvikling") \
-                and not e.get("slettedato"):
-            names.append(e["navn"])
-    print(f"  register[NO]: {len(names)} active transport company names")
+        if codes & NACE_DOTTED:
+            names.append(name)
+            n_code += 1
+        elif is_haulier_name(name):
+            names.append(name)
+            n_name += 1
+    print(f"  register[NO]: {n_code} firms on a transport code + {n_name} more "
+          f"whose name reads as transport")
     return _guess_from_names(names, "no", "NO")
 
 
@@ -338,17 +516,24 @@ def discover_finland() -> set[str]:
     if isinstance(companies, dict):
         companies = companies.get("companies") or next(
             (v for v in companies.values() if isinstance(v, list)), [])
+    n_code = n_name = 0
     for c in companies:
         # In this bulk file the NACE code lives in mainBusinessLine.type
         # (e.g. "49410"), NOT ".code" — confirmed against data_YYYYMMDD.json.
         mbl = c.get("mainBusinessLine")
         code = mbl.get("type") if isinstance(mbl, dict) else None
-        if code not in NACE_FI:
+        current = [n["name"] for n in c.get("names", [])
+                   if isinstance(n, dict) and not n.get("endDate") and n.get("name")]
+        if not current:
             continue
-        for n in c.get("names", []):
-            if isinstance(n, dict) and not n.get("endDate") and n.get("name"):
-                names.append(n["name"])
-    print(f"  register[FI]: {len(names)} active transport company names")
+        if code in NACE_PLAIN:
+            names.extend(current)
+            n_code += 1
+        elif any(is_haulier_name(n) for n in current):
+            names.extend(current)
+            n_name += 1
+    print(f"  register[FI]: {n_code} firms on a transport code + {n_name} more "
+          f"whose name reads as transport ({len(names)} names)")
     return _guess_from_names(names, "fi", "FI")
 
 
@@ -374,7 +559,7 @@ def discover_denmark() -> set[str]:
             "size": 0,
             "query": {"terms": {
                 "Vrvirksomhed.virksomhedMetadata.nyesteHovedbranche.branchekode":
-                    ["494100", "532000", "522910", "522920", "521000", "493900"]}},
+                    sorted(NACE_DK)}},
         }
         r = SESSION.post(endpoint, json=query, auth=(user, pw), timeout=60)
         r.raise_for_status()
@@ -385,21 +570,41 @@ def discover_denmark() -> set[str]:
     return set()
 
 
+# Ordered cheapest-first, because run_discovery() stops starting new sources once
+# DISCOVERY_BUDGET_S is spent. The three bulk registers are the expensive ones
+# (each is a 50-200 MB download plus a 50-120k-host DNS sweep; measured
+# 2026-09-30 at 144 s / 581 s / 216 s for SE / NO / FI), so anything cheap must
+# come before them or it never gets a turn — Denmark sat last and was starved.
 DISCOVERY_SOURCES = [
-    ("passive_dns", discover_passive_dns),
+    ("passive_dns", discover_passive_dns),   # ~6 s
+    ("wayback_cdx", discover_wayback),       # ~14 s
+    ("register_dk", discover_denmark),       # one API query (inert without creds)
     ("register_se", discover_sweden),
     ("register_no", discover_norway),
     ("register_fi", discover_finland),
-    ("register_dk", discover_denmark),
 ]
 
 
-def run_discovery() -> dict[str, str]:
+def run_discovery(budget_s: float = DISCOVERY_BUDGET_S) -> dict[str, str]:
     """Run every discovery source, best-effort. Returns {host: source}. A source
     that raises or overruns is logged and skipped; discovery failing entirely is
-    fine — the re-check job below still runs."""
+    fine — the re-check job below still runs.
+
+    Sources are attempted in order until `budget_s` of wall clock is used up,
+    then the rest are skipped for the day. This is the guard that stops discovery
+    from costing us the run: the CI step is capped at 25 minutes, and if the step
+    is killed mid-discovery then the state file, Excel and DB writes at the end of
+    main() never happen at all — which is exactly what silently happened every
+    night from 2026-09-19 to 2026-09-30. The cheapest sources are listed first,
+    so a bad day still gets the passive/archive indexes."""
     discovered: dict[str, str] = {}
+    started = time.time()
     for label, fn in DISCOVERY_SOURCES:
+        left = budget_s - (time.time() - started)
+        if left <= 0:
+            print(f"  discovery[{label}]: skipped (budget of {budget_s:.0f}s spent; "
+                  f"runs next time)")
+            continue
         t0 = time.time()
         try:
             hits = fn()

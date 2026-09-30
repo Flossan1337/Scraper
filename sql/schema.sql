@@ -456,7 +456,9 @@ CREATE TABLE IF NOT EXISTS ted_lot_tender (
 --                      logic keys on presence, so a carried row keeps a tenant
 --                      "present" without counting a false loss.
 --   source   : how the tenant was first discovered ('seed' = present at
---              baseline 2026-09-19; 'passive_dns'; 'register_se/no/fi/dk').
+--              baseline 2026-09-19; 'passive_dns'; 'wayback_cdx' = the Internet
+--              Archive CDX index; 'register_se/no/fi/dk' = guessed from a
+--              national company register and confirmed in DNS).
 --
 -- NOT captured: self-hosted Opter installs on a customer's own domain
 -- (e.g. fleet.bdx.se/Opter/Account/Login) — they are not on opter.cloud.
