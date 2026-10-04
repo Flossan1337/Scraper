@@ -3295,68 +3295,84 @@
       "sld_x_list_eur": 160945.0,
       "product_colors_total": 2204,
       "product_colors_with_sales": 468
+    },
+    {
+      "date": "2026-10-04",
+      "timestamp": "2026-10-04T06:44:38",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.29,
+        "GBP": 13.2772,
+        "NOK": 1.0423
+      },
+      "slw_x_sell_eur": 2011393.42,
+      "sld_x_sell_eur": 152736.4,
+      "slw_x_list_eur": 2235214.42,
+      "sld_x_list_eur": 181578.4,
+      "product_colors_total": 2197,
+      "product_colors_with_sales": 448
     }
   ],
   "reference_products": [
     {
       "base_key": "10828_2001",
       "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 525,
-      "date": "2026-10-03"
-    },
-    {
-      "base_key": "10005_2001",
-      "title": "RVRC GP Pro Pants",
-      "sale_last_week": 431,
-      "date": "2026-10-03"
-    },
-    {
-      "base_key": "11027_2001",
-      "title": "Nordwand Pants",
-      "sale_last_week": 415,
-      "date": "2026-10-03"
-    },
-    {
-      "base_key": "10004_2001",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 405,
-      "date": "2026-10-03"
-    },
-    {
-      "base_key": "10728_2288",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 405,
-      "date": "2026-10-03"
-    },
-    {
-      "base_key": "10004_962",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 373,
-      "date": "2026-10-03"
+      "sale_last_week": 588,
+      "date": "2026-10-04"
     },
     {
       "base_key": "14516_2001",
       "title": "Zenith Wide Leg Pants",
-      "sale_last_week": 361,
-      "date": "2026-10-03"
-    },
-    {
-      "base_key": "10727_2007",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 346,
-      "date": "2026-10-03"
+      "sale_last_week": 402,
+      "date": "2026-10-04"
     },
     {
       "base_key": "10827_2001",
       "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 338,
-      "date": "2026-10-03"
+      "sale_last_week": 394,
+      "date": "2026-10-04"
     },
     {
-      "base_key": "11251_2001",
-      "title": "3-pack Daily Socks",
-      "sale_last_week": 330,
-      "date": "2026-10-03"
+      "base_key": "10004_2243",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 340,
+      "date": "2026-10-04"
+    },
+    {
+      "base_key": "11027_2001",
+      "title": "Nordwand Pants",
+      "sale_last_week": 335,
+      "date": "2026-10-04"
+    },
+    {
+      "base_key": "10004_2001",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 324,
+      "date": "2026-10-04"
+    },
+    {
+      "base_key": "10728_2288",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 318,
+      "date": "2026-10-04"
+    },
+    {
+      "base_key": "11035_2001",
+      "title": "Nordwand Stretch High-waist Pants",
+      "sale_last_week": 313,
+      "date": "2026-10-04"
+    },
+    {
+      "base_key": "10005_2001",
+      "title": "RVRC GP Pro Pants",
+      "sale_last_week": 310,
+      "date": "2026-10-04"
+    },
+    {
+      "base_key": "10410_2004",
+      "title": "Phantom Trail Mid Waterproof Hiking Boots",
+      "sale_last_week": 305,
+      "date": "2026-10-04"
     }
   ]
 }
