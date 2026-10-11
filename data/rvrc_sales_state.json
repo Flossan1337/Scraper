@@ -3407,68 +3407,84 @@
       "sld_x_list_eur": 220905.79,
       "product_colors_total": 2204,
       "product_colors_with_sales": 370
+    },
+    {
+      "date": "2026-10-11",
+      "timestamp": "2026-10-11T06:58:46",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.1675,
+        "GBP": 13.175,
+        "NOK": 1.0422
+      },
+      "slw_x_sell_eur": 1851739.74,
+      "sld_x_sell_eur": 244315.8,
+      "slw_x_list_eur": 2165110.74,
+      "sld_x_list_eur": 297679.8,
+      "product_colors_total": 2195,
+      "product_colors_with_sales": 373
     }
   ],
   "reference_products": [
     {
       "base_key": "10828_2001",
       "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 677,
-      "date": "2026-10-10"
+      "sale_last_week": 726,
+      "date": "2026-10-11"
     },
     {
       "base_key": "10827_2001",
       "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 536,
-      "date": "2026-10-10"
+      "sale_last_week": 574,
+      "date": "2026-10-11"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 435,
-      "date": "2026-10-10"
+      "sale_last_week": 442,
+      "date": "2026-10-11"
     },
     {
       "base_key": "10410_2004",
       "title": "Phantom Trail Mid Waterproof Hiking Boots",
-      "sale_last_week": 411,
-      "date": "2026-10-10"
-    },
-    {
-      "base_key": "14516_2001",
-      "title": "Zenith Wide Leg Pants",
-      "sale_last_week": 373,
-      "date": "2026-10-10"
+      "sale_last_week": 401,
+      "date": "2026-10-11"
     },
     {
       "base_key": "10830_2001",
       "title": "Cyclone 3L Shell Pants",
-      "sale_last_week": 353,
-      "date": "2026-10-10"
+      "sale_last_week": 392,
+      "date": "2026-10-11"
     },
     {
       "base_key": "10829_2001",
       "title": "Cyclone 3L Shell Pants",
-      "sale_last_week": 342,
-      "date": "2026-10-10"
+      "sale_last_week": 359,
+      "date": "2026-10-11"
+    },
+    {
+      "base_key": "14516_2001",
+      "title": "Zenith Wide Leg Pants",
+      "sale_last_week": 348,
+      "date": "2026-10-11"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 334,
-      "date": "2026-10-10"
+      "sale_last_week": 332,
+      "date": "2026-10-11"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 240,
-      "date": "2026-10-10"
+      "sale_last_week": 235,
+      "date": "2026-10-11"
     },
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 235,
-      "date": "2026-10-10"
+      "sale_last_week": 231,
+      "date": "2026-10-11"
     }
   ]
 }
