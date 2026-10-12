@@ -201,7 +201,11 @@ jobs:
 
           git commit -m "chore(data): update scraped XLSX [skip ci]"
 
-          git pull --rebase origin "$BRANCH" || true
+          # --autostash: scripts can leave tracked files modified outside the
+          # paths added above, and a plain rebase refuses to run with those
+          # present. That broke the push whenever someone else had pushed
+          # to main during the run.
+          git pull --rebase --autostash origin "$BRANCH"
 
           git push origin "$BRANCH"
 
