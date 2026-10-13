@@ -3439,68 +3439,84 @@
       "sld_x_list_eur": 567025.81,
       "product_colors_total": 2197,
       "product_colors_with_sales": 397
+    },
+    {
+      "date": "2026-10-13",
+      "timestamp": "2026-10-13T07:32:33",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.1965,
+        "GBP": 13.2537,
+        "NOK": 1.0468
+      },
+      "slw_x_sell_eur": 2387457.31,
+      "sld_x_sell_eur": 142848.8,
+      "slw_x_list_eur": 2425952.31,
+      "sld_x_list_eur": 146091.8,
+      "product_colors_total": 2195,
+      "product_colors_with_sales": 379
     }
   ],
   "reference_products": [
     {
       "base_key": "10828_2001",
       "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 875,
-      "date": "2026-10-12"
+      "sale_last_week": 810,
+      "date": "2026-10-13"
     },
     {
       "base_key": "10827_2001",
       "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 753,
-      "date": "2026-10-12"
-    },
-    {
-      "base_key": "10830_2001",
-      "title": "Cyclone 3L Shell Pants",
-      "sale_last_week": 484,
-      "date": "2026-10-12"
+      "sale_last_week": 717,
+      "date": "2026-10-13"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 468,
-      "date": "2026-10-12"
+      "sale_last_week": 485,
+      "date": "2026-10-13"
+    },
+    {
+      "base_key": "10830_2001",
+      "title": "Cyclone 3L Shell Pants",
+      "sale_last_week": 452,
+      "date": "2026-10-13"
     },
     {
       "base_key": "10829_2001",
       "title": "Cyclone 3L Shell Pants",
-      "sale_last_week": 464,
-      "date": "2026-10-12"
+      "sale_last_week": 443,
+      "date": "2026-10-13"
     },
     {
       "base_key": "10410_2004",
       "title": "Phantom Trail Mid Waterproof Hiking Boots",
-      "sale_last_week": 428,
-      "date": "2026-10-12"
+      "sale_last_week": 381,
+      "date": "2026-10-13"
     },
     {
       "base_key": "14516_2001",
       "title": "Zenith Wide Leg Pants",
-      "sale_last_week": 340,
-      "date": "2026-10-12"
+      "sale_last_week": 328,
+      "date": "2026-10-13"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 317,
-      "date": "2026-10-12"
-    },
-    {
-      "base_key": "10828_2593",
-      "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 291,
-      "date": "2026-10-12"
+      "sale_last_week": 319,
+      "date": "2026-10-13"
     },
     {
       "base_key": "11031_2001",
       "title": "Nordwand Pants",
-      "sale_last_week": 264,
-      "date": "2026-10-12"
+      "sale_last_week": 281,
+      "date": "2026-10-13"
+    },
+    {
+      "base_key": "10828_2593",
+      "title": "Cyclone 3L Shell Jacket",
+      "sale_last_week": 276,
+      "date": "2026-10-13"
     }
   ]
 }
