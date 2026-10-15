@@ -3471,68 +3471,84 @@
       "sld_x_list_eur": 515078.4,
       "product_colors_total": 2197,
       "product_colors_with_sales": 392
+    },
+    {
+      "date": "2026-10-15",
+      "timestamp": "2026-10-15T05:42:40",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.158,
+        "GBP": 13.2227,
+        "NOK": 1.0523
+      },
+      "slw_x_sell_eur": 2737371.3,
+      "sld_x_sell_eur": 287040.0,
+      "slw_x_list_eur": 2931285.3,
+      "sld_x_list_eur": 349845.0,
+      "product_colors_total": 2204,
+      "product_colors_with_sales": 388
     }
   ],
   "reference_products": [
     {
+      "base_key": "11046_2237",
+      "title": "Scenic Insulated Long Parka",
+      "sale_last_week": 723,
+      "date": "2026-10-15"
+    },
+    {
       "base_key": "10828_2001",
       "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 754,
-      "date": "2026-10-14"
+      "sale_last_week": 684,
+      "date": "2026-10-15"
     },
     {
       "base_key": "10827_2001",
       "title": "Cyclone 3L Shell Jacket",
-      "sale_last_week": 685,
-      "date": "2026-10-14"
+      "sale_last_week": 638,
+      "date": "2026-10-15"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 516,
-      "date": "2026-10-14"
-    },
-    {
-      "base_key": "11046_2237",
-      "title": "Scenic Insulated Long Parka",
-      "sale_last_week": 472,
-      "date": "2026-10-14"
-    },
-    {
-      "base_key": "10830_2001",
-      "title": "Cyclone 3L Shell Pants",
-      "sale_last_week": 427,
-      "date": "2026-10-14"
-    },
-    {
-      "base_key": "10829_2001",
-      "title": "Cyclone 3L Shell Pants",
-      "sale_last_week": 423,
-      "date": "2026-10-14"
+      "sale_last_week": 541,
+      "date": "2026-10-15"
     },
     {
       "base_key": "14368_2001",
       "title": "Voight Puffer Jacket",
-      "sale_last_week": 367,
-      "date": "2026-10-14"
+      "sale_last_week": 506,
+      "date": "2026-10-15"
     },
     {
-      "base_key": "10410_2004",
-      "title": "Phantom Trail Mid Waterproof Hiking Boots",
-      "sale_last_week": 352,
-      "date": "2026-10-14"
+      "base_key": "11046_2001",
+      "title": "Scenic Insulated Long Parka",
+      "sale_last_week": 449,
+      "date": "2026-10-15"
     },
     {
-      "base_key": "14516_2001",
-      "title": "Zenith Wide Leg Pants",
-      "sale_last_week": 321,
-      "date": "2026-10-14"
+      "base_key": "10830_2001",
+      "title": "Cyclone 3L Shell Pants",
+      "sale_last_week": 407,
+      "date": "2026-10-15"
+    },
+    {
+      "base_key": "10829_2001",
+      "title": "Cyclone 3L Shell Pants",
+      "sale_last_week": 403,
+      "date": "2026-10-15"
+    },
+    {
+      "base_key": "10935_2593",
+      "title": "Rhyme 2L Insulated Parka",
+      "sale_last_week": 362,
+      "date": "2026-10-15"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 307,
-      "date": "2026-10-14"
+      "sale_last_week": 309,
+      "date": "2026-10-15"
     }
   ]
 }
