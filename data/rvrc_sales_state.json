@@ -3583,68 +3583,84 @@
       "sld_x_list_eur": 237384.76,
       "product_colors_total": 2212,
       "product_colors_with_sales": 384
+    },
+    {
+      "date": "2026-10-22",
+      "timestamp": "2026-10-22T05:54:53",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.0975,
+        "GBP": 13.2389,
+        "NOK": 1.0557
+      },
+      "slw_x_sell_eur": 2115993.6,
+      "sld_x_sell_eur": 183835.0,
+      "slw_x_list_eur": 2401884.6,
+      "sld_x_list_eur": 213292.0,
+      "product_colors_total": 2200,
+      "product_colors_with_sales": 387
     }
   ],
   "reference_products": [
     {
       "base_key": "14368_2001",
       "title": "Voight Puffer Jacket",
-      "sale_last_week": 1018,
-      "date": "2026-10-21"
+      "sale_last_week": 955,
+      "date": "2026-10-22"
     },
     {
       "base_key": "11046_2237",
       "title": "Scenic Insulated Long Parka",
-      "sale_last_week": 813,
-      "date": "2026-10-21"
+      "sale_last_week": 610,
+      "date": "2026-10-22"
     },
     {
       "base_key": "11046_2001",
       "title": "Scenic Insulated Long Parka",
-      "sale_last_week": 653,
-      "date": "2026-10-21"
-    },
-    {
-      "base_key": "10935_2593",
-      "title": "Rhyme 2L Insulated Parka",
-      "sale_last_week": 515,
-      "date": "2026-10-21"
+      "sale_last_week": 546,
+      "date": "2026-10-22"
     },
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 471,
-      "date": "2026-10-21"
+      "sale_last_week": 449,
+      "date": "2026-10-22"
     },
     {
       "base_key": "10935_2001",
       "title": "Rhyme 2L Insulated Parka",
-      "sale_last_week": 461,
-      "date": "2026-10-21"
+      "sale_last_week": 416,
+      "date": "2026-10-22"
+    },
+    {
+      "base_key": "10935_2593",
+      "title": "Rhyme 2L Insulated Parka",
+      "sale_last_week": 407,
+      "date": "2026-10-22"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-waist Pants",
-      "sale_last_week": 393,
-      "date": "2026-10-21"
-    },
-    {
-      "base_key": "11046_2189",
-      "title": "Scenic Insulated Long Parka",
-      "sale_last_week": 382,
-      "date": "2026-10-21"
+      "sale_last_week": 405,
+      "date": "2026-10-22"
     },
     {
       "base_key": "14368_2618",
       "title": "Voight Puffer Jacket",
-      "sale_last_week": 363,
-      "date": "2026-10-21"
+      "sale_last_week": 365,
+      "date": "2026-10-22"
     },
     {
-      "base_key": "14134_2001",
-      "title": "Scenic Insulated Parka",
-      "sale_last_week": 303,
-      "date": "2026-10-21"
+      "base_key": "11046_2189",
+      "title": "Scenic Insulated Long Parka",
+      "sale_last_week": 340,
+      "date": "2026-10-22"
+    },
+    {
+      "base_key": "14516_2001",
+      "title": "Zenith Wide Leg Pants",
+      "sale_last_week": 305,
+      "date": "2026-10-22"
     }
   ]
 }
