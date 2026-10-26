@@ -246,6 +246,10 @@ PRIMARY_MARKET_FOR_SITE: dict[str, str] = {"Nelly": "W_SE", "NlyMan": "M_SE"}
 SCRIPT_DIR  = Path(__file__).resolve().parent
 STATE_FILE  = (SCRIPT_DIR / ".." / "data" / "nelly_inventory_state.json").resolve()
 XLSX_PATH   = (SCRIPT_DIR / ".." / "data" / "nelly_inventory.xlsx").resolve()
+# Per-day return_events live here, one file per month, instead of in the state
+# file. They are ~0.5 MB/day and pushed the state file past GitHub's 100 MB
+# per-file limit on 2026-10-24, which made every push of the nightly run fail.
+RETURN_EVENTS_DIR = (SCRIPT_DIR / ".." / "data" / "nelly_return_events").resolve()
 
 # Nelly category pages used for Playwright-based cluster discovery (fallback only).
 NELLY_DISCOVERY_URLS = [
@@ -259,6 +263,7 @@ NELLY_DISCOVERY_URLS = [
 def load_state() -> dict:
     if STATE_FILE.exists():
         raw = json.loads(STATE_FILE.read_text(encoding="utf-8-sig"))
+        _migrate_return_events(raw)
         return raw
     return {
         "cluster_id":      "",
@@ -273,6 +278,56 @@ def save_state(state: dict) -> None:
         json.dumps(state, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+
+
+def _return_events_path(day: str) -> Path:
+    return RETURN_EVENTS_DIR / f"{day[:7]}.json"
+
+
+def _load_return_events_month(path: Path) -> dict:
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8-sig"))
+    return {}
+
+
+def save_return_events(by_date: dict[str, list]) -> None:
+    """Merge {date: events} into the monthly files (a date's events are replaced)."""
+    by_month: dict[str, dict[str, list]] = {}
+    for day, events in by_date.items():
+        by_month.setdefault(day[:7], {})[day] = events
+    RETURN_EVENTS_DIR.mkdir(parents=True, exist_ok=True)
+    for month, days in by_month.items():
+        path = RETURN_EVENTS_DIR / f"{month}.json"
+        month_data = _load_return_events_month(path)
+        month_data.update(days)
+        path.write_text(
+            json.dumps(dict(sorted(month_data.items())), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+
+
+def load_return_events(day: str) -> list:
+    return _load_return_events_month(_return_events_path(day)).get(day, [])
+
+
+def load_all_return_events() -> dict[str, list]:
+    all_events: dict[str, list] = {}
+    if RETURN_EVENTS_DIR.exists():
+        for path in sorted(RETURN_EVENTS_DIR.glob("*.json")):
+            all_events.update(_load_return_events_month(path))
+    return all_events
+
+
+def _migrate_return_events(state: dict) -> None:
+    """Move return_events still embedded in daily_summary into the monthly files."""
+    moved = {
+        entry["date"]: entry["summary"].pop("return_events")
+        for entry in state.get("daily_summary", [])
+        if "return_events" in entry.get("summary", {})
+    }
+    if moved:
+        save_return_events(moved)
+        print(f"  Moved return_events for {len(moved)} day(s) -> {RETURN_EVENTS_DIR.name}/")
 
 
 # ── Cluster ID discovery via Playwright ───────────────────────────────────────
@@ -992,9 +1047,10 @@ def write_excel(state: dict, detail_rows: list[dict]) -> None:
         "Stock Before", "Stock After", "Units Returned", "Sell Price (SEK)",
         "Est. Return Value (SEK)",
     ])
+    all_return_events = load_all_return_events()
     for entry in all_entries:
         d = entry.get("date", "")
-        for ev in entry.get("summary", {}).get("return_events", []):
+        for ev in all_return_events.get(d, []):
             delta      = ev.get("delta", 0)
             sell_price = ev.get("sell_price_sek", 0)
             ws_ret.append([
@@ -1080,7 +1136,8 @@ def main() -> None:
         print(f"Already ran today ({today}).  Delete the last entry in daily_summary "
               f"from {STATE_FILE.name} to re-run.")
 
-        last_summary = state["daily_summary"][-1].get("summary", {})
+        last_summary = dict(state["daily_summary"][-1].get("summary", {}))
+        last_summary["return_events"] = load_return_events(today)
         db_rows_written, db_error = write_daily_summary_to_db(today, last_summary)
         if db_error is not None:
             print(f"Databas: MISSLYCKADES – {db_error}")
@@ -1151,10 +1208,11 @@ def main() -> None:
     if not isinstance(state.get("daily_summary"), list):
         state["daily_summary"] = []
 
+    save_return_events({today: summary["return_events"]})
     state["daily_summary"].append({
         "date":      today,
         "timestamp": now,
-        "summary":   summary,
+        "summary":   {k: v for k, v in summary.items() if k != "return_events"},
     })
     state["last_snapshot"]   = new_snapshot
     state["product_catalog"] = product_catalog
