@@ -474,3 +474,49 @@ CREATE TABLE IF NOT EXISTS opter_tenant_snapshot (
 );
 CREATE INDEX IF NOT EXISTS opter_tenant_snapshot_host_idx
     ON opter_tenant_snapshot (host, snapshot_date);
+
+-- privx_ct_cert
+-- Every Certificate Transparency certificate whose name begins "privx", one
+-- row per (certificate, privx* hostname on it). Written by
+-- scripts/track_privx_ct.py from crt.sh (q=privx.%). A proxy for which
+-- organisations run SSH Communications Security's PrivX self-hosted.
+--
+-- NOT a daily snapshot: a certificate is an immutable public fact, so this is
+-- ON CONFLICT (crtsh_id, host) DO NOTHING and every run re-inserts the whole
+-- state file (a failed night heals itself). History needs no backfill — CT
+-- returns everything back to 2013, and "active on date D" is derived from
+-- not_before/not_after in sql/views/privx_ct.sql.
+--
+-- A precertificate and its final certificate are separate crt.sh ids with
+-- the same validity window; both are stored, which cannot change an org count.
+-- NOT captured: internal-only PrivX servers on private CAs, hostnames not
+-- starting "privx", and PrivX SaaS (<tenant>.live.saas.privx.io) — see the
+-- script's docstring.
+CREATE TABLE IF NOT EXISTS privx_ct_cert (
+    crtsh_id    bigint      NOT NULL,
+    host        text        NOT NULL,
+    domain      text        NOT NULL,   -- registrable domain, joins privx_ct_domain
+    not_before  timestamptz NOT NULL,
+    not_after   timestamptz NOT NULL,
+    issuer      text,
+    PRIMARY KEY (crtsh_id, host)
+);
+CREATE INDEX IF NOT EXISTS privx_ct_cert_domain_idx ON privx_ct_cert (domain);
+
+-- privx_ct_domain
+-- Latest known classification per registrable domain (upserted every run,
+-- like ted_procurement_notice): a hand edit of data/privx_ct_review.json
+-- changes a domain's category, and the views must see the new one.
+--   category        : customer | partner | unreviewed | ssh_internal |
+--                     shared_cloud | noise. Views count customer + partner.
+--   category_source : 'review' (data/privx_ct_review.json) | 'auto'
+--   org             : organisation name; several domains can share one
+--                     (sygnum.live + sygnum.tools). Equals domain when unset.
+CREATE TABLE IF NOT EXISTS privx_ct_domain (
+    domain           text PRIMARY KEY,
+    org              text NOT NULL,
+    category         text NOT NULL,
+    category_source  text NOT NULL,
+    reason           text,
+    note             text
+);
