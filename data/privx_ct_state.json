@@ -26929,6 +26929,14 @@
    "not_after": "2026-12-15T21:24:11",
    "not_before": "2026-09-16T21:24:12"
   },
+  "30054737173": {
+   "hosts": [
+    "privxpoc-app.aws.cloud.roche.com"
+   ],
+   "issuer": "C=US, O=Google Trust Services, CN=WE1",
+   "not_after": "2027-01-04T03:40:55",
+   "not_before": "2026-10-06T02:40:57"
+  },
   "3005852337": {
    "hosts": [
     "privx.pp.ua"
@@ -26944,6 +26952,54 @@
    "issuer": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3",
    "not_after": "2020-09-24T15:33:00",
    "not_before": "2020-06-26T15:33:00"
+  },
+  "30066097943": {
+   "hosts": [
+    "privxpoc-app.aws.cloud.roche.com"
+   ],
+   "issuer": "C=US, O=Google Trust Services, CN=WR1",
+   "not_after": "2027-01-04T06:18:11",
+   "not_before": "2026-10-06T05:18:15"
+  },
+  "30066117051": {
+   "hosts": [
+    "privxpoc-app.aws.cloud.roche.com"
+   ],
+   "issuer": "C=US, O=Google Trust Services, CN=WE1",
+   "not_after": "2027-01-04T06:18:21",
+   "not_before": "2026-10-06T05:18:24"
+  },
+  "30073787844": {
+   "hosts": [
+    "privx.dezentrust.eth.link"
+   ],
+   "issuer": "C=US, O=Let's Encrypt, CN=YE1",
+   "not_after": "2026-12-16T11:51:34",
+   "not_before": "2026-09-17T11:51:35"
+  },
+  "30074297573": {
+   "hosts": [
+    "privxpoc-app.aws.cloud.roche.com"
+   ],
+   "issuer": "C=US, O=Let's Encrypt, CN=YE2",
+   "not_after": "2027-01-08T07:32:52",
+   "not_before": "2026-10-10T07:32:53"
+  },
+  "30074319008": {
+   "hosts": [
+    "privxpoc-app.aws.cloud.roche.com"
+   ],
+   "issuer": "C=US, O=Let's Encrypt, CN=YE2",
+   "not_after": "2027-01-08T07:33:50",
+   "not_before": "2026-10-10T07:33:51"
+  },
+  "30075751947": {
+   "hosts": [
+    "privx-afrissur.tmb.cd"
+   ],
+   "issuer": "C=US, O=Google Trust Services, CN=WR1",
+   "not_after": "2027-01-04T08:17:39",
+   "not_before": "2026-10-06T07:19:46"
   },
   "300854362": {
    "hosts": [
