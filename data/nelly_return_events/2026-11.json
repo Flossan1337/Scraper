@@ -180,5 +180,127 @@
       "delta": 2,
       "sell_price_sek": 279.0
     }
+  ],
+  "2026-11-02": [
+    {
+      "key": "244663-5991-062",
+      "site": "Nelly",
+      "brand": "Only",
+      "title": "ONLMADISON BLUSH HW WIDE DNM CRO371",
+      "category": "Kläder>Jeans>Wide leg jeans",
+      "size": "L/32",
+      "stock_before": 26,
+      "stock_after": 27,
+      "delta": 1,
+      "sell_price_sek": 579.0
+    },
+    {
+      "key": "244663-5991-064",
+      "site": "Nelly",
+      "brand": "Only",
+      "title": "ONLMADISON BLUSH HW WIDE DNM CRO371",
+      "category": "Kläder>Jeans>Wide leg jeans",
+      "size": "XXL/32",
+      "stock_before": 28,
+      "stock_after": 29,
+      "delta": 1,
+      "sell_price_sek": 579.0
+    },
+    {
+      "key": "254377-KN6R-003",
+      "site": "Nelly",
+      "brand": "Pieces",
+      "title": "PCSADIA LS TEDDY JACKET NOOS BC",
+      "category": "Kläder>Jackor & Kappor>Jackor>Teddyjackor",
+      "size": "Small",
+      "stock_before": 63,
+      "stock_after": 64,
+      "delta": 1,
+      "sell_price_sek": 599.0
+    },
+    {
+      "key": "263289-0426-253",
+      "site": "Nelly",
+      "brand": "Only",
+      "title": "ONLSOFFI LIFE L/S FIT BLAZER CC TLR",
+      "category": "Kläder>Kavajer & Blazers",
+      "size": "EU 36",
+      "stock_before": 71,
+      "stock_after": 72,
+      "delta": 1,
+      "sell_price_sek": 599.0
+    },
+    {
+      "key": "254493-3F60-002",
+      "site": "Nelly",
+      "brand": "Pieces",
+      "title": "PCELMA DENIM JACKET NOOS BC",
+      "category": "Kläder>Jackor & Kappor>Jackor>Sommarjackor",
+      "size": "X-Small",
+      "stock_before": 17,
+      "stock_after": 18,
+      "delta": 1,
+      "sell_price_sek": 649.0
+    },
+    {
+      "key": "254493-3F60-006",
+      "site": "Nelly",
+      "brand": "Pieces",
+      "title": "PCELMA DENIM JACKET NOOS BC",
+      "category": "Kläder>Jackor & Kappor>Jackor>Sommarjackor",
+      "size": "X-Large",
+      "stock_before": 8,
+      "stock_after": 9,
+      "delta": 1,
+      "sell_price_sek": 649.0
+    },
+    {
+      "key": "236615-5603-745",
+      "site": "Nelly",
+      "brand": "DORINA",
+      "title": "SONIA-2PP PUSH UP PLUNGE",
+      "category": "Kläder>Underkläder>BH>BH med bygel",
+      "size": "75A (EU)",
+      "stock_before": 0,
+      "stock_after": 1,
+      "delta": 1,
+      "sell_price_sek": 359.0
+    },
+    {
+      "key": "254425-0286-006",
+      "site": "Nelly",
+      "brand": "Nelly",
+      "title": "Tassel Blouse",
+      "category": "Kläder>Toppar & T-shirts>Sommartoppar",
+      "size": "X-Large",
+      "stock_before": 13,
+      "stock_after": 14,
+      "delta": 1,
+      "sell_price_sek": 104.0
+    },
+    {
+      "key": "261948-KKKP-002",
+      "site": "Nelly",
+      "brand": "Only",
+      "title": "ONLCHARIS LIFE 4/5 FEM CARG JACKE C",
+      "category": "Kläder>Blusar & Skjortor>Skjortor>Jeansskjortor",
+      "size": "X-Small",
+      "stock_before": 44,
+      "stock_after": 45,
+      "delta": 1,
+      "sell_price_sek": 239.0
+    },
+    {
+      "key": "241785-5295-005",
+      "site": "NlyMan",
+      "brand": "Selected Men",
+      "title": "SLHRAI LS KNIT CREW NECK",
+      "category": "Kläder>Tröjor>Stickade tröjor",
+      "size": "Large",
+      "stock_before": 8,
+      "stock_after": 9,
+      "delta": 1,
+      "sell_price_sek": 899.0
+    }
   ]
 }
