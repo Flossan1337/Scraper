@@ -302,5 +302,115 @@
       "delta": 1,
       "sell_price_sek": 899.0
     }
+  ],
+  "2026-11-03": [
+    {
+      "key": "253435-6555-005",
+      "site": "Nelly",
+      "brand": "Vero Moda",
+      "title": "VMNAIMA SS O-NECK T-SHIRT VMA NOOS",
+      "category": "Kläder>Toppar & T-shirts>T-shirts",
+      "size": "Large",
+      "stock_before": 6,
+      "stock_after": 7,
+      "delta": 1,
+      "sell_price_sek": 229.0
+    },
+    {
+      "key": "160599-0425-004",
+      "site": "Nelly",
+      "brand": "Malina",
+      "title": "Sky v-neck frill mini lace dress",
+      "category": "Kläder>Klänningar>Festklänningar>Studentklänningar",
+      "size": "Medium",
+      "stock_before": 13,
+      "stock_after": 14,
+      "delta": 1,
+      "sell_price_sek": 2799.0
+    },
+    {
+      "key": "254571-0001-002",
+      "site": "Nelly",
+      "brand": "Nelly",
+      "title": "Perfect Frill Dress",
+      "category": "Kläder>Klänningar>Studentklänningar",
+      "size": "X-Small",
+      "stock_before": 62,
+      "stock_after": 63,
+      "delta": 1,
+      "sell_price_sek": 199.0
+    },
+    {
+      "key": "254571-0001-004",
+      "site": "Nelly",
+      "brand": "Nelly",
+      "title": "Perfect Frill Dress",
+      "category": "Kläder>Klänningar>Studentklänningar",
+      "size": "Medium",
+      "stock_before": 700,
+      "stock_after": 701,
+      "delta": 1,
+      "sell_price_sek": 199.0
+    },
+    {
+      "key": "253287-6116-002",
+      "site": "Nelly",
+      "brand": "Nelly",
+      "title": "Mesh Midi Skirt",
+      "category": "Kläder>Kjolar>Midikjolar",
+      "size": "X-Small",
+      "stock_before": 83,
+      "stock_after": 85,
+      "delta": 2,
+      "sell_price_sek": 79.0
+    },
+    {
+      "key": "259252-0030-754",
+      "site": "Nelly",
+      "brand": "Nelly",
+      "title": "Sheer Frill Mesh Bra",
+      "category": "Kläder>Underkläder>BH>BH med bygel",
+      "size": "80A (EU)",
+      "stock_before": 5,
+      "stock_after": 6,
+      "delta": 1,
+      "sell_price_sek": 111.0
+    },
+    {
+      "key": "253337-0014-001",
+      "site": "Nelly",
+      "brand": "Nelly",
+      "title": "Balloon Skirt",
+      "category": "Kläder>Kjolar>Svarta kjolar",
+      "size": "XX-Small",
+      "stock_before": 196,
+      "stock_after": 197,
+      "delta": 1,
+      "sell_price_sek": 104.0
+    },
+    {
+      "key": "253751-0014-253",
+      "site": "Nelly",
+      "brand": "Nelly",
+      "title": "Glitter Flare Pants",
+      "category": "Kläder>Byxor>Utsvängda byxor",
+      "size": "EU 36",
+      "stock_before": 31,
+      "stock_after": 33,
+      "delta": 2,
+      "sell_price_sek": 149.0
+    },
+    {
+      "key": "253404-G9EB-404",
+      "site": "Nelly",
+      "brand": "Pieces",
+      "title": "PCMYRA SLIM BELT NOOS",
+      "category": "Accessoarer>Bälten & Skärp>Midjeskärp",
+      "size": "95cm",
+      "stock_before": 0,
+      "stock_after": 2,
+      "delta": 2,
+      "sell_price_sek": 149.0
+    }
   ]
 }

@@ -27001,6 +27001,32 @@
    "not_after": "2027-01-04T08:17:39",
    "not_before": "2026-10-06T07:19:46"
   },
+  "30083196411": {
+   "hosts": [
+    "*.privx.cc.cd",
+    "privx.cc.cd"
+   ],
+   "issuer": "C=US, O=Google Trust Services, CN=WE1",
+   "not_after": "2027-01-04T02:39:37",
+   "not_before": "2026-10-06T01:40:56"
+  },
+  "30083860313": {
+   "hosts": [
+    "*.privxx.com",
+    "privxx.com"
+   ],
+   "issuer": "C=US, O=Google Trust Services, CN=WE1",
+   "not_after": "2027-01-09T15:21:49",
+   "not_before": "2026-10-11T14:23:06"
+  },
+  "30084263534": {
+   "hosts": [
+    "privxpoc-app.aws.cloud.roche.com"
+   ],
+   "issuer": "C=US, O=Let's Encrypt, CN=YR1",
+   "not_after": "2027-01-08T07:33:48",
+   "not_before": "2026-10-10T07:33:49"
+  },
   "300854362": {
    "hosts": [
     "privx.tools"
