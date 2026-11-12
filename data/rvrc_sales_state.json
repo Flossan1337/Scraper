@@ -3919,68 +3919,84 @@
       "sld_x_list_eur": 550774.95,
       "product_colors_total": 2245,
       "product_colors_with_sales": 544
+    },
+    {
+      "date": "2026-11-12",
+      "timestamp": "2026-11-12T08:05:39",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.051,
+        "GBP": 13.2161,
+        "NOK": 1.0411
+      },
+      "slw_x_sell_eur": 6620006.18,
+      "sld_x_sell_eur": 740306.4,
+      "slw_x_list_eur": 6649655.18,
+      "sld_x_list_eur": 741498.4,
+      "product_colors_total": 2255,
+      "product_colors_with_sales": 560
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2243",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1594,
-      "date": "2026-11-11"
+      "sale_last_week": 1680,
+      "date": "2026-11-12"
     },
     {
       "base_key": "11035_2001",
       "title": "Nordwand Stretch High-Waist Pants",
-      "sale_last_week": 1324,
-      "date": "2026-11-11"
+      "sale_last_week": 1438,
+      "date": "2026-11-12"
     },
     {
       "base_key": "10728_2018",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 996,
-      "date": "2026-11-11"
+      "sale_last_week": 1120,
+      "date": "2026-11-12"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 937,
-      "date": "2026-11-11"
+      "sale_last_week": 1040,
+      "date": "2026-11-12"
     },
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 870,
-      "date": "2026-11-11"
+      "sale_last_week": 989,
+      "date": "2026-11-12"
     },
     {
       "base_key": "10762_2001",
       "title": "Hiball Softshell Pants",
-      "sale_last_week": 843,
-      "date": "2026-11-11"
+      "sale_last_week": 917,
+      "date": "2026-11-12"
     },
     {
       "base_key": "11009_2001",
       "title": "Field Pro Warm Outdoor Pants",
-      "sale_last_week": 798,
-      "date": "2026-11-11"
+      "sale_last_week": 893,
+      "date": "2026-11-12"
+    },
+    {
+      "base_key": "11027_2001",
+      "title": "Nordwand Pants",
+      "sale_last_week": 779,
+      "date": "2026-11-12"
     },
     {
       "base_key": "14368_2001",
       "title": "Voight Puffer Jacket",
-      "sale_last_week": 764,
-      "date": "2026-11-11"
-    },
-    {
-      "base_key": "14492_2001",
-      "title": "Fjord Warm Stretch Pants",
-      "sale_last_week": 725,
-      "date": "2026-11-11"
+      "sale_last_week": 778,
+      "date": "2026-11-12"
     },
     {
       "base_key": "14516_2001",
       "title": "Zenith Wide Leg Pants",
-      "sale_last_week": 706,
-      "date": "2026-11-11"
+      "sale_last_week": 774,
+      "date": "2026-11-12"
     }
   ]
 }
