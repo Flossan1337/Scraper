@@ -166586,5 +166586,55 @@
       "delta": 1,
       "sell_price_sek": 597.0
     }
+  ],
+  "2026-11-15": [
+    {
+      "key": "248663-L9WG-003",
+      "site": "Nelly",
+      "brand": "Pieces",
+      "title": "PCSCARLETT LS TRENCHCOAT NOOS",
+      "category": "Kläder>Jackor & Kappor>Jackor>Trenchcoats",
+      "size": "Small",
+      "stock_before": 31,
+      "stock_after": 32,
+      "delta": 1,
+      "sell_price_sek": 749.0
+    },
+    {
+      "key": "249884-6555-252",
+      "site": "Nelly",
+      "brand": "Selected Femme",
+      "title": "SLFVIVA MW SHORTS NOOS",
+      "category": "Kläder>Shorts",
+      "size": "EU 34",
+      "stock_before": 9,
+      "stock_after": 10,
+      "delta": 1,
+      "sell_price_sek": 319.0
+    },
+    {
+      "key": "249496-0090-005",
+      "site": "NlyMan",
+      "brand": "Selected Men",
+      "title": "SLH196-STRAIGHT ROBERT STRING PANT",
+      "category": "Kläder>Byxor>Slacks",
+      "size": "Large",
+      "stock_before": 4,
+      "stock_after": 7,
+      "delta": 3,
+      "sell_price_sek": 899.0
+    },
+    {
+      "key": "254576-TAIG-328",
+      "site": "NlyMan",
+      "brand": "Jack & Jones",
+      "title": "JJIDAVE JJCOOPER AM 368 NOOS",
+      "category": "Kläder>Jeans>Loose fit jeans",
+      "size": "W32/L34",
+      "stock_before": 0,
+      "stock_after": 1,
+      "delta": 1,
+      "sell_price_sek": 419.0
+    }
   ]
 }
