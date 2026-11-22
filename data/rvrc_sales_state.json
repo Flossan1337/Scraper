@@ -4079,68 +4079,84 @@
       "sld_x_list_eur": 963945.0,
       "product_colors_total": 2215,
       "product_colors_with_sales": 604
+    },
+    {
+      "date": "2026-11-22",
+      "timestamp": "2026-11-22T07:55:04",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.2125,
+        "GBP": 13.3905,
+        "NOK": 1.0461
+      },
+      "slw_x_sell_eur": 6894585.14,
+      "sld_x_sell_eur": 808334.45,
+      "slw_x_list_eur": 10072989.35,
+      "sld_x_list_eur": 1122430.15,
+      "product_colors_total": 2214,
+      "product_colors_with_sales": 602
     }
   ],
   "reference_products": [
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 2552,
-      "date": "2026-11-21"
-    },
-    {
-      "base_key": "10761_2001",
-      "title": "Hiball Softshell Pants",
-      "sale_last_week": 2347,
-      "date": "2026-11-21"
-    },
-    {
-      "base_key": "10004_2243",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 2172,
-      "date": "2026-11-21"
-    },
-    {
-      "base_key": "10004_2001",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 2163,
-      "date": "2026-11-21"
-    },
-    {
-      "base_key": "10727_2007",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 1946,
-      "date": "2026-11-21"
+      "sale_last_week": 2443,
+      "date": "2026-11-22"
     },
     {
       "base_key": "10728_2891",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 1832,
-      "date": "2026-11-21"
+      "sale_last_week": 2256,
+      "date": "2026-11-22"
     },
     {
-      "base_key": "10728_2007",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 1793,
-      "date": "2026-11-21"
+      "base_key": "10761_2001",
+      "title": "Hiball Softshell Pants",
+      "sale_last_week": 2150,
+      "date": "2026-11-22"
     },
     {
       "base_key": "10727_2891",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 1767,
-      "date": "2026-11-21"
+      "sale_last_week": 2136,
+      "date": "2026-11-22"
     },
     {
-      "base_key": "10762_2001",
-      "title": "Hiball Softshell Pants",
-      "sale_last_week": 1766,
-      "date": "2026-11-21"
+      "base_key": "10004_2001",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 2026,
+      "date": "2026-11-22"
     },
     {
-      "base_key": "14282_2001",
-      "title": "Alaska Fleece Lined Pocket Leggings",
-      "sale_last_week": 1647,
-      "date": "2026-11-21"
+      "base_key": "10727_2007",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 1755,
+      "date": "2026-11-22"
+    },
+    {
+      "base_key": "10728_2007",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 1672,
+      "date": "2026-11-22"
+    },
+    {
+      "base_key": "14188_2015",
+      "title": "Hiker Fleece Hoodie",
+      "sale_last_week": 1632,
+      "date": "2026-11-22"
+    },
+    {
+      "base_key": "10006_2001",
+      "title": "RVRC GP Pro Pants",
+      "sale_last_week": 1616,
+      "date": "2026-11-22"
+    },
+    {
+      "base_key": "10004_2243",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 1612,
+      "date": "2026-11-22"
     }
   ]
 }
