@@ -4143,68 +4143,84 @@
       "sld_x_list_eur": 983130.0,
       "product_colors_total": 2217,
       "product_colors_with_sales": 618
+    },
+    {
+      "date": "2026-11-26",
+      "timestamp": "2026-11-26T09:19:09",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.2385,
+        "GBP": 13.4223,
+        "NOK": 1.0427
+      },
+      "slw_x_sell_eur": 5911853.38,
+      "sld_x_sell_eur": 814951.68,
+      "slw_x_list_eur": 9080338.39,
+      "sld_x_list_eur": 1256659.68,
+      "product_colors_total": 2212,
+      "product_colors_with_sales": 634
     }
   ],
   "reference_products": [
     {
-      "base_key": "10728_2891",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 2315,
-      "date": "2026-11-25"
+      "base_key": "10761_2001",
+      "title": "Hiball Softshell Pants",
+      "sale_last_week": 2027,
+      "date": "2026-11-26"
     },
     {
-      "base_key": "10727_2891",
+      "base_key": "10728_2891",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 2225,
-      "date": "2026-11-25"
+      "sale_last_week": 1987,
+      "date": "2026-11-26"
     },
     {
       "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 2035,
-      "date": "2026-11-25"
+      "sale_last_week": 1970,
+      "date": "2026-11-26"
     },
     {
-      "base_key": "10761_2001",
-      "title": "Hiball Softshell Pants",
-      "sale_last_week": 1897,
-      "date": "2026-11-25"
-    },
-    {
-      "base_key": "11161_4216",
-      "title": "Canyon Half-Zip Pile Fleece",
-      "sale_last_week": 1805,
-      "date": "2026-11-25"
-    },
-    {
-      "base_key": "11161_4232",
-      "title": "Canyon Half-Zip Pile Fleece",
-      "sale_last_week": 1681,
-      "date": "2026-11-25"
+      "base_key": "10727_2891",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 1934,
+      "date": "2026-11-26"
     },
     {
       "base_key": "10004_2001",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1634,
-      "date": "2026-11-25"
+      "sale_last_week": 1678,
+      "date": "2026-11-26"
     },
     {
-      "base_key": "10762_2001",
-      "title": "Hiball Softshell Pants",
-      "sale_last_week": 1486,
-      "date": "2026-11-25"
+      "base_key": "11161_4216",
+      "title": "Canyon Half-Zip Pile Fleece",
+      "sale_last_week": 1673,
+      "date": "2026-11-26"
     },
     {
       "base_key": "10995_2001",
       "title": "Port Waterproof Insulated Glove",
-      "sale_last_week": 1480,
-      "date": "2026-11-25"
+      "sale_last_week": 1597,
+      "date": "2026-11-26"
+    },
+    {
+      "base_key": "10762_2001",
+      "title": "Hiball Softshell Pants",
+      "sale_last_week": 1542,
+      "date": "2026-11-26"
+    },
+    {
+      "base_key": "11161_4232",
+      "title": "Canyon Half-Zip Pile Fleece",
+      "sale_last_week": 1517,
+      "date": "2026-11-26"
     },
     {
       "base_key": "10728_2007",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 1347,
-      "date": "2026-11-25"
+      "sale_last_week": 1311,
+      "date": "2026-11-26"
     }
   ]
 }
