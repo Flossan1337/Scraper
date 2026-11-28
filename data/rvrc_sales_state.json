@@ -4175,68 +4175,84 @@
       "sld_x_list_eur": 1127886.0,
       "product_colors_total": 2209,
       "product_colors_with_sales": 616
+    },
+    {
+      "date": "2026-11-28",
+      "timestamp": "2026-11-28T08:48:16",
+      "fx_rates": {
+        "SEK": 1.0,
+        "EUR": 11.208,
+        "GBP": 13.4221,
+        "NOK": 1.0489
+      },
+      "slw_x_sell_eur": 6578961.37,
+      "sld_x_sell_eur": 1423490.6,
+      "slw_x_list_eur": 10062683.63,
+      "sld_x_list_eur": 2177315.0,
+      "product_colors_total": 2206,
+      "product_colors_with_sales": 629
     }
   ],
   "reference_products": [
     {
       "base_key": "10761_2001",
       "title": "Hiball Softshell Pants",
-      "sale_last_week": 2159,
-      "date": "2026-11-27"
-    },
-    {
-      "base_key": "10004_2003",
-      "title": "RVRC GP Pants",
-      "sale_last_week": 1897,
-      "date": "2026-11-27"
+      "sale_last_week": 2497,
+      "date": "2026-11-28"
     },
     {
       "base_key": "10727_2891",
       "title": "Sherpa Hoodie",
-      "sale_last_week": 1827,
-      "date": "2026-11-27"
+      "sale_last_week": 1979,
+      "date": "2026-11-28"
     },
     {
-      "base_key": "10728_2891",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 1757,
-      "date": "2026-11-27"
-    },
-    {
-      "base_key": "10004_2001",
+      "base_key": "10004_2003",
       "title": "RVRC GP Pants",
-      "sale_last_week": 1668,
-      "date": "2026-11-27"
-    },
-    {
-      "base_key": "10995_2001",
-      "title": "Port Waterproof Insulated Glove",
-      "sale_last_week": 1621,
-      "date": "2026-11-27"
+      "sale_last_week": 1903,
+      "date": "2026-11-28"
     },
     {
       "base_key": "10762_2001",
       "title": "Hiball Softshell Pants",
-      "sale_last_week": 1601,
-      "date": "2026-11-27"
+      "sale_last_week": 1874,
+      "date": "2026-11-28"
+    },
+    {
+      "base_key": "10004_2001",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 1792,
+      "date": "2026-11-28"
+    },
+    {
+      "base_key": "10995_2001",
+      "title": "Port Waterproof Insulated Glove",
+      "sale_last_week": 1741,
+      "date": "2026-11-28"
     },
     {
       "base_key": "11161_4216",
       "title": "Canyon Half-Zip Pile Fleece",
-      "sale_last_week": 1578,
-      "date": "2026-11-27"
+      "sale_last_week": 1721,
+      "date": "2026-11-28"
+    },
+    {
+      "base_key": "10004_2243",
+      "title": "RVRC GP Pants",
+      "sale_last_week": 1715,
+      "date": "2026-11-28"
+    },
+    {
+      "base_key": "10728_2891",
+      "title": "Sherpa Hoodie",
+      "sale_last_week": 1659,
+      "date": "2026-11-28"
     },
     {
       "base_key": "11161_4232",
       "title": "Canyon Half-Zip Pile Fleece",
-      "sale_last_week": 1417,
-      "date": "2026-11-27"
-    },
-    {
-      "base_key": "10728_2007",
-      "title": "Sherpa Hoodie",
-      "sale_last_week": 1294,
-      "date": "2026-11-27"
+      "sale_last_week": 1608,
+      "date": "2026-11-28"
     }
   ]
 }
